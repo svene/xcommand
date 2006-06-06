@@ -2,7 +2,7 @@ package org.xcommand.multi;
 
 import java.util.Map;
 
-import org.xcommand.example.incubator.flow.core.FlowContextView;
+//!!!import org.xcommand.example.incubator.flow.core.FlowContextView;
 import org.xcommand.ICommand;
 
 public class MultiCommand implements ICommand, IMultiCommandProvider
@@ -35,10 +35,12 @@ public class MultiCommand implements ICommand, IMultiCommandProvider
 
 	public void execute(Map aContext)
 	{
+/*!!!
 		String mode = FlowContextView.getFlowMode(aContext);
 		ICommand cmd = (ICommand) commandMap.get(mode);
 		if (cmd == null) return;
 		cmd.execute(aContext);
+*/
 	}
 
 // --- Implementation ---
