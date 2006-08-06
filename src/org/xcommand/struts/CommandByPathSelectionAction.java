@@ -6,7 +6,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionForm;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.xcommand.IXCommand;
+import org.xcommand.core.IXCommand;
 import org.xcommand.web.WebContextView;
 
 import javax.servlet.http.HttpServletRequest;
