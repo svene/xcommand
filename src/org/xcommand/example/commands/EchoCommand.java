@@ -1,10 +1,10 @@
 package org.xcommand.example.commands;
 
-import org.xcommand.ICommand;
+import org.xcommand.IXCommand;
 
 import java.util.Map;
 
-public class EchoCommand implements ICommand
+public class EchoCommand implements IXCommand
 {
 
 	public EchoCommand(String message)

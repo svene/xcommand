@@ -3,7 +3,7 @@ package org.xcommand.multi;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.xcommand.ICommand;
+import org.xcommand.IXCommand;
 
 public class BaseMultiCommandProvider implements IMultiCommandProvider
 {
@@ -15,9 +15,9 @@ public class BaseMultiCommandProvider implements IMultiCommandProvider
 		return commandMap;
 	}
 
-	public ICommand getCommand(String aName)
+	public IXCommand getCommand(String aName)
 	{
-		return (ICommand) commandMap.get(aName);
+		return (IXCommand) commandMap.get(aName);
 	}
 
 // --- Implementation ---

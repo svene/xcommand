@@ -3,9 +3,9 @@ package org.xcommand.multi;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import org.xcommand.ICommand;
+import org.xcommand.IXCommand;
 
-public class MethodCmd implements ICommand
+public class MethodCmd implements IXCommand
 {
 // --- Initialization ---
 

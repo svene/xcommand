@@ -6,7 +6,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionForm;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.xcommand.ICommand;
+import org.xcommand.IXCommand;
 import org.xcommand.web.WebContextView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +42,7 @@ public class CommandByPathSelectionAction extends Action
 				getServlet().getServletContext());
 			if (wac.containsBean(path))
 			{
-				ICommand cmd = (ICommand) wac.getBean(path);
+				IXCommand cmd = (IXCommand) wac.getBean(path);
 				cmd.execute(ctx);
 			}
 			ActionForward forward = StaticStrutsContextView.getActionForward(ctx);

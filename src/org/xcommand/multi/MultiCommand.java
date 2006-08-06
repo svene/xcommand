@@ -3,9 +3,9 @@ package org.xcommand.multi;
 import java.util.Map;
 
 //!!!import org.xcommand.example.incubator.flow.core.FlowContextView;
-import org.xcommand.ICommand;
+import org.xcommand.IXCommand;
 
-public class MultiCommand implements ICommand, IMultiCommandProvider
+public class MultiCommand implements IXCommand, IMultiCommandProvider
 {
 
 // --- Initialization ---
@@ -26,9 +26,9 @@ public class MultiCommand implements ICommand, IMultiCommandProvider
 		return commandMap;
 	}
 
-	public ICommand getCommand(String aName)
+	public IXCommand getCommand(String aName)
 	{
-		return (ICommand) commandMap.get(aName);
+		return (IXCommand) commandMap.get(aName);
 	}
 
 // --- Processing ---
@@ -37,7 +37,7 @@ public class MultiCommand implements ICommand, IMultiCommandProvider
 	{
 /*!!!
 		String mode = FlowContextView.getFlowMode(aContext);
-		ICommand cmd = (ICommand) commandMap.get(mode);
+		IXCommand cmd = (IXCommand) commandMap.get(mode);
 		if (cmd == null) return;
 		cmd.execute(aContext);
 */

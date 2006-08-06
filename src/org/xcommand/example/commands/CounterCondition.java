@@ -1,11 +1,11 @@
 package org.xcommand.example.commands;
 
 import org.xcommand.ResultContextView;
-import org.xcommand.ICommand;
+import org.xcommand.IXCommand;
 
 import java.util.Map;
 
-public class CounterCondition implements ICommand
+public class CounterCondition implements IXCommand
 {
 	public void execute(Map aContext)
 	{
