@@ -1,7 +1,7 @@
 package org.xcommand.example.commands;
 
-import org.xcommand.ResultContextView;
-import org.xcommand.IXCommand;
+import org.xcommand.core.ResultContextView;
+import org.xcommand.core.IXCommand;
 
 import java.util.Map;
 

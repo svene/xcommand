@@ -1,6 +1,6 @@
 package org.xcommand.example.commands;
 
-import org.xcommand.IXCommand;
+import org.xcommand.core.IXCommand;
 
 import java.util.Map;
 
