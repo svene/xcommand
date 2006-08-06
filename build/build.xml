@@ -1,0 +1,28 @@
+<project xmlns:ivy="antlib:fr.jayasoft.ivy.ant" name="hello-ivy" default="init" basedir="..">
+
+	<property environment="env"/>
+
+	<target name="init">
+	</target>
+
+	<target name="ivy" depends="init">
+		<property name="ivy.default.ivy.user.dir" value="${env.HOME}/ivy"/>
+
+		<ivy:configure file="build/ivyconf.xml"/>
+		<property name="project.ivy.build.artifacts.dir" value="${ivy.project.dir}/output/artifacts"/>
+		<ivy:resolve file="build/ivy.xml"/>
+		<ivy:retrieve pattern="${project.ivy.build.artifacts.dir}/[conf]/[artifact].[ext]"/>
+	</target>
+
+	<target name="clean">
+	</target>
+
+	<target name="clobber" depends="clean">
+		<delete dir="lib"/>
+	</target>
+<!--
+	<target name="compile" depends="init">
+		<javac src
+	</target>
+-->
+</project>
