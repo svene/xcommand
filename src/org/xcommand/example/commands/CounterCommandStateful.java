@@ -2,10 +2,10 @@ package org.xcommand.example.commands;
 
 import java.util.Map;
 
-public class CounterCommand extends EchoCommand
+public class CounterCommandStateful extends StatefulEchoCommand
 {
 
-	public CounterCommand(String message)
+	public CounterCommandStateful(String message)
 	{
 		super(message);
 	}

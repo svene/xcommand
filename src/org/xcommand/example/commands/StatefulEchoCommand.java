@@ -4,10 +4,10 @@ import org.xcommand.core.IXCommand;
 
 import java.util.Map;
 
-public class EchoCommand implements IXCommand
+public class StatefulEchoCommand implements IXCommand
 {
 
-	public EchoCommand(String message)
+	public StatefulEchoCommand(String message)
 	{
 		this.message = message;
 	}
