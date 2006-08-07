@@ -15,16 +15,17 @@ public class Main
 	{
 		// Setup of context:
 		Map ctx = new HashMap();
-		EchoContextView.setContextView(ctx, new DynamicEchoContextView());
+		DynamicEchoContextView ecv = new DynamicEchoContextView();
+		DynamicEchoContextView.setContextView(ctx, ecv);
 
 		// Usage:
-		DynamicEchoContextView decv = EchoContextView.getContextView(ctx);
-		decv.setMessage("Hi! I am a xcommand example. And who are you?");
+		ecv = DynamicEchoContextView.getContextView(ctx);
+		ecv.setMessage("Hi! I am a xcommand example. And who are you?");
 
 		EchoCommand cmd = new EchoCommand();
 		cmd.execute(ctx);
 
 		// Removal:
-		EchoContextView.removeContextView(ctx);
+		DynamicEchoContextView.removeContextView(ctx);
 	}
 }
