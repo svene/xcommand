@@ -1,7 +1,5 @@
 package org.xcommand.example.xc110;
 
-import java.util.Map;
-
 public class DynamicEchoContextView extends DynamicContextView
 {
 

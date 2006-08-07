@@ -1,24 +1,30 @@
 package org.xcommand.example.xc110;
 
-import org.xcommand.example.commands.EchoContextView;
 import org.xcommand.example.commands.EchoCommand;
 
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * Demonstration of a dynamic context view
+ */
 public class Main
 {
 
 	public static void main(String[] args)
 	{
+		// Setup of context:
 		Map ctx = new HashMap();
-		DynamicEchoContextView decv = new DynamicEchoContextView();
-		decv.setContext(ctx);
-		ctx.put("decv", decv);
+		EchoContextView.setContextView(ctx, new DynamicEchoContextView());
 
-		decv = (DynamicEchoContextView) ctx.get("decv");
+		// Usage:
+		DynamicEchoContextView decv = EchoContextView.getContextView(ctx);
 		decv.setMessage("Hi! I am a xcommand example. And who are you?");
+
 		EchoCommand cmd = new EchoCommand();
 		cmd.execute(ctx);
+
+		// Removal:
+		EchoContextView.removeContextView(ctx);
 	}
 }
