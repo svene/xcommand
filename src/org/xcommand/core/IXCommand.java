@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface IXCommand
 {
-	public void execute(Map aContext);
+	public void execute(Map aCtx);
 }
