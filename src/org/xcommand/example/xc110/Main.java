@@ -1,6 +1,7 @@
 package org.xcommand.example.xc110;
 
 import org.xcommand.example.commands.EchoCommand;
+import org.xcommand.core.ContextView;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -15,17 +16,16 @@ public class Main
 	{
 		// Setup of context:
 		Map ctx = new HashMap();
-		DynamicEchoContextView ecv = new DynamicEchoContextView();
-		DynamicEchoContextView.setContextView(ctx, ecv);
+		DynamicEchoContextView cv = new DynamicEchoContextView(ctx);
 
 		// Usage:
-		ecv = DynamicEchoContextView.getContextView(ctx);
-		ecv.setMessage("Hi! I am a xcommand example. And who are you?");
+		cv = DynamicEchoContextView.getContextView(ctx);
+		cv.setMessage("Hi! I am a xcommand example. And who are you?");
 
 		EchoCommand cmd = new EchoCommand();
 		cmd.execute(ctx);
 
 		// Removal:
-		DynamicEchoContextView.removeContextView(ctx);
+		ContextView.removeContextView(ctx, DynamicEchoContextView.class);
 	}
 }
