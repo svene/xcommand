@@ -1,0 +1,174 @@
+options {
+  STATIC = false;
+  JAVA_UNICODE_ESCAPE = false;
+}
+
+PARSER_BEGIN(TemplateParser)
+
+package org.collage.jcc;
+
+import java.util.Map;
+import org.collage.parser.*;
+import org.xcommand.core.*;
+import org.xcommand.core.multi.*;
+
+public class TemplateParser
+{
+	private void executeTokenHandler(Map aCtx, String aMode)
+	{
+		IXCommand sh = ParserContextView.getTokenHandlerDispatcher(aCtx);
+		aCtx.put(ModeContextView.KEY_MODE, aMode);
+		sh.execute(aCtx);
+	}
+}
+
+PARSER_END(TemplateParser)
+
+TOKEN : { < EOL : "\n" | "\r" | "\r\n" > }
+<DEFAULT> TOKEN : { < VAR_START : "${" >: IN_VAR_STATE}
+<IN_VAR_STATE> TOKEN : { < VAR_END : "}" >: DEFAULT }
+<IN_VAR_STATE> TOKEN : { <#DIGIT : ["0"-"9", "A"-"Z"] >}
+<IN_VAR_STATE> TOKEN : { <#LETTER : ["a"-"z", "A"-"Z", "_"] >}
+<IN_VAR_STATE> TOKEN : { < VAR_NAME : <LETTER>(<LETTER>|<DIGIT>)* > }
+<DEFAULT> TOKEN : { < TEXT : ~[] > }
+
+<DEFAULT> TOKEN : { < JAVA_START : "<?java" >: IN_JAVA_STATE}
+<IN_JAVA_STATE> TOKEN : { < JAVA_END : "?>" >: DEFAULT }
+<IN_JAVA_STATE> TOKEN : { < JAVA_CODE :~[] > }
+
+void Start(Map aCtx):
+{
+	executeTokenHandler(aCtx, ParserModeContextView.KEY_START_MODE);
+}
+{
+	(
+		varStart(aCtx)
+	|
+		varName(aCtx)
+	|
+		varEnd(aCtx)
+	|
+		eol(aCtx)
+	|
+		javaStart(aCtx)
+	|
+		javaEnd(aCtx)
+	|
+		javaCode(aCtx)
+	|
+		text(aCtx)
+	)*
+	eof(aCtx)
+}
+
+void text(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <TEXT>
+	{
+		ParserContextView.setToken(aCtx, t);
+		ParserContextView.setValue(aCtx, t.image);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_TEXT);
+	}
+}
+
+void varStart(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <VAR_START>
+	{
+		ParserContextView.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_VAR_START_MODE);
+	}
+}
+
+void varName(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <VAR_NAME>
+	{
+		ParserContextView.setToken(aCtx, t);
+		ParserContextView.setValue(aCtx, t.image);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_VAR_NAME_MODE);
+	}
+}
+
+void varEnd(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <VAR_END>
+	{
+		ParserContextView.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_VAR_END_MODE);
+	}
+}
+
+void javaStart(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <JAVA_START>
+	{
+		ParserContextView.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_JAVA_START_MODE);
+	}
+}
+
+void javaCode(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <JAVA_CODE>
+	{
+		ParserContextView.setToken(aCtx, t);
+		ParserContextView.setValue(aCtx, t.image);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_JAVA_CODE_MODE);
+	}
+}
+
+void javaEnd(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <JAVA_END>
+	{
+		ParserContextView.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_JAVA_END_MODE);
+	}
+}
+
+void eol(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <EOL>
+	{
+		ParserContextView.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_EOL);
+	}
+}
+
+void eof(Map aCtx):
+{
+	Token t;
+}
+{
+	t = <EOF>
+	{
+		ParserContextView.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeContextView.KEY_EOF);
+	}
+}
+

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<project name="template1">
+	<import file="../build.xml"/>
+	<target name="init" depends="xcommand_parent.init">
+		<property name="jcc_target" value="templateparser.jj"/>
+		<property name="jcc.packagedir" value="${output.src}/org/teng/jcc" />
+		<property name="main_class" value="org.collage.MainEasy"/>
+		<property name="artifacts" value="artifacts/default"/>
+		<property name="commons-lang" value="${artifacts}/commons-lang.jar"/>
+		<property name="javacc" value="${artifacts}/javacc.jar"/>
+		<property name="javassist" value="${artifacts}/javassist.jar"/>
+		<property name="xcommand-core" value="../xcommand/output/xcommand-core.jar"/>
+		<property name="classpath" value="${xcommand-core};${javassist};${commons-lang}"/>
+	</target>
+
+	<target name="gensrc" depends="init">
+		<mkdir dir="${jcc.packagedir}"/>
+		<javacc target="${jcc_target}" outputdirectory="${jcc.packagedir}" javacchome="artifacts/default"/>
+	</target>
+
+</project>

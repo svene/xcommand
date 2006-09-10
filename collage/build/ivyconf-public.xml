@@ -1,0 +1,9 @@
+<ivyconf>
+	<resolvers>
+		<!-- Support ivy sandbox with resolver 'public' as well: -->
+		<chain name="public" dual="true">
+			<ivyrep name="ivyrep"/>
+			<ivyrep name="ivyrepsandbox" ivyroot="http://opensvn.csie.org/ivyrepsandbox/"/>
+		</chain>
+	</resolvers>
+</ivyconf>

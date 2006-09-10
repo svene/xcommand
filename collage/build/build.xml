@@ -1,0 +1,40 @@
+<project xmlns:ivy="antlib:fr.jayasoft.ivy.ant" name="hello-ivy" default="init" basedir="..">
+
+	<property environment="env"/>
+
+	<target name="init">
+		<property name="src" value="src"/>
+	</target>
+
+	<target name="ivy" depends="init">
+		<property name="ivy.default.ivy.user.dir" value="${env.HOME}/ivy"/>
+
+		<ivy:configure file="build/ivyconf.xml"/>
+		<property name="project.ivy.build.artifacts.dir" value="${ivy.project.dir}/artifacts"/>
+		<ivy:resolve file="build/ivy.xml"/>
+		<ivy:retrieve pattern="${project.ivy.build.artifacts.dir}/[conf]/[artifact].[ext]"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="output"/>
+	</target>
+
+	<target name="clobber" depends="clean">
+		<delete dir="lib"/>
+	</target>
+
+	<target name="compile-core" depends="init">
+		<mkdir dir="output/classes"/>
+		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">
+			<include name="org/xcommand/core/**/*.java"/>
+		</javac>
+	</target>
+
+	<target name="jar-core" depends="compile-core">
+		<jar destfile="output/xcommand-core.jar">
+			<fileset dir="output/classes">
+				<include name="org/xcommand/core/**/*"/>
+			</fileset>
+		</jar>
+	</target>
+</project>
