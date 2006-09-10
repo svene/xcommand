@@ -16,7 +16,7 @@
 	</target>
 
 	<target name="clean">
-		<delete dir="output/classes"/>
+		<delete dir="output"/>
 	</target>
 
 	<target name="clobber" depends="clean">
