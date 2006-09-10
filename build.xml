@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<project name="xcommand_parent" default="init" basedir=".">
+	<target name="init">
+		<mkdir dir="output/src"/>
+		<mkdir dir="output/classes"/>
+		<property name="output.src" value="output/src" />
+		<property name="src" value="${output.src};src" />
+	</target>
+
+	<target name="gensrc" depends="init"/>
+
+	<target name="compile" depends="gensrc">
+		<javac srcdir="${src}" classpath="${classpath}" destdir="output/classes" debug="true" source="1.4" target="1.4"/>
+	</target>
+
+	<target name="run" depends="init">
+		<java classname="${main_class}" classpath="output/classes;../xcommand-core.jar" fork="true"/>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="output/${libname}.jar" basedir="output/classes"/>
+		<jar destfile="output/${libname}-src.jar">
+			<fileset dir="src"/>
+			<fileset dir="${output.src}"/>
+		</jar>
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="output"/>
+	</target>
+
+</project>

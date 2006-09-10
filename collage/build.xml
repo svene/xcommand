@@ -12,6 +12,7 @@
 		<property name="javassist" value="${artifacts}/javassist.jar"/>
 		<property name="xcommand-core" value="../xcommand/output/xcommand-core.jar"/>
 		<property name="classpath" value="${xcommand-core};${javassist};${commons-lang}"/>
+		<property name="libname" value="collage"/>
 	</target>
 
 	<target name="gensrc" depends="init">
