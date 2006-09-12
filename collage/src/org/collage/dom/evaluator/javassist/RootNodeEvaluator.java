@@ -61,7 +61,6 @@ public class RootNodeEvaluator implements IXCommand
 	{
 		DomNodeCreationHandlerContextView.setProduceJavaSource(aCtx, Boolean.FALSE);
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aFilename);
-//		InputStream is = new FileInputStream(new File(aFilename));
 		Template template = new TextTemplate(is, aCtx);
 		is.close();
 		String s = template.getStringResult(aCtx);
