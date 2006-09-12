@@ -18,7 +18,7 @@ public class VariableNodeEvaluator implements IXCommand
 	{
 		try
 		{
-			InputStream is = new FileInputStream(new File("javassist_var.txt"));
+			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("javassist_var.txt");
 			Map ctx = new HashMap();
 			DomNodeCreationHandlerContextView.setProduceJavaSource(ctx, Boolean.FALSE);
 			template = new TextTemplate(is, ctx);

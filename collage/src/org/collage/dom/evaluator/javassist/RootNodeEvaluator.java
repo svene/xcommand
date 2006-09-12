@@ -60,7 +60,8 @@ public class RootNodeEvaluator implements IXCommand
 	private void addMethod(CtClass aCtClass, String aFilename, Map aCtx) throws Exception
 	{
 		DomNodeCreationHandlerContextView.setProduceJavaSource(aCtx, Boolean.FALSE);
-		InputStream is = new FileInputStream(new File(aFilename));
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aFilename);
+//		InputStream is = new FileInputStream(new File(aFilename));
 		Template template = new TextTemplate(is, aCtx);
 		is.close();
 		String s = template.getStringResult(aCtx);
