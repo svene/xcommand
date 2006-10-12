@@ -6,6 +6,6 @@
 -->
 		<dependency org="apache" name="commons-lang" rev="2.1"/>
 		<dependency org="someorg" name="javacc" rev="4.0"/>
-		<dependency org="someorg" name="javassist" rev="3.0"/>
+		<dependency org="someorg" name="junit" rev="3.8.1"/>
 	</dependencies>
 </ivy-module>
