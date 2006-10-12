@@ -2,6 +2,7 @@ package org.collage.dom.evaluator.text;
 
 import org.collage.dom.evaluator.NodeVisitor;
 import org.collage.template.Template;
+import org.collage.template.TemplateSource;
 
 import java.util.Map;
 import java.io.InputStream;
@@ -11,24 +12,9 @@ public class TextTemplate extends Template
 
 // --- Initialization ---
 
-	public TextTemplate(String aTemplateText)
+	public TextTemplate(TemplateSource aTemplateSource)
 	{
-		super(aTemplateText);
-	}
-
-	public TextTemplate(String aTemplateText, Map aCtx)
-	{
-		super(aTemplateText, aCtx);
-	}
-
-	public TextTemplate(InputStream aTemplateStream)
-	{
-		super(aTemplateStream);
-	}
-
-	public TextTemplate(InputStream aTemplateStream, Map aCtx)
-	{
-		super(aTemplateStream, aCtx);
+		super(aTemplateSource);
 	}
 
 // --- Implementation ---

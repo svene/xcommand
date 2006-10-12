@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
-<project name="template1">
+<project name="collage">
 	<import file="../build.xml"/>
 	<target name="init" depends="xcommand_parent.init">
 		<property name="jcc_target" value="templateparser.jj"/>
-		<property name="jcc.packagedir" value="${output.src}/org/teng/jcc" />
+		<property name="jcc.packagedir" value="${output.src}/org/collage/jcc" />
 		<property name="main_class" value="org.collage.MainEasy"/>
 		<property name="artifacts" value="artifacts/default"/>
 		<property name="commons-lang" value="${artifacts}/commons-lang.jar"/>

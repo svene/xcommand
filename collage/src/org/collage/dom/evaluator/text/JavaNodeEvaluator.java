@@ -16,7 +16,9 @@ public class JavaNodeEvaluator implements IXCommand
 		Writer writer = EvaluationContextView.getWriter(aCtx);
 		try
 		{
+			writer.write("<?java");
 			writer.write(node.getValue());
+			writer.write("?>");
 		}
 		catch (IOException e)
 		{

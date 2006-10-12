@@ -19,10 +19,14 @@
 	</target>
 
 	<target name="jar" depends="compile">
-		<jar destfile="output/${libname}.jar" basedir="output/classes"/>
+		<jar destfile="output/${libname}.jar">
+			<fileset dir="output/classes"/>
+			<fileset dir="resources"/>
+		</jar>
 		<jar destfile="output/${libname}-src.jar">
 			<fileset dir="src"/>
 			<fileset dir="${output.src}"/>
+			<fileset dir="resources"/>
 		</jar>
 	</target>
 

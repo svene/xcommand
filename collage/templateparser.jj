@@ -11,14 +11,19 @@ import java.util.Map;
 import org.collage.parser.*;
 import org.xcommand.core.*;
 import org.xcommand.core.multi.*;
+import org.collage.csm.*;
 
 public class TemplateParser
 {
+	private CollageStateMachine sm = new CollageStateMachine();
+
 	private void executeTokenHandler(Map aCtx, String aMode)
 	{
-		IXCommand sh = ParserContextView.getTokenHandlerDispatcher(aCtx);
-		aCtx.put(ModeContextView.KEY_MODE, aMode);
-		sh.execute(aCtx);
+		ParserModeContextView.setMode(aCtx, aMode);
+		String value = (String)ParserContextView.getValue(aCtx);
+		sm.execute(aCtx);
+		//org: IXCommand sh = ParserContextView.getTokenHandlerDispatcher(aCtx);
+		//org: sh.execute(aCtx);
 	}
 }
 
@@ -38,7 +43,7 @@ TOKEN : { < EOL : "\n" | "\r" | "\r\n" > }
 
 void Start(Map aCtx):
 {
-	executeTokenHandler(aCtx, ParserModeContextView.KEY_START_MODE);
+	//org: executeTokenHandler(aCtx, ParserModeContextView.KEY_START_MODE);
 }
 {
 	(

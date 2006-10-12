@@ -1,9 +1,28 @@
 package org.collage.parser;
 
+import java.util.Map;
+
 public class ParserModeContextView
 {
 
+// --- Access ---
+
+	public static String getMode(Map aCtx)
+	{
+		return (String) aCtx.get(KEY_MODE);
+	}
+
 // --- Setting ---
+
+	public static void setMode(Map aCtx, String aMode)
+	{
+		aCtx.put(KEY_MODE, aMode);
+	}
+
+// --- Constants ---
+
+	public static final String NS = "org.collage.parser.";
+	public static final String KEY_MODE = NS + "mode";
 
 	public static final String KEY_START_MODE = "start";
 	public static final String KEY_VAR_START_MODE = "varstart";

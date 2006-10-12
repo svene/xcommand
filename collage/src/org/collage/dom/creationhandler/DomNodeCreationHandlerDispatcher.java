@@ -16,7 +16,7 @@ public class DomNodeCreationHandlerDispatcher extends ModeBasedCommandDispatcher
 
 	public DomNodeCreationHandlerDispatcher()
 	{
-		setModeCommandMap(DomNodeCreationHandlerDispatcher.configCtx);
+		setModeCommandMap(configCtx);
 	}
 
 // --- Implementation ---

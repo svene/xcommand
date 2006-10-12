@@ -8,6 +8,17 @@ import java.util.HashMap;
 public class ModeBasedCommandDispatcher implements IXCommand
 {
 
+// --- Initialization ---
+
+	public ModeBasedCommandDispatcher()
+	{
+	}
+
+	public ModeBasedCommandDispatcher(String aModeKey)
+	{
+		modeKey = aModeKey;
+	}
+
 // --- Access ---
 
 	public Map getModeCommandMap()
@@ -17,9 +28,9 @@ public class ModeBasedCommandDispatcher implements IXCommand
 
 // --- Setting ---
 
-	public void setModeCommandMap(Map aHandlerMap)
+	public void setModeCommandMap(Map aModeCommandMap)
 	{
-		modeCommandMap = aHandlerMap;
+		modeCommandMap = aModeCommandMap;
 	}
 
 // --- Processing ---
@@ -28,7 +39,8 @@ public class ModeBasedCommandDispatcher implements IXCommand
 	{
 		try
 		{
-			String mode = ModeContextView.getMode(aCtx);
+//			String mode = ModeContextView.getMode(aCtx);
+			String mode = (String) aCtx.get(modeKey);
 			IXCommand command = (IXCommand) getModeCommandMap().get(mode);
 			command.execute(aCtx);
 		}
@@ -43,4 +55,5 @@ public class ModeBasedCommandDispatcher implements IXCommand
 // --- Implementation ---
 
 	private Map modeCommandMap = new HashMap();
+	private String modeKey = ModeContextView.KEY_MODE;
 }

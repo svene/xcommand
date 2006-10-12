@@ -4,7 +4,6 @@ import org.collage.parser.*;
 import org.collage.dom.creationhandler.*;
 import org.collage.jcc.TemplateParser;
 import org.collage.jcc.ParseException;
-import org.collage.parser.TokenHandlerDispatcher;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerDispatcher;
 import org.xcommand.core.IXCommand;
 
@@ -19,10 +18,6 @@ public class TemplateCompiler implements IXCommand
 
 	static
 	{
-		// Setup TokenHandlerDispatcher:
-		TokenHandlerDispatcher thd = new TokenHandlerDispatcher();
-		ParserContextView.setTokenHandlerDispatcher(configCtx, thd);
-
 		// Setup DomNodeCreationHandlerDispatcher:
 		DomNodeCreationHandlerDispatcher dnchd = new DomNodeCreationHandlerDispatcher();
 		DomNodeCreationHandlerContextView.setDomNodeCreationHandler(configCtx, dnchd);

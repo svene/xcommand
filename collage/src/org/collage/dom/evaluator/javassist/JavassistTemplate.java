@@ -1,6 +1,7 @@
 package org.collage.dom.evaluator.javassist;
 
 import org.collage.template.Template;
+import org.collage.template.TemplateSource;
 import org.collage.dom.evaluator.NodeVisitor;
 import org.xcommand.core.IXCommand;
 
@@ -13,24 +14,9 @@ public class JavassistTemplate extends Template
 
 // --- Initialization ---
 
-	public JavassistTemplate(String aTemplateText)
+	public JavassistTemplate(TemplateSource aTemplateSource)
 	{
-		super(aTemplateText);
-	}
-
-	public JavassistTemplate(String aTemplateText, Map aCtx)
-	{
-		super(aTemplateText, aCtx);
-	}
-
-	public JavassistTemplate(InputStream aTemplateStream)
-	{
-		super(aTemplateStream);
-	}
-
-	public JavassistTemplate(InputStream aTemplateStream, Map aCtx)
-	{
-		super(aTemplateStream, aCtx);
+		super(aTemplateSource);
 	}
 
 // --- Access ---

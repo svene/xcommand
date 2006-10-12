@@ -13,7 +13,7 @@ public class JavaNodeEvaluator implements IXCommand
 	{
 		JavaNode node = (JavaNode) EvaluationContextView.getNode(aCtx);
 		StringBuffer methodBody = (StringBuffer) aCtx.get("methodbody");
-		//!! System.out.println("*** javacode: '" + node.getValue() + "'");
+//		System.out.println("*** javacode: '" + node.getValue() + "'");
 		String ss = "\t" + node.getValue() + "\n";
 		methodBody.append(ss);
 	}

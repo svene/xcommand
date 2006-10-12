@@ -12,6 +12,7 @@ import org.xcommand.core.IXCommand;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
 import org.collage.dom.evaluator.text.TextTemplate;
 import org.collage.template.Template;
+import org.collage.template.TemplateSource;
 
 public class RootNodeEvaluator implements IXCommand
 {
@@ -61,9 +62,10 @@ public class RootNodeEvaluator implements IXCommand
 	{
 		DomNodeCreationHandlerContextView.setProduceJavaSource(aCtx, Boolean.FALSE);
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aFilename);
-		Template template = new TextTemplate(is, aCtx);
+		Template template = new TextTemplate(new TemplateSource(is, aCtx));
 		is.close();
 		String s = template.getStringResult(aCtx);
+//		System.out.println("methodstring: " + s);//!!
 		CtMethod ctm = CtNewMethod.make(s, aCtClass);
 		aCtClass.addMethod(ctm);
 	}
@@ -80,7 +82,7 @@ public class RootNodeEvaluator implements IXCommand
 		s += "-" + cal.get(Calendar.SECOND);
 		s += "-" + cal.get(Calendar.MILLISECOND);
 		String className = "JavassistTemplate" + s;
-		System.out.println(className);
+//		System.out.println(className);
 		return className;
 	}
 

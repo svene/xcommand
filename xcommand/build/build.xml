@@ -37,4 +37,18 @@
 			</fileset>
 		</jar>
 	</target>
+	<target name="compile-misc" depends="init">
+		<mkdir dir="output/classes"/>
+		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">
+			<include name="org/xcommand/misc/**/*.java"/>
+		</javac>
+	</target>
+
+	<target name="jar-misc" depends="compile-misc">
+		<jar destfile="output/xcommand-misc.jar">
+			<fileset dir="output/classes">
+				<include name="org/xcommand/misc/**/*"/>
+			</fileset>
+		</jar>
+	</target>
 </project>

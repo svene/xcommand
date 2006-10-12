@@ -18,6 +18,10 @@ public abstract class Template
 
 // --- Initialization ---
 
+	public Template(TemplateSource aTemplateSource)
+	{
+		this(aTemplateSource.getInputStream(), aTemplateSource.getContext());
+	}
 	public Template(String aTemplateText)
 	{
 		this(aTemplateText, new HashMap());
@@ -60,11 +64,11 @@ public abstract class Template
 
 // --- Processing ---
 
-	private void compile(InputStream aTemplateStream, Map aCtx)
+	protected void compile(InputStream aTemplateStream, Map aCompilationCtx)
 	{
 		Map ctx = new HashMap();
 		ctx.putAll(TemplateCompiler.getConfigCtx());
-		ctx.putAll(aCtx);
+		ctx.putAll(aCompilationCtx);
 		ParserContextView.setInputStream(ctx, aTemplateStream);
 		templateCompiler.execute(ctx);
 		handleCompilationResult(ctx);

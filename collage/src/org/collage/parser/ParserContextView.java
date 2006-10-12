@@ -40,6 +40,10 @@ public class ParserContextView
 	{
 		return aCtx.get(KEY_TOKEN);
 	}
+	public static IXCommand getStateSwitchHandler(Map aCtx)
+	{
+		return (IXCommand) aCtx.get(KEY_STATE_SWITCH_HANDLER);
+	}
 
 // --- Setting ---
 
@@ -71,6 +75,11 @@ public class ParserContextView
 		aCtx.put(KEY_TOKEN, aToken);
 	}
 
+	public static void setStateSwitchHandler(Map aCtx, IXCommand aStateSwitchHandler)
+	{
+		aCtx.put(KEY_STATE_SWITCH_HANDLER, aStateSwitchHandler);
+	}
+
 // --- Implementation ---
 
 	public static final String NS = "org.collage.parser.ParserContextView.";
@@ -80,4 +89,5 @@ public class ParserContextView
 	public static final String KEY_STRINGBUFFER = NS + "STRINGBUFFER";
 	public static final String KEY_VALUE = NS + "VALUE";
 	public static final String KEY_TOKEN = NS + "TOKEN";
+	public static final String KEY_STATE_SWITCH_HANDLER = NS + "STATE_SWITCH_HANDLER";
 }

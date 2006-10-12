@@ -6,6 +6,7 @@ import org.collage.dom.evaluator.EvaluationContextView;
 import org.collage.dom.evaluator.text.TextTemplate;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
 import org.collage.template.Template;
+import org.collage.template.TemplateSource;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class VariableNodeEvaluator implements IXCommand
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("javassist_var.txt");
 			Map ctx = new HashMap();
 			DomNodeCreationHandlerContextView.setProduceJavaSource(ctx, Boolean.FALSE);
-			template = new TextTemplate(is, ctx);
+			template = new TextTemplate(new TemplateSource(is, ctx));
 		}
 		catch (Exception e)
 		{

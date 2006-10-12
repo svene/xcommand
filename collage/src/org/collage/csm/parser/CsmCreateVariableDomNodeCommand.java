@@ -1,13 +1,14 @@
-package org.collage.parser;
+package org.collage.csm.parser;
 
 import org.xcommand.core.IXCommand;
 import org.xcommand.core.multi.ModeContextView;
+import org.collage.parser.ParserContextView;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerModeContextView;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
 
 import java.util.Map;
 
-public class VarNameTokenHandler implements IXCommand
+public class CsmCreateVariableDomNodeCommand implements IXCommand
 {
 	public void execute(Map aCtx)
 	{
