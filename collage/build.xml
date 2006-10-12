@@ -10,8 +10,10 @@
 		<property name="commons-lang" value="${artifacts}/commons-lang.jar"/>
 		<property name="javacc" value="${artifacts}/javacc.jar"/>
 		<property name="javassist" value="${artifacts}/javassist.jar"/>
+		<property name="junit" value="${artifacts}/junit.jar"/>
 		<property name="xcommand-core" value="../xcommand/output/xcommand-core.jar"/>
-		<property name="classpath" value="${xcommand-core};${javassist};${commons-lang}"/>
+		<property name="xcommand-misc" value="../xcommand/output/xcommand-misc.jar"/>
+		<property name="classpath" value="${xcommand-core};${xcommand-misc};${javassist};${commons-lang};${junit}"/>
 		<property name="libname" value="collage"/>
 	</target>
 
