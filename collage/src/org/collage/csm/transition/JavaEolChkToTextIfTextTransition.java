@@ -2,6 +2,7 @@ package org.collage.csm.transition;
 
 import org.xcommand.misc.statemachine.IState;
 import org.xcommand.core.IXCommand;
+import org.xcommand.core.ListCommand;
 import org.collage.csm.CsmCompareModeCommand;
 import org.collage.csm.parser.CsmStartTextCommand;
 import org.collage.csm.parser.CsmAppendTextCommand;
@@ -24,11 +25,9 @@ public class JavaEolChkToTextIfTextTransition extends CollageTransition
 
 	protected IXCommand newExecuteCommand()
 	{
-		return new CsmStartTextCommand();
-	}
-
-	protected IXCommand newExitCommand()
-	{
-		return new CsmAppendTextCommand();
+		ListCommand result = new ListCommand();
+		result.getCommands().add(new CsmStartTextCommand());
+		result.getCommands().add(new CsmAppendTextCommand());
+		return result;
 	}
 }

@@ -20,7 +20,7 @@ public class JavaEolChkToTextIfEolTransition extends CollageTransition
 	{
 		return new CsmCompareModeCommand(ParserModeContextView.KEY_EOL);
 	}
-	protected IXCommand newExitCommand()
+	protected IXCommand newExecuteCommand()
 	{
 		return new CsmStartTextCommand();
 	}

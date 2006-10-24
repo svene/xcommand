@@ -24,31 +24,47 @@
 	</target>
 
 	<target name="compile-core" depends="init">
-		<mkdir dir="output/classes"/>
-		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">
-			<include name="org/xcommand/core/**/*.java"/>
-		</javac>
+		<compile-module aName="core"/>
 	</target>
-
 	<target name="jar-core" depends="compile-core">
-		<jar destfile="output/xcommand-core.jar">
-			<fileset dir="output/classes">
-				<include name="org/xcommand/core/**/*"/>
-			</fileset>
-		</jar>
-	</target>
-	<target name="compile-misc" depends="init">
-		<mkdir dir="output/classes"/>
-		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">
-			<include name="org/xcommand/misc/**/*.java"/>
-		</javac>
+		<jar-module aName="core"/>
 	</target>
 
+	<target name="compile-misc" depends="init">
+		<compile-module aName="misc"/>
+	</target>
 	<target name="jar-misc" depends="compile-misc">
-		<jar destfile="output/xcommand-misc.jar">
+		<jar-module aName="misc"/>
+	</target>
+
+	<target name="compile-web" depends="init">
+		<compile-module aName="web"/>
+	</target>
+	<target name="jar-web" depends="compile-web">
+		<jar-module aName="web"/>
+	</target>
+
+
+	<macrodef name="compile-module">
+		<attribute name="aName"/>
+		<sequential>
+		<mkdir dir="output/classes"/>
+		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4" classpath="output/artifacts/default/servletapi.jar">
+			<include name="org/xcommand/@{aName}/**/*.java"/>
+		</javac>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="jar-module">
+		<attribute name="aName"/>
+		<sequential>
+		<jar destfile="output/xcommand-@{aName}.jar">
 			<fileset dir="output/classes">
-				<include name="org/xcommand/misc/**/*"/>
+				<include name="org/xcommand/@{aName}/**/*"/>
 			</fileset>
 		</jar>
-	</target>
+		</sequential>
+	</macrodef>
+
+
 </project>

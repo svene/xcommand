@@ -22,7 +22,7 @@ public class JavaCodeToJavaEolChkTransition extends CollageTransition
 		return new CsmCompareModeCommand(ParserModeContextView.KEY_JAVA_END_MODE);
 	}
 
-	protected IXCommand newEnterCommand()
+	protected IXCommand newExecuteCommand()
 	{
 		return new CsmFlushJavaCommand();
 	}

@@ -20,7 +20,7 @@ public class VariableTextToTextTransition extends CollageTransition
 	{
 		return new CsmCompareModeCommand(ParserModeContextView.KEY_VAR_END_MODE);
 	}
-	protected IXCommand newExitCommand()
+	protected IXCommand newExecuteCommand()
 	{
 		return new CsmStartTextCommand();
 	}

@@ -22,7 +22,7 @@ public class StartToJavaCodeTransition extends CollageTransition
 		return new CsmCompareModeCommand(ParserModeContextView.KEY_JAVA_START_MODE);
 	}
 
-	protected IXCommand newExitCommand()
+	protected IXCommand newExecuteCommand()
 	{
 		return new CsmStartJavaCommand();
 	}

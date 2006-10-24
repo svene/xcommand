@@ -2,7 +2,6 @@ package org.xcommand.misc.statemachine;
 
 import org.xcommand.core.IXCommand;
 import org.xcommand.core.ResultContextView;
-import org.xcommand.misc.statemachine.IState;
 
 import java.util.Map;
 import java.util.Iterator;

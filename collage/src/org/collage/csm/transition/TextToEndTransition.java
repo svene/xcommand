@@ -20,7 +20,7 @@ public class TextToEndTransition extends CollageTransition
 	{
 		return new CsmCompareModeCommand(ParserModeContextView.KEY_EOF);
 	}
-	protected IXCommand newEnterCommand()
+	protected IXCommand newExecuteCommand()
 	{
 		return new CsmFlushTextCommand();
 	}

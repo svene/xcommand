@@ -1,8 +1,6 @@
 package org.xcommand.misc.statemachine;
 
 import org.xcommand.core.IXCommand;
-import org.xcommand.core.NopCommand;
-import org.xcommand.misc.statemachine.IState;
 
 import java.util.Map;
 
@@ -31,10 +29,15 @@ public class Transition implements IXCommand
 		return entryCondition;
 	}
 
-	public IXCommand getEventDispatcher()
+	public IXCommand getExecuteCommand()
 	{
-		return eventDispatcher;
+		return executeCommand;
 	}
+
+//	public IXCommand getEventDispatcher()
+//	{
+//		return eventDispatcher;
+//	}
 
 // --- Setting ---
 
@@ -58,26 +61,16 @@ public class Transition implements IXCommand
 		entryCondition = aEntryCondition;
 	}
 
-	public void setEventDispatcher(IXCommand aEventDispatcher)
+	public void setExecuteCommand(IXCommand aExecuteCommand)
 	{
-		eventDispatcher = aEventDispatcher;
+		executeCommand = aExecuteCommand;
 	}
 
 // --- Processing ---
 
 	public void execute(Map aCtx)
 	{
-		// Exit `fromState':
-		TransitionCV.setMode(aCtx, TransitionCV.ENTER);
-		eventDispatcher.execute(aCtx);
-
-		// Execute `this':
-		TransitionCV.setMode(aCtx, TransitionCV.EXECUTE);
-		eventDispatcher.execute(aCtx);
-
-		// Exit `toState':
-		TransitionCV.setMode(aCtx, TransitionCV.EXIT);
-		eventDispatcher.execute(aCtx);
+		executeCommand.execute(aCtx);
 	}
 
 // --- Implementation ---
@@ -86,5 +79,5 @@ public class Transition implements IXCommand
 	private IState fromState;
 	private IState toState;
 	private IXCommand entryCondition = new TrueCondition();
-	private IXCommand eventDispatcher = new NopCommand();
+	private IXCommand executeCommand;
 }

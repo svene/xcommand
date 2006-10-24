@@ -5,6 +5,7 @@ import org.collage.csm.parser.CsmAppendTextCommand;
 import org.collage.csm.CsmCompareModeCommand;
 import org.collage.parser.ParserModeContextView;
 import org.xcommand.core.IXCommand;
+import org.xcommand.core.ListCommand;
 import org.xcommand.misc.statemachine.IState;
 
 public class StartToTextTransition extends CollageTransition
@@ -24,11 +25,9 @@ public class StartToTextTransition extends CollageTransition
 
 	protected IXCommand newExecuteCommand()
 	{
-		return new CsmStartTextCommand();
-	}
-
-	protected IXCommand newExitCommand()
-	{
-		return new CsmAppendTextCommand();
+		ListCommand result = new ListCommand();
+		result.getCommands().add(new CsmStartTextCommand());
+		result.getCommands().add(new CsmAppendTextCommand());
+		return result;
 	}
 }

@@ -21,7 +21,7 @@ public class TextToVariableTextTransition extends CollageTransition
 		return new CsmCompareModeCommand(ParserModeContextView.KEY_VAR_START_MODE);
 	}
 
-	protected IXCommand newEnterCommand()
+	protected IXCommand newExecuteCommand()
 	{
 		return new CsmFlushTextCommand();
 	}
