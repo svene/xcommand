@@ -1,0 +1,44 @@
+digraph pvn
+{
+	rankdir=LR;
+//	node [	color = white, style = filled, color=steelblue3, shape=box ];
+//	node [shape = doublecircle]; Start  [label="Start\n1"] End;
+	node [shape = doublecircle]; Start  End Error;
+	node [shape = circle];
+	edge [ fontsize=8];
+	subgraph cluster_symbol
+	{
+		Start [label="Start\n1"];
+		Text [label="Text\n2"];
+		variable_text [label="Variable\n4"];
+		java_code [label="Java\n3"];
+		End [label="End\n5"];
+		JavaEolChk [label="Java-\nEolChk\n7"];
+		Error [label="Error\n6"];
+
+		label="States"
+	}
+	Start -> Text [label="TEXT"];
+	Start -> variable_text [label="VAR_START"];
+	Start -> java_code [label="JAVA_START"];
+	Start -> End [label="EOF"];
+
+	Text -> Text [label="TEXT"];
+	Text -> Text [label="EOL"];
+	Text -> java_code [label="JAVA_START"];
+	Text -> variable_text [label="VAR_START"];
+	Text -> End [label="EOF"];
+
+	variable_text -> variable_text [label="VAR_NAME"];
+	variable_text -> Text [label="VAR_END"];
+	variable_text -> Error [label="EOF"];
+
+
+	java_code -> java_code [label="JAVA_CODE"];
+	java_code -> JavaEolChk [label="JAVA_END"];
+	java_code -> Error [label="EOF (error)"];
+
+	JavaEolChk -> Text [label="EOL"];
+	JavaEolChk -> Text [label="TEXT"];
+	JavaEolChk -> End [label="EOF"];
+}
