@@ -50,7 +50,7 @@ public class RootNodeEvaluator implements IXCommand
 
 				// Create instance and put it on context:
 				Object obj = clazz.newInstance();
-				JavaTemplateCmdCV.setTemplateInstance(aCtx, (IXCommand) obj);
+				JavaTemplateCmdCV.setTemplateComand(aCtx, (IXCommand) obj);
 			}
 			catch (Exception e)
 			{
