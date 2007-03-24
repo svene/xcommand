@@ -11,7 +11,7 @@ import java.io.*;
 import org.xcommand.core.IXCommand;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
 import org.collage.dom.evaluator.text.TextTemplate;
-import org.collage.dom.evaluator.java.javassist.JavassistContextView;
+import org.collage.dom.evaluator.java.independent.JavassistContextView;
 import org.collage.template.Template;
 import org.collage.template.TemplateSource;
 

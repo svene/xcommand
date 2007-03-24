@@ -1,4 +1,4 @@
-package org.collage.dom.evaluator.java.javassist;
+package org.collage.dom.evaluator.java.independent;
 
 import org.xcommand.core.IXCommand;
 
@@ -23,7 +23,7 @@ public class JavassistContextView
 
 // --- Implementation ---
 
-	public static final String NS = "org.collage.dom.evaluator.java.javassist.JavassistContextView.";
+	public static final String NS = "org.collage.dom.evaluator.java.independent.JavassistContextView.";
 	public static final String KEY_TEMPLATE_INSTANCE = NS + "TEMPLATE_INSTANCE";
 
 }

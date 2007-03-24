@@ -4,7 +4,7 @@ import org.collage.template.Template;
 import org.collage.template.TemplateSource;
 import org.collage.dom.evaluator.NodeVisitor;
 import org.collage.dom.evaluator.java.javassist.Evaluator;
-import org.collage.dom.evaluator.java.javassist.JavassistContextView;
+import org.collage.dom.evaluator.java.independent.JavassistContextView;
 import org.xcommand.core.IXCommand;
 
 import java.util.Map;
