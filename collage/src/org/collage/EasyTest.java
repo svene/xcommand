@@ -11,7 +11,7 @@ import org.collage.template.TemplateSource;
 import org.collage.template.TemplateFactory;
 import org.collage.dom.evaluator.text.TextTemplate;
 import org.collage.dom.evaluator.java.javassist.JavassistTemplate;
-import org.collage.dom.evaluator.java.javassist.JavassistContextView;
+import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
 import org.xcommand.core.IXCommand;
 
@@ -73,7 +73,7 @@ public class EasyTest extends TestCase
 		Map cctx = new HashMap();
 		JavassistTemplate t = new JavassistTemplate(new TemplateSource("hallo ${firstname}.\nWie gehts?\n", cctx));
 		t.execute(dataCtx);
-		IXCommand cmd = JavassistContextView.getTemplateInstance(dataCtx);
+		IXCommand cmd = JavaTemplateCmdCV.getTemplateInstance(dataCtx);
 		System.out.println("-----------");
 		Map ctx = new HashMap();
 		cmd.execute(ctx);

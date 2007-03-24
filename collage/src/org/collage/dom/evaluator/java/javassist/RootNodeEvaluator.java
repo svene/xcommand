@@ -11,7 +11,7 @@ import java.io.*;
 import org.xcommand.core.IXCommand;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
 import org.collage.dom.evaluator.text.TextTemplate;
-import org.collage.dom.evaluator.java.independent.JavassistContextView;
+import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.collage.template.Template;
 import org.collage.template.TemplateSource;
 
@@ -50,7 +50,7 @@ public class RootNodeEvaluator implements IXCommand
 
 				// Create instance and put it on context:
 				Object obj = clazz.newInstance();
-				JavassistContextView.setTemplateInstance(aCtx, (IXCommand) obj);
+				JavaTemplateCmdCV.setTemplateInstance(aCtx, (IXCommand) obj);
 			}
 			catch (Exception e)
 			{

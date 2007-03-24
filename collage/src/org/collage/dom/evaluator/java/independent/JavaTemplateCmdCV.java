@@ -4,7 +4,7 @@ import org.xcommand.core.IXCommand;
 
 import java.util.Map;
 
-public class JavassistContextView
+public class JavaTemplateCmdCV
 {
 
 // --- Access ---
@@ -23,7 +23,7 @@ public class JavassistContextView
 
 // --- Implementation ---
 
-	public static final String NS = "org.collage.dom.evaluator.java.independent.JavassistContextView.";
+	public static final String NS = "org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV.";
 	public static final String KEY_TEMPLATE_INSTANCE = NS + "TEMPLATE_INSTANCE";
 
 }

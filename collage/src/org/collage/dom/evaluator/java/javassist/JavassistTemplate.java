@@ -4,7 +4,7 @@ import org.collage.template.Template;
 import org.collage.template.TemplateSource;
 import org.collage.dom.evaluator.NodeVisitor;
 import org.collage.dom.evaluator.java.javassist.Evaluator;
-import org.collage.dom.evaluator.java.independent.JavassistContextView;
+import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.xcommand.core.IXCommand;
 
 import java.util.Map;
@@ -39,7 +39,7 @@ public class JavassistTemplate extends Template
 		super.handleCompilationResult(aCtx);
 		Map ctx = new HashMap();
 		execute(ctx);
-		instance = JavassistContextView.getTemplateInstance(ctx);
+		instance = JavaTemplateCmdCV.getTemplateInstance(ctx);
 	}
 
 	private static NodeVisitor defaultJavassistTemplateNodeVisistor = new Evaluator();
