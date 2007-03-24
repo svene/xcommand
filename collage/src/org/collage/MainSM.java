@@ -73,7 +73,7 @@ public class MainSM
 		DomContextView.setRootNode(ctx, rootNode);
 		nv.execute(ctx);
 
-		nv = new org.collage.dom.evaluator.javassist.Evaluator();
+		nv = new org.collage.dom.evaluator.java.javassist.Evaluator();
 		ctx = new HashMap();
 		DomContextView.setRootNode(ctx, rootNode);
 		nv.execute(ctx);

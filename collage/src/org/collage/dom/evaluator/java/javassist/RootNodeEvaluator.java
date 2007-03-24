@@ -38,12 +38,12 @@ public class RootNodeEvaluator implements IXCommand
 				cc.addInterface(ccXcommand);
 
 				// Add method 'appendVar()':
-				addMethod(cc, "appendvar.txt", new HashMap());
+				addMethod(cc, "org/collage/dom/evaluator/java/javassist/appendvar.txt", new HashMap());
 
 				// Add method 'execute()':
 				StringBuffer sb = (StringBuffer) aCtx.get("methodbody");
 				HashMap ctx = new HashMap(); ctx.put("execute_method_body", sb.toString());
-				addMethod(cc, "execute_method.txt", ctx);
+				addMethod(cc, "org/collage/dom/evaluator/java/javassist/execute_method.txt", ctx);
 
 				Class clazz = cc.toClass();
 				aCtx.put("clazz", clazz);

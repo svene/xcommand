@@ -10,8 +10,8 @@ import org.collage.template.Template;
 import org.collage.template.TemplateSource;
 import org.collage.template.TemplateFactory;
 import org.collage.dom.evaluator.text.TextTemplate;
-import org.collage.dom.evaluator.javassist.JavassistTemplate;
-import org.collage.dom.evaluator.javassist.JavassistContextView;
+import org.collage.dom.evaluator.java.javassist.JavassistTemplate;
+import org.collage.dom.evaluator.java.javassist.JavassistContextView;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
 import org.xcommand.core.IXCommand;
 
