@@ -2,7 +2,7 @@ package org.collage.csm.transition;
 
 import org.collage.csm.parser.CsmFlushTextCommand;
 import org.collage.csm.CsmCompareModeCommand;
-import org.collage.parser.ParserModeContextView;
+import org.collage.parser.ParserModeCV;
 import org.xcommand.core.IXCommand;
 import org.xcommand.misc.statemachine.IState;
 
@@ -18,7 +18,7 @@ public class TextToEndTransition extends CollageTransition
 
 	protected IXCommand newEntryCondition()
 	{
-		return new CsmCompareModeCommand(ParserModeContextView.KEY_EOF);
+		return new CsmCompareModeCommand(ParserModeCV.KEY_EOF);
 	}
 	protected IXCommand newExecuteCommand()
 	{

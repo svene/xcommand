@@ -5,7 +5,7 @@ import org.collage.dom.ast.IDomNode;
 import java.util.Map;
 import java.io.Writer;
 
-public class EvaluationContextView
+public class EvaluationCV
 {
 
 // --- Access ---
@@ -34,7 +34,7 @@ public class EvaluationContextView
 
 // --- Implementation ---
 
-	public static final String NS = "org.collage.dom.text.EvaluationContextView.";
+	public static final String NS = "org.collage.dom.text.EvaluationCV.";
 	public static final String KEY_WRITER = NS + "WRITER";
 	public static final String KEY_NODE = NS + "NODE";
 

@@ -2,7 +2,7 @@ package org.collage.dom.evaluator.text;
 
 import org.xcommand.core.IXCommand;
 import org.collage.dom.ast.JavaNode;
-import org.collage.dom.evaluator.EvaluationContextView;
+import org.collage.dom.evaluator.EvaluationCV;
 
 import java.util.Map;
 import java.io.Writer;
@@ -12,8 +12,8 @@ public class JavaNodeEvaluator implements IXCommand
 {
 	public void execute(Map aCtx)
 	{
-		JavaNode node = (JavaNode) EvaluationContextView.getNode(aCtx);
-		Writer writer = EvaluationContextView.getWriter(aCtx);
+		JavaNode node = (JavaNode) EvaluationCV.getNode(aCtx);
+		Writer writer = EvaluationCV.getWriter(aCtx);
 		try
 		{
 			writer.write("<?java");

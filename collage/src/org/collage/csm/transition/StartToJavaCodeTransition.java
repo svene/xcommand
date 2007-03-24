@@ -3,9 +3,8 @@ package org.collage.csm.transition;
 import org.xcommand.misc.statemachine.IState;
 import org.xcommand.core.IXCommand;
 import org.collage.csm.CsmCompareModeCommand;
-import org.collage.csm.parser.CsmFlushTextCommand;
 import org.collage.csm.parser.CsmStartJavaCommand;
-import org.collage.parser.ParserModeContextView;
+import org.collage.parser.ParserModeCV;
 
 public class StartToJavaCodeTransition extends CollageTransition
 {
@@ -19,7 +18,7 @@ public class StartToJavaCodeTransition extends CollageTransition
 
 	protected IXCommand newEntryCondition()
 	{
-		return new CsmCompareModeCommand(ParserModeContextView.KEY_JAVA_START_MODE);
+		return new CsmCompareModeCommand(ParserModeCV.KEY_JAVA_START_MODE);
 	}
 
 	protected IXCommand newExecuteCommand()

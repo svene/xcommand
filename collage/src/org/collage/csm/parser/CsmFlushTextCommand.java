@@ -2,9 +2,9 @@ package org.collage.csm.parser;
 
 import org.xcommand.core.IXCommand;
 import org.xcommand.core.multi.ModeContextView;
-import org.collage.parser.ParserContextView;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerModeContextView;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
+import org.collage.parser.ParserCV;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerModeCV;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 
 import java.util.Map;
 
@@ -16,13 +16,13 @@ public class CsmFlushTextCommand implements IXCommand
 	public void execute(Map aCtx)
 	{
 		// Get String from Stringbuffer:
-		StringBuffer sb = ParserContextView.getStringBuffer(aCtx);
+		StringBuffer sb = ParserCV.getStringBuffer(aCtx);
 		String s = sb.toString();
 
 		// Create a Text-DOM-Node:
-		ModeContextView.setMode(aCtx, DomNodeCreationHandlerModeContextView.KEY_TEXT);//!!mode
-		DomNodeCreationHandlerContextView.setValue(aCtx, s);
-		IXCommand dnch = DomNodeCreationHandlerContextView.getDomNodeCreationHandler(aCtx);
+		ModeContextView.setMode(aCtx, DomNodeCreationHandlerModeCV.KEY_TEXT);//!!mode
+		DomNodeCreationHandlerCV.setValue(aCtx, s);
+		IXCommand dnch = DomNodeCreationHandlerCV.getDomNodeCreationHandler(aCtx);
 		dnch.execute(aCtx);
 	}
 }

@@ -1,7 +1,7 @@
 package org.collage.csm.transition;
 
 import org.collage.csm.CsmCompareModeCommand;
-import org.collage.parser.ParserModeContextView;
+import org.collage.parser.ParserModeCV;
 import org.xcommand.core.IXCommand;
 import org.xcommand.misc.statemachine.IState;
 
@@ -17,7 +17,7 @@ public class JavaCodeToEndTransition extends CollageTransition
 
 	protected IXCommand newEntryCondition()
 	{
-		return new CsmCompareModeCommand(ParserModeContextView.KEY_EOF);
+		return new CsmCompareModeCommand(ParserModeCV.KEY_EOF);
 	}
 
 }

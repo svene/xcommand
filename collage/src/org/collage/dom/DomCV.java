@@ -4,7 +4,7 @@ import org.collage.dom.ast.IDomNode;
 
 import java.util.Map;
 
-public class DomContextView
+public class DomCV
 {
 
 // --- Access ---
@@ -23,7 +23,7 @@ public class DomContextView
 
 // --- Implementation ---
 
-	public static final String NS = "org.collage.dom.DomContextView.";
+	public static final String NS = "org.collage.dom.DomCV.";
 	public static final String KEY_ROOT_NODE = NS + "ROOT_NODE";
 
 }

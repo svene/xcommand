@@ -2,7 +2,7 @@ package org.collage.parser;
 
 import java.util.Map;
 
-public class ParserModeContextView
+public class ParserModeCV
 {
 
 // --- Access ---

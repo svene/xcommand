@@ -1,6 +1,6 @@
 package org.collage.dom.creationhandler;
 
-import org.collage.dom.creationhandler.DomNodeCreationHandlerModeContextView;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerModeCV;
 import org.collage.dom.creationhandler.RootNodeCreationHandler;
 import org.collage.dom.creationhandler.TextNodeCreationHandler;
 import org.collage.dom.creationhandler.VariableNodeCreationHandler;
@@ -25,9 +25,9 @@ public class DomNodeCreationHandlerDispatcher extends ModeBasedCommandDispatcher
 
 	static
 	{
-		configCtx.put(DomNodeCreationHandlerModeContextView.KEY_START, new RootNodeCreationHandler());
-		configCtx.put(DomNodeCreationHandlerModeContextView.KEY_TEXT, new TextNodeCreationHandler());
-		configCtx.put(DomNodeCreationHandlerModeContextView.KEY_VARIABLE, new VariableNodeCreationHandler());
-		configCtx.put(DomNodeCreationHandlerModeContextView.KEY_JAVA_CODE, new JavaNodeCreationHandler());
+		configCtx.put(DomNodeCreationHandlerModeCV.KEY_START, new RootNodeCreationHandler());
+		configCtx.put(DomNodeCreationHandlerModeCV.KEY_TEXT, new TextNodeCreationHandler());
+		configCtx.put(DomNodeCreationHandlerModeCV.KEY_VARIABLE, new VariableNodeCreationHandler());
+		configCtx.put(DomNodeCreationHandlerModeCV.KEY_JAVA_CODE, new JavaNodeCreationHandler());
 	}
 }

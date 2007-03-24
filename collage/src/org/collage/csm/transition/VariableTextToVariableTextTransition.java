@@ -2,7 +2,7 @@ package org.collage.csm.transition;
 
 import org.collage.csm.parser.CsmCreateVariableDomNodeCommand;
 import org.collage.csm.CsmCompareModeCommand;
-import org.collage.parser.ParserModeContextView;
+import org.collage.parser.ParserModeCV;
 import org.xcommand.core.IXCommand;
 import org.xcommand.misc.statemachine.IState;
 
@@ -18,7 +18,7 @@ public class VariableTextToVariableTextTransition extends CollageTransition
 
 	protected IXCommand newEntryCondition()
 	{
-		return new CsmCompareModeCommand(ParserModeContextView.KEY_VAR_NAME_MODE);
+		return new CsmCompareModeCommand(ParserModeCV.KEY_VAR_NAME_MODE);
 	}
 
 	protected IXCommand newExecuteCommand()

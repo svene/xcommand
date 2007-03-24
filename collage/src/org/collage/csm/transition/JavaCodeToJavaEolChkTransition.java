@@ -4,8 +4,7 @@ import org.xcommand.misc.statemachine.IState;
 import org.xcommand.core.IXCommand;
 import org.collage.csm.CsmCompareModeCommand;
 import org.collage.csm.parser.CsmFlushJavaCommand;
-import org.collage.csm.parser.CsmStartTextCommand;
-import org.collage.parser.ParserModeContextView;
+import org.collage.parser.ParserModeCV;
 
 public class JavaCodeToJavaEolChkTransition extends CollageTransition
 {
@@ -19,7 +18,7 @@ public class JavaCodeToJavaEolChkTransition extends CollageTransition
 
 	protected IXCommand newEntryCondition()
 	{
-		return new CsmCompareModeCommand(ParserModeContextView.KEY_JAVA_END_MODE);
+		return new CsmCompareModeCommand(ParserModeCV.KEY_JAVA_END_MODE);
 	}
 
 	protected IXCommand newExecuteCommand()

@@ -20,9 +20,9 @@ public class TemplateCompiler implements IXCommand
 	{
 		// Setup DomNodeCreationHandlerDispatcher:
 		DomNodeCreationHandlerDispatcher dnchd = new DomNodeCreationHandlerDispatcher();
-		DomNodeCreationHandlerContextView.setDomNodeCreationHandler(configCtx, dnchd);
+		DomNodeCreationHandlerCV.setDomNodeCreationHandler(configCtx, dnchd);
 
-		DomNodeCreationHandlerContextView.setProduceJavaSource(configCtx, Boolean.TRUE);
+		DomNodeCreationHandlerCV.setProduceJavaSource(configCtx, Boolean.TRUE);
 	}
 
 // --- Access ---
@@ -36,7 +36,7 @@ public class TemplateCompiler implements IXCommand
 
 	public void execute(Map aCtx)
 	{
-		InputStream is = ParserContextView.getInputStream(aCtx);
+		InputStream is = ParserCV.getInputStream(aCtx);
 		TemplateParser parser = new TemplateParser(is, "UTF-8");
 		try
 		{

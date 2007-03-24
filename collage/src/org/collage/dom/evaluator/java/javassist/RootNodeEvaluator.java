@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.io.*;
 
 import org.xcommand.core.IXCommand;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.text.TextTemplate;
 import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.collage.template.Template;
@@ -61,7 +61,7 @@ public class RootNodeEvaluator implements IXCommand
 
 	private void addMethod(CtClass aCtClass, String aFilename, Map aCtx) throws Exception
 	{
-		DomNodeCreationHandlerContextView.setProduceJavaSource(aCtx, Boolean.FALSE);
+		DomNodeCreationHandlerCV.setProduceJavaSource(aCtx, Boolean.FALSE);
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aFilename);
 		Template template = new TextTemplate(new TemplateSource(is, aCtx));
 		is.close();

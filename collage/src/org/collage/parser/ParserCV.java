@@ -6,7 +6,7 @@ import java.util.Map;
 import java.io.PrintStream;
 import java.io.InputStream;
 
-public class ParserContextView
+public class ParserCV
 {
 
 // --- Access ---
@@ -82,7 +82,7 @@ public class ParserContextView
 
 // --- Implementation ---
 
-	public static final String NS = "org.collage.parser.ParserContextView.";
+	public static final String NS = "org.collage.parser.ParserCV.";
 	public static final String KEY_INPUT_STREAM = NS + "INPUT_STREAM";
 	public static final String KEY_TRACE_STREAM = NS + "TRACE_STREAM";
 	public static final String KEY_TOKEN_HANDLER_DISPATCHER = NS + "TOKEN_HANDLER_DISPATCHER";

@@ -1,10 +1,10 @@
 package org.collage.template;
 
-import org.collage.parser.ParserContextView;
-import org.collage.dom.evaluator.EvaluationContextView;
+import org.collage.parser.ParserCV;
+import org.collage.dom.evaluator.EvaluationCV;
 import org.collage.dom.evaluator.NodeVisitor;
 import org.collage.dom.ast.IDomNode;
-import org.collage.dom.DomContextView;
+import org.collage.dom.DomCV;
 
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
@@ -69,26 +69,26 @@ public abstract class Template
 		Map ctx = new HashMap();
 		ctx.putAll(TemplateCompiler.getConfigCtx());
 		ctx.putAll(aCompilationCtx);
-		ParserContextView.setInputStream(ctx, aTemplateStream);
+		ParserCV.setInputStream(ctx, aTemplateStream);
 		templateCompiler.execute(ctx);
 		handleCompilationResult(ctx);
 	}
 
 	protected void handleCompilationResult(Map aCtx)
 	{
-		rootNode = DomContextView.getRootNode(aCtx);
+		rootNode = DomCV.getRootNode(aCtx);
 	}
 
 	public void writeTo(Map aCtx, Writer aWriter)
 	{
-		EvaluationContextView.setWriter(aCtx, aWriter);
-		DomContextView.setRootNode(aCtx, rootNode);
+		EvaluationCV.setWriter(aCtx, aWriter);
+		DomCV.setRootNode(aCtx, rootNode);
 		execute(aCtx);
 	}
 
 	public void execute(Map aCtx)
 	{
-		DomContextView.setRootNode(aCtx, rootNode);
+		DomCV.setRootNode(aCtx, rootNode);
 		nodeVisistor.execute(aCtx);
 	}
 

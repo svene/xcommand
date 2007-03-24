@@ -12,7 +12,7 @@ import org.collage.template.TemplateFactory;
 import org.collage.template.JavassistTemplate;
 import org.collage.dom.evaluator.text.TextTemplate;
 import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.xcommand.core.IXCommand;
 
 public class EasyTest extends TestCase
@@ -51,7 +51,7 @@ public class EasyTest extends TestCase
 	{
 		System.out.println("\n4:");
 		Map cctx = new HashMap();
-//		DomNodeCreationHandlerContextView.setProduceJavaSource(cctx, Boolean.FALSE);
+//		DomNodeCreationHandlerCV.setProduceJavaSource(cctx, Boolean.FALSE);
 		Template t = new TextTemplate(new TemplateSource("hallo ${firstname}.\nWie gehts?\n", cctx));
 		t.writeTo(dataCtx, new PrintWriter(System.out));
 	}
@@ -60,7 +60,7 @@ public class EasyTest extends TestCase
 	{
 		System.out.println("\n5:");
 		Map cctx = new HashMap();
-		DomNodeCreationHandlerContextView.setProduceJavaSource(cctx, Boolean.FALSE);
+		DomNodeCreationHandlerCV.setProduceJavaSource(cctx, Boolean.FALSE);
 		Template t = new TextTemplate(new TemplateSource("hallo ${firstname}.\nWie gehts?\n", cctx));
 		t.writeTo(dataCtx, new PrintWriter(System.out));
 		dataCtx.put("firstname", "Sven");

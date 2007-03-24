@@ -1,6 +1,6 @@
 package org.collage.dom.evaluator.text;
 
-import org.collage.dom.evaluator.EvaluationContextView;
+import org.collage.dom.evaluator.EvaluationCV;
 import org.xcommand.core.IXCommand;
 
 import java.io.Writer;
@@ -13,7 +13,7 @@ public class RootNodeEvaluator implements IXCommand
 		String mode = (String) aCtx.get("mode");
 		if ("exit".equals(mode))
 		{
-			Writer w = EvaluationContextView.getWriter(aCtx);
+			Writer w = EvaluationCV.getWriter(aCtx);
 			try
 			{
 				w.flush();

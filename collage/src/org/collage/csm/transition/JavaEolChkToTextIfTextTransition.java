@@ -6,7 +6,7 @@ import org.xcommand.core.ListCommand;
 import org.collage.csm.CsmCompareModeCommand;
 import org.collage.csm.parser.CsmStartTextCommand;
 import org.collage.csm.parser.CsmAppendTextCommand;
-import org.collage.parser.ParserModeContextView;
+import org.collage.parser.ParserModeCV;
 
 public class JavaEolChkToTextIfTextTransition extends CollageTransition
 {
@@ -20,7 +20,7 @@ public class JavaEolChkToTextIfTextTransition extends CollageTransition
 
 	protected IXCommand newEntryCondition()
 	{
-		return new CsmCompareModeCommand(ParserModeContextView.KEY_TEXT);
+		return new CsmCompareModeCommand(ParserModeCV.KEY_TEXT);
 	}
 
 	protected IXCommand newExecuteCommand()

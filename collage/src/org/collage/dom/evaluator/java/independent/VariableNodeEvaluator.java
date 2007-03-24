@@ -2,9 +2,9 @@ package org.collage.dom.evaluator.java.independent;
 
 import org.xcommand.core.IXCommand;
 import org.collage.dom.ast.VariableNode;
-import org.collage.dom.evaluator.EvaluationContextView;
+import org.collage.dom.evaluator.EvaluationCV;
 import org.collage.dom.evaluator.text.TextTemplate;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.collage.template.Template;
 import org.collage.template.TemplateSource;
 
@@ -22,7 +22,7 @@ public class VariableNodeEvaluator implements IXCommand
 			String resourceLocation = "org/collage/dom/evaluator/java/javassist/javassist_var.txt";
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceLocation);
 			Map ctx = new HashMap();
-			DomNodeCreationHandlerContextView.setProduceJavaSource(ctx, Boolean.FALSE);
+			DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
 			template = new TextTemplate(new TemplateSource(is, ctx));
 		}
 		catch (Exception e)
@@ -34,7 +34,7 @@ public class VariableNodeEvaluator implements IXCommand
 	public void execute(Map aCtx)
 	{
 		Map ctx = new HashMap();
-		VariableNode node = (VariableNode) EvaluationContextView.getNode(aCtx);
+		VariableNode node = (VariableNode) EvaluationCV.getNode(aCtx);
 		String vn = node.getVariableName();
 		ctx.put("varName", vn);
 		String ss = template.getStringResult(ctx);

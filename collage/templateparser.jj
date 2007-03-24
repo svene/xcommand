@@ -19,10 +19,10 @@ public class TemplateParser
 
 	private void executeTokenHandler(Map aCtx, String aMode)
 	{
-		ParserModeContextView.setMode(aCtx, aMode);
-		String value = (String)ParserContextView.getValue(aCtx);
+		ParserModeCV.setMode(aCtx, aMode);
+		String value = (String)ParserCV.getValue(aCtx);
 		sm.execute(aCtx);
-		//org: IXCommand sh = ParserContextView.getTokenHandlerDispatcher(aCtx);
+		//org: IXCommand sh = ParserCV.getTokenHandlerDispatcher(aCtx);
 		//org: sh.execute(aCtx);
 	}
 }
@@ -43,7 +43,7 @@ TOKEN : { < EOL : "\n" | "\r" | "\r\n" > }
 
 void Start(Map aCtx):
 {
-	//org: executeTokenHandler(aCtx, ParserModeContextView.KEY_START_MODE);
+	//org: executeTokenHandler(aCtx, ParserModeCV.KEY_START_MODE);
 }
 {
 	(
@@ -73,9 +73,9 @@ void text(Map aCtx):
 {
 	t = <TEXT>
 	{
-		ParserContextView.setToken(aCtx, t);
-		ParserContextView.setValue(aCtx, t.image);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_TEXT);
+		ParserCV.setToken(aCtx, t);
+		ParserCV.setValue(aCtx, t.image);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_TEXT);
 	}
 }
 
@@ -86,8 +86,8 @@ void varStart(Map aCtx):
 {
 	t = <VAR_START>
 	{
-		ParserContextView.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_VAR_START_MODE);
+		ParserCV.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_VAR_START_MODE);
 	}
 }
 
@@ -98,9 +98,9 @@ void varName(Map aCtx):
 {
 	t = <VAR_NAME>
 	{
-		ParserContextView.setToken(aCtx, t);
-		ParserContextView.setValue(aCtx, t.image);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_VAR_NAME_MODE);
+		ParserCV.setToken(aCtx, t);
+		ParserCV.setValue(aCtx, t.image);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_VAR_NAME_MODE);
 	}
 }
 
@@ -111,8 +111,8 @@ void varEnd(Map aCtx):
 {
 	t = <VAR_END>
 	{
-		ParserContextView.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_VAR_END_MODE);
+		ParserCV.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_VAR_END_MODE);
 	}
 }
 
@@ -123,8 +123,8 @@ void javaStart(Map aCtx):
 {
 	t = <JAVA_START>
 	{
-		ParserContextView.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_JAVA_START_MODE);
+		ParserCV.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_JAVA_START_MODE);
 	}
 }
 
@@ -135,9 +135,9 @@ void javaCode(Map aCtx):
 {
 	t = <JAVA_CODE>
 	{
-		ParserContextView.setToken(aCtx, t);
-		ParserContextView.setValue(aCtx, t.image);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_JAVA_CODE_MODE);
+		ParserCV.setToken(aCtx, t);
+		ParserCV.setValue(aCtx, t.image);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_JAVA_CODE_MODE);
 	}
 }
 
@@ -148,8 +148,8 @@ void javaEnd(Map aCtx):
 {
 	t = <JAVA_END>
 	{
-		ParserContextView.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_JAVA_END_MODE);
+		ParserCV.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_JAVA_END_MODE);
 	}
 }
 
@@ -160,8 +160,8 @@ void eol(Map aCtx):
 {
 	t = <EOL>
 	{
-		ParserContextView.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_EOL);
+		ParserCV.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_EOL);
 	}
 }
 
@@ -172,8 +172,8 @@ void eof(Map aCtx):
 {
 	t = <EOF>
 	{
-		ParserContextView.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeContextView.KEY_EOF);
+		ParserCV.setToken(aCtx, t);
+		executeTokenHandler(aCtx, ParserModeCV.KEY_EOF);
 	}
 }
 

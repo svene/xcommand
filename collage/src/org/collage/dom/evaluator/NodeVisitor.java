@@ -29,7 +29,7 @@ public class NodeVisitor
 
 	public void execute(Map aCtx)
 	{
-		IDomNode node = DomContextView.getRootNode(aCtx);
+		IDomNode node = DomCV.getRootNode(aCtx);
 		IXCommand dnh = (IXCommand) configContext.get(node.getClass());
 		if (dnh != null)
 		{
@@ -40,14 +40,14 @@ public class NodeVisitor
 		while (it.hasNext())
 		{
 			node = (IDomNode) it.next();
-			EvaluationContextView.setNode(aCtx, node);
+			EvaluationCV.setNode(aCtx, node);
 			dnh = (IXCommand) configContext.get(node.getClass());
 			if (dnh != null)
 			{
 				dnh.execute(aCtx);
 			}
 		}
-		node = DomContextView.getRootNode(aCtx);
+		node = DomCV.getRootNode(aCtx);
 		dnh = (IXCommand) configContext.get(node.getClass());
 		if (dnh != null)
 		{

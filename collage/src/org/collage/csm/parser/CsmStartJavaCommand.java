@@ -1,7 +1,7 @@
 package org.collage.csm.parser;
 
 import org.xcommand.core.IXCommand;
-import org.collage.parser.ParserContextView;
+import org.collage.parser.ParserCV;
 
 import java.util.Map;
 
@@ -9,6 +9,6 @@ public class CsmStartJavaCommand implements IXCommand
 {
 	public void execute(Map aCtx)
 	{
-		ParserContextView.setStringBuffer(aCtx, new StringBuffer());
+		ParserCV.setStringBuffer(aCtx, new StringBuffer());
 	}
 }

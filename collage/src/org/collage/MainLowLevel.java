@@ -1,16 +1,16 @@
 package org.collage;
 
-import org.collage.dom.DomContextView;
+import org.collage.dom.DomCV;
 import org.collage.dom.ast.IDomNode;
 import org.collage.dom.ast.TextNode;
 import org.collage.dom.ast.VariableNode;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerContextView;
-import org.collage.dom.evaluator.EvaluationContextView;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
+import org.collage.dom.evaluator.EvaluationCV;
 import org.collage.dom.evaluator.NodeVisitor;
 import org.collage.dom.evaluator.domdumper.Evaluator;
 import org.collage.dom.evaluator.text.TextNodeEvaluator;
 import org.collage.dom.evaluator.text.VariableNodeEvaluator;
-import org.collage.parser.ParserContextView;
+import org.collage.parser.ParserCV;
 import org.collage.template.TemplateCompiler;
 
 import java.io.*;
@@ -41,13 +41,13 @@ public class MainLowLevel
 		InputStream is;
 		is = new BufferedInputStream(new FileInputStream(new File("in.txt")));
 //		is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
-		DomNodeCreationHandlerContextView.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.FALSE);
+		DomNodeCreationHandlerCV.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.FALSE);
 		TemplateCompiler templateCompiler = new TemplateCompiler();
 		Map ctx = new HashMap(TemplateCompiler.getConfigCtx());
-//		ParserContextView.setTraceStream(ctx, System.out);
-		ParserContextView.setInputStream(ctx, is);
+//		ParserCV.setTraceStream(ctx, System.out);
+		ParserCV.setInputStream(ctx, is);
 		templateCompiler.execute(ctx);
-		IDomNode rootNode = DomContextView.getRootNode(ctx);
+		IDomNode rootNode = DomCV.getRootNode(ctx);
 		return rootNode;
 	}
 
@@ -58,15 +58,15 @@ public class MainLowLevel
 		Map configCtx = new HashMap();
 		configCtx.put(TextNode.class, new TextNodeEvaluator());
 		configCtx.put(VariableNode.class, new VariableNodeEvaluator());
-		EvaluationContextView.setWriter(configCtx, new PrintWriter(System.out));
+		EvaluationCV.setWriter(configCtx, new PrintWriter(System.out));
 		nv.setConfigContext(configCtx);
 
 		// Use NodeVisitor:
 		Map ctx = new HashMap();
 		ctx.putAll(nv.getConfigContext());
-		DomContextView.setRootNode(ctx, aRootNode);
+		DomCV.setRootNode(ctx, aRootNode);
 		nv.execute(ctx);
-		Writer w = EvaluationContextView.getWriter(ctx);
+		Writer w = EvaluationCV.getWriter(ctx);
 		try
 		{
 			w.flush();
@@ -83,15 +83,15 @@ public class MainLowLevel
 		// Using Evaluator (heir of NodeVisitor):
 		NodeVisitor nv = new Evaluator();
 		Map ctx = new HashMap();
-		DomContextView.setRootNode(ctx, aRootNode);
+		DomCV.setRootNode(ctx, aRootNode);
 		nv.execute(ctx);
 	}
 	private static void evaluateDomWithDomEvaluator(IDomNode aRootNode)
 	{
 		NodeVisitor nv = new org.collage.dom.evaluator.text.Evaluator();
 		Map ctx = new HashMap();
-		DomContextView.setRootNode(ctx, aRootNode);
-		EvaluationContextView.setWriter(ctx, new PrintWriter(System.out));
+		DomCV.setRootNode(ctx, aRootNode);
+		EvaluationCV.setWriter(ctx, new PrintWriter(System.out));
 		ctx.put("firstname", "Uli");
 		nv.execute(ctx);
 	}
@@ -99,11 +99,11 @@ public class MainLowLevel
 	{
 		NodeVisitor nv = new org.collage.dom.evaluator.text.Evaluator();
 		Map ctx = new HashMap();
-		DomContextView.setRootNode(ctx, aRootNode);
-		EvaluationContextView.setWriter(ctx, new StringWriter(1024));
+		DomCV.setRootNode(ctx, aRootNode);
+		EvaluationCV.setWriter(ctx, new StringWriter(1024));
 		ctx.put("firstname", "Uli");
 		nv.execute(ctx);
-		String s = EvaluationContextView.getWriter(ctx).toString();
+		String s = EvaluationCV.getWriter(ctx).toString();
 		System.out.println(s);
 	}
 

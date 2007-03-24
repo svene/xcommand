@@ -1,7 +1,7 @@
 package org.collage.dom.evaluator.text;
 
 import org.collage.dom.ast.VariableNode;
-import org.collage.dom.evaluator.EvaluationContextView;
+import org.collage.dom.evaluator.EvaluationCV;
 import org.xcommand.core.IXCommand;
 
 import java.io.IOException;
@@ -12,8 +12,8 @@ public class VariableNodeEvaluator implements IXCommand
 {
 	public void execute(Map aCtx)
 	{
-		VariableNode node = (VariableNode) EvaluationContextView.getNode(aCtx);
-		Writer writer = EvaluationContextView.getWriter(aCtx);
+		VariableNode node = (VariableNode) EvaluationCV.getNode(aCtx);
+		Writer writer = EvaluationCV.getWriter(aCtx);
 		try
 		{
 			String vn = node.getVariableName();

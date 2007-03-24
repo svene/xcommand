@@ -4,14 +4,14 @@ import org.xcommand.core.IXCommand;
 
 import java.util.Map;
 
-public class DomNodeCreationHandlerContextView
+public class DomNodeCreationHandlerCV
 {
 
 // --- Access ---
 
 	public static String getValue(Map aCtx)
 	{
-		return (String) aCtx.get(DomNodeCreationHandlerContextView.KEY_VALUE);
+		return (String) aCtx.get(KEY_VALUE);
 	}
 
 	public static IXCommand getDomNodeCreationHandler(Map aCtx)
@@ -28,7 +28,7 @@ public class DomNodeCreationHandlerContextView
 
 	public static void setValue(Map aCtx, String aValue)
 	{
-		aCtx.put(DomNodeCreationHandlerContextView.KEY_VALUE, aValue);
+		aCtx.put(KEY_VALUE, aValue);
 	}
 
 	public static void setProduceJavaSource(Map aCtx, Boolean aProduceJavaSource)
@@ -43,8 +43,8 @@ public class DomNodeCreationHandlerContextView
 
 // --- Implementation ---
 
-	public static final String NS = "org.collage.dom.creationhandler.DomNodeCreationHandlerContextView.";
-	public static final String KEY_VALUE = DomNodeCreationHandlerContextView.NS + "VALUE";
+	public static final String NS = "org.collage.dom.creationhandler.DomNodeCreationHandlerCV.";
+	public static final String KEY_VALUE = NS + "VALUE";
 	public static final String KEY_PRODUCE_JAVA_SOURCE = NS + "PRODUCE_JAVA_SOURCE";
 	public static final String KEY_DOM_NODE_CREATION_HANDLER = NS + "DOM_NODE_CREATION_HANDLER";
 }
