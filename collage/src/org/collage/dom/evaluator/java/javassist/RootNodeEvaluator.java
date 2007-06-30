@@ -10,7 +10,7 @@ import java.io.*;
 
 import org.xcommand.core.IXCommand;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.text.TextTemplate;
+import org.collage.template.TextTemplate;
 import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.collage.template.Template;
 import org.collage.template.TemplateSource;

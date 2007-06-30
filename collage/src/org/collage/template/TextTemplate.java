@@ -1,11 +1,7 @@
-package org.collage.dom.evaluator.text;
+package org.collage.template;
 
 import org.collage.dom.evaluator.NodeVisitor;
-import org.collage.template.Template;
-import org.collage.template.TemplateSource;
-
-import java.util.Map;
-import java.io.InputStream;
+import org.collage.dom.evaluator.text.Evaluator;
 
 public class TextTemplate extends Template
 {

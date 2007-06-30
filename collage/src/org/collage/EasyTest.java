@@ -6,11 +6,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.io.*;
 
-import org.collage.template.Template;
-import org.collage.template.TemplateSource;
-import org.collage.template.TemplateFactory;
-import org.collage.template.JavassistTemplate;
-import org.collage.dom.evaluator.text.TextTemplate;
+import org.collage.template.*;
+import org.collage.template.TextTemplate;
 import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.xcommand.core.IXCommand;

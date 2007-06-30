@@ -8,7 +8,6 @@ import org.collage.dom.evaluator.NodeVisitor;
 import org.collage.dom.evaluator.java.independent.TextNodeEvaluator;
 import org.collage.dom.evaluator.java.independent.VariableNodeEvaluator;
 import org.collage.dom.evaluator.java.independent.JavaNodeEvaluator;
-import org.collage.dom.evaluator.java.javassist.RootNodeEvaluator;
 
 import java.util.HashMap;
 import java.util.Map;

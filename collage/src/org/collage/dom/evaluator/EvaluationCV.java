@@ -1,6 +1,6 @@
 package org.collage.dom.evaluator;
 
-import org.collage.dom.ast.IDomNode;
+import org.xcommand.datastructure.tree.ITreeNode;
 
 import java.util.Map;
 import java.io.Writer;
@@ -15,9 +15,9 @@ public class EvaluationCV
 		return (Writer) aCtx.get(KEY_WRITER);
 	}
 
-	public static IDomNode getNode(Map aCtx)
+	public static ITreeNode getNode(Map aCtx)
 	{
-		return (IDomNode) aCtx.get(KEY_NODE);
+		return (ITreeNode) aCtx.get(KEY_NODE);
 	}
 
 // --- Setting ---
@@ -27,7 +27,7 @@ public class EvaluationCV
 		aCtx.put(KEY_WRITER, aWriter);
 	}
 
-	public static void setNode(Map aCtx, IDomNode aNode)
+	public static void setNode(Map aCtx, ITreeNode aNode)
 	{
 		aCtx.put(KEY_NODE, aNode);
 	}

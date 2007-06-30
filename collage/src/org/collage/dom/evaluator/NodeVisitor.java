@@ -1,8 +1,8 @@
 package org.collage.dom.evaluator;
 
 import org.collage.dom.*;
-import org.collage.dom.ast.IDomNode;
 import org.xcommand.core.IXCommand;
+import org.xcommand.datastructure.tree.ITreeNode;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -29,7 +29,8 @@ public class NodeVisitor
 
 	public void execute(Map aCtx)
 	{
-		IDomNode node = DomCV.getRootNode(aCtx);
+		//!!!IDomNode node = DomCV.getRootNode(aCtx);
+		ITreeNode node = DomCV.getRootNode(aCtx);
 		IXCommand dnh = (IXCommand) configContext.get(node.getClass());
 		if (dnh != null)
 		{
@@ -39,7 +40,7 @@ public class NodeVisitor
 		Iterator it = node.getChildren().iterator();
 		while (it.hasNext())
 		{
-			node = (IDomNode) it.next();
+			node = (ITreeNode) it.next();
 			EvaluationCV.setNode(aCtx, node);
 			dnh = (IXCommand) configContext.get(node.getClass());
 			if (dnh != null)

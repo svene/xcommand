@@ -1,5 +1,7 @@
 package org.collage.dom.ast;
 
-public class RootNode extends DomNode
+import org.xcommand.datastructure.tree.TreeNode;
+
+public class RootNode extends TreeNode
 {
 }

@@ -4,7 +4,6 @@ import org.collage.csm.CollageStateMachine;
 import org.collage.parser.ParserModeCV;
 import org.collage.parser.ParserCV;
 import org.collage.template.TemplateCompiler;
-import org.collage.dom.ast.IDomNode;
 import org.collage.dom.DomCV;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.NodeVisitor;
@@ -12,6 +11,7 @@ import org.collage.dom.evaluator.EvaluationCV;
 import org.collage.dom.evaluator.domdumper.Evaluator;
 import org.xcommand.core.multi.ModeContextView;
 import org.xcommand.misc.statemachine.StateMachine;
+import org.xcommand.datastructure.tree.ITreeNode;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -47,7 +47,8 @@ public class MainSM
 		ctx.putAll(TemplateCompiler.getConfigCtx());
 		tc.execute(ctx);
 
-		IDomNode rootNode = DomCV.getRootNode(ctx);
+		//!!!IDomNode rootNode = DomCV.getRootNode(ctx);
+		ITreeNode rootNode = DomCV.getRootNode(ctx);
 		NodeVisitor nv = new org.collage.dom.evaluator.text.Evaluator();
 		ctx = new HashMap();
 		DomCV.setRootNode(ctx, rootNode);
@@ -67,7 +68,8 @@ public class MainSM
 		tc.execute(ctx);
 
 		// Evaluate using DomDumper:
-		IDomNode rootNode = DomCV.getRootNode(ctx);
+		//!!!IDomNode rootNode = DomCV.getRootNode(ctx);
+		ITreeNode rootNode = DomCV.getRootNode(ctx);
 		NodeVisitor nv = new Evaluator();
 		ctx = new HashMap();
 		DomCV.setRootNode(ctx, rootNode);

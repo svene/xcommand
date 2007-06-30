@@ -3,8 +3,8 @@ package org.collage.template;
 import org.collage.parser.ParserCV;
 import org.collage.dom.evaluator.EvaluationCV;
 import org.collage.dom.evaluator.NodeVisitor;
-import org.collage.dom.ast.IDomNode;
 import org.collage.dom.DomCV;
+import org.xcommand.datastructure.tree.ITreeNode;
 
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
@@ -97,6 +97,7 @@ public abstract class Template
 	protected abstract NodeVisitor getDefaultNodeVisitor();
 
 	private static TemplateCompiler templateCompiler = new TemplateCompiler();
-	private IDomNode rootNode;
+//!!!	private IDomNode rootNode;
+	private ITreeNode rootNode;
 	private NodeVisitor nodeVisistor;
 }

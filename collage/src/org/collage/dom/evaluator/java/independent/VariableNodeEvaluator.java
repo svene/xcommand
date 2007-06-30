@@ -3,7 +3,7 @@ package org.collage.dom.evaluator.java.independent;
 import org.xcommand.core.IXCommand;
 import org.collage.dom.ast.VariableNode;
 import org.collage.dom.evaluator.EvaluationCV;
-import org.collage.dom.evaluator.text.TextTemplate;
+import org.collage.template.TextTemplate;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.collage.template.Template;
 import org.collage.template.TemplateSource;

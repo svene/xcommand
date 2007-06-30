@@ -1,9 +1,5 @@
 package org.collage.dom.creationhandler;
 
-import org.collage.dom.creationhandler.DomNodeCreationHandlerModeCV;
-import org.collage.dom.creationhandler.RootNodeCreationHandler;
-import org.collage.dom.creationhandler.TextNodeCreationHandler;
-import org.collage.dom.creationhandler.VariableNodeCreationHandler;
 import org.xcommand.core.multi.ModeBasedCommandDispatcher;
 
 import java.util.Map;

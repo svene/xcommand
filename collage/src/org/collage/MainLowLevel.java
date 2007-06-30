@@ -1,7 +1,6 @@
 package org.collage;
 
 import org.collage.dom.DomCV;
-import org.collage.dom.ast.IDomNode;
 import org.collage.dom.ast.TextNode;
 import org.collage.dom.ast.VariableNode;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
@@ -12,6 +11,7 @@ import org.collage.dom.evaluator.text.TextNodeEvaluator;
 import org.collage.dom.evaluator.text.VariableNodeEvaluator;
 import org.collage.parser.ParserCV;
 import org.collage.template.TemplateCompiler;
+import org.xcommand.datastructure.tree.ITreeNode;
 
 import java.io.*;
 import java.util.HashMap;
@@ -22,7 +22,8 @@ public class MainLowLevel
 	public static void main(String args[]) throws Exception
 	{
 		// ================= Template compilation ======================================
-		IDomNode rootNode = compileTemplate();
+		//!!!IDomNode rootNode = compileTemplate();
+		ITreeNode rootNode = compileTemplate();
 
 		// ================= Template evaluation ======================================
 		evaluateDomWithNodeVisitor(rootNode);
@@ -35,7 +36,8 @@ public class MainLowLevel
 		evaluateDomWithStringWriter(rootNode);
 	}
 
-	private static IDomNode compileTemplate()
+//!!!	private static IDomNode compileTemplate()
+	private static ITreeNode compileTemplate()
 		throws FileNotFoundException
 	{
 		InputStream is;
@@ -47,11 +49,13 @@ public class MainLowLevel
 //		ParserCV.setTraceStream(ctx, System.out);
 		ParserCV.setInputStream(ctx, is);
 		templateCompiler.execute(ctx);
-		IDomNode rootNode = DomCV.getRootNode(ctx);
+//!!!		IDomNode rootNode = DomCV.getRootNode(ctx);
+		ITreeNode rootNode = DomCV.getRootNode(ctx);
 		return rootNode;
 	}
 
-	private static void evaluateDomWithNodeVisitor(IDomNode aRootNode)
+	//!!!private static void evaluateDomWithNodeVisitor(IDomNode aRootNode)
+	private static void evaluateDomWithNodeVisitor(ITreeNode aRootNode)
 	{
 		// Setup NodeVisitor:
 		NodeVisitor nv = new NodeVisitor();
@@ -78,7 +82,8 @@ public class MainLowLevel
 
 	}
 
-	private static void evaluateDomWithDomDumper(IDomNode aRootNode)
+//!!!	private static void evaluateDomWithDomDumper(IDomNode aRootNode)
+	private static void evaluateDomWithDomDumper(ITreeNode aRootNode)
 	{
 		// Using Evaluator (heir of NodeVisitor):
 		NodeVisitor nv = new Evaluator();
@@ -86,7 +91,8 @@ public class MainLowLevel
 		DomCV.setRootNode(ctx, aRootNode);
 		nv.execute(ctx);
 	}
-	private static void evaluateDomWithDomEvaluator(IDomNode aRootNode)
+	//!!!private static void evaluateDomWithDomEvaluator(IDomNode aRootNode)
+	private static void evaluateDomWithDomEvaluator(ITreeNode aRootNode)
 	{
 		NodeVisitor nv = new org.collage.dom.evaluator.text.Evaluator();
 		Map ctx = new HashMap();
@@ -95,7 +101,8 @@ public class MainLowLevel
 		ctx.put("firstname", "Uli");
 		nv.execute(ctx);
 	}
-	private static void evaluateDomWithStringWriter(IDomNode aRootNode)
+	//!!!private static void evaluateDomWithStringWriter(IDomNode aRootNode)
+	private static void evaluateDomWithStringWriter(ITreeNode aRootNode)
 	{
 		NodeVisitor nv = new org.collage.dom.evaluator.text.Evaluator();
 		Map ctx = new HashMap();

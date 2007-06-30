@@ -1,6 +1,6 @@
 package org.collage.dom;
 
-import org.collage.dom.ast.IDomNode;
+import org.xcommand.datastructure.tree.ITreeNode;
 
 import java.util.Map;
 
@@ -9,14 +9,17 @@ public class DomCV
 
 // --- Access ---
 
-	public static IDomNode getRootNode(Map aCtx)
+	//!!!public static IDomNode getRootNode(Map aCtx)
+	public static ITreeNode getRootNode(Map aCtx)
 	{
-		return (IDomNode) aCtx.get(KEY_ROOT_NODE);
+		//!!!return (IDomNode) aCtx.get(KEY_ROOT_NODE);
+		return (ITreeNode) aCtx.get(KEY_ROOT_NODE);
 	}
 
 // --- Setting ---
 
-	public static void setRootNode(Map aCtx, IDomNode aRootNode)
+	//!!!public static void setRootNode(Map aCtx, IDomNode aRootNode)
+	public static void setRootNode(Map aCtx, ITreeNode aRootNode)
 	{
 		aCtx.put(KEY_ROOT_NODE, aRootNode);
 	}

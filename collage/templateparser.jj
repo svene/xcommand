@@ -20,10 +20,7 @@ public class TemplateParser
 	private void executeTokenHandler(Map aCtx, String aMode)
 	{
 		ParserModeCV.setMode(aCtx, aMode);
-		String value = (String)ParserCV.getValue(aCtx);
 		sm.execute(aCtx);
-		//org: IXCommand sh = ParserCV.getTokenHandlerDispatcher(aCtx);
-		//org: sh.execute(aCtx);
 	}
 }
 
