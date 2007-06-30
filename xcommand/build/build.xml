@@ -36,7 +36,19 @@
 	<target name="jar-misc" depends="compile-misc">
 		<jar-module aName="misc"/>
 	</target>
+	<target name="compile-datastructure" depends="init">
+		<compile-module aName="pattern"/>
+	</target>
+	<target name="compile-pattern" depends="init">
+		<compile-module aName="pattern"/>
+	</target>
 
+	<target name="jar-datastructure" depends="compile-pattern">
+		<jar-module aName="datastructure"/>
+	</target>
+	<target name="jar-pattern" depends="compile-pattern">
+		<jar-module aName="pattern"/>
+	</target>
 	<target name="compile-web" depends="init">
 		<compile-module aName="web"/>
 	</target>
@@ -49,8 +61,15 @@
 		<attribute name="aName"/>
 		<sequential>
 		<mkdir dir="output/classes"/>
-		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4" classpath="output/artifacts/default/servletapi.jar">
+		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">
+			<classpath>
+				<fileset dir="output/artifacts/default">
+					<include name="**/*.jar"/>
+
+				</fileset>
+			</classpath>
 			<include name="org/xcommand/@{aName}/**/*.java"/>
+			<exclude name="**/MiniJetty.java"/>
 		</javac>
 		</sequential>
 	</macrodef>
