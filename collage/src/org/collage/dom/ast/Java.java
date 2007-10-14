@@ -1,9 +1,6 @@
 package org.collage.dom.ast;
 
-import org.xcommand.datastructure.tree.TreeNode;
-
-/** TODO: check if this class is needed */
-public class JavaNode extends TreeNode
+public class Java
 {
 
 // --- Access ---

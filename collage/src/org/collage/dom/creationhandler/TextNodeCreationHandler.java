@@ -1,9 +1,12 @@
 package org.collage.dom.creationhandler;
 
-import org.collage.dom.ast.TextNode;
-import org.collage.dom.DomCV;
+import org.collage.dom.ast.Text;
 import org.collage.parser.ParserCV;
 import org.xcommand.core.IXCommand;
+import org.xcommand.datastructure.tree.TreeBuilder;
+import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.datastructure.tree.ITreeNode;
+import org.xcommand.datastructure.tree.TreeNode;
 
 import java.util.Map;
 import java.io.PrintStream;
@@ -14,9 +17,11 @@ public class TextNodeCreationHandler implements IXCommand
 	{
 		String s = DomNodeCreationHandlerCV.getValue(aCtx);
 		trace(aCtx, "got TEXT: '" + s + "'");
-		TextNode node = new TextNode();
-		node.setValue(s);
-		DomCV.getRootNode(aCtx).getChildren().add(node);
+		ITreeNode node = new TreeNode();
+		Text text = new Text();
+		text.setValue(s);
+		node.setDomainObject(text);
+		tb.addChild(TreeNodeCV.getTreeNode(aCtx), node);
 	}
 
 // --- Implementation ---
@@ -27,4 +32,6 @@ public class TextNodeCreationHandler implements IXCommand
 		if (ps == null) return;
 		ps.println("### " + aString);
 	}
+
+	private TreeBuilder tb = new TreeBuilder();
 }

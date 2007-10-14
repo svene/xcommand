@@ -1,8 +1,11 @@
 package org.collage.dom.creationhandler;
 
 import org.xcommand.core.IXCommand;
-import org.collage.dom.ast.JavaNode;
-import org.collage.dom.DomCV;
+import org.xcommand.datastructure.tree.TreeBuilder;
+import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.datastructure.tree.ITreeNode;
+import org.xcommand.datastructure.tree.TreeNode;
+import org.collage.dom.ast.Java;
 import org.collage.parser.ParserCV;
 
 import java.util.Map;
@@ -14,9 +17,11 @@ public class JavaNodeCreationHandler implements IXCommand
 	{
 		String s = DomNodeCreationHandlerCV.getValue(aCtx);
 		trace(aCtx, "got JAVA CODE: '" + s + "'");
-		JavaNode node = new JavaNode();
-		node.setValue(s);
-		DomCV.getRootNode(aCtx).getChildren().add(node);
+		ITreeNode node = new TreeNode();
+		Java java = new Java();
+		java.setValue(s);
+		node.setDomainObject(java);
+		tb.addChild(TreeNodeCV.getTreeNode(aCtx), node);
 	}
 
 // --- Implementation ---
@@ -27,4 +32,5 @@ public class JavaNodeCreationHandler implements IXCommand
 		if (ps == null) return;
 		ps.println("### " + aString);
 	}
+	private TreeBuilder tb = new TreeBuilder();
 }

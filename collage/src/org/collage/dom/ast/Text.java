@@ -1,8 +1,6 @@
 package org.collage.dom.ast;
 
-import org.xcommand.datastructure.tree.TreeNode;
-
-public class TextNode extends TreeNode
+public class Text
 {
 
 // --- Access ---

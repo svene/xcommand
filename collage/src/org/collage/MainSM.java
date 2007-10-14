@@ -1,33 +1,40 @@
 package org.collage;
 
 import org.collage.csm.CollageStateMachine;
-import org.collage.parser.ParserModeCV;
-import org.collage.parser.ParserCV;
-import org.collage.template.TemplateCompiler;
-import org.collage.dom.DomCV;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.NodeVisitor;
 import org.collage.dom.evaluator.EvaluationCV;
-import org.collage.dom.evaluator.domdumper.Evaluator;
+import org.collage.dom.evaluator.common.StringHandlerCV;
+import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
+import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
+import org.collage.dom.evaluator.text.TextTraverser;
+import org.collage.parser.ParserCV;
+import org.collage.parser.ParserModeCV;
+import org.collage.template.TemplateCompiler;
 import org.xcommand.core.multi.ModeContextView;
-import org.xcommand.misc.statemachine.StateMachine;
+import org.xcommand.core.IXCommand;
 import org.xcommand.datastructure.tree.ITreeNode;
+import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.misc.statemachine.StateMachine;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainSM
+import junit.framework.TestCase;
+
+public class MainSM extends TestCase
 {
 	public static void main(String[] args)
 	{
 		MainSM m = new MainSM();
-		m.doit3();
+		m.test1();
+//		m.test2();
+//		m.test3();
 	}
 
-	private void doit1()
+	public void test1()
 	{
 		StateMachine sm = new CollageStateMachine();
 		Map ctx = new HashMap();
@@ -36,49 +43,50 @@ public class MainSM
 		ParserCV.setValue(ctx, "s");
 		sm.execute(ctx);
 	}
-	private void doit2()
+	public void test2()
 	{
 		TemplateCompiler tc = new TemplateCompiler();
 		Map ctx = new HashMap();
 		DomNodeCreationHandlerCV.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.FALSE);
-		String tt = "hallo ${firstname}.\nWie gehts?\n";
-		InputStream is = new ByteArrayInputStream(tt.getBytes());
+		InputStream is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
 		ParserCV.setInputStream(ctx, is);
 		ctx.putAll(TemplateCompiler.getConfigCtx());
 		tc.execute(ctx);
 
-		//!!!IDomNode rootNode = DomCV.getRootNode(ctx);
-		ITreeNode rootNode = DomCV.getRootNode(ctx);
-		NodeVisitor nv = new org.collage.dom.evaluator.text.Evaluator();
+		ITreeNode rootNode = TreeNodeCV.getTreeNode(ctx);
+		TextTraverser tt = new TextTraverser();
 		ctx = new HashMap();
-		DomCV.setRootNode(ctx, rootNode);
+		TreeNodeCV.setTreeNode(ctx, rootNode);
 		EvaluationCV.setWriter(ctx, new PrintWriter(System.out));
 		ctx.put("firstname", "Uli");
-		nv.execute(ctx);
+		tt.execute(ctx);
 	}
-	private void doit3()
+	public void test3()
 	{
 		TemplateCompiler tc = new TemplateCompiler();
 		Map ctx = new HashMap();
 		DomNodeCreationHandlerCV.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.TRUE);
-		String tt = "hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n";
-		InputStream is = new ByteArrayInputStream(tt.getBytes());
+		InputStream is = new ByteArrayInputStream("hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n".getBytes());
 		ParserCV.setInputStream(ctx, is);
 		ctx.putAll(TemplateCompiler.getConfigCtx());
 		tc.execute(ctx);
 
 		// Evaluate using DomDumper:
-		//!!!IDomNode rootNode = DomCV.getRootNode(ctx);
-		ITreeNode rootNode = DomCV.getRootNode(ctx);
-		NodeVisitor nv = new Evaluator();
-		ctx = new HashMap();
-		DomCV.setRootNode(ctx, rootNode);
-		nv.execute(ctx);
+		ITreeNode rootNode = TreeNodeCV.getTreeNode(ctx);
 
-		nv = new org.collage.dom.evaluator.java.javassist.Evaluator();
+//		NodeVisitor nv = new org.collage.dom.evaluator.java.javassist.Evaluator();
+		JavassistTraverser tt = new JavassistTraverser();
 		ctx = new HashMap();
-		DomCV.setRootNode(ctx, rootNode);
-		nv.execute(ctx);
+		StringHandlerCV.setString(ctx, "dummy");
+		TreeNodeCV.setTreeNode(ctx, rootNode);
+		tt.execute(ctx);
+		IXCommand cmd = JavaTemplateCmdCV.getTemplateComand(ctx);
 
+		ctx = new HashMap();
+		ctx.put("firstname", "Sven");
+		EvaluationCV.setWriter(ctx, new PrintWriter(System.out));
+		cmd.execute(ctx);
+
+		// TODO: continue here (29.7.2007):
 	}
 }

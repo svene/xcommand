@@ -1,9 +1,11 @@
 package org.collage.dom.creationhandler;
 
-import org.collage.dom.DomCV;
-import org.collage.dom.ast.VariableNode;
+import org.collage.dom.ast.Variable;
 import org.collage.parser.ParserCV;
 import org.xcommand.core.IXCommand;
+import org.xcommand.datastructure.tree.TreeBuilder;
+import org.xcommand.datastructure.tree.TreeNode;
+import org.xcommand.datastructure.tree.TreeNodeCV;
 
 import java.io.PrintStream;
 import java.util.Map;
@@ -14,9 +16,11 @@ public class VariableNodeCreationHandler implements IXCommand
 	{
 		String s = DomNodeCreationHandlerCV.getValue(aCtx);
 		trace(aCtx, "got VARIABLE: '" + s + "'");
-		VariableNode node = new VariableNode();
-		node.setVariableName(s);
-		DomCV.getRootNode(aCtx).getChildren().add(node);
+		TreeNode node = new TreeNode();
+		Variable v = new Variable();
+		v.setVariableName(s);
+		node.setDomainObject(v);
+		tb.addChild(TreeNodeCV.getTreeNode(aCtx), node);
 	}
 
 // --- Implementation ---
@@ -27,4 +31,5 @@ public class VariableNodeCreationHandler implements IXCommand
 		if (ps == null) return;
 		ps.println("### " + aString);
 	}
+	private TreeBuilder tb = new TreeBuilder();
 }

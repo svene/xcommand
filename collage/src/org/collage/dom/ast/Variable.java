@@ -1,8 +1,6 @@
 package org.collage.dom.ast;
 
-import org.xcommand.datastructure.tree.TreeNode;
-
-public class VariableNode extends TreeNode
+public class Variable
 {
 
 // --- Access ---
