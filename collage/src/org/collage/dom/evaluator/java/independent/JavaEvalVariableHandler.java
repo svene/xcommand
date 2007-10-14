@@ -1,21 +1,18 @@
 package org.collage.dom.evaluator.java.independent;
 
-import org.xcommand.core.IXCommand;
-import org.collage.dom.ast.VariableNode;
-import org.collage.dom.evaluator.EvaluationCV;
-import org.collage.template.TextTemplate;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.template.Template;
+import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.collage.template.TemplateSource;
+import org.collage.template.TextTemplateCompiler;
+import org.xcommand.core.IXCommand;
 
-import java.util.Map;
+import java.io.InputStream;
 import java.util.HashMap;
-import java.io.*;
+import java.util.Map;
 
-public class VariableNodeEvaluator implements IXCommand
+public class JavaEvalVariableHandler implements IXCommand
 {
-
-	public VariableNodeEvaluator()
+	public JavaEvalVariableHandler()
 	{
 		try
 		{
@@ -23,7 +20,8 @@ public class VariableNodeEvaluator implements IXCommand
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceLocation);
 			Map ctx = new HashMap();
 			DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
-			template = new TextTemplate(new TemplateSource(is, ctx));
+
+			templateCommand = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is, ctx));
 		}
 		catch (Exception e)
 		{
@@ -33,15 +31,16 @@ public class VariableNodeEvaluator implements IXCommand
 
 	public void execute(Map aCtx)
 	{
+		String vn = StringHandlerCV.getString(aCtx);
+
 		Map ctx = new HashMap();
-		VariableNode node = (VariableNode) EvaluationCV.getNode(aCtx);
-		String vn = node.getVariableName();
 		ctx.put("varName", vn);
-		String ss = template.getStringResult(ctx);
+		templateCommand.execute(ctx);
+		String ss = StringHandlerCV.getString(ctx);
 
 		StringBuffer methodBody = (StringBuffer) aCtx.get("methodbody");
 		methodBody.append(ss);
 	}
 
-	private Template template;
+	private IXCommand  templateCommand;
 }
