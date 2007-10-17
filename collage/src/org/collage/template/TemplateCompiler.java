@@ -4,7 +4,6 @@ import org.collage.parser.*;
 import org.collage.dom.creationhandler.*;
 import org.collage.jcc.TemplateParser;
 import org.collage.jcc.ParseException;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerDispatcher;
 import org.xcommand.core.IXCommand;
 
 import java.util.Map;
@@ -18,10 +17,6 @@ public class TemplateCompiler implements IXCommand
 
 	static
 	{
-		// Setup DomNodeCreationHandlerDispatcher:
-		DomNodeCreationHandlerDispatcher dnchd = new DomNodeCreationHandlerDispatcher();
-		DomNodeCreationHandlerCV.setDomNodeCreationHandler(configCtx, dnchd);
-
 		DomNodeCreationHandlerCV.setProduceJavaSource(configCtx, Boolean.TRUE);
 	}
 

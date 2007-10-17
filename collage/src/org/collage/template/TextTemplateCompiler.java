@@ -1,16 +1,11 @@
 package org.collage.template;
 
-import org.collage.dom.evaluator.common.StringHandlerCV;
+import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.evaluator.text.TextTraverser;
-import org.collage.dom.evaluator.EvaluationCV;
 import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.TreeNodeCV;
 
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +23,8 @@ public class TextTemplateCompiler
 		Map ctx = new HashMap();
 		ctx.putAll(TemplateCompiler.getConfigCtx());
 		ctx.putAll(aTemplateSource.getContext());
+		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
+
 		ParserCV.setInputStream(ctx, aTemplateSource.getInputStream());
 		new TemplateCompiler().execute(ctx);
 		ITreeNode rootNode = TreeNodeCV.getTreeNode(ctx);

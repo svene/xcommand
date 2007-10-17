@@ -3,6 +3,7 @@ package org.collage.template;
 import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
+import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.parser.ParserCV;
 import org.xcommand.core.IXCommand;
 
@@ -24,6 +25,8 @@ public class JavassistTemplateCompiler
 		Map ctx = new HashMap();
 		ctx.putAll(TemplateCompiler.getConfigCtx());
 		ctx.putAll(aTemplateSource.getContext());
+		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
+
 		ParserCV.setInputStream(ctx, aTemplateSource.getInputStream());
 		new TemplateCompiler().execute(ctx);
 		// Now we have the root node: `TreeNodeCV.getTreeNode(ctx)'
