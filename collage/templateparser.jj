@@ -12,18 +12,39 @@ import org.collage.parser.*;
 import org.xcommand.core.*;
 import org.xcommand.core.multi.*;
 import org.collage.csm.*;
+import org.xcommand.pattern.observer.ISubject;
+import org.xcommand.pattern.observer.SubjectImpl;
 
 public class TemplateParser
 {
-	private CollageStateMachine sm = new CollageStateMachine();
 
-	private void executeTokenHandler(Map aCtx, String aMode)
+	public ISubject getStartSubject() { return startSubject; }
+	public ISubject getVarStartSubject() { return varStartSubject; }
+	public ISubject getVarNameSubject() { return varNameSubject; }
+	public ISubject getVarEndSubject() { return varEndSubject; }
+	public ISubject getEolSubject() { return eolSubject; }
+	public ISubject getJavaStartSubject() { return javaStartSubject; }
+	public ISubject getJavaEndSubject() { return javaEndSubject; }
+	public ISubject getJavaCodeSubject() { return javaCodeSubject; }
+	public ISubject getTextSubject() { return textSubject; }
+	public ISubject getEofSubject() { return eofSubject; }
+
+	private ISubject startSubject = new SubjectImpl();
+	private ISubject varStartSubject = new SubjectImpl();
+	private ISubject varNameSubject = new SubjectImpl();
+	private ISubject varEndSubject = new SubjectImpl();
+	private ISubject eolSubject = new SubjectImpl();
+	private ISubject javaStartSubject = new SubjectImpl();
+	private ISubject javaEndSubject = new SubjectImpl();
+	private ISubject javaCodeSubject = new SubjectImpl();
+	private ISubject textSubject = new SubjectImpl();
+	private ISubject eofSubject = new SubjectImpl();
+
 	{
-		ParserModeCV.setMode(aCtx, aMode);
-		sm.execute(aCtx);
+		// do initialization stuff here
 	}
-}
 
+}
 PARSER_END(TemplateParser)
 
 TOKEN : { < EOL : "\n" | "\r" | "\r\n" > }
@@ -41,6 +62,7 @@ TOKEN : { < EOL : "\n" | "\r" | "\r\n" > }
 void Start(Map aCtx):
 {
 	//org: executeTokenHandler(aCtx, ParserModeCV.KEY_START_MODE);
+	startSubject.execute(aCtx);
 }
 {
 	(
@@ -72,7 +94,8 @@ void text(Map aCtx):
 	{
 		ParserCV.setToken(aCtx, t);
 		ParserCV.setValue(aCtx, t.image);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_TEXT);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_TEXT);
+		textSubject.execute(aCtx);
 	}
 }
 
@@ -84,7 +107,8 @@ void varStart(Map aCtx):
 	t = <VAR_START>
 	{
 		ParserCV.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_VAR_START_MODE);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_VAR_START_MODE);
+		varStartSubject.execute(aCtx);
 	}
 }
 
@@ -97,7 +121,8 @@ void varName(Map aCtx):
 	{
 		ParserCV.setToken(aCtx, t);
 		ParserCV.setValue(aCtx, t.image);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_VAR_NAME_MODE);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_VAR_NAME_MODE);
+		varNameSubject.execute(aCtx);
 	}
 }
 
@@ -109,7 +134,8 @@ void varEnd(Map aCtx):
 	t = <VAR_END>
 	{
 		ParserCV.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_VAR_END_MODE);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_VAR_END_MODE);
+		varEndSubject.execute(aCtx);
 	}
 }
 
@@ -121,7 +147,8 @@ void javaStart(Map aCtx):
 	t = <JAVA_START>
 	{
 		ParserCV.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_JAVA_START_MODE);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_START_MODE);
+		javaStartSubject.execute(aCtx);
 	}
 }
 
@@ -134,7 +161,8 @@ void javaCode(Map aCtx):
 	{
 		ParserCV.setToken(aCtx, t);
 		ParserCV.setValue(aCtx, t.image);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_JAVA_CODE_MODE);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_CODE_MODE);
+		javaCodeSubject.execute(aCtx);
 	}
 }
 
@@ -146,7 +174,8 @@ void javaEnd(Map aCtx):
 	t = <JAVA_END>
 	{
 		ParserCV.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_JAVA_END_MODE);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_END_MODE);
+		javaEndSubject.execute(aCtx);
 	}
 }
 
@@ -158,7 +187,8 @@ void eol(Map aCtx):
 	t = <EOL>
 	{
 		ParserCV.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_EOL);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_EOL);
+		eolSubject.execute(aCtx);
 	}
 }
 
@@ -170,7 +200,8 @@ void eof(Map aCtx):
 	t = <EOF>
 	{
 		ParserCV.setToken(aCtx, t);
-		executeTokenHandler(aCtx, ParserModeCV.KEY_EOF);
+		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_EOF);
+		eofSubject.execute(aCtx);
 	}
 }
 

@@ -1,20 +1,17 @@
 package org.collage;
 
-import org.collage.csm.CollageStateMachine;
+import junit.framework.TestCase;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.EvaluationCV;
 import org.collage.dom.evaluator.common.StringHandlerCV;
-import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
+import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.dom.evaluator.text.TextTraverser;
 import org.collage.parser.ParserCV;
-import org.collage.parser.ParserModeCV;
 import org.collage.template.TemplateCompiler;
-import org.xcommand.core.multi.ModeContextView;
 import org.xcommand.core.IXCommand;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.TreeNodeCV;
-import org.xcommand.misc.statemachine.StateMachine;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -22,27 +19,15 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 public class MainSM extends TestCase
 {
 	public static void main(String[] args)
 	{
 		MainSM m = new MainSM();
-		m.test1();
-//		m.test2();
+		m.test2();
 //		m.test3();
 	}
 
-	public void test1()
-	{
-		StateMachine sm = new CollageStateMachine();
-		Map ctx = new HashMap();
-
-		ModeContextView.setMode(ctx, ParserModeCV.KEY_TEXT);
-		ParserCV.setValue(ctx, "s");
-		sm.execute(ctx);
-	}
 	public void test2()
 	{
 		TemplateCompiler tc = new TemplateCompiler();
