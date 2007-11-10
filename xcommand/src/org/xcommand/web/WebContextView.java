@@ -10,56 +10,56 @@ public class WebContextView
 
 // --- Access ---
 
-	public static HttpServletRequest getRequest(Map aContext)
+	public static HttpServletRequest getRequest(Map aCtx)
 	{
-		return (HttpServletRequest) aContext.get(KEY_REQUEST);
+		return (HttpServletRequest) aCtx.get(KEY_REQUEST);
 	}
 
-	public static HttpServletResponse getResponse(Map aContext)
+	public static HttpServletResponse getResponse(Map aCtx)
 	{
-		return (HttpServletResponse) aContext.get(KEY_RESPONSE);
+		return (HttpServletResponse) aCtx.get(KEY_RESPONSE);
 	}
 
-	public static String getHttpMethod(Map aContext)
+	public static String getHttpMethod(Map aCtx)
 	{
-		return (String) aContext.get(KEY_HTTP_METHOD);
+		return (String) aCtx.get(KEY_HTTP_METHOD);
 	}
 
-	public static ServletContext getServletContext(Map aContext)
+	public static ServletContext getServletContext(Map aCtx)
 	{
-		return (ServletContext) aContext.get(KEY_SERVLET_CONTEXT);
+		return (ServletContext) aCtx.get(KEY_SERVLET_CONTEXT);
 	}
 
 // --- Setting ---
 
-	public static void setRequest(Map aContext, HttpServletRequest aRequest)
+	public static void setRequest(Map aCtx, HttpServletRequest aRequest)
 	{
-		aContext.put(KEY_REQUEST, aRequest);
+		aCtx.put(KEY_REQUEST, aRequest);
 	}
 
-	public static void setResponse(Map aContext, HttpServletResponse aResponse)
+	public static void setResponse(Map aCtx, HttpServletResponse aResponse)
 	{
-		aContext.put(KEY_RESPONSE, aResponse);
+		aCtx.put(KEY_RESPONSE, aResponse);
 	}
 
-	public static void setHttpMethod(Map aContext, String aMethod)
+	public static void setHttpMethod(Map aCtx, String aMethod)
 	{
-		aContext.put(KEY_HTTP_METHOD, aMethod);
+		aCtx.put(KEY_HTTP_METHOD, aMethod);
 	}
 
-	public static void setServletContext(Map aContext, ServletContext aServletContext)
+	public static void setServletContext(Map aCtx, ServletContext aServletContext)
 	{
-		aContext.put(KEY_SERVLET_CONTEXT, aServletContext);
+		aCtx.put(KEY_SERVLET_CONTEXT, aServletContext);
 	}
 
 // --- Implementation ---
 
-	private static final String NS = "org.xcommand.web.";
-	private static final String KEY_REQUEST = NS + "request";
-	private static final String KEY_RESPONSE = NS + "response";
-	private static final String KEY_SERVLET_CONTEXT = NS + "servletContext";
+	public static final String NS = "org.xcommand.web.";
+	public static final String KEY_REQUEST = NS + "request";
+	public static final String KEY_RESPONSE = NS + "response";
+	public static final String KEY_SERVLET_CONTEXT = NS + "servletContext";
 
-	private static final String KEY_HTTP_METHOD = NS + "http_method";
+	public static final String KEY_HTTP_METHOD = NS + "http_method";
 	public static final String VALUE_HTTP_METHOD_HEAD = NS + "HEAD";
 	public static final String VALUE_HTTP_METHOD_GET = NS + "GET";
 	public static final String VALUE_HTTP_METHOD_PUT = NS + "PUT";

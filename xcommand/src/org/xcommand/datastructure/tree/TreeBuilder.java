@@ -5,15 +5,8 @@ package org.xcommand.datastructure.tree;
  */
 public class TreeBuilder
 {
-	public void addChild(TreeNode aParent, TreeNode aChild)
+	public void addChild(ITreeNode aParent, ITreeNode aChild)
 	{
-		int size = aParent.getChildren().size();
-		if (size > 0)
-		{
-			// Link siblings:
-			TreeNode lastChild = (TreeNode) (aParent.getChildren().get(size - 1));
-			lastChild.setNextSibling(aChild);
-		}
 		aParent.getChildren().add(aChild);
 	}
 }

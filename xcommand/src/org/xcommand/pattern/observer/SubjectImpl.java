@@ -1,17 +1,11 @@
 package org.xcommand.pattern.observer;
 
 import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 
 import org.xcommand.core.IXCommand;
 
-public class SubjectImpl implements ISubject
+public class SubjectImpl extends AbstractSubject
 {
-	public void registerObserver(IXCommand aObserver)
-	{
-		observers.add(aObserver);
-	}
 
 	public void execute(Map aCtx)
 	{
@@ -22,9 +16,5 @@ public class SubjectImpl implements ISubject
 			observer.execute(aCtx);
 		}
 	}
-
-// --- Implementation ---
-
-	private List/*<IXCommand>*/ observers = new ArrayList();
 
 }

@@ -1,13 +1,10 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.IXCommand;
-import org.xcommand.core.NopCommand;
-import org.xcommand.core.multi.ModeBasedCommandDispatcher;
+import org.xcommand.pattern.observer.StoppableNotifier;
+import org.xcommand.pattern.observer.ISubject;
+import org.xcommand.pattern.observer.SubjectImpl;
 
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class State implements IState
 {
@@ -22,7 +19,6 @@ public class State implements IState
 	public State(String aName)
 	{
 		name = aName;
-		setupModeCommandMap();
 	}
 
 // --- Access ---
@@ -32,9 +28,24 @@ public class State implements IState
 		return name;
 	}
 
-	public List getTransitions()
+	public ISubject getExitStateNotifier()
 	{
-		return transitions;
+		return exitStateNotifier;
+	}
+
+	public ISubject getExecuteStateNotifier()
+	{
+		return executeStateNotifier;
+	}
+
+	public ISubject getEnterStateNotifier()
+	{
+		return enterStateNotifier;
+	}
+
+	public StoppableNotifier getExecuteNotifier()
+	{
+		return executeNotifier;
 	}
 
 // --- Setting ---
@@ -44,56 +55,25 @@ public class State implements IState
 		name = aName;
 	}
 
-	public void setTransition(Transition aTransition)
-	{
-		transitions.add(aTransition);
-	}
-
-	public void setTransitions(List aTransitions)
-	{
-		transitions = aTransitions;
-	}
-
-	public void setCommand(IXCommand aEventDispatcher)
-	{
-		command = aEventDispatcher;
-	}
-
 // --- Processing ---
 
-	public void execute(Map aContext)
+	public void execute(Map aCtx)
 	{
-		command.execute(aContext);
+		getExecuteNotifier().execute(aCtx);
 	}
 
 // --- Implementation ---
 
-	protected void setupModeCommandMap()
-	{
-		ModeBasedCommandDispatcher cdc = new ModeBasedCommandDispatcher(StateCV.KEY_MODE);
-		Map modeCommandMap = new HashMap();
-		modeCommandMap.put(StateCV.ENTER, newEnterCommand());
-		modeCommandMap.put(StateCV.EXECUTE, newExecuteCommand());
-		modeCommandMap.put(StateCV.EXIT, newExitCommand());
-		cdc.setModeCommandMap(modeCommandMap);
-		setCommand(cdc);
-	}
-
-	protected IXCommand newEnterCommand()
-	{
-		return new NopCommand();
-	}
-	protected IXCommand newExecuteCommand()
-	{
-		return new NopCommand();
-	}
-	protected IXCommand newExitCommand()
-	{
-		return new NopCommand();
-	}
-
 	private String name;
-	private List transitions = new ArrayList();
-	private IXCommand command = new NopCommand();
 
+	private ISubject exitStateNotifier = new SubjectImpl();
+	private ISubject executeStateNotifier = new SubjectImpl();
+	private ISubject enterStateNotifier = new SubjectImpl();
+
+	private StoppableNotifier executeNotifier = new StoppableNotifier();
+
+	{
+		// If no transition is currently able to execute, let state execute:
+		executeNotifier.getNoStopRequestedNotifier().registerObserver(getExecuteStateNotifier());
+	}
 }

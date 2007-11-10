@@ -1,5 +1,5 @@
 package org.xcommand.web.server.jetty;
-
+/* Jetty 6
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.webapp.WebAppContext;
@@ -7,11 +7,12 @@ import org.mortbay.jetty.nio.SelectChannelConnector;
 
 import java.util.Map;
 import java.util.HashMap;
-
+*/
 public class MiniJetty
 {
 	public static void main(String[] args) throws Exception
 	{
+/* Jetty 6
 		try
 		{
 			MiniJetty m = new MiniJetty();
@@ -63,5 +64,6 @@ public class MiniJetty
 	{
 		String s = (String) aCtx.get(aName);
 		return (s != null) ? s : aDefault;
+*/
 	}
 }

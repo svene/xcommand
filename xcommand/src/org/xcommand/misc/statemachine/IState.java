@@ -1,15 +1,18 @@
 package org.xcommand.misc.statemachine;
 
 import org.xcommand.core.IXCommand;
-
-import java.util.List;
+import org.xcommand.pattern.observer.StoppableNotifier;
+import org.xcommand.pattern.observer.ISubject;
 
 public interface IState extends IXCommand
 {
 	String getName();
-	List getTransitions();
 
 	void setName(String aName);
-	void setTransition(Transition aTransition);
-	void setTransitions(List aTransitions);
+
+	public ISubject getExitStateNotifier();
+	public ISubject getExecuteStateNotifier();
+	public ISubject getEnterStateNotifier();
+
+	public StoppableNotifier getExecuteNotifier();
 }

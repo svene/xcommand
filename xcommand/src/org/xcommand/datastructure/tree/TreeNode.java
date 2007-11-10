@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Class representing a node in a tree structure. Besides the 'infrastructural'
+ * Representation of a node in a tree structure. Besides the 'infrastructural'
  * functionality it contains the property 'DomainObject' which makes it possible
  * to attach DomainObjects to the TreeNode.
  */
-public class TreeNode
+public class TreeNode implements ITreeNode
 {
 
 // --- Status report ---
@@ -20,32 +20,17 @@ public class TreeNode
 
 // --- Access ---
 
-	public List /* <TreeNode> */ getChildren()
+	public List /* <ITreeNode> */ getChildren()
 	{
 		return children;
 	}
 
-	public TreeNode getFirstChild()
-	{
-		return (TreeNode) (children.size() == 0 ? null : children.get(0));
-	}
-
-	public TreeNode getNextSibling()
-	{
-		return nextSibling;
-	}
-
 	public Object getDomainObject()
 	{
-		return domainObject;
+		return domainObject == null ? this : domainObject;
 	}
 
 // --- Setting ---
-
-	public void setNextSibling(TreeNode aNextSibling)
-	{
-		nextSibling = aNextSibling;
-	}
 
 	public void setDomainObject(Object aDomainObject)
 	{
@@ -55,6 +40,5 @@ public class TreeNode
 // --- Implementation ---
 
 	private List children = new ArrayList();
-	private TreeNode nextSibling;
 	private Object domainObject;
 }

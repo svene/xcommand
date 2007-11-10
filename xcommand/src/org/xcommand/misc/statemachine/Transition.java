@@ -1,6 +1,8 @@
 package org.xcommand.misc.statemachine;
 
 import org.xcommand.core.IXCommand;
+import org.xcommand.pattern.observer.ISubject;
+import org.xcommand.pattern.observer.SubjectImpl;
 
 import java.util.Map;
 
@@ -14,30 +16,20 @@ public class Transition implements IXCommand
 		return name;
 	}
 
-	public IState getFromState()
+	public ISubject getPreExecuteNotifier()
 	{
-		return fromState;
+		return preExecuteNotifier;
 	}
 
-	public IState getToState()
+	public ISubject getExecuteNotifier()
 	{
-		return toState;
+		return executeNotifier;
 	}
 
-	public IXCommand getEntryCondition()
+	public ISubject getPostExecuteNotifier()
 	{
-		return entryCondition;
+		return postExecuteNotifier;
 	}
-
-	public IXCommand getExecuteCommand()
-	{
-		return executeCommand;
-	}
-
-//	public IXCommand getEventDispatcher()
-//	{
-//		return eventDispatcher;
-//	}
 
 // --- Setting ---
 
@@ -46,38 +38,19 @@ public class Transition implements IXCommand
 		name = aName;
 	}
 
-	public void setFromState(IState aFromState)
-	{
-		fromState = aFromState;
-	}
-
-	public void setToState(IState aToState)
-	{
-		toState = aToState;
-	}
-
-	public void setEntryCondition(IXCommand aEntryCondition)
-	{
-		entryCondition = aEntryCondition;
-	}
-
-	public void setExecuteCommand(IXCommand aExecuteCommand)
-	{
-		executeCommand = aExecuteCommand;
-	}
-
 // --- Processing ---
 
 	public void execute(Map aCtx)
 	{
-		executeCommand.execute(aCtx);
+		preExecuteNotifier.execute(aCtx);
+		executeNotifier.execute(aCtx);
+		postExecuteNotifier.execute(aCtx);
 	}
 
 // --- Implementation ---
 
 	private String name;
-	private IState fromState;
-	private IState toState;
-	private IXCommand entryCondition = new TrueCondition();
-	private IXCommand executeCommand;
+	private ISubject preExecuteNotifier = new SubjectImpl();
+	private ISubject executeNotifier = new SubjectImpl();
+	private ISubject postExecuteNotifier = new SubjectImpl();
 }
