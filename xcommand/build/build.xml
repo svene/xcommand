@@ -23,39 +23,47 @@
 		<delete dir="lib"/>
 	</target>
 
+	<target name="compile" depends="compile-core,compile-misc,compile-util,compile-datastructure,compile-pattern,compile-web">
+	</target>
 	<target name="compile-core" depends="init">
 		<compile-module aName="core"/>
 	</target>
-	<target name="jar-core" depends="compile-core">
-		<jar-module aName="core"/>
-	</target>
-
 	<target name="compile-misc" depends="init">
 		<compile-module aName="misc"/>
 	</target>
-	<target name="jar-misc" depends="compile-misc">
-		<jar-module aName="misc"/>
+	<target name="compile-util" depends="init">
+		<compile-module aName="util"/>
 	</target>
 	<target name="compile-datastructure" depends="init">
-		<compile-module aName="pattern"/>
+		<compile-module aName="datastructure"/>
 	</target>
 	<target name="compile-pattern" depends="init">
 		<compile-module aName="pattern"/>
 	</target>
+	<target name="compile-web" depends="init">
+		<compile-module aName="web"/>
+	</target>
 
-	<target name="jar-datastructure" depends="compile-pattern">
+	<target name="jar" depends="jar-core,jar-misc,jar-util,jar-datastructure,jar-pattern,jar-web">
+	</target>
+	<target name="jar-core" depends="compile-core">
+		<jar-module aName="core"/>
+	</target>
+	<target name="jar-misc" depends="compile-misc">
+		<jar-module aName="misc"/>
+	</target>
+	<target name="jar-util" depends="compile-util">
+		<jar-module aName="util"/>
+	</target>
+	<target name="jar-datastructure" depends="compile-datastructure">
 		<jar-module aName="datastructure"/>
 	</target>
 	<target name="jar-pattern" depends="compile-pattern">
 		<jar-module aName="pattern"/>
 	</target>
-	<target name="compile-web" depends="init">
-		<compile-module aName="web"/>
-	</target>
 	<target name="jar-web" depends="compile-web">
 		<jar-module aName="web"/>
 	</target>
-
 
 	<macrodef name="compile-module">
 		<attribute name="aName"/>
@@ -79,6 +87,11 @@
 		<sequential>
 		<jar destfile="output/xcommand-@{aName}.jar">
 			<fileset dir="output/classes">
+				<include name="org/xcommand/@{aName}/**/*"/>
+			</fileset>
+		</jar>
+		<jar destfile="output/xcommand-@{aName}-src.jar">
+			<fileset dir="src">
 				<include name="org/xcommand/@{aName}/**/*"/>
 			</fileset>
 		</jar>
