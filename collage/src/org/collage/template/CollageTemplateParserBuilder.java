@@ -5,7 +5,6 @@ import org.xcommand.core.IXCommand;
 
 import java.io.InputStream;
 
-/** TODO: move this class to xc-misc */
 public class CollageTemplateParserBuilder
 {
 	public TemplateParser newTemplateParser(InputStream aInputStream, IXCommand aCmd)

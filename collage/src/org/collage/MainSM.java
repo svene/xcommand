@@ -71,7 +71,5 @@ public class MainSM extends TestCase
 		ctx.put("firstname", "Sven");
 		EvaluationCV.setWriter(ctx, new PrintWriter(System.out));
 		cmd.execute(ctx);
-
-		// TODO: continue here (29.7.2007):
 	}
 }

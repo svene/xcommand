@@ -11,7 +11,7 @@ public class CsmAppendEolCommand implements IXCommand
 	public void execute(Map aCtx)
 	{
 		StringBuffer sb = ParserCV.getStringBuffer(aCtx);
-//!!		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
+//		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 
 		Boolean javaMode = DomNodeCreationHandlerCV.getProduceJavaSource(aCtx);
 		if (javaMode == Boolean.TRUE)

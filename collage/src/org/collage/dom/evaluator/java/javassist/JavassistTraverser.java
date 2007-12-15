@@ -20,12 +20,12 @@ public class JavassistTraverser extends NotifyingTreeNodeTraverser
 
 		// TODO: think about this:
 		IXCommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		getEnterNodeEvent().registerObserver(cmd);
+		getEnterNodeNotifier().registerObserver(cmd);
 
 		// RootNode-exit:
 		hp = new DomEventHandlerProvider();
 		hp.getRootSubject().registerObserver(jhp.newExitRootObserver());
 		cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		getExitNodeEvent().registerObserver(cmd);
+		getExitNodeNotifier().registerObserver(cmd);
 	}
 }

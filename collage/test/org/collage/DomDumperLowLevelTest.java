@@ -30,8 +30,8 @@ public class DomDumperLowLevelTest extends TestCase
 	{
 		// Setup NotifyingTreeNodeTraverser:
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-		tt.getEnterNodeEvent().registerObserver(th.enterCmd);
-		tt.getExitNodeEvent().registerObserver(th.exitCmd);
+		tt.getEnterNodeNotifier().registerObserver(th.enterCmd);
+		tt.getExitNodeNotifier().registerObserver(th.exitCmd);
 
 		// Use NotifyingTreeNodeTraverser:
 		TreeNodeCV.setTreeNode(ctx, th.rootNode);
@@ -85,7 +85,7 @@ public class DomDumperLowLevelTest extends TestCase
 
 		//TODO: think about this:
 		IXCommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeEvent().registerObserver(cmd);
+		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// Execution:
 
@@ -132,7 +132,7 @@ public class DomDumperLowLevelTest extends TestCase
 
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		IXCommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeEvent().registerObserver(cmd);
+		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// Execution:
 		TreeNodeCV.setTreeNode(ctx, th.rootNode);
@@ -159,7 +159,7 @@ public class DomDumperLowLevelTest extends TestCase
 
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		IXCommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeEvent().registerObserver(cmd);
+		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// Execution:
 		TreeNodeCV.setTreeNode(ctx, th.rootNode);

@@ -11,7 +11,7 @@ public class CsmAppendTextCommand implements IXCommand
 	{
 		StringBuffer sb = ParserCV.getStringBuffer(aCtx);
 		String value = ParserCV.getValue(aCtx);
-//!!		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
+//		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 		sb.append(value);
 	}
 }

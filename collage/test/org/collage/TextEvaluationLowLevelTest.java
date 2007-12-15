@@ -30,7 +30,7 @@ public class TextEvaluationLowLevelTest extends TestCase
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		//TODO: think about this:
 		IXCommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeEvent().registerObserver(cmd);
+		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// === Execution === :
 		// Setup dynamic data:

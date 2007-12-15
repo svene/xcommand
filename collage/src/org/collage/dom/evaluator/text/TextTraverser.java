@@ -25,12 +25,12 @@ public class TextTraverser extends NotifyingTreeNodeTraverser
 
 		//TODO: think about this:
 		cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		getEnterNodeEvent().registerObserver(cmd);
+		getEnterNodeNotifier().registerObserver(cmd);
 
 		// Register Writer-Flush on RootNode-exit:
 		hp = new DomEventHandlerProvider();
 		hp.getRootSubject().registerObserver(new WriterFlusher());
 		cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		getExitNodeEvent().registerObserver(cmd);
+		getExitNodeNotifier().registerObserver(cmd);
 	}
 }

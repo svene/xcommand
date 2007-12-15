@@ -5,6 +5,7 @@ import org.collage.dom.evaluator.common.SystemOutStringHandler;
 import org.collage.dom.evaluator.common.ListAddingStringHandler;
 import org.collage.dom.evaluator.common.WritingStringHandler;
 import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
+import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.template.TemplateCompiler;
 import org.collage.parser.ParserCV;
 import org.xcommand.core.IXCommand;
@@ -75,6 +76,8 @@ public class TestHelper
 //		is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
 		DomNodeCreationHandlerCV.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.FALSE);
 		Map ctx = new HashMap(TemplateCompiler.getConfigCtx());
+		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
+		
 //		ParserCV.setTraceStream(ctx, System.out);
 		ParserCV.setInputStream(ctx, is);
 		new TemplateCompiler().execute(ctx);

@@ -60,7 +60,7 @@ class ExitRootHandler implements IXCommand
 		cmd.execute(aCtx);
 		String s = StringHandlerCV.getString(aCtx);
 		is.close();
-//		System.out.println("methodstring: " + s);//!!
+//		System.out.println("methodstring: " + s);
 		CtMethod ctm = CtNewMethod.make(s, aCtClass);
 		aCtClass.addMethod(ctm);
 	}
