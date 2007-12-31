@@ -15,14 +15,14 @@ public class NotifyingTreeNodeTraverser implements IXCommand
 
 // --- Access ---
 
-	public ISubject getEnterNodeEvent()
+	public ISubject getEnterNodeNotifier()
 	{
-		return enterNodeEvent;
+		return enterNodeNotifier;
 	}
 
-	public ISubject getExitNodeEvent()
+	public ISubject getExitNodeNotifier()
 	{
-		return exitNodeEvent;
+		return exitNodeNotifier;
 	}
 
 // --- Processing ---
@@ -37,7 +37,7 @@ public class NotifyingTreeNodeTraverser implements IXCommand
 	{
 		TreeNodeCV.setTreeNode(aCtx, aNode);
 		TreeNodeCV.setDomainObject(aCtx, aNode.getDomainObject());
-		notifyAboutNodeEntry(aCtx);
+		enterNodeNotifier.execute(aCtx);
 		Iterator it = aNode.getChildren().iterator();
 		while (it.hasNext())
 		{
@@ -46,21 +46,12 @@ public class NotifyingTreeNodeTraverser implements IXCommand
 		}
 		TreeNodeCV.setTreeNode(aCtx, aNode);
 		TreeNodeCV.setDomainObject(aCtx, aNode.getDomainObject());
-		notifyAboutNodeExit(aCtx);
+		exitNodeNotifier.execute(aCtx);
 	}
 
 // --- Implementation ---
 
-	private void notifyAboutNodeEntry(Map aCtx)
-	{
-		enterNodeEvent.execute(aCtx);
-	}
-	private void notifyAboutNodeExit(Map aCtx)
-	{
-		exitNodeEvent.execute(aCtx);
-	}
-
-	private ISubject enterNodeEvent = new SubjectImpl();
-	private ISubject exitNodeEvent = new SubjectImpl();
+	private ISubject enterNodeNotifier = new SubjectImpl();
+	private ISubject exitNodeNotifier = new SubjectImpl();
 
 }
