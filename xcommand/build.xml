@@ -1,4 +1,4 @@
-<project xmlns:ivy="antlib:fr.jayasoft.ivy.ant" name="hello-ivy" default="init" basedir="..">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="hello-ivy" default="init" basedir=".">
 
 	<property environment="env"/>
 
@@ -7,12 +7,18 @@
 	</target>
 
 	<target name="ivy" depends="init">
+<!--
 		<property name="ivy.default.ivy.user.dir" value="${env.HOME}/ivy"/>
 
 		<ivy:configure file="build/ivyconf.xml"/>
 		<property name="project.ivy.build.artifacts.dir" value="${ivy.project.dir}/output/artifacts"/>
 		<ivy:resolve file="build/ivy.xml"/>
 		<ivy:retrieve pattern="${project.ivy.build.artifacts.dir}/[conf]/[artifact].[ext]"/>
+-->
+		<ivy:retrieve/>
+	</target>
+	<target name="ivy.report" depends="ivy" description="--> generates a report of dependencies">
+		<ivy:report todir="output/ivy"/>
 	</target>
 
 	<target name="clean">
@@ -44,7 +50,7 @@
 		<compile-module aName="web"/>
 	</target>
 
-	<target name="jar" depends="jar-core,jar-misc,jar-util,jar-datastructure,jar-pattern,jar-web">
+	<target name="jar" depends="jar-core,jar-misc,jar-util,jar-datastructure,jar-pattern,jar-web,jar-all">
 	</target>
 	<target name="jar-core" depends="compile-core">
 		<jar-module aName="core"/>
@@ -65,15 +71,27 @@
 		<jar-module aName="web"/>
 	</target>
 
+	<target name="jar-all" depends="compile-web">
+		<jar destfile="output/xcommand.jar">
+			<fileset dir="output/classes">
+				<include name="org/xcommand/**/*"/>
+			</fileset>
+		</jar>
+		<jar destfile="output/xcommand-src.jar">
+			<fileset dir="src">
+				<include name="org/xcommand/**/*"/>
+			</fileset>
+		</jar>
+	</target>
+
 	<macrodef name="compile-module">
 		<attribute name="aName"/>
 		<sequential>
 		<mkdir dir="output/classes"/>
 		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">
 			<classpath>
-				<fileset dir="output/artifacts/default">
+				<fileset dir="lib">
 					<include name="**/*.jar"/>
-
 				</fileset>
 			</classpath>
 			<include name="org/xcommand/@{aName}/**/*.java"/>
