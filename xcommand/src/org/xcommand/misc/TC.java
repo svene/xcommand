@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @deprecated Use class `TCP' instead
+ * 
  * Thread Context
  */
 public class TC extends DecoratingMap
