@@ -29,7 +29,7 @@ public class TextTemplateTest extends TestCase
 		cmd.execute(dataCtx);
 		String s = StringHandlerCV.getString(dataCtx);
 		System.out.println(s);
-		assertEquals("hallo Uli.\\nWie gehts?\\n", s);
+		assertEquals("hallo Uli.\nWie gehts?\n", s);
 	}
 
 	public void test2()
@@ -105,27 +105,5 @@ public class TextTemplateTest extends TestCase
 		s = StringHandlerCV.getString(ctx);
 		System.out.println("---\n" + s);
 	}
-
-// --- OLD ---
-
-//	public void test1_()
-//	{
-//		Template t = new TextTemplate(new TemplateSource("hallo ${firstname}.\nWie gehts?\n"));
-//		System.out.println("\n1:");
-//		String s = t.getStringResult(dataCtx);
-//		System.out.println(s);
-//		assertEquals("hallo Uli.\\nWie gehts?\\n", s);
-//	}
-
-//	public void test5Org()
-//	{
-//		System.out.println("\n5:");
-//		Map cctx = new HashMap();
-//		DomNodeCreationHandlerCV.setProduceJavaSource(cctx, Boolean.FALSE);
-//		Template t = new TextTemplate(new TemplateSource("hallo ${firstname}.\nWie gehts?\n", cctx));
-//		t.writeTo(dataCtx, new PrintWriter(System.out));
-//		dataCtx.put("firstname", "Sven");
-//		t.writeTo(dataCtx, new PrintWriter(System.out));
-//	}
 
 }

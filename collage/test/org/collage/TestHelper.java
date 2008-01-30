@@ -68,17 +68,14 @@ public class TestHelper
 
 // --- Implementation ---
 
-	private static ITreeNode compileTemplate()
-		throws FileNotFoundException
+	private static ITreeNode compileTemplate() throws FileNotFoundException
 	{
 		InputStream is;
 		is = new BufferedInputStream(new FileInputStream(new File("in.txt")));
-//		is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
-		DomNodeCreationHandlerCV.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.FALSE);
-		Map ctx = new HashMap(TemplateCompiler.getConfigCtx());
+		Map ctx = new HashMap();
+		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
 		
-//		ParserCV.setTraceStream(ctx, System.out);
 		ParserCV.setInputStream(ctx, is);
 		new TemplateCompiler().execute(ctx);
 		return TreeNodeCV.getTreeNode(ctx);
