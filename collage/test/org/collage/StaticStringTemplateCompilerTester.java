@@ -44,7 +44,7 @@ public class StaticStringTemplateCompilerTester extends TestCase
 //		System.out.println(s);
 		assertEquals("hallo Uli. Wie gehts?", s);
 
-		// On second template request `StaticStringTemplateCompiler' should find template in cache: 
+		// For further template request `StaticStringTemplateCompiler' should find template in cache: 
 		for (int i = 0; i < RUNS; i++)
 		{
 			cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
