@@ -2,6 +2,7 @@ package org.xcommand.threadcontext;
 
 import junit.framework.TestCase;
 import org.xcommand.core.IImplicitXCommand;
+import org.xcommand.core.TCP;
 import org.xcommand.misc.InheritableMap;
 
 import java.util.HashMap;
