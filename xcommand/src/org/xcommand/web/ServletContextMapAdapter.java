@@ -6,6 +6,11 @@ import java.util.Set;
 import java.util.Collection;
 import java.util.Enumeration;
 
+/** Adapter from a `ServletContext' to a `java.util.Map'.
+ *  Instances of this class thus provide the possibility to access a servletcontext's attributes
+ *  via the `java.util.Map' interface. 
+ */
+
 public class ServletContextMapAdapter implements Map
 {
 

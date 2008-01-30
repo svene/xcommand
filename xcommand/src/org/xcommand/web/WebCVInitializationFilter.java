@@ -1,5 +1,7 @@
 package org.xcommand.web;
 
+import org.xcommand.core.TCP;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +22,8 @@ public class WebCVInitializationFilter implements Filter
 		throws IOException, ServletException
 	{
 		// Retrieve XC Context:
-		Map ctx = XCRequestAttributeCV.getXcContext((HttpServletRequest) aRequest);
+		//Map ctx = XCRequestAttributeCV.getXcContext((HttpServletRequest) aRequest);
+		Map ctx = TCP.getContext();
 
 		// Populate XC Context with webapp-related information (request, response, servletContext):
 		WebContextView.setRequest(ctx, (HttpServletRequest) aRequest);
