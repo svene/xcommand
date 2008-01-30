@@ -1,39 +1,24 @@
 package org.collage.template;
 
-import org.collage.parser.*;
-import org.collage.dom.creationhandler.*;
-import org.collage.jcc.TemplateParser;
 import org.collage.jcc.ParseException;
+import org.collage.jcc.TemplateParser;
+import org.collage.parser.ParserCV;
 import org.xcommand.core.IXCommand;
-import org.xcommand.misc.statemachine.StateMachine;
 import org.xcommand.misc.statemachine.StateCV;
+import org.xcommand.misc.statemachine.StateMachine;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.io.InputStream;
+import java.util.Map;
 
 public class TemplateCompiler implements IXCommand
 {
-
-	private static Map configCtx = new HashMap();
-
-	static
-	{
-		DomNodeCreationHandlerCV.setProduceJavaSource(configCtx, Boolean.TRUE);
-	}
-
-// --- Access ---
-
-	public static Map getConfigCtx()
-	{
-		return configCtx;
-	}
 
 // --- Processing ---
 
 	public void execute(Map aCtx)
 	{
 		InputStream is = ParserCV.getInputStream(aCtx);
+		if (is == null) throw new RuntimeException("is == null");
 		StateMachine sm = new StateMachine();
 		TemplateParser parser = new CollageTemplateParserBuilder().newTemplateParser(is, sm);
 
