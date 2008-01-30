@@ -18,6 +18,7 @@ public class JavaEvalVariableHandler implements IXCommand
 		{
 			String resourceLocation = "org/collage/dom/evaluator/java/javassist/javassist_var.txt";
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceLocation);
+			if (is == null) throw new RuntimeException("is == null");
 			Map ctx = new HashMap();
 			DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
 
