@@ -8,6 +8,7 @@ import org.xcommand.misc.statemachine.IState;
 import org.xcommand.misc.statemachine.State;
 import org.xcommand.core.IXCommand;
 
+/** TODO: rename to CollaeStateNetBuilder */
 public class CollageStateMachineBuilder
 {
 
