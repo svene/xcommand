@@ -1,11 +1,10 @@
 package org.collage.parser;
 
-import org.xcommand.core.IXCommand;
-
 import java.util.Map;
 import java.io.PrintStream;
 import java.io.InputStream;
 
+/** @deprecated Use `org.xcommand.template.parser.ParserCV' instead */
 public class ParserCV
 {
 
