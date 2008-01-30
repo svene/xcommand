@@ -12,6 +12,9 @@ public class TemplateSource
 
 	public TemplateSource(InputStream aTemplateStream, Map aCtx)
 	{
+		if (aTemplateStream == null) throw new RuntimeException("aTemplateStream == null");
+		if (aCtx == null) throw new RuntimeException("aCtx == null");
+
 		inputStream = aTemplateStream;
 		context = aCtx;
 	}
