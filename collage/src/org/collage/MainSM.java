@@ -32,10 +32,9 @@ public class MainSM extends TestCase
 	{
 		TemplateCompiler tc = new TemplateCompiler();
 		Map ctx = new HashMap();
-		DomNodeCreationHandlerCV.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.FALSE);
+		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
 		InputStream is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
 		ParserCV.setInputStream(ctx, is);
-		ctx.putAll(TemplateCompiler.getConfigCtx());
 		tc.execute(ctx);
 
 		ITreeNode rootNode = TreeNodeCV.getTreeNode(ctx);
@@ -50,10 +49,9 @@ public class MainSM extends TestCase
 	{
 		TemplateCompiler tc = new TemplateCompiler();
 		Map ctx = new HashMap();
-		DomNodeCreationHandlerCV.setProduceJavaSource(TemplateCompiler.getConfigCtx(), Boolean.TRUE);
+		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.TRUE);
 		InputStream is = new ByteArrayInputStream("hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n".getBytes());
 		ParserCV.setInputStream(ctx, is);
-		ctx.putAll(TemplateCompiler.getConfigCtx());
 		tc.execute(ctx);
 
 		// Evaluate using DomDumper:
