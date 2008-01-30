@@ -4,6 +4,7 @@ import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
 import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
+import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.collage.parser.ParserCV;
 import org.xcommand.core.IXCommand;
 
@@ -23,7 +24,7 @@ public class JavassistTemplateCompiler
 	{
 		// Compile template:
 		Map ctx = new HashMap();
-		ctx.putAll(TemplateCompiler.getConfigCtx());
+		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.TRUE);
 		ctx.putAll(aTemplateSource.getContext());
 		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
 
