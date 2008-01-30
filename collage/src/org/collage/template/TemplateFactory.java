@@ -15,6 +15,8 @@ public class TemplateFactory
 		Map cctx = aTemplateSource.getContext();
 		cmd.execute(cctx);
 		String s = StringHandlerCV.getString(aTemplateSource.getContext());
+//		System.out.println("-----------------------");
+//		System.out.println(s);
 
 		while (!sOld.equals(s))
 		{
@@ -23,6 +25,8 @@ public class TemplateFactory
 			cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(s, cctx));
 			cmd.execute(cctx);
 			s = StringHandlerCV.getString(cctx);
+//			System.out.println("-----------------------");
+//			System.out.println(s);
 		}
 		cmd = new JavassistTemplateCompiler().newTemplateCommand(new TemplateSource(s, cctx));
 
