@@ -1,8 +1,9 @@
 package org.xcommand.web.server.jetty;
 
-import org.mortbay.jetty.Server;
-import org.mortbay.http.HttpListener;
-import org.mortbay.http.SocketListener;
+// Jetty 5 import org.mortbay.jetty.Server;
+// Jetty 5import org.mortbay.http.HttpListener;
+// Jetty 5import org.mortbay.http.SocketListener;
+import org.xcommand.util.MainRoutines;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class MiniJetty5
 		try
 		{
 			MiniJetty5 m = new MiniJetty5();
-			Map ctx = newNameValueMapFromArgs(args);
+			Map ctx = MainRoutines.newNameValueMapFromArgs(args);
 			m.execute(ctx);
 		}
 		catch (Exception e)
@@ -23,34 +24,20 @@ public class MiniJetty5
 		}
 	}
 
-	private static Map newNameValueMapFromArgs(String[] aArgs)
-	{
-		Map result = new HashMap();
-		for (int i = 0, n = aArgs.length; i < n; i++)
-		{
-			String s = aArgs[i];
-			int p = s.indexOf('=');
-			if (p == -1) continue;
-			String k = s.substring(0, p);
-			String v = s.substring(p + 1, s.length());
-			System.out.println("argument: " + k + "=" + v);
-			System.out.flush();
-			result.put(k, v);
-		}
-		return result;
-	}
 
 	private void execute(Map aCtx) throws Exception
 	{
 		// port:
 		int port = 8080;
-		String s = getConfigString(aCtx, "port", "8080");
+		String s = MainRoutines.getConfigString(aCtx, "port", "8080");
 		port = Integer.parseInt(s);
 		System.out.println("using port: '" + port + "'");
-		String base = getConfigString(aCtx, "base", ".");
+		String base = MainRoutines.getConfigString(aCtx, "base", ".");
 		System.out.println("using base: '" + base + "'");
-		String context = getConfigString(aCtx, "context", "/context");
+		String context = MainRoutines.getConfigString(aCtx, "context", "/context");
 		System.out.println("using context: '" + context + "'");
+
+/* Jetty 5 Implementation (commented out due to the migration to Jetty 6
 
 		HttpListener listener = new SocketListener();
 		listener.setPort(port);
@@ -58,11 +45,7 @@ public class MiniJetty5
 		server.addListener(listener);
 		server.addWebApplication(context, base);
 		server.start();
+*/
 	}
 
-	private String getConfigString(Map aCtx, String aName, String aDefault)
-	{
-		String s = (String) aCtx.get(aName);
-		return (s != null) ? s : aDefault;
-	}
 }
