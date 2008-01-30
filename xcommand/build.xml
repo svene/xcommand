@@ -1,12 +1,17 @@
-<project xmlns:ivy="antlib:org.apache.ivy.ant" name="hello-ivy" default="init" basedir=".">
+<!--<project xmlns:ivy="antlib:org.apache.ivy.ant" name="hello-ivy" default="init" basedir=".">-->
+<project xmlns:artifact="antlib:org.apache.maven.artifact.ant" name="xcommand" default="init" basedir=".">
 
 	<property environment="env"/>
+
+	<artifact:dependencies filesetId="id-jarfiles" pathId="id-jars">
+		<artifact:pom id="pom" file="pom.xml"/>
+	</artifact:dependencies>
 
 	<target name="init">
 		<property name="src" value="src"/>
 	</target>
 
-	<target name="ivy" depends="init">
+	<!--<target name="ivy" depends="init">-->
 <!--
 		<property name="ivy.default.ivy.user.dir" value="${env.HOME}/ivy"/>
 
@@ -15,11 +20,25 @@
 		<ivy:resolve file="build/ivy.xml"/>
 		<ivy:retrieve pattern="${project.ivy.build.artifacts.dir}/[conf]/[artifact].[ext]"/>
 -->
-		<ivy:retrieve/>
+		<!--<ivy:retrieve/>-->
+	<!--</target>-->
+	<!--<target name="ivy.report" depends="ivy" description="--><!-- generates a report of dependencies">-->
+		<!--<ivy:report todir="output/ivy"/>-->
+	<!--</target>-->
+
+	<target name="getdeps">
+		<echo>pom.version=${pom.version}</echo>
+		<echo>pom.build.directory=${pom.build.directory}</echo>
+
+		<mkdir dir="lib"/>
+		<copy todir="lib">
+			<fileset refid="id-jarfiles"/>
+
+			<mapper type="flatten"/>
+		</copy>
+
 	</target>
-	<target name="ivy.report" depends="ivy" description="--> generates a report of dependencies">
-		<ivy:report todir="output/ivy"/>
-	</target>
+
 
 	<target name="clean">
 		<delete dir="output"/>
@@ -29,13 +48,20 @@
 		<delete dir="lib"/>
 	</target>
 
-	<target name="compile" depends="compile-core,compile-misc,compile-util,compile-datastructure,compile-pattern,compile-web">
+	<target name="compile" depends="compile-core,compile-misc,compile-technology,compile-template,compile-util,compile-datastructure,compile-pattern,compile-web">
+		<compile-module aName="integration"/>
 	</target>
 	<target name="compile-core" depends="init">
 		<compile-module aName="core"/>
 	</target>
 	<target name="compile-misc" depends="init">
 		<compile-module aName="misc"/>
+	</target>
+	<target name="compile-technology" depends="init">
+		<compile-module aName="technology"/>
+	</target>
+	<target name="compile-template" depends="init">
+		<compile-module aName="template"/>
 	</target>
 	<target name="compile-util" depends="init">
 		<compile-module aName="util"/>
@@ -50,13 +76,19 @@
 		<compile-module aName="web"/>
 	</target>
 
-	<target name="jar" depends="jar-core,jar-misc,jar-util,jar-datastructure,jar-pattern,jar-web,jar-all">
+	<target name="jar" depends="jar-core,jar-misc,jar-technology,jar-template,jar-util,jar-datastructure,jar-pattern,jar-web,jar-all">
 	</target>
 	<target name="jar-core" depends="compile-core">
 		<jar-module aName="core"/>
 	</target>
 	<target name="jar-misc" depends="compile-misc">
 		<jar-module aName="misc"/>
+	</target>
+	<target name="jar-technology" depends="compile-technology">
+		<jar-module aName="technology"/>
+	</target>
+	<target name="jar-template" depends="compile-template">
+		<jar-module aName="template"/>
 	</target>
 	<target name="jar-util" depends="compile-util">
 		<jar-module aName="util"/>
@@ -71,7 +103,7 @@
 		<jar-module aName="web"/>
 	</target>
 
-	<target name="jar-all" depends="compile-web">
+	<target name="jar-all" depends="compile">
 		<jar destfile="output/xcommand.jar">
 			<fileset dir="output/classes">
 				<include name="org/xcommand/**/*"/>
@@ -89,16 +121,28 @@
 		<sequential>
 		<mkdir dir="output/classes"/>
 		<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">
-			<classpath>
-				<fileset dir="lib">
-					<include name="**/*.jar"/>
-				</fileset>
-			</classpath>
+			<classpath refid="id-jars"/>
 			<include name="org/xcommand/@{aName}/**/*.java"/>
-			<exclude name="**/MiniJetty.java"/>
+			<!--<exclude name="**/MiniJetty.java"/>-->
 		</javac>
 		</sequential>
 	</macrodef>
+
+	<!--<macrodef name="compile-module">-->
+		<!--<attribute name="aName"/>-->
+		<!--<sequential>-->
+		<!--<mkdir dir="output/classes"/>-->
+		<!--<javac srcdir="${src}" destdir="output/classes" debug="true" source="1.4" target="1.4">-->
+			<!--<classpath>-->
+				<!--<fileset dir="lib">-->
+					<!--<include name="**/*.jar"/>-->
+				<!--</fileset>-->
+			<!--</classpath>-->
+			<!--<include name="org/xcommand/@{aName}/**/*.java"/>-->
+			<!--<exclude name="**/MiniJetty.java"/>-->
+		<!--</javac>-->
+		<!--</sequential>-->
+	<!--</macrodef>-->
 
 	<macrodef name="jar-module">
 		<attribute name="aName"/>
