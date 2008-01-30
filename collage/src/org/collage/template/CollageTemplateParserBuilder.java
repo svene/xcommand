@@ -9,6 +9,7 @@ public class CollageTemplateParserBuilder
 {
 	public TemplateParser newTemplateParser(InputStream aInputStream, IXCommand aCmd)
 	{
+		if (aInputStream == null) throw new RuntimeException("aInputStream == null");
 		TemplateParser parser = new TemplateParser(aInputStream, "UTF-8");
 
 //		parser.getStartSubject().registerObserver(new IXCommand()
