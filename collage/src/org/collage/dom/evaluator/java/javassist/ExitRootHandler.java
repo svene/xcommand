@@ -21,13 +21,14 @@ class ExitRootHandler implements IXCommand
 {
 	public void execute(Map aCtx)
 	{
+		CtClass cc = null;
 		try
 		{
 			ClassPool pool = ClassPool.getDefault();
 			String className = getClassName();
 
 			CtClass ccXcommand = pool.get("org.xcommand.core.IXCommand");
-			CtClass cc = pool.makeClass(className);
+			cc = pool.makeClass(className);
 			cc.addInterface(ccXcommand);
 
 			// Add method 'appendVar()':
@@ -47,6 +48,10 @@ class ExitRootHandler implements IXCommand
 		}
 		catch (Exception e)
 		{
+			if (cc != null)
+			{
+				System.err.println("class source:\n" + cc.toString());
+			}
 			throw new RuntimeException(e);
 		}
 	}
