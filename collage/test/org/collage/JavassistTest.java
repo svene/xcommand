@@ -18,6 +18,7 @@ public class JavassistTest extends TestCase
 		dataCtx = new HashMap();
 		dataCtx.put("firstname", "Uli");
 	}
+
 	/* Create a template command from a string, execute it and write output to System.out */
 	public void test1()
 	{
@@ -58,6 +59,7 @@ public class JavassistTest extends TestCase
 		cmd.execute(ctx);
 		assertEquals("hallo  Sven.\nWie geht's?\n", sw.toString());
 	}
+
 	public void testJava2()
 	{
 		System.out.println("JavassistTest.testJava2()");
@@ -138,7 +140,6 @@ public class JavassistTest extends TestCase
 		cmd.execute(ctx);
 	}
 
-// TODO: continue here (14.10.2007)
 	public void testJava7() throws Exception
 	{
 		System.out.println("\njava7:");
