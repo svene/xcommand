@@ -1,7 +1,6 @@
 package org.xcommand.web;
 
 import org.xcommand.core.IXCommand;
-import org.xcommand.web.WebContextView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -19,7 +18,7 @@ public class RegExpDispatcherCmd implements IXCommand
 
 	public void execute(Map aCtx)
 	{
-		HttpServletRequest request = WebContextView.getRequest(aCtx);
+		HttpServletRequest request = WebXCV.getRequest(aCtx);
 //		String path = request.getPathInfo();
 		String path = request.getRequestURI();
 		Iterator it = commands.keySet().iterator();

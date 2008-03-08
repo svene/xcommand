@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletContext;
 import java.util.Map;
 
-public class WebContextView
+public class WebXCV
 {
 
 // --- Access ---
@@ -54,7 +54,7 @@ public class WebContextView
 
 // --- Implementation ---
 
-	public static final String NS = "org.xcommand.web.";
+	private static final String NS = "org.xcommand.web.WebXCV.";
 	public static final String KEY_REQUEST = NS + "request";
 	public static final String KEY_RESPONSE = NS + "response";
 	public static final String KEY_SERVLET_CONTEXT = NS + "servletContext";

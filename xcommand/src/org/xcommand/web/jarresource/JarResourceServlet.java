@@ -1,8 +1,8 @@
 package org.xcommand.web.jarresource;
 
 import org.springframework.core.io.Resource;
-import org.xcommand.web.WebContextView;
 import org.xcommand.web.XCRequestAttributeCV;
+import org.xcommand.web.WebXCV;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -34,7 +34,7 @@ public class JarResourceServlet extends HttpServlet
 		JarResourceProvider jrp = new JarResourceProvider();
 		Map ctx = new HashMap();
 		XCRequestAttributeCV.setXcContext(request, ctx);
-		WebContextView.setServletContext(ctx, getServletContext());
+		WebXCV.setServletContext(ctx, getServletContext());
 		String resName = getResourceNameFromRequest(request);
 		JarResourceProviderContextView.setResourceName(ctx, resName);
 		jrp.execute(ctx);

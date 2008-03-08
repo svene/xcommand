@@ -9,7 +9,7 @@ import java.io.File;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.context.support.ServletContextResource;
 import org.xcommand.core.IXCommand;
-import org.xcommand.web.WebContextView;
+import org.xcommand.web.WebXCV;
 
 import javax.servlet.ServletContext;
 
@@ -63,7 +63,7 @@ public class JarResourceProvider implements IXCommand
 
 			String filename = msg.substring(i1, i2);
 			System.out.println("servletcontext-filename='" + filename + "'");
-			ServletContext sc = WebContextView.getServletContext(aCtx);
+			ServletContext sc = WebXCV.getServletContext(aCtx);
 			resource = new ServletContextResource(sc, filename);
 			try
 			{

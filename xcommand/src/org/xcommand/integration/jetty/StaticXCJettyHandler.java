@@ -4,7 +4,7 @@ import org.mortbay.jetty.handler.AbstractHandler;
 import org.mortbay.jetty.Request;
 import org.mortbay.jetty.HttpConnection;
 import org.mortbay.jetty.Response;
-import org.xcommand.web.WebContextView;
+import org.xcommand.web.WebXCV;
 import org.xcommand.core.IXCommand;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +27,8 @@ public class StaticXCJettyHandler extends AbstractHandler
 		Map ctx = new HashMap();
 		JettyCV.setJettyRequest(ctx, base_request);
 		JettyCV.setJettyResponse(ctx, base_response);
-		WebContextView.setRequest(ctx, aHttpServletRequest);
-		WebContextView.setResponse(ctx, aHttpServletResponse);
+		WebXCV.setRequest(ctx, aHttpServletRequest);
+		WebXCV.setResponse(ctx, aHttpServletResponse);
 
 		cmd.execute(ctx);
 	}

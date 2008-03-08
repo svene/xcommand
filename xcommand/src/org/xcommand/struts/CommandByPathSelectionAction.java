@@ -7,7 +7,7 @@ import org.apache.struts.action.ActionForm;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.xcommand.core.IXCommand;
-import org.xcommand.web.WebContextView;
+import org.xcommand.web.WebXCV;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,14 +25,14 @@ public class CommandByPathSelectionAction extends Action
 			Map ctx = new HashMap();
 
 			// Set web properties:
-			WebContextView.setRequest(ctx, request);
-			WebContextView.setResponse(ctx, response);
+			WebXCV.setRequest(ctx, request);
+			WebXCV.setResponse(ctx, response);
 
 			// Set Struts properties:
 			StaticStrutsContextView.setActionForm(ctx, form);
 			StaticStrutsContextView.setActionMapping(ctx, mapping);
-			WebContextView.setRequest(ctx, request);
-			WebContextView.setResponse(ctx, response);
+			WebXCV.setRequest(ctx, request);
+			WebXCV.setResponse(ctx, response);
 
 			// Get command configured with String using the path as beanname:
 			String path = mapping.getPath();

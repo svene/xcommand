@@ -26,9 +26,9 @@ public class WebCVInitializationFilter implements Filter
 		Map ctx = TCP.getContext();
 
 		// Populate XC Context with webapp-related information (request, response, servletContext):
-		WebContextView.setRequest(ctx, (HttpServletRequest) aRequest);
-		WebContextView.setResponse(ctx, (HttpServletResponse) aResponse);
-		WebContextView.setServletContext(ctx, servletContext);
+		WebXCV.setRequest(ctx, (HttpServletRequest) aRequest);
+		WebXCV.setResponse(ctx, (HttpServletResponse) aResponse);
+		WebXCV.setServletContext(ctx, servletContext);
 		System.out.println("XCServletFilter.doFilter()");
 		aFilterChain.doFilter(aRequest, aResponse);
 	}
