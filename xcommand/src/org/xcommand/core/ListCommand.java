@@ -1,6 +1,5 @@
 package org.xcommand.core;
 
-import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,7 +7,7 @@ import java.util.Iterator;
 /**
  * Command executing commands stored in a list
  */
-public class ListCommand implements IXCommand
+public class ListCommand implements INXCommand
 {
 
 // --- Access ---
@@ -27,17 +26,17 @@ public class ListCommand implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
 		Iterator it = commands.iterator();
 		while (it.hasNext())
 		{
-			IXCommand cmd = (IXCommand) it.next();
-			cmd.execute(aCtx);
+			INXCommand cmd = (INXCommand) it.next();
+			cmd.execute();
 		}
 	}
 
 // --- Implementation ---
 
-	private List/*<IXCommand>*/ commands = new ArrayList();
+	private List/*<INXCommand>*/ commands = new ArrayList();
 }
