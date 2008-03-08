@@ -1,23 +1,23 @@
 package org.xcommand.threadcontext;
 
 import junit.framework.TestCase;
-import org.xcommand.core.IImplicitXCommand;
 import org.xcommand.core.TCP;
+import org.xcommand.core.INXCommand;
 import org.xcommand.misc.InheritableMap;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ImplicitCommandTest extends TestCase
+public class NXCommandTester extends TestCase
 {
 
-	static String s = "hello world, from '" + ImplicitCommandTest.class.getName() + "'";
+	static String s = "hello world, from '" + NXCommandTester.class.getName() + "'";
 
 
 	public void test1()
 	{
 		TIn2OutCV.setInput(s);
-		IImplicitXCommand cmd = new TIn2OutCommand();
+		INXCommand cmd = new TIn2OutCommand();
 		cmd.execute();
 		assertEquals(s, TIn2OutCV.getOutput());
 
@@ -55,7 +55,7 @@ public class ImplicitCommandTest extends TestCase
 	/** test with two different threads */
 	public void test2()
 	{
-		final IImplicitXCommand cmd = new TIn2OutCommand();
+		final INXCommand cmd = new TIn2OutCommand();
 		Runnable r1 = new Runnable()
 		{
 			public void run()

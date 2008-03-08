@@ -1,8 +1,8 @@
 package org.xcommand.threadcontext;
 
-import org.xcommand.core.IImplicitXCommand;
+import org.xcommand.core.INXCommand;
 
-public class TIn2OutCommand implements IImplicitXCommand
+public class TIn2OutCommand implements INXCommand
 {
 	public void execute()
 	{
