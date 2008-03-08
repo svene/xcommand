@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class RegExpDispatcherCmd implements IXCommand
+public class RegExpDispatcherXCmd implements IXCommand
 {
 
 	public void setCommands(Map aCommands)
