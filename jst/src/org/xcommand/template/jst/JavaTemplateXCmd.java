@@ -1,22 +1,22 @@
 package org.xcommand.template.jst;
 
 import org.xcommand.core.IXCommand;
-import org.xcommand.web.WebContextView;
+import org.xcommand.web.WebXCV;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-public class JavaTemplateCmd implements IXCommand
+public class JavaTemplateXCmd implements IXCommand
 {
 
 	public void execute(Map aCtx)
 	{
 		try
 		{
-			aCtx.put("writer", WebContextView.getResponse(aCtx).getWriter());
+			aCtx.put("writer", WebXCV.getResponse(aCtx).getWriter());
 
 			// Find classname for current request-URI:
-			HttpServletRequest request = WebContextView.getRequest(aCtx);
+			HttpServletRequest request = WebXCV.getRequest(aCtx);
 			String contextPath = request.getContextPath();
 			System.out.println("contextPath = " + contextPath);
 			String uri = request.getRequestURI();
@@ -28,7 +28,7 @@ public class JavaTemplateCmd implements IXCommand
 
 			// Get object for classname:
 			className = className.replace('.', '/');
-			IXCommand cmd = (IXCommand) JSTJaninoObjectCreator.newObject(aCtx, className);
+			IXCommand cmd = (IXCommand) jstJaninoObjectCreator.newObject(aCtx, className);
 
 			// Execute command:
 			cmd.execute(aCtx);
@@ -40,7 +40,7 @@ public class JavaTemplateCmd implements IXCommand
 	}
 	public void setJaninoObjectCreator2(JSTJaninoObjectCreator aJSTJaninoObjectCreator)
 	{
-		JSTJaninoObjectCreator = aJSTJaninoObjectCreator;
+		jstJaninoObjectCreator = aJSTJaninoObjectCreator;
 	}
 
 	public void setUriToClassnameMapper(IUriToClassnameMapper aUriToClassnameMapper)
@@ -49,5 +49,5 @@ public class JavaTemplateCmd implements IXCommand
 	}
 
 	private IUriToClassnameMapper uriToClassnameMapper;
-	private JSTJaninoObjectCreator JSTJaninoObjectCreator;
+	private JSTJaninoObjectCreator jstJaninoObjectCreator;
 }
