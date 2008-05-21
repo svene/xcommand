@@ -1,11 +1,12 @@
 package org.xcommand.core.multi;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
-public class ModeBasedCommandDispatcher implements IXCommand
+public class ModeBasedCommandDispatcher implements ICommand
 {
 
 // --- Initialization ---
@@ -35,18 +36,18 @@ public class ModeBasedCommandDispatcher implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
 		try
 		{
 //			String mode = ModeContextView.getMode(aCtx);
-			String mode = (String) aCtx.get(modeKey);
-			IXCommand command = (IXCommand) getModeCommandMap().get(mode);
-			command.execute(aCtx);
+			String mode = (String) TCP.getContext().get(modeKey);
+			ICommand command = (ICommand) getModeCommandMap().get(mode);
+			command.execute();
 		}
 		catch (Exception e)
 		{
-			System.out.println("mode: " + ModeContextView.getMode(aCtx));
+			System.out.println("mode: " + ModeContextView.getMode());
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}

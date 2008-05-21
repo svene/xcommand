@@ -2,19 +2,17 @@ package org.collage;
 
 import junit.framework.TestCase;
 import org.collage.dom.ast.DomEventHandlerProvider;
-import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.collage.dom.evaluator.text.TextHandlerProvider;
-import org.xcommand.core.IXCommand;
-import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
-import org.xcommand.datastructure.tree.TreeNodeCV;
-import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
-import org.xcommand.misc.MessageCommandCV;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.xcommand.core.TCP;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.datastructure.tree.*;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.misc.IMessageCommandCV;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TextEvaluationLowLevelTest extends TestCase
 {
@@ -23,22 +21,22 @@ public class TextEvaluationLowLevelTest extends TestCase
 	{
 		// Setup:
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-		hp.getTextSubject().registerObserver(newTextObserver(true, true));
-		hp.getVariableSubject().registerObserver(newVariableObserver(true, true));
-		hp.getJavaSubject().registerObserver(newJavaObserver(true, true));
+		hp.getTextNotifier().registerObserver(newTextObserver(true, true));
+		hp.getVariableNotifier().registerObserver(newVariableObserver(true, true));
+		hp.getJavaNotifier().registerObserver(newJavaObserver(true, true));
 
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		//TODO: think about this:
-		IXCommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// === Execution === :
 		// Setup dynamic data:
-		TreeNodeCV.setTreeNode(ctx, th.rootNode);
-		ctx.put("firstname", "Uli");
+		treeNodeCV.setTreeNode(th.rootNode);
+		TCP.getContext().put("firstname", "Uli");
 
 		// Execute evalutation:
-		tt.execute(ctx);
+		tt.execute();
 
 		assertEquals(5, lst.size());
 		assertEquals("Hallo ", lst.get(0));
@@ -51,22 +49,22 @@ public class TextEvaluationLowLevelTest extends TestCase
 
 // --- Implementation ---
 
-	private IXCommand newTextObserver(boolean aPrint, boolean aList)
+	private ICommand newTextObserver(boolean aPrint, boolean aList)
 	{
-		IXCommand cmd = new TextHandlerProvider().newTextObserver();
-		th.attachTestObservers((SubjectImpl) cmd, aPrint, aList);
+		ICommand cmd = new TextHandlerProvider().newTextObserver();
+		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
 		return cmd;
 	}
-	private IXCommand newVariableObserver(boolean aPrint, boolean aList)
+	private ICommand newVariableObserver(boolean aPrint, boolean aList)
 	{
-		IXCommand cmd = new TextHandlerProvider().newVariableObserver();
-		th.attachTestObservers((SubjectImpl) cmd, aPrint, aList);
+		ICommand cmd = new TextHandlerProvider().newVariableObserver();
+		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
 		return cmd;
 	}
-	private IXCommand newJavaObserver(boolean aPrint, boolean aList)
+	private ICommand newJavaObserver(boolean aPrint, boolean aList)
 	{
-		IXCommand cmd = new TextHandlerProvider().newJavaObserver();
-		th.attachTestObservers((SubjectImpl) cmd, aPrint, aList);
+		ICommand cmd = new TextHandlerProvider().newJavaObserver();
+		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
 		return cmd;
 	}
 
@@ -75,13 +73,15 @@ public class TextEvaluationLowLevelTest extends TestCase
 		th = new TestHelper();
 
 		// Setup Evaluation context:
-		ctx = new HashMap();
 		lst = new ArrayList();
-		MessageCommandCV.setList(ctx, lst);
-		StringHandlerCV.setString(ctx, "dummy");
+		messageCommandCV.setList(lst);
+		stringHandlerCV.setString("dummy");
 	}
 
 	TestHelper th;
-	Map ctx;
 	List lst;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.getBeanForInterface(IMessageCommandCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

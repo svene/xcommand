@@ -2,34 +2,37 @@ package org.collage.template;
 
 import org.collage.jcc.ParseException;
 import org.collage.jcc.TemplateParser;
-import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
-import org.xcommand.misc.statemachine.StateCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.misc.statemachine.StateMachine;
+import org.xcommand.misc.statemachine.IStateCV;
+import org.xcommand.template.parser.IParserCV;
 
 import java.io.InputStream;
-import java.util.Map;
 
-public class TemplateCompiler implements IXCommand
+public class TemplateCompiler implements ICommand
 {
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		InputStream is = ParserCV.getInputStream(aCtx);
+		InputStream is = parserCV.getInputStream();
 		if (is == null) throw new RuntimeException("is == null");
 		StateMachine sm = new StateMachine();
 		TemplateParser parser = new CollageTemplateParserBuilder().newTemplateParser(is, sm);
 
-		StateCV.setState(aCtx, new CollageStateMachineBuilder().newCollageStateNet());
+		stateCV.setState(new CollageStateMachineBuilder().newCollageStateNet());
 		try
 		{
-			parser.Start(aCtx);
+			parser.Start();
 		}
 		catch (ParseException e)
 		{
 			throw new RuntimeException(e);
 		}
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	private IStateCV stateCV = (IStateCV) dbp.getBeanForInterface(IStateCV.class);
 }

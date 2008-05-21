@@ -1,28 +1,32 @@
 package org.collage.dom.creationhandler;
 
-import org.xcommand.core.IXCommand;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.pattern.observer.BasicNotifier;
 
-import java.util.Map;
-
-public class DefaultDomNodeCreationHandlerInitializer implements IXCommand
+public class DefaultDomNodeCreationHandlerInitializer implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		SubjectImpl subject = new SubjectImpl();
-		subject.registerObserver(new TextNodeCreationHandler());
-		DomNodeCreationHandlerCV.setCreateTextNodeRequestSubject(aCtx, subject);
+		AbstractBasicNotifier notifier = new BasicNotifier();
+		notifier.registerObserver(new TextNodeCreationHandler());
+		domNodeCreationHandlerCV.setCreateTextNodeRequestNotifier(notifier);
 
-		subject = new SubjectImpl();
-		subject.registerObserver(new VariableNodeCreationHandler());
-		DomNodeCreationHandlerCV.setCreateVariableNodeRequestSubject(aCtx, subject);
+		notifier = new BasicNotifier();
+		notifier.registerObserver(new VariableNodeCreationHandler());
+		domNodeCreationHandlerCV.setCreateVariableNodeRequestNotifier(notifier);
 
-		subject = new SubjectImpl();
-		subject.registerObserver(new JavaNodeCreationHandler());
-		DomNodeCreationHandlerCV.setCreateJavaNodeRequestSubject(aCtx, subject);
+		notifier = new BasicNotifier();
+		notifier.registerObserver(new JavaNodeCreationHandler());
+		domNodeCreationHandlerCV.setCreateJavaNodeRequestNotifier(notifier);
 
-		subject = new SubjectImpl();
-		subject.registerObserver(new RootNodeCreationHandler());
-		DomNodeCreationHandlerCV.setCreateRootNodeRequestSubject(aCtx, subject);
+		notifier = new BasicNotifier();
+		notifier.registerObserver(new RootNodeCreationHandler());
+		domNodeCreationHandlerCV.setCreateRootNodeRequestNotifier(notifier);
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
+
 }

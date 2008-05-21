@@ -1,15 +1,14 @@
 package org.xcommand.datastructure.tree;
 
-import org.xcommand.core.IXCommand;
-
-import java.util.Map;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
 /**
- * IXCommand acting as a Dispatcher by using an HandlerProvider to determine
+ * ICommand acting as a Dispatcher by using an HandlerProvider to determine
  * the real Command to execute using `TreeNodeCV.getTreeNode()' as the lookup key
  * for the HandlerProvider. 
  */
-class HandlerProviderBasedCommand implements IXCommand
+class HandlerProviderBasedCommand implements ICommand
 {
 
 // --- Initialization ---
@@ -22,18 +21,18 @@ class HandlerProviderBasedCommand implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		ITreeNode tn = TreeNodeCV.getTreeNode(aCtx);
+		ITreeNode tn = treeNodeCV.getTreeNode();
 		Object key = tn;
 		if (handlerKeyProvider != null)
 		{
 			key = handlerKeyProvider.getHandlerKey(tn);
 		}
-		IXCommand cmd = handlerProvider.getHandler(key);
+		ICommand cmd = handlerProvider.getHandler(key);
 		if (cmd != null)
 		{
-			cmd.execute(aCtx);
+			cmd.execute();
 		}
 	}
 
@@ -41,5 +40,7 @@ class HandlerProviderBasedCommand implements IXCommand
 
 	private IHandlerKeyProvider handlerKeyProvider = null;
 	private IHandlerProvider handlerProvider;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
 
 }

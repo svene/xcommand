@@ -1,12 +1,9 @@
 package org.xcommand.misc.statemachine;
 
+import org.xcommand.core.*;
 import org.xcommand.core.multi.ModeContextView;
-import org.xcommand.core.ResultContextView;
-import org.xcommand.core.IXCommand;
 
-import java.util.Map;
-
-public class CompareModeCommand implements IXCommand
+public class CompareModeCommand implements ICommand
 {
 
 // --- Initialization ---
@@ -25,15 +22,17 @@ public class CompareModeCommand implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String ctxMode = (String) aCtx.get(modeKey);
+		String ctxMode = (String) TCP.getContext().get(modeKey);
 		Boolean result = mode.equals(ctxMode) ? Boolean.TRUE : Boolean.FALSE;
-		ResultContextView.setResult(aCtx, result);
+		resultCV.setResult(result);
 	}
 
 // --- Implementation ---
 
 	private String modeKey;
 	private String mode;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IResultCV resultCV = (IResultCV) dbp.getBeanForInterface(IResultCV.class);
 }

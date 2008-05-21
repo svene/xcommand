@@ -1,24 +1,27 @@
 package org.collage.csm.parser;
 
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
-
-import java.util.Map;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.template.parser.IParserCV;
 
 /**
  * Commands flushing buffered text and creating associated Text-DOM-Node
  */
-public class CsmFlushJavaCommand implements IXCommand
+public class CsmFlushJavaCommand implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		StringBuffer sb = ParserCV.getStringBuffer(aCtx);
+		StringBuffer sb = parserCV.getStringBuffer();
 		String s = sb.toString();
 		if (s.length() > 0)
 		{
-			DomNodeCreationHandlerCV.setValue(aCtx, s);
-			DomNodeCreationHandlerCV.getCreateJavaNodeRequestSubject(aCtx).execute(aCtx);
+			domNodeCreationHandlerCV.setValue(s);
+			domNodeCreationHandlerCV.getCreateJavaNodeRequestNotifier().execute();
 		}
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
 }

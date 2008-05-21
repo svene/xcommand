@@ -1,6 +1,6 @@
 package org.xcommand.datastructure.tree;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
 
 import java.util.Map;
 
@@ -17,9 +17,9 @@ public abstract class MapBasedHandlerProvider implements IHandlerProvider
 		return handlerMap;
 	}
 
-	public IXCommand getHandler(Object aObj)
+	public ICommand getHandler(Object aObj)
 	{
-		return (IXCommand) handlerMap.get(aObj);
+		return (ICommand) handlerMap.get(aObj);
 	}
 
 // --- Setting ---
@@ -31,6 +31,6 @@ public abstract class MapBasedHandlerProvider implements IHandlerProvider
 
 // --- Implementation ---
 
-	private Map/*<Object, IXComand>*/ handlerMap;
+	private Map/*<Object, IComand>*/ handlerMap;
 
 }

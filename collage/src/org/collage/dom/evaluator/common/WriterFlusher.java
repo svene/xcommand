@@ -1,16 +1,16 @@
 package org.collage.dom.evaluator.common;
 
-import org.xcommand.core.IXCommand;
-import org.collage.dom.evaluator.EvaluationCV;
+import org.collage.dom.evaluator.IEvaluationCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
-import java.util.Map;
 import java.io.Writer;
 
-public class WriterFlusher implements IXCommand
+public class WriterFlusher implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		Writer w = EvaluationCV.getWriter(aCtx);
+		Writer w = evaluationCV.getWriter();
 		try
 		{
 			w.flush();
@@ -20,4 +20,6 @@ public class WriterFlusher implements IXCommand
 			throw new RuntimeException(e);
 		}
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.getBeanForInterface(IEvaluationCV.class);
 }

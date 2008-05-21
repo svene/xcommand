@@ -1,10 +1,9 @@
 package org.collage.dom.evaluator.common;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
-import java.util.Map;
-
-public abstract class StringHandlingHandler implements IXCommand
+public abstract class StringHandlingHandler implements ICommand
 {
 
 // --- Initialization ---
@@ -16,25 +15,27 @@ public abstract class StringHandlingHandler implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String originalText = getOriginalText(aCtx);
-		String s = decoratedString(aCtx, originalText);
-		StringHandlerCV.setString(aCtx, s);
+		String originalText = getOriginalText();
+		String s = decoratedString(originalText);
+		stringHandlerCV.setString(s);
 
-		IXCommand shc = StringHandlerCV.getStringHandlerCommand(aCtx);
+		ICommand shc = stringHandlerCV.getStringHandlerCommand();
 		if (shc == null) shc = stringHandlerCommand;
-		shc.execute(aCtx);
+		shc.execute();
 	}
 
 // --- Implementation ---
 
-	protected abstract String getOriginalText(Map aCtx);
+	protected abstract String getOriginalText();
 
-	protected String decoratedString(Map aCtx, String aString)
+	protected String decoratedString(String aString)
 	{
 		return aString;
 	}
 
 	private StringHandlerCommand stringHandlerCommand;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

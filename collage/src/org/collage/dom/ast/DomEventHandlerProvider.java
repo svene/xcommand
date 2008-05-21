@@ -1,8 +1,8 @@
 package org.collage.dom.ast;
 
 import org.xcommand.datastructure.tree.MapBasedHandlerProvider;
-import org.xcommand.pattern.observer.ISubject;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.pattern.observer.INotifier;
+import org.xcommand.pattern.observer.BasicNotifier;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -15,40 +15,40 @@ public class DomEventHandlerProvider extends MapBasedHandlerProvider
 	public DomEventHandlerProvider()
 	{
 		Map map = new HashMap();
-		map.put(RootNode.class, rootSubject);
-		map.put(Text.class, textSubject);
-		map.put(Variable.class, variableSubject);
-		map.put(Java.class, javaSubject);
+		map.put(RootNode.class, rootNotifier);
+		map.put(Text.class, textNotifier);
+		map.put(Variable.class, variableNotifier);
+		map.put(Java.class, javaNotifier);
 		setHandlerMap(map);
 	}
 
 // --- Access ---
 
-	public ISubject getRootSubject()
+	public INotifier getRootNotifier()
 	{
-		return rootSubject;
+		return rootNotifier;
 	}
 
-	public ISubject getTextSubject()
+	public INotifier getTextNotifier()
 	{
-		return textSubject;
+		return textNotifier;
 	}
 
-	public ISubject getVariableSubject()
+	public INotifier getVariableNotifier()
 	{
-		return variableSubject;
+		return variableNotifier;
 	}
 
-	public ISubject getJavaSubject()
+	public INotifier getJavaNotifier()
 	{
-		return javaSubject;
+		return javaNotifier;
 	}
 
 // --- Implementation ---
 
-	 private ISubject rootSubject = new SubjectImpl();
-	 private ISubject textSubject = new SubjectImpl();
-	 private ISubject variableSubject = new SubjectImpl();
-	 private ISubject javaSubject = new SubjectImpl();
+	 private INotifier rootNotifier = new BasicNotifier();
+	 private INotifier textNotifier = new BasicNotifier();
+	 private INotifier variableNotifier = new BasicNotifier();
+	 private INotifier javaNotifier = new BasicNotifier();
 
 }

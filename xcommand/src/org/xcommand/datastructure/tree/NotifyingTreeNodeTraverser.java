@@ -1,57 +1,58 @@
 package org.xcommand.datastructure.tree;
 
-import org.xcommand.core.IXCommand;
-import org.xcommand.pattern.observer.ISubject;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.pattern.observer.BasicNotifier;
+import org.xcommand.pattern.observer.INotifier;
 
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * TreeNodeTraverser sending out notifications while traversing the tree
  */
-public class NotifyingTreeNodeTraverser implements IXCommand
+public class NotifyingTreeNodeTraverser implements ICommand
 {
 
 // --- Access ---
 
-	public ISubject getEnterNodeNotifier()
+	public INotifier getEnterNodeNotifier()
 	{
 		return enterNodeNotifier;
 	}
 
-	public ISubject getExitNodeNotifier()
+	public INotifier getExitNodeNotifier()
 	{
 		return exitNodeNotifier;
 	}
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		ITreeNode node = TreeNodeCV.getTreeNode(aCtx);
-		traverse(aCtx, node);
+		ITreeNode node = treeNodeCV.getTreeNode();
+		traverse(node);
 	}
 
-	private void traverse(Map aCtx, ITreeNode aNode)
+	private void traverse(ITreeNode aNode)
 	{
-		TreeNodeCV.setTreeNode(aCtx, aNode);
-		TreeNodeCV.setDomainObject(aCtx, aNode.getDomainObject());
-		enterNodeNotifier.execute(aCtx);
+		treeNodeCV.setTreeNode(aNode);
+		treeNodeCV.setDomainObject(aNode.getDomainObject());
+		enterNodeNotifier.execute();
 		Iterator it = aNode.getChildren().iterator();
 		while (it.hasNext())
 		{
 			ITreeNode node = (ITreeNode) it.next();
-			traverse(aCtx, node);
+			traverse(node);
 		}
-		TreeNodeCV.setTreeNode(aCtx, aNode);
-		TreeNodeCV.setDomainObject(aCtx, aNode.getDomainObject());
-		exitNodeNotifier.execute(aCtx);
+		treeNodeCV.setTreeNode(aNode);
+		treeNodeCV.setDomainObject(aNode.getDomainObject());
+		exitNodeNotifier.execute();
 	}
 
 // --- Implementation ---
 
-	private ISubject enterNodeNotifier = new SubjectImpl();
-	private ISubject exitNodeNotifier = new SubjectImpl();
-
+	private INotifier enterNodeNotifier = new BasicNotifier();
+	private INotifier exitNodeNotifier = new BasicNotifier();
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
 }

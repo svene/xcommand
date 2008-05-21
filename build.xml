@@ -19,9 +19,10 @@
 	</target>
 
 	<target name="jar" depends="compile">
-		<jar destfile="output/${libname}.jar">
+		<jar destfile="output/${libname}.jar" manifest="MANIFEST.MF">
 			<fileset dir="output/classes"/>
 			<fileset dir="resources"/>
+			<fileset dir="src" includes="**/*" excludes="**/*.java"/>
 		</jar>
 		<jar destfile="output/${libname}-src.jar">
 			<fileset dir="src"/>

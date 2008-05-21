@@ -1,12 +1,10 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.IXCommand;
-import org.xcommand.pattern.observer.ISubject;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.core.ICommand;
+import org.xcommand.pattern.observer.BasicNotifier;
+import org.xcommand.pattern.observer.INotifier;
 
-import java.util.Map;
-
-public class Transition implements IXCommand
+public class Transition implements ICommand
 {
 
 // --- Access ---
@@ -16,17 +14,17 @@ public class Transition implements IXCommand
 		return name;
 	}
 
-	public ISubject getPreExecuteNotifier()
+	public INotifier getPreExecuteNotifier()
 	{
 		return preExecuteNotifier;
 	}
 
-	public ISubject getExecuteNotifier()
+	public INotifier getExecuteNotifier()
 	{
 		return executeNotifier;
 	}
 
-	public ISubject getPostExecuteNotifier()
+	public INotifier getPostExecuteNotifier()
 	{
 		return postExecuteNotifier;
 	}
@@ -40,17 +38,17 @@ public class Transition implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		preExecuteNotifier.execute(aCtx);
-		executeNotifier.execute(aCtx);
-		postExecuteNotifier.execute(aCtx);
+		preExecuteNotifier.execute();
+		executeNotifier.execute();
+		postExecuteNotifier.execute();
 	}
 
 // --- Implementation ---
 
 	private String name;
-	private ISubject preExecuteNotifier = new SubjectImpl();
-	private ISubject executeNotifier = new SubjectImpl();
-	private ISubject postExecuteNotifier = new SubjectImpl();
+	private INotifier preExecuteNotifier = new BasicNotifier();
+	private INotifier executeNotifier = new BasicNotifier();
+	private INotifier postExecuteNotifier = new BasicNotifier();
 }

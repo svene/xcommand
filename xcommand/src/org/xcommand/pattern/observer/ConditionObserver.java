@@ -1,25 +1,25 @@
 package org.xcommand.pattern.observer;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
 
-public abstract class ConditionObserver implements IXCommand
+public abstract class ConditionObserver implements ICommand
 {
 
 // --- Access ---
 
-	public ISubject getTrueNotifier()
+	public INotifier getTrueNotifier()
 	{
 		return trueNotifier;
 	}
 
-	public ISubject getFalseNotifier()
+	public INotifier getFalseNotifier()
 	{
 		return falseNotifier;
 	}
 
 // --- Implementation ---
 
-	private ISubject trueNotifier = new SubjectImpl();
-	private ISubject falseNotifier = new SubjectImpl();
+	private INotifier trueNotifier = new BasicNotifier();
+	private INotifier falseNotifier = new BasicNotifier();
 
 }

@@ -1,47 +1,56 @@
 package org.collage.template;
 
-import org.collage.dom.evaluator.common.StringHandlerCV;
-import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
-import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
+import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.template.parser.IParserCV;
 
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Map;
 
 public class JavassistTemplateCompiler
 {
 
-	public IXCommand newTemplateCommandFromString(String aString)
+	public ICommand newTemplateCommandFromString(String aString)
 	{
 		return newTemplateCommand(new TemplateSource(aString));
 	}
 
-	public IXCommand newTemplateCommand(TemplateSource aTemplateSource)
+	public ICommand newTemplateCommand(TemplateSource aTemplateSource)
 	{
 		// Compile template:
-		Map ctx = new HashMap();
-		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.TRUE);
-		ctx.putAll(aTemplateSource.getContext());
-		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
+		TCP.pushContext(new HashMap());
+		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
+//!!		ctx.putAll(aTemplateSource.getContext());
+		new DefaultDomNodeCreationHandlerInitializer().execute();
 
-		ParserCV.setInputStream(ctx, aTemplateSource.getInputStream());
-		new TemplateCompiler().execute(ctx);
+		parserCV.setInputStream(aTemplateSource.getInputStream());
+		new TemplateCompiler().execute();
 		// Now we have the root node: `TreeNodeCV.getTreeNode(ctx)'
 		// Use String based text evaluation. Since this is only for template compilation and not template usage
 		// it is not performance/memory relevant and thus OK: 
-		StringHandlerCV.setString(ctx, "");
-		new JavassistTraverser().execute(ctx);
-		// Return dynamically (by javassist) created template command (IXCommand)
-		return JavaTemplateCmdCV.getTemplateComand(ctx);
+		stringHandlerCV.setString("");
+		new JavassistTraverser().execute();
+		// Return dynamically (by javassist) created template command (ICommand)
+		ICommand tplCmd = javaTemplateCmdCV.getTemplateComand();
+		TCP.popContext();
+		return tplCmd;
 	}
 
-	public IXCommand newTemplateCommandFromStream(InputStream aInputStream)
+	public ICommand newTemplateCommandFromStream(InputStream aInputStream)
 	{
 		return newTemplateCommand(new TemplateSource(aInputStream));
 	}
 
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
+	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.getBeanForInterface(IJavaTemplateCmdCV.class);
 }

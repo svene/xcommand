@@ -1,19 +1,18 @@
 package org.collage.csm.parser;
 
-import org.xcommand.core.IXCommand;
-import org.collage.parser.ParserCV;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.template.parser.IParserCV;
 
-import java.util.Map;
-
-public class CsmAppendEolCommand implements IXCommand
+public class CsmAppendEolCommand implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		StringBuffer sb = ParserCV.getStringBuffer(aCtx);
+		StringBuffer sb = parserCV.getStringBuffer();
 //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 
-		Boolean javaMode = DomNodeCreationHandlerCV.getProduceJavaSource(aCtx);
+		Boolean javaMode = domNodeCreationHandlerCV.getProduceJavaSource();
 		if (javaMode == Boolean.TRUE)
 		{
 //			sb.append("*PJS*");
@@ -26,4 +25,8 @@ public class CsmAppendEolCommand implements IXCommand
 			sb.append("\n");
 		}
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
 }

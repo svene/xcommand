@@ -1,1 +1,1 @@
-	appendVar(aCtx, "${varName}",  _writer);
+	appendVar(org.xcommand.core.TCP.getContext(), "${varName}",  _writer);

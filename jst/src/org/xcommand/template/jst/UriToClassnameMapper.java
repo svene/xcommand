@@ -9,7 +9,7 @@ public class UriToClassnameMapper implements IUriToClassnameMapper
 		int idx = aURI.indexOf(ENDING);
 		if (idx == -1)
 		{
-			throw new IllegalArgumentException("URI (" + aURI + ") does not end  with '.jt'");
+			throw new IllegalArgumentException("URI (" + aURI + ") does not end  with '" + ENDING + "'");
 		}
 		else
 		{

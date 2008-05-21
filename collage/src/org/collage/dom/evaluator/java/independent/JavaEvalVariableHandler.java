@@ -1,16 +1,17 @@
 package org.collage.dom.evaluator.java.independent;
 
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.common.StringHandlerCV;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.TCP;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Map;
 
-public class JavaEvalVariableHandler implements IXCommand
+public class JavaEvalVariableHandler implements ICommand
 {
 	public JavaEvalVariableHandler()
 	{
@@ -19,10 +20,11 @@ public class JavaEvalVariableHandler implements IXCommand
 			String resourceLocation = "org/collage/dom/evaluator/java/javassist/javassist_var.txt";
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceLocation);
 			if (is == null) throw new RuntimeException("is == null");
-			Map ctx = new HashMap();
-			DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
+			TCP.pushContext(new HashMap());
+			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 
-			templateCommand = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is, ctx));
+			templateCommand = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
+			TCP.popContext();
 		}
 		catch (Exception e)
 		{
@@ -30,18 +32,22 @@ public class JavaEvalVariableHandler implements IXCommand
 		}
 	}
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String vn = StringHandlerCV.getString(aCtx);
+		String vn = stringHandlerCV.getString();
+		TCP.pushContext(new HashMap());
+		TCP.getContext().put("varName", vn);
+		templateCommand.execute();
+		String ss = stringHandlerCV.getString();
+		TCP.popContext();
 
-		Map ctx = new HashMap();
-		ctx.put("varName", vn);
-		templateCommand.execute(ctx);
-		String ss = StringHandlerCV.getString(ctx);
-
-		StringBuffer methodBody = (StringBuffer) aCtx.get("methodbody");
+		StringBuffer methodBody = (StringBuffer) TCP.getContext().get("methodbody");
 		methodBody.append(ss);
 	}
 
-	private IXCommand  templateCommand;
+	private ICommand templateCommand;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

@@ -2,7 +2,7 @@ package org.collage.dom.evaluator.text;
 
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
 import org.collage.dom.ast.DomEventHandlerProvider;
 import org.collage.dom.evaluator.common.WriterFlusher;
 
@@ -14,14 +14,14 @@ public class TextTraverser extends NotifyingTreeNodeTraverser
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 		TextHandlerProvider thp = new TextHandlerProvider();
 
-		IXCommand cmd = thp.newTextObserver();
-		hp.getTextSubject().registerObserver(cmd);
+		ICommand cmd = thp.newTextObserver();
+		hp.getTextNotifier().registerObserver(cmd);
 
 		cmd = thp.newVariableObserver();
-		hp.getVariableSubject().registerObserver(cmd);
+		hp.getVariableNotifier().registerObserver(cmd);
 
 		cmd = thp.newJavaObserver();
-		hp.getJavaSubject().registerObserver(cmd);
+		hp.getJavaNotifier().registerObserver(cmd);
 
 		//TODO: think about this:
 		cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
@@ -29,7 +29,7 @@ public class TextTraverser extends NotifyingTreeNodeTraverser
 
 		// Register Writer-Flush on RootNode-exit:
 		hp = new DomEventHandlerProvider();
-		hp.getRootSubject().registerObserver(new WriterFlusher());
+		hp.getRootNotifier().registerObserver(new WriterFlusher());
 		cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		getExitNodeNotifier().registerObserver(cmd);
 	}

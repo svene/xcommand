@@ -1,8 +1,9 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.pattern.observer.ISubject;
-import org.xcommand.pattern.observer.SubjectImpl;
-import org.xcommand.web.WebContextView;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.pattern.observer.BasicNotifier;
+import org.xcommand.pattern.observer.INotifier;
+import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletContext;
 import java.util.*;
@@ -10,9 +11,9 @@ import java.util.*;
 public class ServletContextBasedJSTProvider implements IJSTProvider
 {
 
-	public void initialize(Map aCtx)
+	public void initialize()
 	{
-		ServletContext sc = WebContextView.getServletContext(aCtx);
+		ServletContext sc = webCV.getServletContext();
 
 		Set set = sc.getResourcePaths("/");
 		Iterator it = set.iterator();
@@ -39,12 +40,14 @@ public class ServletContextBasedJSTProvider implements IJSTProvider
 		return classMap;
 	}
 
-	public ISubject getChangeNotifier()
+	public INotifier getChangeNotifier()
 	{
 		return changeNotifier;
 	}
 
 	private List srcDirs;
 	private Map classMap = new HashMap();
-	private ISubject changeNotifier = new SubjectImpl();
+	private INotifier changeNotifier = new BasicNotifier();
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IWebCV webCV = (IWebCV) dbp.getBeanForInterface(IWebCV.class);
 }

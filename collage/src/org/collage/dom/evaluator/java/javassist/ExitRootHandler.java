@@ -4,22 +4,23 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.common.StringHandlerCV;
-import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.TCP;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Map;
 
-class ExitRootHandler implements IXCommand
+class ExitRootHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
 		CtClass cc = null;
 		try
@@ -27,24 +28,29 @@ class ExitRootHandler implements IXCommand
 			ClassPool pool = ClassPool.getDefault();
 			String className = getClassName();
 
-			CtClass ccXcommand = pool.get("org.xcommand.core.IXCommand");
+			CtClass ccXcommand = pool.get("org.xcommand.core.ICommand");
 			cc = pool.makeClass(className);
 			cc.addInterface(ccXcommand);
 
 			// Add method 'appendVar()':
-			addMethod(cc, "org/collage/dom/evaluator/java/javassist/appendvar.txt", new HashMap());
+			TCP.pushContext(new HashMap());
+			addMethod(cc, "org/collage/dom/evaluator/java/javassist/appendvar.txt");
+			TCP.popContext();
 
 			// Add method 'execute()':
-			StringBuffer sb = (StringBuffer) aCtx.get("methodbody");
-			HashMap ctx = new HashMap(); ctx.put("execute_method_body", sb.toString());
-			addMethod(cc, "org/collage/dom/evaluator/java/javassist/execute_method.txt", ctx);
+			StringBuffer sb = (StringBuffer) TCP.getContext().get("methodbody");
+//System.out.println("**methodbody\n" + sb.toString());
+			TCP.pushContext(new HashMap());
+			TCP.getContext().put("execute_method_body", sb.toString());
+			addMethod(cc, "org/collage/dom/evaluator/java/javassist/execute_method.txt");
+			TCP.popContext();
 
 			Class clazz = cc.toClass();
-			aCtx.put("clazz", clazz);
+			TCP.getContext().put("clazz", clazz);
 
 			// Create instance and put it on context:
 			Object obj = clazz.newInstance();
-			JavaTemplateCmdCV.setTemplateComand(aCtx, (IXCommand) obj);
+			javaTemplateCmdCV.setTemplateComand((ICommand) obj);
 		}
 		catch (Exception e)
 		{
@@ -56,14 +62,14 @@ class ExitRootHandler implements IXCommand
 		}
 	}
 
-	private void addMethod(CtClass aCtClass, String aFilename, Map aCtx) throws Exception
+	private void addMethod(CtClass aCtClass, String aFilename) throws Exception
 	{
-		DomNodeCreationHandlerCV.setProduceJavaSource(aCtx, Boolean.FALSE);
+		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aFilename);
 
-		IXCommand cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is, aCtx));
-		cmd.execute(aCtx);
-		String s = StringHandlerCV.getString(aCtx);
+		ICommand cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
+		cmd.execute();
+		String s = stringHandlerCV.getString();
 		is.close();
 //		System.out.println("methodstring: " + s);
 		CtMethod ctm = CtNewMethod.make(s, aCtClass);
@@ -85,4 +91,9 @@ class ExitRootHandler implements IXCommand
 //		System.out.println(className);
 		return className;
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.getBeanForInterface(IJavaTemplateCmdCV.class);
 }

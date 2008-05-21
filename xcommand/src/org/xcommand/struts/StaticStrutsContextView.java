@@ -3,44 +3,43 @@ package org.xcommand.struts;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-
-import java.util.Map;
+import org.xcommand.core.TCP;
 
 public class StaticStrutsContextView
 {
 
 // --- Access ---
 
-	public static ActionForward getActionForward(Map aContext)
+	public static ActionForward getActionForward()
 	{
-		return (ActionForward) aContext.get(StaticStrutsContextView.KEY_ACTION_FORWARD);
+		return (ActionForward) TCP.getContext().get(StaticStrutsContextView.KEY_ACTION_FORWARD);
 	}
 
-	public static ActionMapping getActionMapping(Map aContext)
+	public static ActionMapping getActionMapping()
 	{
-		return (ActionMapping) aContext.get(StaticStrutsContextView.KEY_ACTION_MAPPING);
+		return (ActionMapping) TCP.getContext().get(StaticStrutsContextView.KEY_ACTION_MAPPING);
 	}
 
-	public static ActionForm getActionForm(Map aContext)
+	public static ActionForm getActionForm()
 	{
-		return (ActionForm) aContext.get(StaticStrutsContextView.KEY_ACTION_FORM);
+		return (ActionForm) TCP.getContext().get(StaticStrutsContextView.KEY_ACTION_FORM);
 	}
 
 // --- Setting ---
 
-	public static void setActionForward(Map aContext, ActionForward aActionForward)
+	public static void setActionForward(ActionForward aActionForward)
 	{
-		aContext.put(StaticStrutsContextView.KEY_ACTION_FORWARD, aActionForward);
+		TCP.getContext().put(StaticStrutsContextView.KEY_ACTION_FORWARD, aActionForward);
 	}
 
-	public static void setActionMapping(Map aContext, ActionMapping aActionMapping)
+	public static void setActionMapping(ActionMapping aActionMapping)
 	{
-		aContext.put(StaticStrutsContextView.KEY_ACTION_MAPPING, aActionMapping);
+		TCP.getContext().put(StaticStrutsContextView.KEY_ACTION_MAPPING, aActionMapping);
 	}
 
-	public static void setActionForm(Map aContext, ActionForm aActionForm)
+	public static void setActionForm(ActionForm aActionForm)
 	{
-		aContext.put(StaticStrutsContextView.KEY_ACTION_FORM, aActionForm);
+		TCP.getContext().put(StaticStrutsContextView.KEY_ACTION_FORM, aActionForm);
 	}
 
 // --- Implementation ---

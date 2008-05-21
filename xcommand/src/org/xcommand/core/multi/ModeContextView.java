@@ -1,32 +1,33 @@
 package org.xcommand.core.multi;
 
-import java.util.Map;
+import org.xcommand.core.TCP;
 
+/** TODO: think about how to replace this with IModeCV (since 'KEY_MODE' is used directly outside for example */
 public class ModeContextView
 {
 
 // --- Access ---
 
-	public static String getMode(Map aCtx)
+	public static String getMode()
 	{
-		return (String) aCtx.get(ModeContextView.KEY_MODE);
+		return (String) TCP.getContext().get(ModeContextView.KEY_MODE);
 	}
 
-	public static String getNewMode(Map aCtx)
+	public static String getNewMode()
 	{
-		return (String) aCtx.get(ModeContextView.KEY_NEW_MODE);
+		return (String) TCP.getContext().get(ModeContextView.KEY_NEW_MODE);
 	}
 
 // --- Setting ---
 
-	public static void setMode(Map aCtx, String aMode)
+	public static void setMode(String aMode)
 	{
-		aCtx.put(KEY_MODE, aMode);
+		TCP.getContext().put(KEY_MODE, aMode);
 	}
 
-	public static void setNewMode(Map aCtx, String aMode)
+	public static void setNewMode(String aMode)
 	{
-		aCtx.put(KEY_NEW_MODE, aMode);
+		TCP.getContext().put(KEY_NEW_MODE, aMode);
 	}
 
 // --- Implementation ---

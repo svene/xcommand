@@ -1,35 +1,40 @@
 package org.collage.dom.creationhandler;
 
 import org.collage.dom.ast.Variable;
-import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.datastructure.tree.TreeBuilder;
 import org.xcommand.datastructure.tree.TreeNode;
-import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.template.parser.IParserCV;
 
 import java.io.PrintStream;
-import java.util.Map;
 
-public class VariableNodeCreationHandler implements IXCommand
+public class VariableNodeCreationHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String s = DomNodeCreationHandlerCV.getValue(aCtx);
-		trace(aCtx, "got VARIABLE: '" + s + "'");
+		String s = domNodeCreationHandlerCV.getValue();
+		trace("got VARIABLE: '" + s + "'");
 		TreeNode node = new TreeNode();
 		Variable v = new Variable();
 		v.setVariableName(s);
 		node.setDomainObject(v);
-		tb.addChild(TreeNodeCV.getTreeNode(aCtx), node);
+		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
 // --- Implementation ---
 
-	private void trace(Map aCtx, String aString)
+	private void trace(String aString)
 	{
-		PrintStream ps = ParserCV.getTraceStream(aCtx);
+		PrintStream ps = parserCV.getTraceStream();
 		if (ps == null) return;
 		ps.println("### " + aString);
 	}
 	private TreeBuilder tb = new TreeBuilder();
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
 }

@@ -1,6 +1,6 @@
 private static final void appendVar(java.util.Map aCtx, String aVarName, java.io.Writer aWriter)
 {
-	Object obj = aCtx.get(aVarName);
+	Object obj = org.xcommand.core.TCP.getContext().get(aVarName);
 	if (obj != null)
 	{
 		aWriter.write(obj.toString());

@@ -1,15 +1,16 @@
 package org.collage.template;
 
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.text.TextTraverser;
-import org.collage.parser.ParserCV;
+import org.xcommand.core.TCP;
+import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNode;
-import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.template.parser.IParserCV;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.io.InputStream;
+import java.util.HashMap;
 
 public class TextTemplateCompiler
 {
@@ -22,17 +23,18 @@ public class TextTemplateCompiler
 	public TemplateCommand newTemplateCommand(TemplateSource aTemplateSource)
 	{
 		// Compile template:
-		Map ctx = new HashMap();
-		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
-		ctx.putAll(aTemplateSource.getContext());
-		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
+		TCP.pushContext(new HashMap());
+		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
+		new DefaultDomNodeCreationHandlerInitializer().execute();
 
 		InputStream is = aTemplateSource.getInputStream();
 		if (is == null) throw new RuntimeException("is == null");
-		ParserCV.setInputStream(ctx, is);
-		new TemplateCompiler().execute(ctx);
-		ITreeNode rootNode = TreeNodeCV.getTreeNode(ctx);
-		return new TextTemplateEvaluationCommand(rootNode);
+		parserCV.setInputStream(is);
+		new TemplateCompiler().execute();
+		ITreeNode rootNode = treeNodeCV.getTreeNode();
+		TemplateCommand tplCmd = new TextTemplateEvaluationCommand(rootNode);
+		TCP.popContext();
+		return tplCmd;
 	}
 
 // --- Implementation ---
@@ -46,4 +48,9 @@ public class TextTemplateCompiler
 			setNotifyingTreeNodeTraverser(new TextTraverser());
 		}
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
 }

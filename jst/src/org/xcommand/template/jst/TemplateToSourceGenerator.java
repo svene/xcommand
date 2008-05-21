@@ -1,24 +1,21 @@
 package org.xcommand.template.jst;
 
-import org.apache.commons.io.LineIterator;
 import org.apache.commons.io.FileUtils;
-import org.xcommand.technology.janino.MapResourceFinder;
-import org.xcommand.core.IXCommand;
-import org.codehaus.janino.JavaSourceClassLoader;
-import org.codehaus.janino.DebuggingInformation;
+import org.apache.commons.io.LineIterator;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
 
 import java.io.*;
-import java.util.Map;
-import java.util.HashMap;
 
-public class TemplateToSourceGenerator implements IXCommand
+/** @deprecated replaced by JavaCC file 'jst.jj' */
+public class TemplateToSourceGenerator implements ICommand
 {
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		InputStream is = (InputStream) aCtx.get("inputstream");
+		InputStream is = (InputStream) TCP.getContext().get("inputstream");
 		InputStreamReader isr = new InputStreamReader(is);
-		String classname = (String) aCtx.get("classname");
+		String classname = (String) TCP.getContext().get("classname");
 
 //		File f = new File("jtemplates/JTemplate1.java");
 		Writer writer = new StringWriter();
@@ -115,10 +112,10 @@ public class TemplateToSourceGenerator implements IXCommand
 			}
 			writer.flush();
 			String source = writer.toString();
-			aCtx.put("source", source);
+			TCP.getContext().put("source", source);
 
 			// Write source code as file to disk:
-			String gensourcedir = (String) aCtx.get("gensourcedir");
+			String gensourcedir = (String) TCP.getContext().get("gensourcedir");
 			if (gensourcedir != null)
 			{
 				String dirName = gensourcedir + "/";

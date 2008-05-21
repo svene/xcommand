@@ -1,19 +1,23 @@
 package org.xcommand.example.xc100;
 
-import org.xcommand.example.commands.EchoContextView;
+import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.example.commands.EchoCommand;
-
-import java.util.Map;
-import java.util.HashMap;
+import org.xcommand.example.commands.IEchoCV;
 
 public class Main
 {
 
 	public static void main(String[] args)
 	{
-		Map ctx = new HashMap();
-		EchoContextView.setMessage(ctx, "Hi! I am a xcommand example. And who are you?");
-		EchoCommand cmd = new EchoCommand();
-		cmd.execute(ctx);
+		new Main().execute();
 	}
+
+	private void execute()
+	{
+		echoCV.setMessage("Hi! I am a xcommand example. And who are you?");
+		EchoCommand cmd = new EchoCommand();
+		cmd.execute();
+	}
+
+	private IEchoCV echoCV = (IEchoCV) new DynaBeanProvider().getBeanForInterface(IEchoCV.class);
 }

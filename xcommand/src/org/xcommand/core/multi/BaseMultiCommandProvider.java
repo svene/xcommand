@@ -1,9 +1,9 @@
 package org.xcommand.core.multi;
 
-import java.util.Map;
-import java.util.HashMap;
+import org.xcommand.core.ICommand;
 
-import org.xcommand.core.IXCommand;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BaseMultiCommandProvider implements IMultiCommandProvider
 {
@@ -15,9 +15,9 @@ public class BaseMultiCommandProvider implements IMultiCommandProvider
 		return commandMap;
 	}
 
-	public IXCommand getCommand(String aName)
+	public ICommand getCommand(String aName)
 	{
-		return (IXCommand) commandMap.get(aName);
+		return (ICommand) commandMap.get(aName);
 	}
 
 // --- Implementation ---

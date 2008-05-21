@@ -1,11 +1,9 @@
 package org.xcommand.example.xc100;
 
-import org.xcommand.example.commands.EchoContextView;
-import org.xcommand.example.commands.EchoCommand;
 import org.xcommand.misc.InheritableMap;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This example demonstrates how the xcommand pattern can be used for recursive calls.

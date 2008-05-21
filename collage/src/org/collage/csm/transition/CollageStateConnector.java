@@ -3,12 +3,12 @@ package org.collage.csm.transition;
 import org.xcommand.misc.statemachine.IState;
 import org.xcommand.misc.statemachine.DefaultStateTransitionBinder;
 import org.xcommand.misc.statemachine.Transition;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
 
 public class CollageStateConnector
 {
 	public void connect(IState aFromState, IState aToState, String aParserMode,
-		IXCommand[] aExecuteCommands)
+		ICommand[] aExecuteCommands)
 	{
 		Transition t = new Transition();
 		t.setName(aFromState.getName() + "->" + aToState.getName());

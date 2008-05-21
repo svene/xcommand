@@ -5,21 +5,25 @@ import junit.framework.TestCase;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
-import java.util.Map;
 import java.util.HashMap;
 
-import org.xcommand.template.jst.JSTParserCV;
 import org.xcommand.template.jst.DefaultJSTParserProvider;
+import org.xcommand.template.jst.IJSTParserCV;
+import org.xcommand.core.TCP;
+import org.xcommand.core.DynaBeanProvider;
 
 public class JSTParserTester extends TestCase
 {
 
-	private Map ctx;
-
 	protected void setUp() throws Exception
 	{
-		ctx = new HashMap();
-		JSTParserCV.setGeneratedJavaCode(ctx, new StringBuffer());
+		TCP.pushContext(new HashMap());
+		jstParserCV.setGeneratedJavaCode(new StringBuffer());
+	}
+
+	protected void tearDown() throws Exception
+	{
+		TCP.popContext();
 	}
 
 	public void test1() throws Exception
@@ -27,44 +31,46 @@ public class JSTParserTester extends TestCase
 		InputStream is = new ByteArrayInputStream("hi there!".getBytes());
 		JSTParser parser = newJSTParser(is);
 
-		JSTParserCV.setGeneratedJavaCode(ctx, new StringBuffer());
-		parser.Start(ctx);
-		assertEquals("hi there!", JSTParserCV.getGeneratedJavaCode(ctx).toString());
+		jstParserCV.setGeneratedJavaCode(new StringBuffer());
+		parser.Start();
+		assertEquals("hi there!", jstParserCV.getGeneratedJavaCode().toString());
 	}
 	public void test2() throws Exception
 	{
 		InputStream is = new ByteArrayInputStream("hi there! /*#some comment#*/".getBytes());
 		JSTParser parser = newJSTParser(is);
-		parser.Start(ctx);
+		parser.Start();
 
-		assertEquals("hi there! $s(\"some comment\");", JSTParserCV.getGeneratedJavaCode(ctx).toString());
+		assertEquals("hi there! $s(\"some comment\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 	public void test3() throws Exception
 	{
 		InputStream is = new ByteArrayInputStream("hi there! /*#af $jv{somename} jj#*/".getBytes());
 		JSTParser parser = newJSTParser(is);
-		parser.Start(ctx);
+		parser.Start();
 
-		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");", JSTParserCV.getGeneratedJavaCode(ctx).toString());
+		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 	public void test4() throws Exception
 	{
 		InputStream is = new FileInputStream("jst/testdata/T1.txt");
 		JSTParser parser = newJSTParser(is);
-		parser.Start(ctx);
+		parser.Start();
 
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");\nhow are you?\n",
-			JSTParserCV.getGeneratedJavaCode(ctx).toString());
+			jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	private JSTParser newJSTParser(InputStream aIs)
 	{
-		Map cctx = new HashMap();
-		JSTParserCV.setInputStream(cctx, aIs);
-		JSTParser parser = new DefaultJSTParserProvider().newJSTParser(cctx);
+		TCP.pushContext(new HashMap());
+		jstParserCV.setInputStream(aIs);
+		JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
+		TCP.popContext();
 
 		return parser;
 	}
 
-
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.getBeanForInterface(IJSTParserCV.class);
 }

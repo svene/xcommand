@@ -4,18 +4,17 @@ import org.collage.dom.evaluator.common.StringHandlerCommand;
 import org.collage.dom.evaluator.common.SystemOutStringHandler;
 import org.collage.dom.evaluator.common.ListAddingStringHandler;
 import org.collage.dom.evaluator.common.WritingStringHandler;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.template.TemplateCompiler;
-import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.misc.MessageCommand;
-import org.xcommand.datastructure.tree.TreeNodeCV;
 import org.xcommand.datastructure.tree.ITreeNode;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.template.parser.IParserCV;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.io.*;
 
 public class TestHelper
@@ -37,10 +36,10 @@ public class TestHelper
 		}
 	}
 
-	public void attachTestObservers(SubjectImpl aSubject, boolean aPrint, boolean aList)
+	public void attachTestObservers(AbstractBasicNotifier aNotifier, boolean aPrint, boolean aList)
 	{
-		if (aPrint) aSubject.registerObserver(soutCmd);
-		if (aList) aSubject.registerObserver(lstCmd);
+		if (aPrint) aNotifier.registerObserver(soutCmd);
+		if (aList) aNotifier.registerObserver(lstCmd);
 	}
 
 
@@ -48,18 +47,18 @@ public class TestHelper
 	StringHandlerCommand lstCmd;
 	StringHandlerCommand pwCmd;
 
-	IXCommand enterCmd = new MessageCommand()
+	ICommand enterCmd = new MessageCommand()
 	{
-		public String getMessage(Map aCtx)
+		public String getMessage()
 		{
-			return "entering TreeNode: " + TreeNodeCV.getTreeNode(aCtx).getDomainObject().getClass().getName();
+			return "entering TreeNode: " + treeNodeCV.getTreeNode().getDomainObject().getClass().getName();
 		}
 	};
-	IXCommand exitCmd = new MessageCommand()
+	ICommand exitCmd = new MessageCommand()
 	{
-		public String getMessage(Map aCtx)
+		public String getMessage()
 		{
-			return "leaving TreeNode: " + TreeNodeCV.getTreeNode(aCtx).getDomainObject().getClass().getName();
+			return "leaving TreeNode: " + treeNodeCV.getTreeNode().getDomainObject().getClass().getName();
 		}
 
 	};
@@ -68,16 +67,20 @@ public class TestHelper
 
 // --- Implementation ---
 
-	private static ITreeNode compileTemplate() throws FileNotFoundException
+	private ITreeNode compileTemplate() throws FileNotFoundException
 	{
 		InputStream is;
-		is = new BufferedInputStream(new FileInputStream(new File("in.txt")));
-		Map ctx = new HashMap();
-		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
-		new DefaultDomNodeCreationHandlerInitializer().execute(ctx);
+		is = new BufferedInputStream(new FileInputStream(new File("collage/in.txt")));
+		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
+		new DefaultDomNodeCreationHandlerInitializer().execute();
 		
-		ParserCV.setInputStream(ctx, is);
-		new TemplateCompiler().execute(ctx);
-		return TreeNodeCV.getTreeNode(ctx);
+		parserCV.setInputStream(is);
+		new TemplateCompiler().execute();
+		return treeNodeCV.getTreeNode();
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
 }

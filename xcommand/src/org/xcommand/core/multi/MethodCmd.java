@@ -1,11 +1,10 @@
 package org.xcommand.core.multi;
 
+import org.xcommand.core.ICommand;
+
 import java.lang.reflect.Method;
-import java.util.Map;
 
-import org.xcommand.core.IXCommand;
-
-public class MethodCmd implements IXCommand
+public class MethodCmd implements ICommand
 {
 // --- Initialization ---
 
@@ -35,11 +34,11 @@ public class MethodCmd implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aContext)
+	public void execute()
 	{
 		try
 		{
-			method.invoke(multiCommandObject, new Object[]{aContext});
+			method.invoke(multiCommandObject, null);
 		}
 		catch (Exception e)
 		{

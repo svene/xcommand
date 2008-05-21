@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Command executing commands stored in a list
  */
-public class ListCommand implements INXCommand
+public class ListCommand implements ICommand
 {
 
 // --- Access ---
@@ -31,12 +31,12 @@ public class ListCommand implements INXCommand
 		Iterator it = commands.iterator();
 		while (it.hasNext())
 		{
-			INXCommand cmd = (INXCommand) it.next();
+			ICommand cmd = (ICommand) it.next();
 			cmd.execute();
 		}
 	}
 
 // --- Implementation ---
 
-	private List/*<INXCommand>*/ commands = new ArrayList();
+	private List/*<IXCommand>*/ commands = new ArrayList();
 }

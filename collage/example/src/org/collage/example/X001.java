@@ -1,22 +1,28 @@
 package org.collage.example;
 
-import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.collage.template.TextTemplateCompiler;
-import org.xcommand.core.IXCommand;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
+import org.xcommand.core.DynaBeanProvider;
 
 public class X001
 {
 	public static void main(String[] args)
 	{
-		Map dataCtx = new HashMap();
-		dataCtx.put("firstname", "Uli");
+		new X001().execute();
+	}
 
-		IXCommand cmd = new TextTemplateCompiler().newTemplateCommandFromString("Hi ${firstname}. How are you?");
-		cmd.execute(dataCtx);
-		String s = StringHandlerCV.getString(dataCtx);
+	private void execute()
+	{
+		TCP.getContext().put("firstname", "Uli");
+
+		ICommand cmd = new TextTemplateCompiler().newTemplateCommandFromString("Hi ${firstname}. How are you?");
+		cmd.execute();
+		String s = stringHandlerCV.getString();
 		System.out.println(s);
 	}
+
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

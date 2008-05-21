@@ -2,21 +2,19 @@ package org.xcommand.web.jarresource;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-
-import java.util.Map;
-import java.io.File;
-
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.context.support.ServletContextResource;
-import org.xcommand.core.IXCommand;
-import org.xcommand.web.WebXCV;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletContext;
+import java.io.File;
 
 /**
  * Objects providing access to resources in jar files.
  */
-public class JarResourceProvider implements IXCommand
+public class JarResourceProvider implements ICommand
 {
 	/**
 	 * Input:
@@ -26,18 +24,18 @@ public class JarResourceProvider implements IXCommand
 	 *  JarResourceProviderContextView.getResource(): Resource
 	 *  JarResourceProviderContextView.getLastModified(): Long
 	 */
-	public void execute(Map aCtx)
+	public void execute()
 	{
 		System.out.println("JarResourceProvider.execute");
-		String resourceName = JarResourceProviderContextView.getResourceName(aCtx);
+		String resourceName = jarResourceProviderCV.getResourceName();
 		Resource resource = new ClassPathResource(resourceName);
 		try
 		{
 			File f = resource.getFile();
 			// No problem to get access to resource, so simply provide info about it:
-			JarResourceProviderContextView.setResource(aCtx, resource);
+			jarResourceProviderCV.setResource(resource);
 			long lm = f.lastModified();
-			JarResourceProviderContextView.setLastModified(aCtx, new Long(lm));
+			jarResourceProviderCV.setLastModified(new Long(lm));
 		}
 		catch (Exception e)
 		{
@@ -63,17 +61,17 @@ public class JarResourceProvider implements IXCommand
 
 			String filename = msg.substring(i1, i2);
 			System.out.println("servletcontext-filename='" + filename + "'");
-			ServletContext sc = WebXCV.getServletContext(aCtx);
+			ServletContext sc = webCV.getServletContext();
 			resource = new ServletContextResource(sc, filename);
 			try
 			{
 				File f = resource.getFile();
 				long lm = f.lastModified();
-				JarResourceProviderContextView.setLastModified(aCtx, new Long(lm));
+				jarResourceProviderCV.setLastModified(new Long(lm));
 
 				String s = msg.substring(msg.indexOf(WSJAR_FILE));
 				resource = new UrlResource(s);
-				JarResourceProviderContextView.setResource(aCtx, resource);
+				jarResourceProviderCV.setResource(resource);
 			}
 			catch (Exception e1)
 			{
@@ -86,5 +84,8 @@ public class JarResourceProvider implements IXCommand
 	private static final String WSJAR_FILE = "wsjar:file:/";
 	private static final String WEBINF_LIB = "/WEB-INF/lib";
 	private static final String BANG_SLASH = "!/";
-
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IWebCV webCV = (IWebCV) dbp.getBeanForInterface(IWebCV.class);
+	private IJarResourceProviderCV jarResourceProviderCV = (IJarResourceProviderCV) dbp.getBeanForInterface(
+		IJarResourceProviderCV.class); 
 }

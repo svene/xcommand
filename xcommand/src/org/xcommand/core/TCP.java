@@ -1,7 +1,10 @@
 package org.xcommand.core;
 
-import java.util.HashMap;
+import org.xcommand.misc.AC;
+import org.xcommand.misc.InheritableMap;
+
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * ThreadContext Provider
@@ -13,29 +16,36 @@ public class TCP
 	}
 	public static Map getContext()
 	{
-		return (Map) getMap().get(CONTEXT);
+		return (Map) getStack().peek();
 	}
-	public static void setContext(Map aCtx)
+
+	public static void pushContext(Map aCtx)
 	{
-		getMap().put(CONTEXT, aCtx);
+		getStack().push(aCtx);
+	}
+	public static void pushNewInheritableContext()
+	{
+		getStack().push(new InheritableMap(getContext()));
+	}
+	public static void popContext()
+	{
+		getStack().pop();
 	}
 
 // --- Implementation ---
 
-	private static Map getMap()
+	private static Stack getStack()
 	{
-		return (Map) threadMapHolder.get();
+		return (Stack) threadMapHolder.get();
 	}
 
 	private static ThreadLocal threadMapHolder = new ThreadLocal()
 	{
 		protected synchronized Object initialValue()
 		{
-			HashMap map = new HashMap();
-			map.put(CONTEXT, new HashMap());
-			return map;
+			Stack stack = new Stack();
+			stack.push(new InheritableMap(AC.getInstance()));
+			return stack;
 		}
 	};
-
-	private static final String CONTEXT = "ctx";
 }

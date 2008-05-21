@@ -2,7 +2,7 @@ package org.collage.dom.evaluator.java.javassist;
 
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
 import org.collage.dom.ast.DomEventHandlerProvider;
 
 public class JavassistTraverser extends NotifyingTreeNodeTraverser
@@ -12,19 +12,19 @@ public class JavassistTraverser extends NotifyingTreeNodeTraverser
 		// Setup:
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 		JavassistHandlerProvider jhp = new JavassistHandlerProvider();
-		hp.getRootSubject().registerObserver(jhp.newEnterRootObserver());
-		hp.getTextSubject().registerObserver(jhp.newTextObserver());
-		hp.getVariableSubject().registerObserver(jhp.newVariableObserver());
-		hp.getJavaSubject().registerObserver(jhp.newJavaObserver());
+		hp.getRootNotifier().registerObserver(jhp.newEnterRootObserver());
+		hp.getTextNotifier().registerObserver(jhp.newTextObserver());
+		hp.getVariableNotifier().registerObserver(jhp.newVariableObserver());
+		hp.getJavaNotifier().registerObserver(jhp.newJavaObserver());
 
 
 		// TODO: think about this:
-		IXCommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		getEnterNodeNotifier().registerObserver(cmd);
 
 		// RootNode-exit:
 		hp = new DomEventHandlerProvider();
-		hp.getRootSubject().registerObserver(jhp.newExitRootObserver());
+		hp.getRootNotifier().registerObserver(jhp.newExitRootObserver());
 		cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		getExitNodeNotifier().registerObserver(cmd);
 	}

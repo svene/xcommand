@@ -1,8 +1,8 @@
 package org.xcommand.web.jarresource;
 
 import org.springframework.core.io.Resource;
-import org.xcommand.web.XCRequestAttributeCV;
-import org.xcommand.web.WebXCV;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Servlet capable of serving resources (like images, .css, .js etc) out of jar files.
@@ -32,14 +30,12 @@ public class JarResourceServlet extends HttpServlet
 	protected long getLastModified(HttpServletRequest request)
 	{
 		JarResourceProvider jrp = new JarResourceProvider();
-		Map ctx = new HashMap();
-		XCRequestAttributeCV.setXcContext(request, ctx);
-		WebXCV.setServletContext(ctx, getServletContext());
+		webCV.setServletContext(getServletContext());
 		String resName = getResourceNameFromRequest(request);
-		JarResourceProviderContextView.setResourceName(ctx, resName);
-		jrp.execute(ctx);
-		showLastModifiedDate(ctx);
-		return JarResourceProviderContextView.getLastModified(ctx).longValue();
+		jarResourceProviderCV.setResourceName(resName);
+		jrp.execute();
+		showLastModifiedDate();
+		return jarResourceProviderCV.getLastModified().longValue();
 	}
 
 	private String getResourceNameFromRequest(HttpServletRequest request)
@@ -68,11 +64,10 @@ public class JarResourceServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		System.out.println("JarResourceServlet.doGet(): serving content");
-		Map ctx = XCRequestAttributeCV.getXcContext(request);
-		String resName = JarResourceProviderContextView.getResourceName(ctx);
+		String resName = jarResourceProviderCV.getResourceName();
 		if (resName != null)
 		{
-			Resource resource = JarResourceProviderContextView.getResource(ctx);
+			Resource resource = jarResourceProviderCV.getResource();
 			InputStream is = resource.getInputStream();
 			ServletOutputStream os = response.getOutputStream();
 			String mimeType = getServletContext().getMimeType(request.getRequestURI());
@@ -108,12 +103,16 @@ public class JarResourceServlet extends HttpServlet
 		}
 	}
 
-	private void showLastModifiedDate(Map aCtx)
+	private void showLastModifiedDate()
 	{
-		Resource resource = JarResourceProviderContextView.getResource(aCtx);
-		long l = JarResourceProviderContextView.getLastModified(aCtx).longValue();
+		Resource resource = jarResourceProviderCV.getResource();
+		long l = jarResourceProviderCV.getLastModified().longValue();
 
 		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IWebCV webCV = (IWebCV) dbp.getBeanForInterface(IWebCV.class);
+	private IJarResourceProviderCV jarResourceProviderCV = (IJarResourceProviderCV) dbp.getBeanForInterface(
+		IJarResourceProviderCV.class);
 
 }

@@ -1,38 +1,38 @@
 package org.xcommand.template.jst;
 
-import java.util.Map;
+import org.xcommand.core.TCP;
+
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.io.IOException;
 
 public class DefaultJSTRoutines implements IJSTRoutines
 {
-	public void ensureExistenceOfWriter(Map aCtx)
+	public void ensureExistenceOfWriter()
 	{
-		Writer writer = (Writer) aCtx.get("writer");
+		Writer writer = (Writer) TCP.getContext().get("writer");
 		if (writer == null)
 		{
 			writer = new OutputStreamWriter(System.out);
-			aCtx.put("writer", writer);
+			TCP.getContext().put("writer", writer);
 		}
 	}
-	public void $s(Map aCtx, String aString)
+	public void $s(String aString)
 	{
-		if (aCtx == null) throw new IllegalArgumentException("aString == null");
 		if (aString == null) throw new IllegalArgumentException("aString == null");
-		writeToWriter(aCtx, aString);
+		writeToWriter(aString);
 	}
 
-	public void $v(Map aCtx, String aName)
+	public void $v(String aName)
 	{
 		if (aName == null) throw new IllegalArgumentException("aName == null");
-		String value = (String) aCtx.get(aName);
+		String value = (String) TCP.getContext().get(aName);
 		if (value == null) throw new IllegalArgumentException("unknown property '" + aName + "'");
-		writeToWriter(aCtx, value);
+		writeToWriter(value);
 	}
-	private void writeToWriter(Map aCtx, String aString)
+	private void writeToWriter(String aString)
 	{
-		Writer writer = (Writer) aCtx.get("writer");
+		Writer writer = (Writer) TCP.getContext().get("writer");
 //		if (writer == null)
 //		{
 //			writer = new OutputStreamWriter(System.out);

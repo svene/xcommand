@@ -1,27 +1,29 @@
 package org.xcommand.misc;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
-import java.util.Map;
-import java.util.List;
 import java.io.PrintWriter;
+import java.util.List;
 
-public abstract class MessageCommand implements IXCommand
+public abstract class MessageCommand implements ICommand
 {
-	public abstract String getMessage(Map aCtx);
+	public abstract String getMessage();
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String s = getMessage(aCtx);
-		List lst = MessageCommandCV.getList(aCtx);
+		String s = getMessage();
+		List lst = messageCommandCV.getList();
 		if (lst != null)
 		{
 			lst.add(s);
 		}
-		PrintWriter pw = MessageCommandCV.getPrintWriter(aCtx);
+		PrintWriter pw = messageCommandCV.getPrintWriter();
 		if (pw != null)
 		{
 			pw.println(s);
 		}
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.getBeanForInterface(IMessageCommandCV.class);
 }

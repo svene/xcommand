@@ -1,17 +1,18 @@
 package org.xcommand.struts;
 
 import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForm;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.xcommand.core.IXCommand;
-import org.xcommand.web.WebXCV;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
+import org.xcommand.web.IWebCV;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 import java.util.HashMap;
 
 public class CommandByPathSelectionAction extends Action
@@ -22,17 +23,16 @@ public class CommandByPathSelectionAction extends Action
 	{
 		try
 		{
-			Map ctx = new HashMap();
-
+			TCP.pushContext(new HashMap());
 			// Set web properties:
-			WebXCV.setRequest(ctx, request);
-			WebXCV.setResponse(ctx, response);
+			webCV.setRequest(request);
+			webCV.setResponse(response);
 
 			// Set Struts properties:
-			StaticStrutsContextView.setActionForm(ctx, form);
-			StaticStrutsContextView.setActionMapping(ctx, mapping);
-			WebXCV.setRequest(ctx, request);
-			WebXCV.setResponse(ctx, response);
+			StaticStrutsContextView.setActionForm(form);
+			StaticStrutsContextView.setActionMapping(mapping);
+			webCV.setRequest(request);
+			webCV.setResponse(response);
 
 			// Get command configured with String using the path as beanname:
 			String path = mapping.getPath();
@@ -42,10 +42,11 @@ public class CommandByPathSelectionAction extends Action
 				getServlet().getServletContext());
 			if (wac.containsBean(path))
 			{
-				IXCommand cmd = (IXCommand) wac.getBean(path);
-				cmd.execute(ctx);
+				ICommand cmd = (ICommand) wac.getBean(path);
+				cmd.execute();
 			}
-			ActionForward forward = StaticStrutsContextView.getActionForward(ctx);
+			ActionForward forward = StaticStrutsContextView.getActionForward();
+			TCP.popContext();
 			return forward;
 		}
 		catch (Exception e)
@@ -55,4 +56,6 @@ public class CommandByPathSelectionAction extends Action
 		}
 	}
 
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IWebCV webCV = (IWebCV) dbp.getBeanForInterface(IWebCV.class);
 }

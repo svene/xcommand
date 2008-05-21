@@ -1,8 +1,7 @@
 package org.collage.dom.evaluator.common;
 
-import org.collage.dom.ast.JavaCV;
-
-import java.util.Map;
+import org.collage.dom.ast.IJavaCV;
+import org.xcommand.core.DynaBeanProvider;
 
 public class StringHandlingJavaHandler extends StringHandlingHandler
 {
@@ -16,8 +15,10 @@ public class StringHandlingJavaHandler extends StringHandlingHandler
 
 // --- Implementation ---
 
-	protected String getOriginalText(Map aCtx)
+	protected String getOriginalText()
 	{
-		return JavaCV.getJava(aCtx).getValue();
+		return javaCV.getJava().getValue();
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IJavaCV javaCV = (IJavaCV) dbp.getBeanForInterface(IJavaCV.class);
 }

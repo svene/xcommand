@@ -5,7 +5,7 @@ import org.xcommand.util.MainRoutines;
 import java.util.Map;
 
 /**
- * Embedded Jett 6y server
+ * Embedded Jetty6 server
  */
 public class MiniJetty
 {

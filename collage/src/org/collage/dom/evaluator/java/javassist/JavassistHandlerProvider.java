@@ -5,48 +5,49 @@ import org.collage.dom.ast.DomObjToTextTransformer;
 import org.collage.dom.ast.DomObjToVariableTransformer;
 import org.collage.dom.evaluator.common.TextToStringExtractor;
 import org.collage.dom.evaluator.common.VariableToVariableNameExtractor;
+import org.collage.dom.evaluator.java.independent.JavaEvalJavaHandler;
 import org.collage.dom.evaluator.java.independent.JavaEvalTextHandler;
 import org.collage.dom.evaluator.java.independent.JavaEvalVariableHandler;
-import org.collage.dom.evaluator.java.independent.JavaEvalJavaHandler;
-import org.xcommand.core.IXCommand;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.core.ICommand;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.pattern.observer.BasicNotifier;
 
 public class JavassistHandlerProvider
 {
-	public IXCommand newEnterRootObserver()
+	public ICommand newEnterRootObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new EnterRootHandler());
 		return result;
 	}
-	public IXCommand newExitRootObserver()
+	public ICommand newExitRootObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new ExitRootHandler());
 		return result;
 	}
 
-	public IXCommand newTextObserver()
+	public ICommand newTextObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToTextTransformer());
 		result.registerObserver(new TextToStringExtractor());
 		result.registerObserver(new JavaEvalTextHandler());
 		return result;
 	}
 
-	public IXCommand newVariableObserver()
+	public ICommand newVariableObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToVariableTransformer());
 		result.registerObserver(new VariableToVariableNameExtractor());
 		result.registerObserver(new JavaEvalVariableHandler());
 		return result;
 	}
 
-	public IXCommand newJavaObserver()
+	public ICommand newJavaObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToJavaTransformer());
 		result.registerObserver(new JavaEvalJavaHandler());
 		return result;

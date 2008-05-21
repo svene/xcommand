@@ -1,17 +1,19 @@
 package org.collage.dom.ast;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNode;
-import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
 
-import java.util.Map;
-
-public class TextHandler implements IXCommand
+public class TextHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		ITreeNode node = TreeNodeCV.getTreeNode(aCtx);
+		ITreeNode node = treeNodeCV.getTreeNode();
 		Text text = (Text) node.getDomainObject();
-		TextCV.setText(aCtx, text);
+		textCV.setText(text);
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	ITextCV textCV = (ITextCV) dbp.getBeanForInterface(ITextCV.class);
 }

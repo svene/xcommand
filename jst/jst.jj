@@ -7,43 +7,46 @@ PARSER_BEGIN(JSTParser)
 
 package org.xcommand.template.jst.parser;
 
-import java.util.Map;
-import org.xcommand.template.parser.ParserCV;
-import org.xcommand.pattern.observer.ISubject;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.pattern.observer.INotifier;
+import org.xcommand.pattern.observer.BasicNotifier;
+import org.xcommand.template.parser.IParserCV;
+import org.xcommand.core.DynaBeanProvider;
 
 public class JSTParser
 {
 
-	public ISubject getStartNotifier() { return startNotifier; }
-	public ISubject getEolInCommentNotifier() { return eolInCommentNotifier; }
-	public ISubject getEolInJavaNotifier() { return eolInJavaNotifier; }
-	public ISubject getEofNotifier() { return eofNotifier; }
+	public INotifier getStartNotifier() { return startNotifier; }
+	public INotifier getEolInCommentNotifier() { return eolInCommentNotifier; }
+	public INotifier getEolInJavaNotifier() { return eolInJavaNotifier; }
+	public INotifier getEofNotifier() { return eofNotifier; }
 
-	public ISubject getCommentStartNotifier() { return commentStartNotifier; }
-	public ISubject getCommentTextNotifier() { return commentTextNotifier; }
-//	public ISubject getCommentDoubleQuoteNotifier() { return commentDoubleQuoteNotifier; }
-	public ISubject getCommentEndNotifier() { return commentEndNotifier; }
+	public INotifier getCommentStartNotifier() { return commentStartNotifier; }
+	public INotifier getCommentTextNotifier() { return commentTextNotifier; }
+//	public INotifier getCommentDoubleQuoteNotifier() { return commentDoubleQuoteNotifier; }
+	public INotifier getCommentEndNotifier() { return commentEndNotifier; }
 
-	public ISubject getJavaTextNotifier() { return javaTextNotifier; }
-	public ISubject getJavaVarStartNotifier() { return javaVarStartNotifier; }
-	public ISubject getJavaVarNotifier() { return javaVarNotifier; }
-	public ISubject getJavaVarEndNotifier() { return javaVarEndNotifier; }
+	public INotifier getJavaTextNotifier() { return javaTextNotifier; }
+	public INotifier getJavaVarStartNotifier() { return javaVarStartNotifier; }
+	public INotifier getJavaVarNotifier() { return javaVarNotifier; }
+	public INotifier getJavaVarEndNotifier() { return javaVarEndNotifier; }
 
-	private ISubject startNotifier = new SubjectImpl();
-	private ISubject eolInCommentNotifier = new SubjectImpl();
-	private ISubject eolInJavaNotifier = new SubjectImpl();
-	private ISubject eofNotifier = new SubjectImpl();
+	private INotifier startNotifier = new BasicNotifier();
+	private INotifier eolInCommentNotifier = new BasicNotifier();
+	private INotifier eolInJavaNotifier = new BasicNotifier();
+	private INotifier eofNotifier = new BasicNotifier();
 
-	private ISubject commentStartNotifier = new SubjectImpl();
-	private ISubject commentTextNotifier = new SubjectImpl();
-//	private ISubject commentDoubleQuoteNotifier = new SubjectImpl();
-	private ISubject commentEndNotifier = new SubjectImpl();
+	private INotifier commentStartNotifier = new BasicNotifier();
+	private INotifier commentTextNotifier = new BasicNotifier();
+//	private INotifier commentDoubleQuoteNotifier = new BasicNotifier();
+	private INotifier commentEndNotifier = new BasicNotifier();
 
-	private ISubject javaTextNotifier = new SubjectImpl();
-	private ISubject javaVarStartNotifier = new SubjectImpl();
-	private ISubject javaVarNotifier = new SubjectImpl();
-	private ISubject javaVarEndNotifier = new SubjectImpl();
+	private INotifier javaTextNotifier = new BasicNotifier();
+	private INotifier javaVarStartNotifier = new BasicNotifier();
+	private INotifier javaVarNotifier = new BasicNotifier();
+	private INotifier javaVarEndNotifier = new BasicNotifier();
+
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
 
 	private boolean inCommentState = false;
 
@@ -64,54 +67,56 @@ PARSER_END(JSTParser)
 <IN_COMMENT_STATE> TOKEN : { < COMMENT_TEXT : ~[] > }
 <IN_COMMENT_STATE> TOKEN : { < COMMENT_EOL : "\n" | "\r" | "\r\n" > }
 
-<IN_COMMENT_STATE> TOKEN : { < JAVA_VAR_START : "$jv{" >: IN_JAVA_VAR_STATE}
-<IN_JAVA_VAR_STATE> TOKEN : { < JAVA_VAR_END : "}" >: IN_COMMENT_STATE }
-<IN_JAVA_VAR_STATE> TOKEN : { <#DIGIT : ["0"-"9", "A"-"Z"] >}
-<IN_JAVA_VAR_STATE> TOKEN : { <#LETTER : ["a"-"z", "A"-"Z", "_"] >}
-<IN_JAVA_VAR_STATE> TOKEN : { < JAVA_VAR : <LETTER>(<LETTER>|<DIGIT>)* > }
+<IN_COMMENT_STATE> TOKEN : { < JAVA_EXPR_START : "$jv{" >: IN_JAVA_EXPR_STATE}
+<IN_JAVA_EXPR_STATE> TOKEN : { < JAVA_EXPR_END : "}" >: IN_COMMENT_STATE }
+<IN_JAVA_EXPR_STATE> TOKEN : { <#DIGIT : ["0"-"9", "A"-"Z"] >}
+<IN_JAVA_EXPR_STATE> TOKEN : { <#LETTER : ["a"-"z", "A"-"Z", "_"] >}
+<IN_JAVA_EXPR_STATE> TOKEN : { <#JAVA_CHARS : "." | "(" | ")" > }
+<IN_JAVA_EXPR_STATE> TOKEN : { < JAVA_EXPR : (<LETTER>|<DIGIT>|<JAVA_CHARS>)* > }
 
-void Start(Map aCtx):
+void Start():
 {
-	startNotifier.execute(aCtx);
+//<IN_JAVA_EXPR_STATE> TOKEN : { < JAVA_EXPR : <LETTER>(<LETTER>|<DIGIT>)*(<JAVA_CHARS>)*(<LETTER>|<DIGIT>)* > }
+	startNotifier.execute();
 }
 {
 	(
-		javaEol(aCtx)
+		javaEol()
 	|
-		javaText(aCtx)
+		javaText()
 	|
-		commentStart(aCtx)
+		commentStart()
 	|
-		commentEnd(aCtx)
+		commentEnd()
 	|
-		commentText(aCtx)
+		commentText()
 	|
-		commentEol(aCtx)
+		commentEol()
 	|
-		javaVarStart(aCtx)
+		javaVarStart()
 	|
-		javaVarEnd(aCtx)
+		javaVarEnd()
 	|
-		javaVar(aCtx)
+		javaVar()
 	)*
-	eof(aCtx)
+	eof()
 }
 
-void javaText(Map aCtx):
+void javaText():
 {
 	Token t;
 }
 {
 	t = <JAVA_TEXT>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserCV.setValue(aCtx, t.image);
-		///ParserModeCV.setMode(aCtx, ParserModeCV.KEY_TEXT);
-		javaTextNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		parserCV.setValue(t.image);
+		///ParserModeCV.setMode(ParserModeCV.KEY_TEXT);
+		javaTextNotifier.execute();
 	}
 }
 
-void commentStart(Map aCtx):
+void commentStart():
 {
 	Token t;
 }
@@ -119,26 +124,26 @@ void commentStart(Map aCtx):
 	t = <COMMENT_START>
 	{
 		//System.out.println("*** comment start found");
-		ParserCV.setToken(aCtx, t);
+		parserCV.setToken(t);
 		inCommentState = true;
-		commentStartNotifier.execute(aCtx);
+		commentStartNotifier.execute();
 	}
 }
 
-void commentText(Map aCtx):
+void commentText():
 {
 	Token t;
 }
 {
 	t = <COMMENT_TEXT>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserCV.setValue(aCtx, t.image);
-		commentTextNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		parserCV.setValue(t.image);
+		commentTextNotifier.execute();
 	}
 }
 
-void commentEnd(Map aCtx):
+void commentEnd():
 {
 	Token t;
 }
@@ -146,91 +151,91 @@ void commentEnd(Map aCtx):
 	t = <COMMENT_END>
 	{
 		//System.out.println("*** comment end found");
-		ParserCV.setToken(aCtx, t);
+		parserCV.setToken(t);
 		inCommentState = false;
-		commentEndNotifier.execute(aCtx);
+		commentEndNotifier.execute();
 	}
 }
 
-void javaVarStart(Map aCtx):
+void javaVarStart():
 {
 	Token t;
 }
 {
-	t = <JAVA_VAR_START>
+	t = <JAVA_EXPR_START>
 	{
 		//System.out.println("*** java var start found");
-		ParserCV.setToken(aCtx, t);
-		///ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_START_MODE);
-		javaVarStartNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		///ParserModeCV.setMode(ParserModeCV.KEY_JAVA_START_MODE);
+		javaVarStartNotifier.execute();
 	}
 }
 
-void javaVar(Map aCtx):
+void javaVar():
 {
 	Token t;
 }
 {
-	t = <JAVA_VAR>
+	t = <JAVA_EXPR>
 	{
 		//System.out.println("*** java var found");
-		ParserCV.setToken(aCtx, t);
-		ParserCV.setValue(aCtx, t.image);
-		///ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_CODE_MODE);
-		javaVarNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		parserCV.setValue(t.image);
+		///ParserModeCV.setMode(ParserModeCV.KEY_JAVA_CODE_MODE);
+		javaVarNotifier.execute();
 	}
 }
 
-void javaVarEnd(Map aCtx):
+void javaVarEnd():
 {
 	Token t;
 }
 {
-	t = <JAVA_VAR_END>
+	t = <JAVA_EXPR_END>
 	{
 		//System.out.println("*** java var end found");
-		ParserCV.setToken(aCtx, t);
-		///ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_END_MODE);
-		javaVarEndNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		///ParserModeCV.setMode(ParserModeCV.KEY_JAVA_END_MODE);
+		javaVarEndNotifier.execute();
 	}
 }
 
-void javaEol(Map aCtx):
+void javaEol():
 {
 	Token t;
 }
 {
 	t = <JAVA_EOL>
 	{
-		ParserCV.setToken(aCtx, t);
-		///ParserModeCV.setMode(aCtx, ParserModeCV.KEY_EOL);
-		eolInJavaNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		///ParserModeCV.setMode(ParserModeCV.KEY_EOL);
+		eolInJavaNotifier.execute();
 	}
 }
 
-void commentEol(Map aCtx):
+void commentEol():
 {
 	Token t;
 }
 {
 	t = <COMMENT_EOL>
 	{
-		ParserCV.setToken(aCtx, t);
-		///ParserModeCV.setMode(aCtx, ParserModeCV.KEY_EOL);
-		eolInCommentNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		///ParserModeCV.setMode(ParserModeCV.KEY_EOL);
+		eolInCommentNotifier.execute();
 	}
 }
 
-void eof(Map aCtx):
+void eof():
 {
 	Token t;
 }
 {
 	t = <EOF>
 	{
-		ParserCV.setToken(aCtx, t);
-		///ParserModeCV.setMode(aCtx, ParserModeCV.KEY_EOF);
-		eofNotifier.execute(aCtx);
+		parserCV.setToken(t);
+		///ParserModeCV.setMode(ParserModeCV.KEY_EOF);
+		eofNotifier.execute();
 	}
 }
 

@@ -1,21 +1,23 @@
 package org.collage.template;
 
-import java.util.Map;
+import org.xcommand.core.TCP;
+
 import java.io.Writer;
 
+/** Context View with UserFriendly property 'writer' (see also comment in 'ITemplateCV') */
 public class TemplateCV
 {
 
 // --- Access ---
 
-	public static Writer getWriter(Map aCtx)
+	public static Writer getWriter()
 	{
-		return (Writer) aCtx.get(KEY_UF_WRITER);
+		return (Writer) TCP.getContext().get(KEY_UF_WRITER);
 	}
 
-	public static void setWriter(Map aCtx, Writer aWriter)
+	public static void setWriter(Writer aWriter)
 	{
-		aCtx.put(KEY_UF_WRITER, aWriter);
+		TCP.getContext().put(KEY_UF_WRITER, aWriter);
 	}	
 
 	private static final String NS = "org.collage.template.TemplateCV.";

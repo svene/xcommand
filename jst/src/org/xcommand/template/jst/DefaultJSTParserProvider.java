@@ -1,18 +1,17 @@
 package org.xcommand.template.jst;
 
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
 import org.xcommand.template.jst.parser.JSTParser;
-import org.xcommand.template.parser.ParserCV;
-import org.xcommand.core.IXCommand;
-
-import java.util.Map;
+import org.xcommand.template.parser.IParserCV;
 
 public class DefaultJSTParserProvider implements IJSTParserProvider
 {
-	public JSTParser newJSTParser(Map aCtx)
+	public JSTParser newJSTParser()
 	{
-		String encoding = JSTParserCV.getEncoding(aCtx);
+		String encoding = jstParserCV.getEncoding();
 		if (encoding == null) encoding = "UTF-8";
-		JSTParser parser = new JSTParser(JSTParserCV.getInputStream(aCtx), encoding);
+		JSTParser parser = new JSTParser(jstParserCV.getInputStream(), encoding);
 		parser.getJavaVarNotifier().registerObserver(javaVariableObserver);
 		parser.getJavaTextNotifier().registerObserver(javaTextObserver);
 		parser.getCommentStartNotifier().registerObserver(commentStartObserver);
@@ -23,53 +22,53 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		return parser;
 	}
 
-	private IXCommand javaVariableObserver = new IXCommand()
+	private ICommand javaVariableObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("javavariable found: " + ParserCV.getValue(aCtx));
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
 				code.append("\");");
 				code.append("$s(");
-				code.append(ParserCV.getValue(aCtx));
+				code.append(parserCV.getValue());
 				code.append(");");
 				code.append("$s(\"");
 			}
 		};
-	private IXCommand javaTextObserver = new IXCommand()
+	private ICommand javaTextObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("javaText found: " + ParserCV.getValue(aCtx));
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
-				code.append(ParserCV.getValue(aCtx));
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
+				code.append(parserCV.getValue());
 			}
 		};
-	private IXCommand commentStartObserver = new IXCommand()
+	private ICommand commentStartObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("commentStart found");
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
 				code.append("$s(\"");
 			}
 		};
-	private IXCommand commentEndObserver = new IXCommand()
+	private ICommand commentEndObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("commentEnd found");
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
 				code.append("\");");
 			}
 		};
-	private IXCommand commentTextObserver = new IXCommand()
+	private ICommand commentTextObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("commentText found: " + ParserCV.getValue(aCtx));
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
-				String v = ParserCV.getValue(aCtx);
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
+				String v = parserCV.getValue();
 				if ("\"".equals(v))
 				{
 					v = "\\\"";
@@ -77,32 +76,35 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append(v);
 			}
 		};
-	private IXCommand eolObserver = new IXCommand()
+	private ICommand eolObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("eol found");
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
 				code.append('\n');
 			}
 		};
-	private IXCommand eolInCommentObserver = new IXCommand()
+	private ICommand eolInCommentObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("comment eol found");
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
 				code.append("\\n");
 			}
 		};
-	private IXCommand eolInJavaObserver = new IXCommand()
+	private ICommand eolInJavaObserver = new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 //				System.out.println("java eol found");
-				StringBuffer code = JSTParserCV.getGeneratedJavaCode(aCtx);
+				StringBuffer code = jstParserCV.getGeneratedJavaCode();
 				code.append('\n');
 			}
 		};
 
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.getBeanForInterface(IJSTParserCV.class);
 }

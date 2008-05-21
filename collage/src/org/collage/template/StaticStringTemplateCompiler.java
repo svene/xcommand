@@ -1,17 +1,17 @@
 package org.collage.template;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class StaticStringTemplateCompiler
 {
-	public IXCommand getTemplateCommand(String aStringTemplate)
+	public ICommand getTemplateCommand(String aStringTemplate)
 	{
 		synchronized(templateCache)
 		{
-			IXCommand cmd = (IXCommand) templateCache.get(aStringTemplate);
+			ICommand cmd = (ICommand) templateCache.get(aStringTemplate);
 			if (cmd == null)
 			{
 //				System.out.println("StaticStringTemplateCompiler.getTemplateCommand(): creating template for '" +

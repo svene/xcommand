@@ -1,17 +1,18 @@
 package org.collage.dom.evaluator.java.independent;
 
-import org.xcommand.core.IXCommand;
-import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.apache.commons.lang.StringUtils;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
+import org.xcommand.core.DynaBeanProvider;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
 
-import java.util.Map;
-
-public class JavaEvalTextHandler implements IXCommand
+public class JavaEvalTextHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		StringBuffer methodBody = (StringBuffer) aCtx.get("methodbody");
-		String s = StringHandlerCV.getString(aCtx);
+		// TODO: improve this:
+		StringBuffer methodBody = (StringBuffer) TCP.getContext().get("methodbody");
+		String s = stringHandlerCV.getString();
 		String ss = decodedString("\t_writer.write(#") + s + decodedString("#);\n");
 		methodBody.append(ss);
 	}
@@ -20,4 +21,6 @@ public class JavaEvalTextHandler implements IXCommand
 	{
 		return StringUtils.replace(aString, "#", "\"");
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

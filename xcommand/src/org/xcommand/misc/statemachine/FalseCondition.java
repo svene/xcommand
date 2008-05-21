@@ -1,14 +1,15 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.IXCommand;
-import org.xcommand.core.ResultContextView;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IResultCV;
 
-import java.util.Map;
-
-public class FalseCondition implements IXCommand
+public class FalseCondition implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		ResultContextView.setResult(aCtx, Boolean.FALSE);
+		resultCV.setResult(Boolean.FALSE);
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IResultCV resultCV = (IResultCV) dbp.getBeanForInterface(IResultCV.class);
 }

@@ -1,23 +1,24 @@
 package org.collage;
 
 import junit.framework.TestCase;
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.EvaluationCV;
-import org.collage.dom.evaluator.common.StringHandlerCV;
-import org.collage.dom.evaluator.java.independent.JavaTemplateCmdCV;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
+import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
 import org.collage.dom.evaluator.text.TextTraverser;
-import org.collage.parser.ParserCV;
+import org.collage.dom.evaluator.IEvaluationCV;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateCompiler;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
+import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNode;
-import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.template.parser.IParserCV;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainSM extends TestCase
 {
@@ -30,44 +31,59 @@ public class MainSM extends TestCase
 
 	public void test2()
 	{
+		TCP.pushContext(new HashMap());
 		TemplateCompiler tc = new TemplateCompiler();
-		Map ctx = new HashMap();
-		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.FALSE);
+		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		InputStream is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
-		ParserCV.setInputStream(ctx, is);
-		tc.execute(ctx);
+		parserCV.setInputStream(is);
+		tc.execute();
 
-		ITreeNode rootNode = TreeNodeCV.getTreeNode(ctx);
+		ITreeNode rootNode = treeNodeCV.getTreeNode();
 		TextTraverser tt = new TextTraverser();
-		ctx = new HashMap();
-		TreeNodeCV.setTreeNode(ctx, rootNode);
-		EvaluationCV.setWriter(ctx, new PrintWriter(System.out));
-		ctx.put("firstname", "Uli");
-		tt.execute(ctx);
+//		ctx = new HashMap();
+		treeNodeCV.setTreeNode(rootNode);
+		evaluationCV.setWriter(new PrintWriter(System.out));
+		TCP.getContext().put("firstname", "Uli");
+		tt.execute();
+		TCP.popContext();
 	}
 	public void test3()
 	{
+		TCP.pushContext(new HashMap());
 		TemplateCompiler tc = new TemplateCompiler();
-		Map ctx = new HashMap();
-		DomNodeCreationHandlerCV.setProduceJavaSource(ctx, Boolean.TRUE);
+//		Map ctx = new HashMap();
+		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
 		InputStream is = new ByteArrayInputStream("hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n".getBytes());
-		ParserCV.setInputStream(ctx, is);
-		tc.execute(ctx);
+		parserCV.setInputStream(is);
+		tc.execute();
 
 		// Evaluate using DomDumper:
-		ITreeNode rootNode = TreeNodeCV.getTreeNode(ctx);
+		ITreeNode rootNode = treeNodeCV.getTreeNode();
+		TCP.popContext();
 
 //		NodeVisitor nv = new org.collage.dom.evaluator.java.javassist.Evaluator();
 		JavassistTraverser tt = new JavassistTraverser();
-		ctx = new HashMap();
-		StringHandlerCV.setString(ctx, "dummy");
-		TreeNodeCV.setTreeNode(ctx, rootNode);
-		tt.execute(ctx);
-		IXCommand cmd = JavaTemplateCmdCV.getTemplateComand(ctx);
+//		ctx = new HashMap();
+		TCP.pushContext(new HashMap());
+		stringHandlerCV.setString("dummy");
+		treeNodeCV.setTreeNode(rootNode);
+		tt.execute();
+		ICommand cmd = javaTemplateCmdCV.getTemplateComand();
+		TCP.popContext();
 
-		ctx = new HashMap();
-		ctx.put("firstname", "Sven");
-		EvaluationCV.setWriter(ctx, new PrintWriter(System.out));
-		cmd.execute(ctx);
+		TCP.pushContext(new HashMap());
+//		ctx = new HashMap();
+		TCP.getContext().put("firstname", "Sven");
+		evaluationCV.setWriter(new PrintWriter(System.out));
+		cmd.execute();
+		TCP.popContext();
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.getBeanForInterface(IJavaTemplateCmdCV.class);
+	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.getBeanForInterface(IEvaluationCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
 }

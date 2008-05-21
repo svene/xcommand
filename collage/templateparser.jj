@@ -7,38 +7,40 @@ PARSER_BEGIN(TemplateParser)
 
 package org.collage.jcc;
 
-import java.util.Map;
-import org.collage.parser.*;
-import org.xcommand.core.*;
-import org.xcommand.core.multi.*;
-import org.collage.csm.*;
-import org.xcommand.pattern.observer.ISubject;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.collage.parser.IParserModeCV;
+import org.xcommand.pattern.observer.BasicNotifier;
+import org.xcommand.pattern.observer.INotifier;
+import org.xcommand.template.parser.IParserCV;
+import org.xcommand.core.DynaBeanProvider;
 
 public class TemplateParser
 {
 
-	public ISubject getStartSubject() { return startSubject; }
-	public ISubject getVarStartSubject() { return varStartSubject; }
-	public ISubject getVarNameSubject() { return varNameSubject; }
-	public ISubject getVarEndSubject() { return varEndSubject; }
-	public ISubject getEolSubject() { return eolSubject; }
-	public ISubject getJavaStartSubject() { return javaStartSubject; }
-	public ISubject getJavaEndSubject() { return javaEndSubject; }
-	public ISubject getJavaCodeSubject() { return javaCodeSubject; }
-	public ISubject getTextSubject() { return textSubject; }
-	public ISubject getEofSubject() { return eofSubject; }
+	public INotifier getStartNotifier() { return startNotifier; }
+	public INotifier getVarStartNotifier() { return varStartNotifier; }
+	public INotifier getVarNameNotifier() { return varNameNotifier; }
+	public INotifier getVarEndNotifier() { return varEndNotifier; }
+	public INotifier getEolNotifier() { return eolNotifier; }
+	public INotifier getJavaStartNotifier() { return javaStartNotifier; }
+	public INotifier getJavaEndNotifier() { return javaEndNotifier; }
+	public INotifier getJavaCodeNotifier() { return javaCodeNotifier; }
+	public INotifier getTextNotifier() { return textNotifier; }
+	public INotifier getEofNotifier() { return eofNotifier; }
 
-	private ISubject startSubject = new SubjectImpl();
-	private ISubject varStartSubject = new SubjectImpl();
-	private ISubject varNameSubject = new SubjectImpl();
-	private ISubject varEndSubject = new SubjectImpl();
-	private ISubject eolSubject = new SubjectImpl();
-	private ISubject javaStartSubject = new SubjectImpl();
-	private ISubject javaEndSubject = new SubjectImpl();
-	private ISubject javaCodeSubject = new SubjectImpl();
-	private ISubject textSubject = new SubjectImpl();
-	private ISubject eofSubject = new SubjectImpl();
+	private INotifier startNotifier = new BasicNotifier();
+	private INotifier varStartNotifier = new BasicNotifier();
+	private INotifier varNameNotifier = new BasicNotifier();
+	private INotifier varEndNotifier = new BasicNotifier();
+	private INotifier eolNotifier = new BasicNotifier();
+	private INotifier javaStartNotifier = new BasicNotifier();
+	private INotifier javaEndNotifier = new BasicNotifier();
+	private INotifier javaCodeNotifier = new BasicNotifier();
+	private INotifier textNotifier = new BasicNotifier();
+	private INotifier eofNotifier = new BasicNotifier();
+
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	private IParserModeCV parserModeCV = (IParserModeCV) dbp.getBeanForInterface(IParserModeCV.class);
 
 	{
 		// do initialization stuff here
@@ -59,149 +61,150 @@ TOKEN : { < EOL : "\n" | "\r" | "\r\n" > }
 <IN_JAVA_STATE> TOKEN : { < JAVA_END : "?>" >: DEFAULT }
 <IN_JAVA_STATE> TOKEN : { < JAVA_CODE :~[] > }
 
-void Start(Map aCtx):
+void Start():
 {
-	//org: executeTokenHandler(aCtx, ParserModeCV.KEY_START_MODE);
-	startSubject.execute(aCtx);
+	//org: executeTokenHandler(aCtx, IParserModeCV.KEY_START_MODE);
+	//startNotifier.execute(aCtx);
+	startNotifier.execute();
 }
 {
 	(
-		varStart(aCtx)
+		varStart()
 	|
-		varName(aCtx)
+		varName()
 	|
-		varEnd(aCtx)
+		varEnd()
 	|
-		eol(aCtx)
+		eol()
 	|
-		javaStart(aCtx)
+		javaStart()
 	|
-		javaEnd(aCtx)
+		javaEnd()
 	|
-		javaCode(aCtx)
+		javaCode()
 	|
-		text(aCtx)
+		text()
 	)*
-	eof(aCtx)
+	eof()
 }
 
-void text(Map aCtx):
+void text():
 {
 	Token t;
 }
 {
 	t = <TEXT>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserCV.setValue(aCtx, t.image);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_TEXT);
-		textSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserCV.setValue(t.image);
+		parserModeCV.setMode(IParserModeCV.KEY_TEXT);
+		textNotifier.execute();
 	}
 }
 
-void varStart(Map aCtx):
+void varStart():
 {
 	Token t;
 }
 {
 	t = <VAR_START>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_VAR_START_MODE);
-		varStartSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserModeCV.setMode(IParserModeCV.KEY_VAR_START_MODE);
+		varStartNotifier.execute();
 	}
 }
 
-void varName(Map aCtx):
+void varName():
 {
 	Token t;
 }
 {
 	t = <VAR_NAME>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserCV.setValue(aCtx, t.image);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_VAR_NAME_MODE);
-		varNameSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserCV.setValue(t.image);
+		parserModeCV.setMode(IParserModeCV.KEY_VAR_NAME_MODE);
+		varNameNotifier.execute();
 	}
 }
 
-void varEnd(Map aCtx):
+void varEnd():
 {
 	Token t;
 }
 {
 	t = <VAR_END>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_VAR_END_MODE);
-		varEndSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserModeCV.setMode(IParserModeCV.KEY_VAR_END_MODE);
+		varEndNotifier.execute();
 	}
 }
 
-void javaStart(Map aCtx):
+void javaStart():
 {
 	Token t;
 }
 {
 	t = <JAVA_START>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_START_MODE);
-		javaStartSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserModeCV.setMode(IParserModeCV.KEY_JAVA_START_MODE);
+		javaStartNotifier.execute();
 	}
 }
 
-void javaCode(Map aCtx):
+void javaCode():
 {
 	Token t;
 }
 {
 	t = <JAVA_CODE>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserCV.setValue(aCtx, t.image);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_CODE_MODE);
-		javaCodeSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserCV.setValue(t.image);
+		parserModeCV.setMode(IParserModeCV.KEY_JAVA_CODE_MODE);
+		javaCodeNotifier.execute();
 	}
 }
 
-void javaEnd(Map aCtx):
+void javaEnd():
 {
 	Token t;
 }
 {
 	t = <JAVA_END>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_JAVA_END_MODE);
-		javaEndSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserModeCV.setMode(IParserModeCV.KEY_JAVA_END_MODE);
+		javaEndNotifier.execute();
 	}
 }
 
-void eol(Map aCtx):
+void eol():
 {
 	Token t;
 }
 {
 	t = <EOL>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_EOL);
-		eolSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserModeCV.setMode(IParserModeCV.KEY_EOL);
+		eolNotifier.execute();
 	}
 }
 
-void eof(Map aCtx):
+void eof():
 {
 	Token t;
 }
 {
 	t = <EOF>
 	{
-		ParserCV.setToken(aCtx, t);
-		ParserModeCV.setMode(aCtx, ParserModeCV.KEY_EOF);
-		eofSubject.execute(aCtx);
+		parserCV.setToken(t);
+		parserModeCV.setMode(IParserModeCV.KEY_EOF);
+		eofNotifier.execute();
 	}
 }
 

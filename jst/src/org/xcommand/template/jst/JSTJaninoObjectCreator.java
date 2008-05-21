@@ -1,13 +1,15 @@
 package org.xcommand.template.jst;
 
 import org.xcommand.technology.janino.MapResourceFinder;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 import org.codehaus.janino.JavaSourceClassLoader;
 import org.codehaus.janino.DebuggingInformation;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Date;
 
 public class JSTJaninoObjectCreator
 {
@@ -17,27 +19,44 @@ public class JSTJaninoObjectCreator
 	{
 		// Put source of template into `janinoClassMap' so that Janino can work with it:
 		janinoClassMap.clear();
-		Iterator it = jstProvider.getClassMap().entrySet().iterator();
+		Map classMap = jstScannerCV.getClassMap();
+		Iterator it = classMap.entrySet().iterator();
 		while (it.hasNext())
 		{
 			Map.Entry me = (Map.Entry) it.next();
 			ClassMapEntry cme = (ClassMapEntry) me.getValue();
-			janinoClassMap.put(me.getKey(), cme.source.getBytes());
+			janinoClassMap.put(me.getKey(), cme.fme.content.getBytes());
+			cme.fme.lastmodified = cme.fme.file.lastModified();
 		}
 		mrf = new MapResourceFinder(janinoClassMap);
 	}
 
-	public Class getClass(Map aCtx, String aClassname)
+	public Class getClass(String aClassname)
 	{
 		// Make sure classes are loaded:
-		jstProvider.getClassMapEntry(aCtx, aClassname);
+		Map classMap = jstScannerCV.getClassMap();
+		ClassMapEntry cme = (ClassMapEntry) classMap.get(aClassname);
+		if (cme != null)
+		{
+			System.out.println("cme for '" + aClassname + "' found");
+			if (cme.lastloaded > cme.fme.lastmodified)
+			{
+				System.out.println("loaded class still valid.");
+				return cme.clazz;
+			}
+		}
+		// Load class via Janino:
 		ClassLoader parentClassLoader = getClass().getClassLoader();
 		String encoding = null;
+		System.out.println("loading class '" + aClassname + "'");
 		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, mrf, encoding, DebuggingInformation.ALL);
 	 	String dotClassName = aClassname.replace('/', '.');
 		try
 		{
-			return cl.loadClass(dotClassName);
+			Class clazz = cl.loadClass(dotClassName);
+			cme.clazz = clazz;
+			cme.lastloaded = new Date().getTime();
+			return clazz;
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -45,9 +64,9 @@ public class JSTJaninoObjectCreator
 		}
 
 	}
-	public Object newObject(Map aCtx, String aClassname)
+	public Object newObject(String aClassname)
 	{
-		Class clazz = getClass(aCtx, aClassname);
+		Class clazz = getClass(aClassname);
 		try
 		{
 			return clazz.newInstance();
@@ -61,9 +80,9 @@ public class JSTJaninoObjectCreator
 	public void setJstProvider(IJSTProvider aJstProvider)
 	{
 		jstProvider = aJstProvider;
-		jstProvider.getChangeNotifier().registerObserver(new IXCommand()
+		jstProvider.getChangeNotifier().registerObserver(new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
 				initialize();
 			}
@@ -74,4 +93,6 @@ public class JSTJaninoObjectCreator
 	private Map janinoClassMap = new HashMap();
 	private IJSTProvider jstProvider;
 	MapResourceFinder mrf;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.getBeanForInterface(IJSTScannerCV.class);
 }

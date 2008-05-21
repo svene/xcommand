@@ -1,35 +1,25 @@
 package org.collage.template;
 
+import org.xcommand.core.TCP;
+
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
-import java.util.HashMap;
 
 public class TemplateSource
 {
 
 // --- Initialization ---
 
-	public TemplateSource(InputStream aTemplateStream, Map aCtx)
-	{
-		if (aTemplateStream == null) throw new RuntimeException("aTemplateStream == null");
-		if (aCtx == null) throw new RuntimeException("aCtx == null");
-
-		inputStream = aTemplateStream;
-		context = aCtx;
-	}
-
 	public TemplateSource(InputStream aTemplateStream)
 	{
-		this(aTemplateStream, new HashMap());
-	}
-	public TemplateSource(String aTemplateText, Map aCtx)
-	{
-		this(new ByteArrayInputStream(aTemplateText.getBytes()), aCtx);
+		if (aTemplateStream == null) throw new RuntimeException("aTemplateStream == null");
+
+		inputStream = aTemplateStream;
 	}
 	public TemplateSource(String aTemplateText)
 	{
-		this(aTemplateText, new HashMap());
+		this(new ByteArrayInputStream(aTemplateText.getBytes()));
 	}
 
 // --- Access ---
@@ -41,7 +31,7 @@ public class TemplateSource
 
 	public Map getContext()
 	{
-		return context;
+		return TCP.getContext();
 	}
 
 // --- Setting ---
@@ -51,13 +41,7 @@ public class TemplateSource
 		inputStream = aInputStream;
 	}
 
-	public void setContext(Map aCtx)
-	{
-		context = aCtx;
-	}
-
 // --- Implementation ---
 
 	private InputStream inputStream;
-	private Map context;
 }

@@ -1,24 +1,21 @@
 package org.collage;
 
 import junit.framework.TestCase;
-import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.collage.template.StaticStringTemplateCompiler;
 import org.collage.template.TextTemplateCompiler;
-import org.xcommand.core.IXCommand;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.xcommand.core.TCP;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
 public class StaticStringTemplateCompilerTester extends TestCase
 {
 
-	Map dataCtx;
 	private static final int RUNS = 10000;
 
 	protected void setUp() throws Exception
 	{
-		dataCtx = new HashMap();
-		dataCtx.put("firstname", "Uli");
+		TCP.getContext().put("firstname", "Uli");
 	}
 
 	public void test1()
@@ -26,9 +23,9 @@ public class StaticStringTemplateCompilerTester extends TestCase
 //		System.out.println("TextTemplateTest.test1()");
 		for (int i = 0; i < RUNS; i++)
 		{
-			IXCommand cmd = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}. Wie gehts?");
-			cmd.execute(dataCtx);
-			String s = StringHandlerCV.getString(dataCtx);
+			ICommand cmd = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}. Wie gehts?");
+			cmd.execute();
+			String s = stringHandlerCV.getString();
 //			System.out.println(s);
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}
@@ -38,9 +35,9 @@ public class StaticStringTemplateCompilerTester extends TestCase
 	{
 		// On first template request `StaticStringTemplateCompiler' will compile unknown template:
 //		System.out.println("StaticStringTemplateCompilerTester.test2()");
-		IXCommand cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
-		cmd.execute(dataCtx);
-		String s = StringHandlerCV.getString(dataCtx);
+		ICommand cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
+		cmd.execute();
+		String s = stringHandlerCV.getString();
 //		System.out.println(s);
 		assertEquals("hallo Uli. Wie gehts?", s);
 
@@ -48,12 +45,12 @@ public class StaticStringTemplateCompilerTester extends TestCase
 		for (int i = 0; i < RUNS; i++)
 		{
 			cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
-			cmd.execute(dataCtx);
-			s = StringHandlerCV.getString(dataCtx);
+			cmd.execute();
+			s = stringHandlerCV.getString();
 //			System.out.println(s);
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}
 	}
-
-
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

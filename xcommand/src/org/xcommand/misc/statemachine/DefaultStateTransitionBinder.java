@@ -1,8 +1,7 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.IXCommand;
-
-import java.util.Map;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
 public class DefaultStateTransitionBinder implements IStateTransitionBinder
 {
@@ -13,16 +12,17 @@ public class DefaultStateTransitionBinder implements IStateTransitionBinder
 		aTransition.getPostExecuteNotifier().registerObserver(aToState.getEnterStateNotifier());
 		aTransition.getPostExecuteNotifier().registerObserver(aToState.getExecuteStateNotifier());
 
-		aTransition.getPostExecuteNotifier().registerObserver(new IXCommand()
+		aTransition.getPostExecuteNotifier().registerObserver(new ICommand()
 		{
-			public void execute(Map aCtx)
+			public void execute()
 			{
-				StateCV.setState(aCtx, aToState);
+				stateCV.setState(aToState);
 			}
 		});
 
 		aTransition.getPostExecuteNotifier().registerObserver(aFromState.getExecuteNotifier().getStopCommand());
 
 	}
-
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IStateCV stateCV = (IStateCV) dbp.getBeanForInterface(IStateCV.class);
 }

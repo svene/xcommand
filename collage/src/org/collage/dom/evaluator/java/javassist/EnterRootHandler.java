@@ -1,14 +1,13 @@
 package org.collage.dom.evaluator.java.javassist;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
 
-import java.util.Map;
-
-class EnterRootHandler implements IXCommand
+class EnterRootHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
 		StringBuffer methodBody = new StringBuffer(1024);
-		aCtx.put("methodbody", methodBody);
+		TCP.getContext().put("methodbody", methodBody);
 	}
 }

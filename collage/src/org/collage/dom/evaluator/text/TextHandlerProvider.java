@@ -1,33 +1,34 @@
 package org.collage.dom.evaluator.text;
 
+import org.collage.dom.ast.DomObjToJavaTransformer;
 import org.collage.dom.ast.DomObjToTextTransformer;
 import org.collage.dom.ast.DomObjToVariableTransformer;
-import org.collage.dom.ast.DomObjToJavaTransformer;
 import org.collage.dom.evaluator.common.TextToStringExtractor;
 import org.collage.dom.evaluator.common.VariableToVariableNameExtractor;
-import org.xcommand.core.IXCommand;
-import org.xcommand.pattern.observer.SubjectImpl;
+import org.xcommand.core.ICommand;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.pattern.observer.BasicNotifier;
 
 public class TextHandlerProvider
 {
-	public IXCommand newTextObserver()
+	public ICommand newTextObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToTextTransformer());
 		result.registerObserver(new TextToStringExtractor());
 		return result;
 	}
-	public IXCommand newVariableObserver()
+	public ICommand newVariableObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToVariableTransformer());
 		result.registerObserver(new VariableToVariableNameExtractor());
 		result.registerObserver(new VariableNameToValueTransformer());
 		return result;
 	}
-	public IXCommand newJavaObserver()
+	public ICommand newJavaObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToJavaTransformer());
 		result.registerObserver(new JavaToStringExtractor());
 		return result;

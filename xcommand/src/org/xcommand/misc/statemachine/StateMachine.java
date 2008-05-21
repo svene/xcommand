@@ -1,10 +1,9 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
 
-import java.util.Map;
-
-public class StateMachine implements IXCommand
+public class StateMachine implements ICommand
 {
 
 // --- Processing ---
@@ -12,10 +11,12 @@ public class StateMachine implements IXCommand
 	/**
 	 * Execute state according to `aCtx'
 	 */
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		if (StateCV.getState(aCtx) == null) throw new IllegalStateException("StateCV.getState(aCtx) == null");
-		StateCV.getState(aCtx).execute(aCtx);
+		if (stateCV.getState() == null) throw new IllegalStateException("StateCV.getState(aCtx) == null");
+		stateCV.getState().execute();
 	}
 
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IStateCV stateCV = (IStateCV) dbp.getBeanForInterface(IStateCV.class);
 }

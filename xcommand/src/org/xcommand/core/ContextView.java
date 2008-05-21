@@ -1,53 +1,34 @@
 package org.xcommand.core;
 
-import java.util.Map;
-
 public abstract class ContextView
 {
 
 // --- Initialization ---
 
-	public ContextView(Map aCtx)
+	public ContextView()
 	{
-		context = aCtx;
-		register(aCtx);
+		register();
 	}
 
-	protected void register(Map aContext)
+	protected void register()
 	{
 		String className = getClass().getName();
 		System.out.println("className = " + className);
-		context.put(className, this);
+		TCP.getContext().put(className, this);
 	}
 
 // --- Access ---
 
-	public static ContextView getContextView(Map aCtx, Class aClass)
+	public static ContextView getContextView(Class aClass)
 	{
-		return (ContextView) aCtx.get(aClass.getName());
-	}
-
-	public Map getContext()
-	{
-		return context;
-	}
-
-// --- Setting ---
-
-	public void setContext(Map aContext)
-	{
-		context = aContext;
+		return (ContextView) TCP.getContext().get(aClass.getName());
 	}
 
 // --- Element change ---
 
-	public static void removeContextView(Map aCtx, Class aClass)
+	public static void removeContextView(Class aClass)
 	{
-		aCtx.remove(aClass.getName());
+		TCP.getContext().remove(aClass.getName());
 	}
-
-// --- Implementation ---
-
-	protected Map context;
 
 }

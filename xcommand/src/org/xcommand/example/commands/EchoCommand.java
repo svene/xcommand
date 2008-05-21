@@ -1,14 +1,14 @@
 package org.xcommand.example.commands;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
-import java.util.Map;
-
-public class EchoCommand implements IXCommand
+public class EchoCommand implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String message = EchoContextView.getMessage(aCtx);
+		String message = echoCV.getMessage();
 		System.out.println(message);
 	}
+	private IEchoCV echoCV = (IEchoCV) new DynaBeanProvider().getBeanForInterface(IEchoCV.class);
 }

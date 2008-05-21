@@ -1,17 +1,21 @@
 package org.collage.csm.parser;
 
-import org.collage.dom.creationhandler.DomNodeCreationHandlerCV;
-import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
+import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.template.parser.IParserCV;
 
-import java.util.Map;
-
-public class CsmCreateVariableDomNodeCommand implements IXCommand
+public class CsmCreateVariableDomNodeCommand implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String value = ParserCV.getValue(aCtx);
-		DomNodeCreationHandlerCV.setValue(aCtx, value);
-		DomNodeCreationHandlerCV.getCreateVariableNodeRequestSubject(aCtx).execute(aCtx);
+		String value = parserCV.getValue();
+		domNodeCreationHandlerCV.setValue(value);
+		domNodeCreationHandlerCV.getCreateVariableNodeRequestNotifier().execute();
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
+	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+
 }

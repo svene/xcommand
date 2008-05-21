@@ -1,14 +1,15 @@
 package org.collage.csm.parser;
 
-import org.xcommand.core.IXCommand;
-import org.collage.parser.ParserCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.template.parser.IParserCV;
 
-import java.util.Map;
-
-public class CsmStartTextCommand implements IXCommand
+public class CsmStartTextCommand implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		ParserCV.setStringBuffer(aCtx, new StringBuffer());
+		parserCV.setStringBuffer(new StringBuffer());
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
 }

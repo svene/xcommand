@@ -1,22 +1,23 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.core.INXCommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
-import org.xcommand.web.WebSCV;
+import org.xcommand.web.IWebCV;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class JavaTemplateCmd implements INXCommand
+public class JavaTemplateCmd implements ICommand
 {
 
 	public void execute()
 	{
 		try
 		{
-			TCP.getContext().put("writer", WebSCV.getResponse().getWriter());
+			TCP.getContext().put("writer", webCV.getResponse().getWriter());
 
 			// Find classname for current request-URI:
-			HttpServletRequest request = WebSCV.getRequest();
+			HttpServletRequest request = webCV.getRequest();
 			String contextPath = request.getContextPath();
 			System.out.println("contextPath = " + contextPath);
 			String uri = request.getRequestURI();
@@ -28,7 +29,7 @@ public class JavaTemplateCmd implements INXCommand
 
 			// Get object for classname:
 			className = className.replace('.', '/');
-			INXCommand cmd = (INXCommand) jstJaninoObjectCreator.newObject(TCP.getContext(), className);
+			ICommand cmd = (ICommand) jstJaninoObjectCreator.newObject(className);
 
 			// Execute command:
 			cmd.execute();
@@ -50,4 +51,6 @@ public class JavaTemplateCmd implements INXCommand
 
 	private IUriToClassnameMapper uriToClassnameMapper;
 	private JSTJaninoObjectCreator jstJaninoObjectCreator;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IWebCV webCV = (IWebCV) dbp.getBeanForInterface(IWebCV.class);
 }

@@ -1,17 +1,20 @@
 package org.collage.dom.ast;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
 import org.xcommand.datastructure.tree.ITreeNode;
-import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
 
-import java.util.Map;
-
-public class DomObjToJavaTransformer implements IXCommand
+public class DomObjToJavaTransformer implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		ITreeNode node = TreeNodeCV.getTreeNode(aCtx);
+		ITreeNode node = treeNodeCV.getTreeNode();
 		Java java = (Java) node.getDomainObject();
-		JavaCV.setJava(aCtx, java);
+		javaCV.setJava(java);
 	}
+
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IJavaCV javaCV = (IJavaCV) dbp.getBeanForInterface(IJavaCV.class);
 }

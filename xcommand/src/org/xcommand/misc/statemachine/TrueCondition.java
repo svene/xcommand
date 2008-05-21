@@ -1,14 +1,15 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.ResultContextView;
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.IResultCV;
 
-import java.util.Map;
-
-public class TrueCondition implements IXCommand
+public class TrueCondition implements ICommand
 {
-	public void execute(Map aContext)
+	public void execute()
 	{
-		ResultContextView.setResult(aContext, Boolean.TRUE);
+		resultCV.setResult(Boolean.TRUE);
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private IResultCV resultCV = (IResultCV) dbp.getBeanForInterface(IResultCV.class);
 }

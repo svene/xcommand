@@ -1,21 +1,23 @@
 package org.collage.dom.evaluator.java.independent;
 
-import org.xcommand.core.IXCommand;
 import org.collage.dom.ast.Java;
-import org.collage.dom.ast.JavaCV;
+import org.collage.dom.ast.IJavaCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.TCP;
+import org.xcommand.core.DynaBeanProvider;
 
-import java.util.Map;
-
-public class JavaEvalJavaHandler implements IXCommand
+public class JavaEvalJavaHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		Java java = JavaCV.getJava(aCtx);
+		Java java = javaCV.getJava();
 		String s = java.getValue();
 
-		StringBuffer methodBody = (StringBuffer) aCtx.get("methodbody");
+		StringBuffer methodBody = (StringBuffer) TCP.getContext().get("methodbody");
 //		System.out.println("*** javacode: '" + s + "'");
 		String ss = "\t" + s + "\n";
 		methodBody.append(ss);
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IJavaCV javaCV = (IJavaCV) dbp.getBeanForInterface(IJavaCV.class);
 }

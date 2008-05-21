@@ -1,26 +1,26 @@
 package org.collage.dom.evaluator.text;
 
 import org.collage.dom.ast.Java;
-import org.collage.dom.ast.JavaCV;
-import org.collage.dom.evaluator.EvaluationCV;
-import org.collage.dom.evaluator.common.StringHandlerCV;
-import org.xcommand.core.IXCommand;
+import org.collage.dom.ast.IJavaCV;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.collage.dom.evaluator.IEvaluationCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
-public class JavaToStringExtractor implements IXCommand
+public class JavaToStringExtractor implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		Java java = JavaCV.getJava(aCtx);
+		Java java = javaCV.getJava();
 		String s = "<?java" + java.getValue() + "?>";
-		if (StringHandlerCV.getString(aCtx) != null)
+		if (stringHandlerCV.getString() != null)
 		{
-			StringHandlerCV.setString(aCtx, s);
+			stringHandlerCV.setString(s);
 		}
-		Writer writer = EvaluationCV.getWriter(aCtx);
+		Writer writer = evaluationCV.getWriter();
 		if (writer != null)
 		{
 			try
@@ -38,4 +38,8 @@ public class JavaToStringExtractor implements IXCommand
 		}
 	}
 
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	IJavaCV javaCV = (IJavaCV) dbp.getBeanForInterface(IJavaCV.class);
+	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.getBeanForInterface(IEvaluationCV.class);
 }

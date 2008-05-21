@@ -1,13 +1,13 @@
 package org.xcommand.core.multi;
 
-import java.util.Map;
+import org.xcommand.core.ICommand;
 
-import org.xcommand.core.IXCommand;
+import java.util.Map;
 
 public interface IMultiCommandProvider
 {
 // --- Access ---
 
 	public Map getCommandMap();
-	public IXCommand getCommand(String aName);
+	public ICommand getCommand(String aName);
 }

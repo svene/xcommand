@@ -1,36 +1,38 @@
 package org.collage.dom.creationhandler;
 
-import org.xcommand.core.IXCommand;
-import org.xcommand.datastructure.tree.TreeBuilder;
-import org.xcommand.datastructure.tree.TreeNodeCV;
-import org.xcommand.datastructure.tree.ITreeNode;
-import org.xcommand.datastructure.tree.TreeNode;
 import org.collage.dom.ast.Java;
-import org.collage.parser.ParserCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.datastructure.tree.*;
+import org.xcommand.template.parser.IParserCV;
 
-import java.util.Map;
 import java.io.PrintStream;
 
-public class JavaNodeCreationHandler implements IXCommand
+public class JavaNodeCreationHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		String s = DomNodeCreationHandlerCV.getValue(aCtx);
-		trace(aCtx, "got JAVA CODE: '" + s + "'");
+		String s = domNodeCreationHandlerCV.getValue();
+		trace("got JAVA CODE: '" + s + "'");
 		ITreeNode node = new TreeNode();
 		Java java = new Java();
 		java.setValue(s);
 		node.setDomainObject(java);
-		tb.addChild(TreeNodeCV.getTreeNode(aCtx), node);
+		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
 // --- Implementation ---
 
-	private void trace(Map aCtx, String aString)
+	private void trace(String aString)
 	{
-		PrintStream ps = ParserCV.getTraceStream(aCtx);
+		PrintStream ps = parserCV.getTraceStream();
 		if (ps == null) return;
 		ps.println("### " + aString);
 	}
 	private TreeBuilder tb = new TreeBuilder();
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+		IDomNodeCreationHandlerCV.class);
 }

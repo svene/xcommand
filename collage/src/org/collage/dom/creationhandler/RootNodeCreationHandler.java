@@ -1,27 +1,30 @@
 package org.collage.dom.creationhandler;
 
 import org.collage.dom.ast.RootNode;
-import org.collage.parser.ParserCV;
-import org.xcommand.core.IXCommand;
-import org.xcommand.datastructure.tree.TreeNodeCV;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.template.parser.IParserCV;
 
 import java.io.PrintStream;
-import java.util.Map;
 
-public class RootNodeCreationHandler implements IXCommand
+public class RootNodeCreationHandler implements ICommand
 {
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		trace(aCtx, "started");
-		TreeNodeCV.setTreeNode(aCtx, new RootNode());
+		trace("started");
+		treeNodeCV.setTreeNode(new RootNode());
 	}
 
 // --- Implementation ---
 
-	private void trace(Map aCtx, String aString)
+	private void trace(String aString)
 	{
-		PrintStream ps = ParserCV.getTraceStream(aCtx);
+		PrintStream ps = parserCV.getTraceStream();
 		if (ps == null) return;
 		ps.println("### " + aString);
 	}
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
 }

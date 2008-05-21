@@ -1,33 +1,31 @@
 package org.xcommand.pattern.observer;
 
-import org.xcommand.core.IXCommand;
+import org.xcommand.core.ICommand;
 
-import java.util.Map;
-
-public class StoppableNotifier extends AbstractSubject
+public class StoppableNotifier extends AbstractBasicNotifier
 {
 
 // --- Access ---
 
-	public IXCommand getStopCommand()
+	public ICommand getStopCommand()
 	{
 		return stopCommand;
 	}
 
-	public ISubject getNoStopRequestedNotifier()
+	public INotifier getNoStopRequestedNotifier()
 	{
 		return noStopRequestedNotifier;
 	}
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
 
 		for (int i = 0, n = observers.size(); !stopNotifying && i < n; i++)
 		{
-			IXCommand observer = (IXCommand) observers.get(i);
-			observer.execute(aCtx);
+			ICommand observer = (ICommand) observers.get(i);
+			observer.execute();
 		}
 		if (!stopNotifying)
 		{
@@ -41,13 +39,13 @@ public class StoppableNotifier extends AbstractSubject
 
 	private boolean stopNotifying = false;
 
-	private IXCommand stopCommand = new IXCommand()
+	private ICommand stopCommand = new ICommand()
 	{
-		public void execute(Map aCtx)
+		public void execute()
 		{
 			stopNotifying = true;
 		}
 	};
 
-	private ISubject noStopRequestedNotifier = new SubjectImpl();
+	private INotifier noStopRequestedNotifier = new BasicNotifier();
 }

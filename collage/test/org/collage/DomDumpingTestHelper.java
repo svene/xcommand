@@ -3,85 +3,85 @@ package org.collage;
 import org.collage.dom.ast.DomObjToJavaTransformer;
 import org.collage.dom.ast.DomObjToTextTransformer;
 import org.collage.dom.ast.DomObjToVariableTransformer;
-import org.collage.dom.evaluator.common.StringHandlerCV;
 import org.collage.dom.evaluator.common.TextToStringExtractor;
 import org.collage.dom.evaluator.common.VariableToVariableNameExtractor;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.evaluator.text.JavaToStringExtractor;
-import org.xcommand.core.IXCommand;
-import org.xcommand.pattern.observer.SubjectImpl;
-
-import java.util.Map;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.pattern.observer.BasicNotifier;
 
 public class DomDumpingTestHelper
 {
 
-	public IXCommand getTextDumper()
+	public ICommand getTextDumper()
 	{
 		return textDumper;
 	}
 
-	public IXCommand getVariableDumper()
+	public ICommand getVariableDumper()
 	{
 		return variableDumper;
 	}
 
-	public IXCommand getJavaDumper()
+	public ICommand getJavaDumper()
 	{
 		return javaDumper;
 	}
 
-	private IXCommand textDumper = new IXCommand()
+	private ICommand textDumper = new ICommand()
 	{
 
-		public void execute(Map aCtx)
+		public void execute()
 		{
-			String s = StringHandlerCV.getString(aCtx);
+			String s = stringHandlerCV.getString();
 			s = "@@@ TEXT: '" + s + "'";
-			StringHandlerCV.setString(aCtx, s);
+			stringHandlerCV.setString(s);
 		}
 	};
-	private IXCommand variableDumper = new IXCommand()
+	private ICommand variableDumper = new ICommand()
 	{
 
-		public void execute(Map aCtx)
+		public void execute()
 		{
-			String s = StringHandlerCV.getString(aCtx);
+			String s = stringHandlerCV.getString();
 			s = "@@@ VARIABLE: '" + s + "'";
-			StringHandlerCV.setString(aCtx, s);
+			stringHandlerCV.setString(s);
 		}
 	};
-	private IXCommand javaDumper = new IXCommand()
+	private ICommand javaDumper = new ICommand()
 	{
 
-		public void execute(Map aCtx)
+		public void execute()
 		{
-			String s = StringHandlerCV.getString(aCtx);
+			String s = stringHandlerCV.getString();
 			s = "@@@ JAVA CODE: '" + s + "'";
-			StringHandlerCV.setString(aCtx, s);
+			stringHandlerCV.setString(s);
 		}
 	};
 
 // --- Pre constructed observers ---
 
-	public IXCommand newDomDumpingTextObserver()
+	public ICommand newDomDumpingTextObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToTextTransformer());
 		result.registerObserver(new TextToStringExtractor());
 		result.registerObserver(getTextDumper());
 		return result;
 	}
-	public IXCommand newDomDumpingVariableObserver()
+	public ICommand newDomDumpingVariableObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToVariableTransformer());
 		result.registerObserver(new VariableToVariableNameExtractor());
 		result.registerObserver(getVariableDumper());
 		return result;
 	}
-	public IXCommand newDomDumpingJavaObserver()
+	public ICommand newDomDumpingJavaObserver()
 	{
-		SubjectImpl result = new SubjectImpl();
+		AbstractBasicNotifier result = new BasicNotifier();
 		result.registerObserver(new DomObjToJavaTransformer());
 		result.registerObserver(new JavaToStringExtractor());
 		result.registerObserver(getJavaDumper());
@@ -89,4 +89,6 @@ public class DomDumpingTestHelper
 	}
 
 	TestHelper th = new TestHelper();
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

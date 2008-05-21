@@ -1,10 +1,8 @@
 package org.xcommand.misc.statemachine;
 
+import org.xcommand.pattern.observer.BasicNotifier;
+import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.pattern.observer.StoppableNotifier;
-import org.xcommand.pattern.observer.ISubject;
-import org.xcommand.pattern.observer.SubjectImpl;
-
-import java.util.*;
 
 public class State implements IState
 {
@@ -28,17 +26,17 @@ public class State implements IState
 		return name;
 	}
 
-	public ISubject getExitStateNotifier()
+	public INotifier getExitStateNotifier()
 	{
 		return exitStateNotifier;
 	}
 
-	public ISubject getExecuteStateNotifier()
+	public INotifier getExecuteStateNotifier()
 	{
 		return executeStateNotifier;
 	}
 
-	public ISubject getEnterStateNotifier()
+	public INotifier getEnterStateNotifier()
 	{
 		return enterStateNotifier;
 	}
@@ -57,18 +55,18 @@ public class State implements IState
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
-		getExecuteNotifier().execute(aCtx);
+		getExecuteNotifier().execute();
 	}
 
 // --- Implementation ---
 
 	private String name;
 
-	private ISubject exitStateNotifier = new SubjectImpl();
-	private ISubject executeStateNotifier = new SubjectImpl();
-	private ISubject enterStateNotifier = new SubjectImpl();
+	private INotifier exitStateNotifier = new BasicNotifier();
+	private INotifier executeStateNotifier = new BasicNotifier();
+	private INotifier enterStateNotifier = new BasicNotifier();
 
 	private StoppableNotifier executeNotifier = new StoppableNotifier();
 

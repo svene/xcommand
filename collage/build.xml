@@ -21,7 +21,8 @@
 		<property name="xcommand-misc" value="../xcommand/output/xcommand-misc.jar"/>
 		<property name="xcommand-pattern" value="../xcommand/output/xcommand-pattern.jar"/>
 		<property name="xcommand-datastructure" value="../xcommand/output/xcommand-datastructure.jar"/>
-		<property name="classpath" value="${xcommand-core};${xcommand-misc};${xcommand-pattern};${xcommand-datastructure};${javassist};${commons-lang};${junit}"/>
+		<property name="xcommand-template" value="../xcommand/output/xcommand-template.jar"/>
+		<property name="classpath" value="${xcommand-core};${xcommand-misc};${xcommand-pattern};${xcommand-datastructure};${xcommand-template};${javassist};${commons-lang};${junit}"/>
 		<property name="libname" value="collage"/>
 	</target>
 

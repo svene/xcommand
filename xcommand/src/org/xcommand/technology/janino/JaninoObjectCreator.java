@@ -2,7 +2,6 @@ package org.xcommand.technology.janino;
 
 import org.codehaus.janino.JavaSourceClassLoader;
 import org.codehaus.janino.DebuggingInformation;
-import org.xcommand.core.IXCommand;
 
 import java.util.Map;
 import java.util.HashMap;

@@ -1,17 +1,17 @@
 package org.collage.template;
 
-import org.xcommand.core.IXCommand;
+import org.collage.dom.evaluator.IEvaluationCV;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
 import org.xcommand.datastructure.tree.ITreeNode;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
-import org.xcommand.datastructure.tree.TreeNodeCV;
-import org.collage.dom.evaluator.EvaluationCV;
-import org.collage.dom.evaluator.common.StringHandlerCV;
 
-import java.io.Writer;
 import java.io.StringWriter;
-import java.util.Map;
+import java.io.Writer;
 
-public abstract class TemplateCommand implements IXCommand
+public abstract class TemplateCommand implements ICommand
 {
 
 // --- Initialization ---
@@ -47,7 +47,7 @@ public abstract class TemplateCommand implements IXCommand
 
 // --- Processing ---
 
-	public void execute(Map aCtx)
+	public void execute()
 	{
 		// If `writer' is available output will be written to it. Otherwise
 		// it will be written to a String, which is available via `StringHandlerCV.getString(aCtx)'
@@ -56,17 +56,17 @@ public abstract class TemplateCommand implements IXCommand
 		if (noWriter)
 		{
 			sw = new StringWriter(1024);
-			EvaluationCV.setWriter(aCtx, sw);
+			evaluationCV.setWriter(sw);
 		}
 		else
 		{
-			EvaluationCV.setWriter(aCtx, getWriter());
+			evaluationCV.setWriter(getWriter());
 		}
-		TreeNodeCV.setTreeNode(aCtx, rootNode);
-		getNotifyingTreeNodeTraverser().execute(aCtx);
+		treeNodeCV.setTreeNode(rootNode);
+		getNotifyingTreeNodeTraverser().execute();
 		if (noWriter)
 		{
-			StringHandlerCV.setString(aCtx, sw.toString());
+			stringHandlerCV.setString(sw.toString());
 		}
 	}
 
@@ -76,4 +76,8 @@ public abstract class TemplateCommand implements IXCommand
 	private Writer writer;
 	protected ITreeNode rootNode;
 	protected NotifyingTreeNodeTraverser notifyingTreeNodeTraverser;
+	private DynaBeanProvider dbp = new DynaBeanProvider();
+	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.getBeanForInterface(IEvaluationCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }

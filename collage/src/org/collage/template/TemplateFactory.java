@@ -1,20 +1,19 @@
 package org.collage.template;
 
-import org.collage.dom.evaluator.common.StringHandlerCV;
-import org.xcommand.core.IXCommand;
-
-import java.util.Map;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
 
 public class TemplateFactory
 {
-	public static IXCommand newRecursiveTemplateInstance(TemplateSource aTemplateSource) throws Exception
+	public static ICommand newRecursiveTemplateInstance(TemplateSource aTemplateSource) throws Exception
 	{
 		String sOld = "";
 
-		IXCommand cmd = new TextTemplateCompiler().newTemplateCommand(aTemplateSource);
-		Map cctx = aTemplateSource.getContext();
-		cmd.execute(cctx);
-		String s = StringHandlerCV.getString(aTemplateSource.getContext());
+		ICommand cmd = new TextTemplateCompiler().newTemplateCommand(aTemplateSource);
+//!!		Map cctx = aTemplateSource.getContext();
+		cmd.execute();
+		String s = stringHandlerCV.getString();
 //		System.out.println("-----------------------");
 //		System.out.println(s);
 
@@ -22,14 +21,16 @@ public class TemplateFactory
 		{
 			sOld = s;
 
-			cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(s, cctx));
-			cmd.execute(cctx);
-			s = StringHandlerCV.getString(cctx);
+			cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(s));
+			cmd.execute();
+			s = stringHandlerCV.getString();
 //			System.out.println("-----------------------");
 //			System.out.println(s);
 		}
-		cmd = new JavassistTemplateCompiler().newTemplateCommand(new TemplateSource(s, cctx));
+		cmd = new JavassistTemplateCompiler().newTemplateCommand(new TemplateSource(s));
 
 		return cmd;
 	}
+	private static DynaBeanProvider dbp = new DynaBeanProvider();
+	private static IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
 }
