@@ -1,6 +1,6 @@
 package org.xcommand.core;
 
-import org.xcommand.misc.AC;
+import org.xcommand.core.AC;
 import org.xcommand.misc.InheritableMap;
 
 import java.util.Map;
