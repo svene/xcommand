@@ -1,8 +1,5 @@
 package org.xcommand.core;
 
-import org.xcommand.core.AC;
-import org.xcommand.misc.InheritableMap;
-
 import java.util.Map;
 import java.util.Stack;
 
