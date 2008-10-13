@@ -1,4 +1,4 @@
-package org.xcommand.misc;
+package org.xcommand.core;
 
 import java.util.Map;
 import java.util.Set;

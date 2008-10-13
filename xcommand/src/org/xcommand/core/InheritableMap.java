@@ -1,4 +1,6 @@
-package org.xcommand.misc;
+package org.xcommand.core;
+
+import org.xcommand.core.DecoratingMap;
 
 import java.util.Map;
 import java.util.HashMap;
