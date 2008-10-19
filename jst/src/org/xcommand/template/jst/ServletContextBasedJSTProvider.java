@@ -1,6 +1,7 @@
 package org.xcommand.template.jst;
 
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.web.IWebCV;
@@ -48,6 +49,6 @@ public class ServletContextBasedJSTProvider implements IJSTProvider
 	private List srcDirs;
 	private Map classMap = new HashMap();
 	private INotifier changeNotifier = new BasicNotifier();
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IWebCV webCV = (IWebCV) dbp.getBeanForInterface(IWebCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
 }

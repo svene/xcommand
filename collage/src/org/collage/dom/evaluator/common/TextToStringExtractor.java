@@ -2,6 +2,7 @@ package org.collage.dom.evaluator.common;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.collage.dom.ast.Text;
 import org.collage.dom.ast.ITextCV;
 import org.collage.dom.evaluator.IEvaluationCV;
@@ -40,8 +41,8 @@ public class TextToStringExtractor implements ICommand
 
 		}
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
-	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.getBeanForInterface(IEvaluationCV.class);
-	ITextCV textCV = (ITextCV) dbp.getBeanForInterface(ITextCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
+	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.newBeanForInterface(IEvaluationCV.class);
+	ITextCV textCV = (ITextCV) dbp.newBeanForInterface(ITextCV.class);
 }

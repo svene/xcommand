@@ -1,6 +1,6 @@
 package org.xcommand.example.xc100;
 
-import org.xcommand.misc.InheritableMap;
+import org.xcommand.core.InheritableMap;
 
 import java.util.Map;
 import java.util.HashMap;

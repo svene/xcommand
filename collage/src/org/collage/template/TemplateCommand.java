@@ -4,6 +4,7 @@ import org.collage.dom.evaluator.IEvaluationCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
@@ -76,8 +77,8 @@ public abstract class TemplateCommand implements ICommand
 	private Writer writer;
 	protected ITreeNode rootNode;
 	protected NotifyingTreeNodeTraverser notifyingTreeNodeTraverser;
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
-	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.getBeanForInterface(IEvaluationCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.newBeanForInterface(IEvaluationCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

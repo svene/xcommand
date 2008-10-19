@@ -9,6 +9,7 @@ import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -114,8 +115,8 @@ public class TextTemplateTest extends TestCase
 		System.out.println("---\n" + s);
 		TCP.popContext();
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

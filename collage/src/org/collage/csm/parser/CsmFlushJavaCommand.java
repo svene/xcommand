@@ -3,6 +3,7 @@ package org.collage.csm.parser;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.template.parser.IParserCV;
 
 /**
@@ -20,8 +21,8 @@ public class CsmFlushJavaCommand implements ICommand
 			domNodeCreationHandlerCV.getCreateJavaNodeRequestNotifier().execute();
 		}
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
-	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 }

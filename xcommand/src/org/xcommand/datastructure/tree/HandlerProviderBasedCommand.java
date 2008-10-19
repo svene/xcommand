@@ -2,6 +2,7 @@ package org.xcommand.datastructure.tree;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 /**
  * ICommand acting as a Dispatcher by using an HandlerProvider to determine
@@ -40,7 +41,7 @@ class HandlerProviderBasedCommand implements ICommand
 
 	private IHandlerKeyProvider handlerKeyProvider = null;
 	private IHandlerProvider handlerProvider;
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 
 }

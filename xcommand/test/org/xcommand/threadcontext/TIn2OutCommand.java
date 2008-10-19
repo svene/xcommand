@@ -2,6 +2,7 @@ package org.xcommand.threadcontext;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class TIn2OutCommand implements ICommand
 {
@@ -9,6 +10,6 @@ public class TIn2OutCommand implements ICommand
 	{
 		tIn2OutCV.setOutput(tIn2OutCV.getInput());
 	}
-	private DynaBeanProvider dynaBeanProvider = new DynaBeanProvider();
-	private ITIn2OutCV tIn2OutCV = (ITIn2OutCV) dynaBeanProvider.getBeanForInterface(ITIn2OutCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private ITIn2OutCV tIn2OutCV = (ITIn2OutCV) dbp.newBeanForInterface(ITIn2OutCV.class);
 }

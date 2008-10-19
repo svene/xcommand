@@ -12,6 +12,7 @@ import org.collage.template.TextTemplateCompiler;
 import org.xcommand.core.TCP;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 import java.io.InputStream;
 import java.util.Calendar;
@@ -91,9 +92,9 @@ class ExitRootHandler implements ICommand
 //		System.out.println(className);
 		return className;
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
-	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.getBeanForInterface(IJavaTemplateCmdCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
+	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
 }

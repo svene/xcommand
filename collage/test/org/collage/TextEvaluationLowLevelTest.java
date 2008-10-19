@@ -7,6 +7,7 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.xcommand.core.TCP;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.*;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 import org.xcommand.misc.IMessageCommandCV;
@@ -80,8 +81,8 @@ public class TextEvaluationLowLevelTest extends TestCase
 
 	TestHelper th;
 	List lst;
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
-	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.getBeanForInterface(IMessageCommandCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

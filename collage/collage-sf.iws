@@ -2,7 +2,6 @@
 <project version="4" relativePaths="false">
   <component name="AspectsView" />
   <component name="BookmarkManager">
-    <editor_bookmark url="file://$PROJECT_DIR$/src/org/collage/template/TextTemplateCompiler.java" line="23" description="old csmsubject" />
     <editor_bookmark url="file://$PROJECT_DIR$/src/org/collage/csm/parser/CsmCreateVariableDomNodeCommand.java" line="10" description="old csmsubject" />
     <editor_bookmark url="file://$PROJECT_DIR$/src/org/collage/dom/creationhandler/DomNodeCreationHandlerCV.java" line="28" description="csmsubject" />
     <editor_bookmark url="file://$PROJECT_DIR$/test/org/collage/DomDumperLowLevelTest.java" line="110" />
@@ -25,145 +24,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/dom/evaluator/text/TextTraverser.java" afterPath="$PROJECT_DIR$/src/org/collage/dom/evaluator/text/TextTraverser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/collage-sf.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/dom/evaluator/java/javassist/JavassistTraverser.java" afterPath="$PROJECT_DIR$/src/org/collage/dom/evaluator/java/javassist/JavassistTraverser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/csm/parser/CsmAppendTextCommand.java" afterPath="$PROJECT_DIR$/src/org/collage/csm/parser/CsmAppendTextCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/org/collage/TextEvaluationLowLevelTest.java" afterPath="$PROJECT_DIR$/test/org/collage/TextEvaluationLowLevelTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/MainSM.java" afterPath="$PROJECT_DIR$/src/org/collage/MainSM.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/org/collage/DomDumperLowLevelTest.java" afterPath="$PROJECT_DIR$/test/org/collage/DomDumperLowLevelTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/template/CollageTemplateParserBuilder.java" afterPath="$PROJECT_DIR$/src/org/collage/template/CollageTemplateParserBuilder.java" />
-      <change type="DELETED" beforePath="Z:\svnstuff\xcommand\collage\src\org\collage\dom\creationhandler\DomNodeCreationHandlerModeCV.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/csm/parser/CsmAppendEolCommand.java" afterPath="$PROJECT_DIR$/src/org/collage/csm/parser/CsmAppendEolCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/parser/ParserCV.java" afterPath="$PROJECT_DIR$/src/org/collage/parser/ParserCV.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/collage-sf.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/collage-sf.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collage-sf.iws" afterPath="$PROJECT_DIR$/collage-sf.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/dom/evaluator/java/javassist/ExitRootHandler.java" afterPath="$PROJECT_DIR$/src/org/collage/dom/evaluator/java/javassist/ExitRootHandler.java" />
-      <change type="DELETED" beforePath="Z:\svnstuff\xcommand\collage\src\org\collage\dom\evaluator\common\StringHandlingVariableHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="Z:\svnstuff\xcommand\collage\src\org\collage\dom\evaluator\common\StringHandlingTextHandler.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/org/collage/TextTemplateTest.java" afterPath="$PROJECT_DIR$/test/org/collage/TextTemplateTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/org/collage/JavassistTest.java" afterPath="$PROJECT_DIR$/test/org/collage/JavassistTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/template/TemplateSource.java" afterPath="$PROJECT_DIR$/src/org/collage/template/TemplateSource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/template/JavassistTemplateCompiler.java" afterPath="$PROJECT_DIR$/src/org/collage/template/JavassistTemplateCompiler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/org/collage/StaticStringTemplateCompilerTester.java" afterPath="$PROJECT_DIR$/test/org/collage/StaticStringTemplateCompilerTester.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/template/TemplateFactory.java" afterPath="$PROJECT_DIR$/src/org/collage/template/TemplateFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/org/collage/TestHelper.java" afterPath="$PROJECT_DIR$/test/org/collage/TestHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/template/TextTemplateCompiler.java" afterPath="$PROJECT_DIR$/src/org/collage/template/TextTemplateCompiler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/dom/evaluator/java/independent/JavaEvalVariableHandler.java" afterPath="$PROJECT_DIR$/src/org/collage/dom/evaluator/java/independent/JavaEvalVariableHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/collage/template/TemplateCompiler.java" afterPath="$PROJECT_DIR$/src/org/collage/template/TemplateCompiler.java" />
     </list>
     <list name="ignore" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/DomCV.class" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts/default/javacc.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler/DomNodeCreationHandlerCV.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/independent/JavaTemplateCmdCV.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/JavaCodeToJavaEolChkTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/EvaluationCV.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts/default" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/text/JavaNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/domdumper/Evaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/StartToVariableTextTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc/TemplateParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/MainSM.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/TextToEndTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/domdumper" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/template/TemplateFactory.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/state" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc/TemplateParserTokenManager.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/template/TemplateCompiler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/template/TextTemplate.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/VariableTextToVariableTextTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/JavaCodeToJavaCodeTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/state/TextState.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmCreateVariableDomNodeCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/VariableTextToEndTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/CollageTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmStartJavaCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/ast/JavaNode.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmAppendEolCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/collage.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/parser/ParserModeCV.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler/TextNodeCreationHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler/JavaNodeCreationHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/ast/VariableNode.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/ast/DomNode.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/domdumper/JavaNodeDumper.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/state/EndState.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc/TemplateParserTokenManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler/DomNodeCreationHandlerDispatcher.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/CollageStateMachine.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/javassist/Evaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/JavaCodeToEndTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc/ParseException.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/parser/ParserCV.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/independent/TextNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/TextToTextTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc/TemplateParser.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/NodeVisitor.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/TextToTextIfEolTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/independent/VariableNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc/SimpleCharStream.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/EasyTest.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/javassist/RootNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmAppendTextCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler/DomNodeCreationHandlerModeCV.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/state/JavaCodeState.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/domdumper/TextNodeDumper.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/template/JavassistTemplate.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc/TokenMgrError.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/text/RootNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/independent/JavaNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/state/JavaEolChkState.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/JavaEolChkToTextIfEolTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/domdumper/VariableNodeDumper.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/state/VariableTextState.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/parser" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/text/TextNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmStartTextCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/CsmCompareModeCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc/Token.class" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts/default/commons-lang.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc/TemplateParserConstants.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/text/Evaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts/default/javassist.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc/TokenMgrError.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/JavaEolChkToTextIfTextTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/state/StartState.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmFlushJavaCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/collage-src.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/template/TemplateSource.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/ast/RootNode.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/javassist" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts/default/junit.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/template" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/text/VariableNodeEvaluator.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/MainLowLevel.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc/Token.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc/ParseException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java/independent" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc/SimpleCharStream.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/StartToJavaCodeTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/template/Template.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/TextToVariableTextTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/StartToEofTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/src/org/collage/jcc/TemplateParserConstants.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmFlushTextCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/StartToTextTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/ast/TextNode.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/VariableTextToTextTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/transition/TextToJavaCodeTransition.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/ast/IDomNode.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/evaluator/text" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler/RootNodeCreationHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/jcc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/creationhandler/VariableNodeCreationHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/dom/ast" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage/csm/parser/CsmAppendJavaCodeCommand.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output/classes/org/collage" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts/default/javassist.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/artifacts/default" />
     </list>
   </component>
   <component name="ChangeListSynchronizer" />
@@ -235,19 +120,6 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/collage/dom/evaluator/java/javassist/ExitRootHandler.java" line="25" class="org.collage.dom.evaluator.java.javassist.ExitRootHandler" package="org.collage.dom.evaluator.java.javassist">
-        <option name="ENABLED" value="true" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/src/org/collage/dom/evaluator/java/independent/JavaEvalTextHandler.java" line="12" class="org.collage.dom.evaluator.java.independent.JavaEvalTextHandler" package="org.collage.dom.evaluator.java.independent">
         <option name="ENABLED" value="true" />
         <option name="SUSPEND_POLICY" value="SuspendAll" />
@@ -342,33 +214,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TextTemplateTest.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TextTemplateTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/org/collage/TextTemplateTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="0" selection-start="549" selection-end="885" vertical-scroll-proportion="0.5156538">
+            <state line="77" column="5" selection-start="2300" selection-end="2300" vertical-scroll-proportion="0.30236965">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StaticStringTemplateCompilerTester.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StaticStringTemplateCompilerTester.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/org/collage/StaticStringTemplateCompilerTester.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="9" selection-start="1731" selection-end="1731" vertical-scroll-proportion="0.77532226">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="31" column="0" selection-start="787" selection-end="837" vertical-scroll-proportion="0.37819904">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StaticStringTemplateCompiler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/collage/template/StaticStringTemplateCompiler.java">
+      <file leaf-file-name="TemplateSource.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/collage/template/TemplateSource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="824" selection-end="824" vertical-scroll-proportion="0.92633516">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="17" column="0" selection-start="419" selection-end="419" vertical-scroll-proportion="0.036966823">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TemplateFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/collage/template/TemplateFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="28" selection-start="204" selection-end="204" vertical-scroll-proportion="0.11374407">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -376,7 +253,43 @@
       <file leaf-file-name="JavassistTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/org/collage/JavassistTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="-1.2121212">
+            <state line="183" column="0" selection-start="5759" selection-end="5759" vertical-scroll-proportion="0.8521327">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/org/collage/TestHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="16" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.07488152">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="java07_address.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/java07_address.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="java07_nameandaddress.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/java07_nameandaddress.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="java07_person.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/java07_person.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -998,7 +911,7 @@
       <showLibraryContents />
       <hideEmptyPackages ProjectPane="false" />
       <abbreviatePackageNames />
-      <showStructure PackagesPane="false" ProjectPane="false" Scope="false" Favorites="false" />
+      <showStructure Favorites="false" ProjectPane="false" Scope="false" PackagesPane="false" />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
@@ -1038,15 +951,15 @@
     </key>
   </component>
   <component name="RestoreUpdateTree" />
-  <component name="RunManager" selected="JUnit.StaticStringTemplateCompilerTester.test2">
-    <tempConfiguration default="false" name="StaticStringTemplateCompilerTester.test2" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
+  <component name="RunManager" selected="JUnit.JavassistTest.testJava7">
+    <tempConfiguration default="false" name="JavassistTest.testJava7" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <pattern value="org.collage.*" />
       <module name="collage-sf" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="org.collage" />
-      <option name="MAIN_CLASS_NAME" value="org.collage.StaticStringTemplateCompilerTester" />
-      <option name="METHOD_NAME" value="test2" />
+      <option name="MAIN_CLASS_NAME" value="org.collage.JavassistTest" />
+      <option name="METHOD_NAME" value="testJava7" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" />
@@ -1277,7 +1190,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1288" height="1032" extended-state="0" />
+    <frame x="-4" y="-4" width="1608" height="1208" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -1294,7 +1207,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" order="11" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36153847" order="2" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36153847" order="2" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979724" order="2" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="6" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="4" />
@@ -1322,7 +1235,7 @@
     <option name="PERFORM_COMMIT_IN_BACKGROUND" value="false" />
     <option name="PUT_FOCUS_INTO_COMMENT" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="using observer pattern for DOM creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="added support for static string-template cache" />
     <option name="SAVE_LAST_COMMIT_MESSAGE" value="true" />
     <option name="CHECKIN_DIALOG_SPLITTER_PROPORTION" value="0.8" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -1335,7 +1248,6 @@
     <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="refactored javassist dir into java dir to prepare janino integration" />
     <MESSAGE value="refactored javassist dir into java dir to prepare janino integration&#10;moved resource files for javassist to appropriate java package" />
     <MESSAGE value="renaming JavassistContextView to JavaTemplateCmdCV" />
     <MESSAGE value="refactoring" />
@@ -1344,6 +1256,8 @@
     <MESSAGE value="further refactoring of collage" />
     <MESSAGE value="replaced 'DomNodeCreationHandler' with 'DefaultDomNodeCreationHandler'&#10;and make creation of DomNodes Subject/Observer based" />
     <MESSAGE value="using observer pattern for DOM creation" />
+    <MESSAGE value="cleanup" />
+    <MESSAGE value="added support for static string-template cache" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1391,118 +1305,116 @@
   </component>
   <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.26625" version="1">
     <option name="myPlainMode" value="false" />
-    <option name="myLastEditedConfigurable" value="xc-pattern" />
+    <option name="myLastEditedConfigurable" value="collage-dev" />
   </component>
   <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="0.16666667,0.5314286" version="1">
     <option name="myLastEditedConfigurable" value="sven" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/collage/dom/evaluator/common/VariableToVariableNameExtractor.java">
+    <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="178" selection-end="178" vertical-scroll-proportion="0.06968641">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/org/collage/TestHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/org/collage/dom/evaluator/java/independent/JavaEvalVariableHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="0" selection-start="2354" selection-end="2354" vertical-scroll-proportion="0.6761905">
+        <state line="21" column="0" selection-start="748" selection-end="748" vertical-scroll-proportion="0.30197445">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/org/collage/DomDumperLowLevelTest.java">
+    <entry file="file://$PROJECT_DIR$/src/org/collage/template/TemplateCompiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="1094" selection-end="1094" vertical-scroll-proportion="0.10220674">
+        <state line="7" column="51" selection-start="279" selection-end="279" vertical-scroll-proportion="0.1592719">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/collage/dom/evaluator/java/javassist/javassist_var.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/template/JavassistTemplateCompiler.java">
+    <entry file="file://$PROJECT_DIR$/src/org/collage/template/CollageTemplateParserBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="497" selection-end="497" vertical-scroll-proportion="0.13937283">
+        <state line="12" column="0" selection-start="266" selection-end="346" vertical-scroll-proportion="0.20477815">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/dom/creationhandler/VariableNodeCreationHandler.java">
+    <entry file="file://$PROJECT_DIR$/java06_in.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="368" selection-end="368" vertical-scroll-proportion="0.092915215">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/csm/parser/CsmCreateVariableDomNodeCommand.java">
+    <entry file="file://$PROJECT_DIR$/test/org/collage/StaticStringTemplateCompilerTester.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="33" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
+        <state line="31" column="0" selection-start="787" selection-end="837" vertical-scroll-proportion="0.37819904">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/dom/creationhandler/DomNodeCreationHandlerCV.java">
+    <entry file="file://$PROJECT_DIR$/src/org/collage/template/TemplateSource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="23" selection-start="1590" selection-end="1590" vertical-scroll-proportion="0.0">
+        <state line="17" column="0" selection-start="419" selection-end="419" vertical-scroll-proportion="0.036966823">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/csm/parser/CsmFlushTextCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/org/collage/template/TemplateFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://Z:/svnstuff/xcommand/xcommand/output/xcommand-pattern-src.jar!/org/xcommand/pattern/observer/SubjectImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/dom/creationhandler/DefaultDomNodeCreationHandlerInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="62" selection-start="528" selection-end="528" vertical-scroll-proportion="0.30197445">
+        <state line="9" column="28" selection-start="204" selection-end="204" vertical-scroll-proportion="0.11374407">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/org/collage/JavassistTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="-1.2121212">
+        <state line="183" column="0" selection-start="5759" selection-end="5759" vertical-scroll-proportion="0.8521327">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/template/TextTemplateCompiler.java">
+    <entry file="file://$PROJECT_DIR$/test/org/collage/TestHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="365" selection-end="385" vertical-scroll-proportion="0.14732964">
+        <state line="39" column="16" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.07488152">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java07_address.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java07_nameandaddress.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java07_person.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/org/collage/TextTemplateTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="549" selection-end="885" vertical-scroll-proportion="0.5156538">
+        <state line="77" column="5" selection-start="2300" selection-end="2300" vertical-scroll-proportion="0.30236965">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/collage/template/StaticStringTemplateCompiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="824" selection-end="824" vertical-scroll-proportion="0.92633516">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/org/collage/StaticStringTemplateCompilerTester.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="9" selection-start="1731" selection-end="1731" vertical-scroll-proportion="0.77532226">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

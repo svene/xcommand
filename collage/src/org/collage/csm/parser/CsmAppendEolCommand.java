@@ -3,6 +3,7 @@ package org.collage.csm.parser;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.template.parser.IParserCV;
 
 public class CsmAppendEolCommand implements ICommand
@@ -25,8 +26,8 @@ public class CsmAppendEolCommand implements ICommand
 			sb.append("\n");
 		}
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

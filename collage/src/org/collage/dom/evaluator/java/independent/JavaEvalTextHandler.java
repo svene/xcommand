@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 
 public class JavaEvalTextHandler implements ICommand
@@ -21,6 +22,6 @@ public class JavaEvalTextHandler implements ICommand
 	{
 		return StringUtils.replace(aString, "#", "\"");
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

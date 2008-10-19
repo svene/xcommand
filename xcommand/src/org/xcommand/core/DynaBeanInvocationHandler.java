@@ -7,16 +7,9 @@ import java.util.HashMap;
 
 public class DynaBeanInvocationHandler implements InvocationHandler
 {
-	public DynaBeanInvocationHandler(boolean aUseIdentityForKey)
+	public DynaBeanInvocationHandler(IBeanAccessor aBeanAccessor)
 	{
-		useIdentityForKey = aUseIdentityForKey;
-		setContextProvider(new IContextProvider()
-		{
-			public Map getContext()
-			{
-				return TCP.getContext();
-			}
-		});
+		beanAccessor = aBeanAccessor;
 	}
 
 	public Object invoke(Object aTargetObj, Method aMethod, Object[] aArgs) throws Throwable
@@ -26,12 +19,7 @@ public class DynaBeanInvocationHandler implements InvocationHandler
 		{
 			if (!methodInfoMap.containsKey(aMethod))
 			{
-				mi = new MethodInfo();
-				mi.method = aMethod;
-				String methodName = aMethod.getName();
-				mi.isSetter = methodName.startsWith("set");
-				Class clazz = aMethod.getDeclaringClass();
-				mi.property = clazz.getName() + "." + methodName.substring(3);
+				mi = new MethodInfo(aMethod);
 				methodInfoMap.put(aMethod, mi);
 			}
 			else
@@ -39,38 +27,13 @@ public class DynaBeanInvocationHandler implements InvocationHandler
 				mi = (MethodInfo) methodInfoMap.get(aMethod);
 			}
 		}
-		String key = useIdentityForKey ? System.identityHashCode(aTargetObj) + mi.property : mi.property;
-		//System.out.println("***key = " + key);
 		if (mi.isSetter)
 		{
-			if (aArgs.length == 1)
-			{
-				contextProvider.getContext().put(key, aArgs[0]);
-			}
-			else
-			{
-				contextProvider.getContext().put(key, aArgs);
-			}
+			beanAccessor.set(aTargetObj, mi, aArgs);
+			return null;
 		}
-		else
-		{
-			return contextProvider.getContext().get(key);
-		}
-		return null;
+		return beanAccessor.get(aTargetObj, mi, aArgs);
 	}
-	public void setContextProvider(IContextProvider aContextProvider)
-	{
-		contextProvider = aContextProvider;
-	}
-	private IContextProvider contextProvider;
-	private boolean useIdentityForKey;
-
+	private IBeanAccessor beanAccessor;
 	private final Map methodInfoMap = new HashMap();
-
-	private class MethodInfo
-	{
-		Method method;
-		boolean isSetter;
-		String property;
-	}
 }

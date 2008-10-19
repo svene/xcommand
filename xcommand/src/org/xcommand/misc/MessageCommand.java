@@ -2,6 +2,7 @@ package org.xcommand.misc;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -24,6 +25,6 @@ public abstract class MessageCommand implements ICommand
 			pw.println(s);
 		}
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.getBeanForInterface(IMessageCommandCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
 }

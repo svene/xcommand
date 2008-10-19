@@ -2,6 +2,7 @@ package org.xcommand.misc.statemachine;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class DefaultStateTransitionBinder implements IStateTransitionBinder
 {
@@ -23,6 +24,6 @@ public class DefaultStateTransitionBinder implements IStateTransitionBinder
 		aTransition.getPostExecuteNotifier().registerObserver(aFromState.getExecuteNotifier().getStopCommand());
 
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IStateCV stateCV = (IStateCV) dbp.getBeanForInterface(IStateCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IStateCV stateCV = (IStateCV) dbp.newBeanForInterface(IStateCV.class);
 }

@@ -3,6 +3,7 @@ package org.xcommand.template.jst;
 import org.xcommand.technology.janino.MapResourceFinder;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.codehaus.janino.JavaSourceClassLoader;
 import org.codehaus.janino.DebuggingInformation;
 
@@ -93,6 +94,6 @@ public class JSTJaninoObjectCreator
 	private Map janinoClassMap = new HashMap();
 	private IJSTProvider jstProvider;
 	MapResourceFinder mrf;
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.getBeanForInterface(IJSTScannerCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.newBeanForInterface(IJSTScannerCV.class);
 }

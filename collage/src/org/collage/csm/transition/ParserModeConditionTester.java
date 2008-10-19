@@ -3,6 +3,7 @@ package org.collage.csm.transition;
 import org.xcommand.pattern.observer.ConditionObserver;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.collage.parser.IParserModeCV;
 
 public class ParserModeConditionTester extends ConditionObserver
@@ -25,6 +26,6 @@ public class ParserModeConditionTester extends ConditionObserver
 	}
 
 	private String parserMode;
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IParserModeCV parserModeCV = (IParserModeCV) dbp.getBeanForInterface(IParserModeCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IParserModeCV parserModeCV = (IParserModeCV) dbp.newBeanForInterface(IParserModeCV.class);
 }

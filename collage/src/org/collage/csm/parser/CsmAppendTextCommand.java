@@ -2,6 +2,7 @@ package org.collage.csm.parser;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.template.parser.IParserCV;
 
 public class CsmAppendTextCommand implements ICommand
@@ -13,6 +14,6 @@ public class CsmAppendTextCommand implements ICommand
 //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 		sb.append(value);
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 }

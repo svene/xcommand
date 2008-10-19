@@ -11,6 +11,7 @@ import org.xcommand.template.jst.DefaultJSTParserProvider;
 import org.xcommand.template.jst.IJSTParserCV;
 import org.xcommand.core.TCP;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class JSTParserTester extends TestCase
 {
@@ -71,6 +72,6 @@ public class JSTParserTester extends TestCase
 		return parser;
 	}
 
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.getBeanForInterface(IJSTParserCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.newBeanForInterface(IJSTParserCV.class);
 }

@@ -1,0 +1,15 @@
+<ivyconf>
+	<resolvers>
+		<!-- Support ivy sandbox with resolver 'public' as well: -->
+		<chain name="public" dual="true">
+			<ivyrep name="xcommandrep" ivyroot="http://xcommand.sourceforge.net/ivyrep"
+				artroot="http://xcommand.sourceforge.net/ivyrep" artpattern="[organisation]/[module]/[revision]/[artifact].[ext]"/>
+			<ivyrep name="ivyrepsandbox_artifacts_from_sandbox" ivyroot="http://opensvn.csie.org/ivyrepsandbox/"
+				artroot="http://opensvn.csie.org/ivyrepsandbox/" artpattern="[organisation]/[module]/[revision]/[artifact].[ext]"/>
+			<ivyrep name="ivyrepsandbox_artifacts_from_ibiblio" ivyroot="http://opensvn.csie.org/ivyrepsandbox/"/>
+			<ivyrep name="ivyrep"/>
+			<ivyrep name="ivyrep2" artpattern="[organisation]/[module]/[artifact]-[revision].[ext]"/>
+			<ivyrep name="ivyrep3" artpattern="[organisation]/jars/[artifact]-[revision].[ext]"/>
+		</chain>
+	</resolvers>
+</ivyconf>

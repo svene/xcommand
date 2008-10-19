@@ -7,6 +7,7 @@ import org.mortbay.jetty.handler.AbstractHandler;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.web.IWebCV;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class XCJettyHandler extends AbstractHandler
 // --- Implementation ---
 
 	private ICommand xCommand;
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IWebCV webCV = (IWebCV) dbp.getBeanForInterface(IWebCV.class);
-	private IJettyCV jettyCV = (IJettyCV) dbp.getBeanForInterface(IJettyCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
+	private IJettyCV jettyCV = (IJettyCV) dbp.newBeanForInterface(IJettyCV.class);
 }

@@ -2,6 +2,7 @@ package org.collage.dom.evaluator.common;
 
 import org.collage.dom.ast.IJavaCV;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class StringHandlingJavaHandler extends StringHandlingHandler
 {
@@ -19,6 +20,6 @@ public class StringHandlingJavaHandler extends StringHandlingHandler
 	{
 		return javaCV.getJava().getValue();
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IJavaCV javaCV = (IJavaCV) dbp.getBeanForInterface(IJavaCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IJavaCV javaCV = (IJavaCV) dbp.newBeanForInterface(IJavaCV.class);
 }

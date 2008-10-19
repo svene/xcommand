@@ -2,6 +2,7 @@ package org.xcommand.template.jst;
 
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.template.jst.parser.JSTParser;
 import org.xcommand.template.parser.IParserCV;
 
@@ -104,7 +105,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 			}
 		};
 
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
-	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.getBeanForInterface(IJSTParserCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.newBeanForInterface(IJSTParserCV.class);
 }

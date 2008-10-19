@@ -11,6 +11,7 @@ import org.collage.parser.IParserModeCV;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.template.parser.IParserCV;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.DynaBeanProvider;
 
 public class TemplateParser
@@ -38,9 +39,9 @@ public class TemplateParser
 	private INotifier textNotifier = new BasicNotifier();
 	private INotifier eofNotifier = new BasicNotifier();
 
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
-	private IParserModeCV parserModeCV = (IParserModeCV) dbp.getBeanForInterface(IParserModeCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	private IParserModeCV parserModeCV = (IParserModeCV) dbp.newBeanForInterface(IParserModeCV.class);
 
 	{
 		// do initialization stuff here

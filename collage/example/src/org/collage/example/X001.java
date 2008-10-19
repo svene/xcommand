@@ -5,6 +5,7 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class X001
 {
@@ -23,6 +24,6 @@ public class X001
 		System.out.println(s);
 	}
 
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

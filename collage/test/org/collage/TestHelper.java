@@ -9,6 +9,7 @@ import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.template.TemplateCompiler;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.misc.MessageCommand;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
@@ -78,9 +79,9 @@ public class TestHelper
 		new TemplateCompiler().execute();
 		return treeNodeCV.getTreeNode();
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
-	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

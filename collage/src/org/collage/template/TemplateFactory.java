@@ -3,6 +3,7 @@ package org.collage.template;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class TemplateFactory
 {
@@ -31,6 +32,6 @@ public class TemplateFactory
 
 		return cmd;
 	}
-	private static DynaBeanProvider dbp = new DynaBeanProvider();
-	private static IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.getBeanForInterface(IStringHandlerCV.class);
+	private static final IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private static IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

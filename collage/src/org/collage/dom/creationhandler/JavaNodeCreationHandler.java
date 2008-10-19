@@ -3,6 +3,7 @@ package org.collage.dom.creationhandler;
 import org.collage.dom.ast.Java;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.*;
 import org.xcommand.template.parser.IParserCV;
 
@@ -30,9 +31,9 @@ public class JavaNodeCreationHandler implements ICommand
 		ps.println("### " + aString);
 	}
 	private TreeBuilder tb = new TreeBuilder();
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
-	IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.getBeanForInterface(
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

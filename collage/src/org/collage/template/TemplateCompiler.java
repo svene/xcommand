@@ -4,6 +4,7 @@ import org.collage.jcc.ParseException;
 import org.collage.jcc.TemplateParser;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.misc.statemachine.StateMachine;
 import org.xcommand.misc.statemachine.IStateCV;
 import org.xcommand.template.parser.IParserCV;
@@ -32,7 +33,7 @@ public class TemplateCompiler implements ICommand
 			throw new RuntimeException(e);
 		}
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IParserCV parserCV = (IParserCV) dbp.getBeanForInterface(IParserCV.class);
-	private IStateCV stateCV = (IStateCV) dbp.getBeanForInterface(IStateCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	private IStateCV stateCV = (IStateCV) dbp.newBeanForInterface(IStateCV.class);
 }

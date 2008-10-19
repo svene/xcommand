@@ -2,6 +2,7 @@ package org.xcommand.misc.statemachine;
 
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class StateMachine implements ICommand
 {
@@ -17,6 +18,6 @@ public class StateMachine implements ICommand
 		stateCV.getState().execute();
 	}
 
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	private IStateCV stateCV = (IStateCV) dbp.getBeanForInterface(IStateCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IStateCV stateCV = (IStateCV) dbp.newBeanForInterface(IStateCV.class);
 }

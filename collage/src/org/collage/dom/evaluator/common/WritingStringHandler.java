@@ -2,6 +2,7 @@ package org.collage.dom.evaluator.common;
 
 import org.collage.dom.evaluator.IEvaluationCV;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 import java.util.Map;
 import java.io.Writer;
@@ -22,6 +23,6 @@ public class WritingStringHandler implements IStringHandler
 			throw new RuntimeException(e);
 		}
 	}
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.getBeanForInterface(IEvaluationCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.newBeanForInterface(IEvaluationCV.class);
 }

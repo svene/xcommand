@@ -2,6 +2,7 @@ package org.xcommand.datastructure.tree;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
@@ -53,6 +54,6 @@ public class NotifyingTreeNodeTraverser implements ICommand
 
 	private INotifier enterNodeNotifier = new BasicNotifier();
 	private INotifier exitNodeNotifier = new BasicNotifier();
-	private DynaBeanProvider dbp = new DynaBeanProvider();
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.getBeanForInterface(ITreeNodeCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 }

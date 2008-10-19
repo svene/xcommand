@@ -1,0 +1,27 @@
+MiniJetty Servlet-Beispiel:
+===========================
+  Z:\se\sweng\java\jetty\minijetty_webxml
+  (evtl. nach xc bringen)
+
+Jetty6 aus IDE starten:
+===================
+  org.xcommand.web.server.jetty.MiniJetty
+als Main classe definieren und dann starten.
+im browser 'http://localhost:8080/sven.html' eingeben.
+
+Das Beispiel kann einfach mittels Angabe Parameters
+  base=Z:/se/sweng/java/jetty/minijetty_webxml/webapp
+benutzt werden und dann z.B. mit
+  'http://localhost:8080/s.s'
+im browser aufgerufen werden.
+
+Weiteres Webapp Projekt:
+  Z:\svnstuff\xcommand\xc-webapp
+
+======================================================================================================
+TODOs:
+======
+TODO: continue with IWebCV, WebCVF, ...
+TODO: consider using a proxy (or AOP) to dynamically create an instance of IWebCV
+
+
