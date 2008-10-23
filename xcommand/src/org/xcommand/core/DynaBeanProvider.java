@@ -13,6 +13,10 @@ public class DynaBeanProvider
 	{
 		return classAndMethodBasedDynaBeanProvider;
 	}
+	public static IDynaBeanProvider getMethodBasedDynaBeanProvider()
+	{
+		return methodBasedDynaBeanProvider;
+	}
 
 	public static IDynaBeanProvider getObjectIdentityBasedDynaBeanProvider()
 	{
@@ -22,6 +26,7 @@ public class DynaBeanProvider
 // --- Implementation ---
 
 	private static final IDynaBeanProvider classAndMethodBasedDynaBeanProvider;
+	private static final IDynaBeanProvider methodBasedDynaBeanProvider;
 	private static final IDynaBeanProvider objectIdentityBasedDynaBeanProvider;
 	static
 	{
@@ -34,6 +39,9 @@ public class DynaBeanProvider
 		};
 		classAndMethodBasedDynaBeanProvider = new BasicDynaBeanProvider(new DynaBeanInvocationHandler(
 			new ContextProviderBasedBeanAccessor(cp, new ClassAndMethodKeyProvider())));
+
+		methodBasedDynaBeanProvider = new BasicDynaBeanProvider(new DynaBeanInvocationHandler(
+			new ContextProviderBasedBeanAccessor(cp, new MethodKeyProvider())));
 
 		objectIdentityBasedDynaBeanProvider = new BasicDynaBeanProvider(new DynaBeanInvocationHandler(
 			new ContextProviderBasedBeanAccessor(cp, new ObjectIdentityKeyProvider())));
