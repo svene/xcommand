@@ -4,6 +4,10 @@ import junit.framework.TestCase;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.beans.PropertyDescriptor;
+
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.BeanWrapper;
 
 public class DynaBeanProviderTester extends TestCase
 {
@@ -198,10 +202,44 @@ public class DynaBeanProviderTester extends TestCase
 		assertEquals("Sven", pv2.getFirstName());
 		assertEquals("Ehrke", pv2.getLastName());
 	}
+	public void test21()
+	{
+		Person1 p1 = new Person1();
+		BeanWrapper bw = new BeanWrapperImpl(p1);
+		PropertyDescriptor[] descriptors = bw.getPropertyDescriptors();
+		assertEquals(4, descriptors.length);
+		assertEquals("birthDate", descriptors[0].getName());
+		assertEquals("class", descriptors[1].getName());
+		assertEquals("firstName", descriptors[2].getName());
+		assertEquals("lastName", descriptors[3].getName());
+	}
+	public void test22()
+	{
+		IPerson p = new Person();
+		BeanHoldingBeanAccessor ba = new BeanHoldingBeanAccessor(p);
+		IDynaBeanProvider dbp = DynaBeanProvider.newDynabeanProvider(ba);
+		IPerson pv1 = (IPerson) dbp.newBeanForInterface(IPerson.class);
+		assertNull(pv1.getFirstName());
+		assertNull(pv1.getLastName());
+		assertNull(pv1.getBirthDate());
+		// Modify real Person 'p':
+		p.setFirstName("Sven");
+		// Check modification on 'p':
+		assertEquals("Sven", p.getFirstName());
+		// Check modification on view 'pv1':
+		assertEquals("Sven", pv1.getFirstName());
+
+		// Modify through view 'pv1':
+		pv1.setLastName("Ehrke");
+		// Check modification on view 'pv1':
+		assertEquals("Ehrke", pv1.getLastName());
+		// Check modification on 'p':
+		assertEquals("Ehrke", p.getLastName());
+	}
 
 // --- Implementation ---
 
-	private IDynaBeanProvider dbpCM = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
-	private IDynaBeanProvider dbpOI = DynaBeanProvider.getObjectIdentityBasedDynaBeanProvider();
-	private IDynaBeanProvider dbpM = DynaBeanProvider.getMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbpCM = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private IDynaBeanProvider dbpOI = DynaBeanProvider.newThreadBasedDynabeanProvider(new ObjectIdentityKeyProvider());
+	private IDynaBeanProvider dbpM = DynaBeanProvider.newThreadBasedDynabeanProvider(new MethodKeyProvider());
 }

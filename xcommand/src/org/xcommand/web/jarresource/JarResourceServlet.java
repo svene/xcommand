@@ -3,6 +3,7 @@ package org.xcommand.web.jarresource;
 import org.springframework.core.io.Resource;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletException;
@@ -111,7 +112,7 @@ public class JarResourceServlet extends HttpServlet
 
 		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
 	private IJarResourceProviderCV jarResourceProviderCV = (IJarResourceProviderCV) dbp.newBeanForInterface(
 		IJarResourceProviderCV.class);

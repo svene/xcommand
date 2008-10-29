@@ -4,6 +4,7 @@ import org.collage.dom.ast.RootNode;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.template.parser.IParserCV;
 
@@ -25,7 +26,7 @@ public class RootNodeCreationHandler implements ICommand
 		if (ps == null) return;
 		ps.println("### " + aString);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 }

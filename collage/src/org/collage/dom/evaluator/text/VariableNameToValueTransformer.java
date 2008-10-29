@@ -1,9 +1,6 @@
 package org.collage.dom.evaluator.text;
 
-import org.xcommand.core.TCP;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.evaluator.IEvaluationCV;
 
@@ -46,7 +43,7 @@ public class VariableNameToValueTransformer implements ICommand
 
 		}
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.newBeanForInterface(IEvaluationCV.class);
 }

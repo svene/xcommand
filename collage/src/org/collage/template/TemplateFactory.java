@@ -4,6 +4,7 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 
 public class TemplateFactory
 {
@@ -32,6 +33,7 @@ public class TemplateFactory
 
 		return cmd;
 	}
-	private static final IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private static final IDynaBeanProvider dbp =
+		DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private static IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

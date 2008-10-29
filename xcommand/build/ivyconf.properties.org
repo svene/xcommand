@@ -1,0 +1,7 @@
+ivy.default.ivy.user.dir=${env.HOME}/ivy
+ivy.shared.default.root=G:/SHARE/ivy-rep
+ivy.shared.default.ivy.pattern=[organisation]/[module]/[revision]/ivy.xml
+ivy.shared.default.artifact.pattern=[organisation]/[module]/[revision]/[artifact].[type]
+
+cache.dir=Z:/ivy-cache
+ivy.resolver.default.check.modified=true

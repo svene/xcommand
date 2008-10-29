@@ -6,10 +6,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.TCP;
-import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.*;
 import org.xcommand.web.IWebCV;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +54,6 @@ public class CommandByPathSelectionAction extends Action
 		}
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
 }

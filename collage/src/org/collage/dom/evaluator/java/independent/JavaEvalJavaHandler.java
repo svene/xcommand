@@ -2,10 +2,7 @@ package org.collage.dom.evaluator.java.independent;
 
 import org.collage.dom.ast.Java;
 import org.collage.dom.ast.IJavaCV;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.TCP;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.*;
 
 public class JavaEvalJavaHandler implements ICommand
 {
@@ -19,6 +16,6 @@ public class JavaEvalJavaHandler implements ICommand
 		String ss = "\t" + s + "\n";
 		methodBody.append(ss);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IJavaCV javaCV = (IJavaCV) dbp.newBeanForInterface(IJavaCV.class);
 }

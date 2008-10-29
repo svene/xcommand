@@ -1,7 +1,6 @@
 package org.xcommand.core;
 
 import java.lang.reflect.Proxy;
-import java.util.Map;
 
 public class DynaBeanProvider
 {
@@ -9,43 +8,16 @@ public class DynaBeanProvider
 	{
 	}
 
-	public static IDynaBeanProvider getClassAndMethodBasedDynaBeanProvider()
+	public static IDynaBeanProvider newThreadBasedDynabeanProvider(IDynaBeanKeyProvider aDynaBeanKeyProvider)
 	{
-		return classAndMethodBasedDynaBeanProvider;
+		return newDynabeanProvider(new TCBasedBeanAccessor(aDynaBeanKeyProvider));
 	}
-	public static IDynaBeanProvider getMethodBasedDynaBeanProvider()
+	public static IDynaBeanProvider newDynabeanProvider(IBeanAccessor aBeanAccessor)
 	{
-		return methodBasedDynaBeanProvider;
-	}
-
-	public static IDynaBeanProvider getObjectIdentityBasedDynaBeanProvider()
-	{
-		return objectIdentityBasedDynaBeanProvider;
+		return new BasicDynaBeanProvider(new DynaBeanInvocationHandler(aBeanAccessor));
 	}
 
 // --- Implementation ---
-
-	private static final IDynaBeanProvider classAndMethodBasedDynaBeanProvider;
-	private static final IDynaBeanProvider methodBasedDynaBeanProvider;
-	private static final IDynaBeanProvider objectIdentityBasedDynaBeanProvider;
-	static
-	{
-		IContextProvider cp = new IContextProvider()
-		{
-			public Map getContext()
-			{
-				return TCP.getContext();
-			}
-		};
-		classAndMethodBasedDynaBeanProvider = new BasicDynaBeanProvider(new DynaBeanInvocationHandler(
-			new ContextProviderBasedBeanAccessor(cp, new ClassAndMethodKeyProvider())));
-
-		methodBasedDynaBeanProvider = new BasicDynaBeanProvider(new DynaBeanInvocationHandler(
-			new ContextProviderBasedBeanAccessor(cp, new MethodKeyProvider())));
-
-		objectIdentityBasedDynaBeanProvider = new BasicDynaBeanProvider(new DynaBeanInvocationHandler(
-			new ContextProviderBasedBeanAccessor(cp, new ObjectIdentityKeyProvider())));
-	}
 
 	private static class BasicDynaBeanProvider implements IDynaBeanProvider
 	{
@@ -53,6 +25,7 @@ public class DynaBeanProvider
 		{
 			ih = aIh;
 		}
+
 		public Object newBeanForInterface(Class aInterface)
 		{
 			return newBeanFromInterfaces(new Class[]{aInterface});

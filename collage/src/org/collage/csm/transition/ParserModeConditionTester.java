@@ -4,6 +4,7 @@ import org.xcommand.pattern.observer.ConditionObserver;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.collage.parser.IParserModeCV;
 
 public class ParserModeConditionTester extends ConditionObserver
@@ -26,6 +27,6 @@ public class ParserModeConditionTester extends ConditionObserver
 	}
 
 	private String parserMode;
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IParserModeCV parserModeCV = (IParserModeCV) dbp.newBeanForInterface(IParserModeCV.class);
 }

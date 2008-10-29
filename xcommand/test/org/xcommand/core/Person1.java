@@ -4,11 +4,10 @@ import java.util.Date;
 
 public class Person1 implements IPerson
 {
-	private final IPerson delegate;
-	
+
 	public Person1()
 	{
-		delegate = (IPerson) DynaBeanProvider.getMethodBasedDynaBeanProvider().newBeanForInterface(IPerson.class);
+		delegate = (IPerson) DBP.newBeanForInterface(IPerson.class);
 	}
 
 	public String getFirstName()
@@ -40,4 +39,6 @@ public class Person1 implements IPerson
 	{
 		delegate.setBirthDate(aBirthDate);
 	}
+	private final IPerson delegate;
+	private static final IDynaBeanProvider DBP = DynaBeanProvider.newThreadBasedDynabeanProvider(new MethodKeyProvider());
 }

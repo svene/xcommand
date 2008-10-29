@@ -4,10 +4,7 @@ import junit.framework.TestCase;
 import org.collage.dom.ast.DomEventHandlerProvider;
 import org.collage.dom.evaluator.text.TextHandlerProvider;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.xcommand.core.TCP;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.*;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 import org.xcommand.misc.IMessageCommandCV;
@@ -81,7 +78,7 @@ public class TextEvaluationLowLevelTest extends TestCase
 
 	TestHelper th;
 	List lst;
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
 	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);

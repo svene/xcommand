@@ -1,0 +1,18 @@
+<ivy-module version="2.0">
+    <info organisation="org.xcommand" module="xcommand" revision="1.0"/>
+    <dependencies>
+        <dependency org="commons-lang" name="commons-lang" rev="2.1"/>
+		<dependency org="springframework" name="springframework" rev="2.5" conf="*->web"/>
+		<dependency org="jetty" name="jetty" rev="6.1.7" conf="*->*"/>
+    </dependencies>
+</ivy-module>
+
+<!--<ivy-module version="1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+	<!--xsi:noNamespaceSchemaLocation="http://www.jayasoft.org/misc/ivy/ivy.xsd">-->
+	<!--<info organisation="xcommand" module="xcommand" revision="1.0"/>-->
+	<!--<dependencies>-->
+		<!--<dependency org="apache" name="commons-lang" rev="2.1"/>-->
+		<!--<dependency org="springframework" name="springframework" rev="2.0-RC2" conf="*->web"/>-->
+		<!--<dependency org="jetty" name="jetty" rev="5.1.11" conf="*->*"/>-->
+	<!--</dependencies>-->
+<!--</ivy-module>-->

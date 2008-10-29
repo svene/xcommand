@@ -7,6 +7,7 @@ import org.springframework.web.context.support.ServletContextResource;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletContext;
@@ -85,7 +86,7 @@ public class JarResourceProvider implements ICommand
 	private static final String WSJAR_FILE = "wsjar:file:/";
 	private static final String WEBINF_LIB = "/WEB-INF/lib";
 	private static final String BANG_SLASH = "!/";
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
 	private IJarResourceProviderCV jarResourceProviderCV = (IJarResourceProviderCV) dbp.newBeanForInterface(
 		IJarResourceProviderCV.class); 

@@ -3,6 +3,7 @@ package org.xcommand.web;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.TCP;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,6 @@ public class WebCVInitializationFilter implements Filter
 	}
 
 	ServletContext servletContext;
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
 }

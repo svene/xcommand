@@ -1,9 +1,6 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.TCP;
-import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.*;
 import org.xcommand.web.IWebCV;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +49,6 @@ public class JavaTemplateCmd implements ICommand
 
 	private IUriToClassnameMapper uriToClassnameMapper;
 	private JSTJaninoObjectCreator jstJaninoObjectCreator;
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
 }

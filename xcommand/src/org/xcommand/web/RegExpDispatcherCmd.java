@@ -3,6 +3,7 @@ package org.xcommand.web;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -46,6 +47,6 @@ public class RegExpDispatcherCmd implements ICommand
 
 	// Commands identified by pattern (e.g. '^/bla.*') used as key for this map:
 	private Map/*<ICommand>*/ commands;
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
 }

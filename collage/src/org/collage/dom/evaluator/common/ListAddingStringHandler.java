@@ -2,6 +2,7 @@ package org.collage.dom.evaluator.common;
 
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.misc.IMessageCommandCV;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public class ListAddingStringHandler implements IStringHandler
 		List lst = messageCommandCV.getList();
 		lst.add(aString);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
 }

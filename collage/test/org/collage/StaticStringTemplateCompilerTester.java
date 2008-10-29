@@ -4,10 +4,7 @@ import junit.framework.TestCase;
 import org.collage.template.StaticStringTemplateCompiler;
 import org.collage.template.TextTemplateCompiler;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.xcommand.core.TCP;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.*;
 
 public class StaticStringTemplateCompilerTester extends TestCase
 {
@@ -52,6 +49,6 @@ public class StaticStringTemplateCompilerTester extends TestCase
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

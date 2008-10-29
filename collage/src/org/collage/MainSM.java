@@ -8,10 +8,7 @@ import org.collage.dom.evaluator.text.TextTraverser;
 import org.collage.dom.evaluator.IEvaluationCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateCompiler;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.TCP;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.template.parser.IParserCV;
@@ -79,7 +76,7 @@ public class MainSM extends TestCase
 		cmd.execute();
 		TCP.popContext();
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.newBeanForInterface(IJavaTemplateCmdCV.class);

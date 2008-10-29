@@ -10,6 +10,7 @@ import org.collage.dom.evaluator.text.JavaToStringExtractor;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 import org.xcommand.pattern.observer.BasicNotifier;
 
@@ -90,6 +91,6 @@ public class DomDumpingTestHelper
 	}
 
 	TestHelper th = new TestHelper();
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }
