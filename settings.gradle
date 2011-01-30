@@ -1,2 +1,3 @@
 include 'xcommand'
+include 'collage'
 
