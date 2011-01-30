@@ -1,0 +1,26 @@
+subprojects {
+	apply plugin: 'java'
+
+	repositories {
+	    mavenCentral()
+	}
+
+	dependencies {
+		//compile 'commons-collections:commons-collections:3.2'
+		testCompile 'junit:junit:4.8'
+	}
+
+	sourceCompatibility = 1.5
+	version = '1.0'
+	manifest.mainAttributes(
+		'Implementation-Title': 'xcommand',
+		'Implementation-Version': version
+	)
+
+	uploadArchives {
+		repositories {
+		   flatDir(dirs: file('_repos'))
+		}
+	}
+}
+
