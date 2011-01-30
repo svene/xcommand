@@ -38,7 +38,7 @@ public class MethodCmd implements ICommand
 	{
 		try
 		{
-			method.invoke(multiCommandObject, null);
+			method.invoke(multiCommandObject, (Object[])null);
 		}
 		catch (Exception e)
 		{
