@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2002-2004 The Apache Software Foundation or its licensors,
+  as applicable.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+<header> 
+<title>Collage</title> 
+</header> 
+<body> 
+	<p>
+		Collage is a very simple text template library. It's function is comparable to other text template libraries
+		like Apache velocity or Freemarker. In contrary to those however at the moment it does not provide the posibility
+		to define your own macros or taglibraries as you can do with JSPs for example. It's main focus at the moment is
+		to provide a simple method to use Strings like
+	</p>
+	<p>
+		<code>"Hello world!. My name is ${name}."</code>
+	</p>
+	<p>
+		in your Java code for example and provided with the value 'Sven' for the variable name get the String
+	</p>
+	<p>
+		<code>"Hello world!. My name is Sven."</code>
+	</p>
+
+	<p>
+		You might say now that this is not something special and you can do this with String replacement and you are right of
+		course. But if this code is executed very often it is not the solution from a performance point of view. With Collage
+		it is possible to compile this String template. From then on you can use that compiled templated and provide on each
+		call the dynamic data (name in this example) which changes from call to call. This makes your Java code much more
+		readable than using <code>StringBuffer</code> and perform well at the same time.
+	</p>
+	<p>
+		For advanced requirements like generating lists or tables you clearly need some loop construct. Freemarker and
+		Velocity provide their own macros for looping to let you achieve this. I did not want to create another language
+		as these libraries do. First because it takes quite some effort to do this and second I do not think it makes much
+		sense to force users to learn yet another language. So I decided to support the Java language in the template
+		text similar to the way scriptlets work in JSPs.
+	</p>
+	<p>
+		The best thing to get startet with Collage is to go through the 5 Minutes Tutorial and look at the usage examples.
+	</p>
+
+</body>
+</document>

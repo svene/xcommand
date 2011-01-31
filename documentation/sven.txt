@@ -1,0 +1,14 @@
+Open a terminal in Z:\svnstuff\xcommand\documentation\forrest and then
+
+Run local forrest webserver:
+
+  \forrest\bin\forrest run
+  
+Create static site:
+
+  \forrest\bin\forrest site
+  
+  
+  
+Upgrade to forrest 0.8:
+  http://forrest.apache.org/docs_0_80/upgrading_08.html
