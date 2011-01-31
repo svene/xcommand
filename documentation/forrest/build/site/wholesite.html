@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="Apache Forrest" name="Generator">
+<meta name="Forrest-version" content="0.7">
+<meta name="Forrest-skin-name" content="pelt">
+<title>xcommand</title>
+<link type="text/css" href="skin/basic.css" rel="stylesheet">
+<link media="screen" type="text/css" href="skin/screen.css" rel="stylesheet">
+<link media="print" type="text/css" href="skin/print.css" rel="stylesheet">
+<link type="text/css" href="skin/profile.css" rel="stylesheet">
+<script src="skin/getBlank.js" language="javascript" type="text/javascript"></script><script src="skin/getMenu.js" language="javascript" type="text/javascript"></script><script src="skin/fontsize.js" language="javascript" type="text/javascript"></script>
+<link rel="shortcut icon" href="">
+</head>
+<body onload="init()">
+<script type="text/javascript">ndeSetTextSize();</script>
+<div id="top">
+<div class="breadtrail">
+<a href="http://www.apache.org/">myGroup</a> &gt; <a href="http://forrest.apache.org/">myProject</a><script src="skin/breadcrumbs.js" language="JavaScript" type="text/javascript"></script>
+</div>
+<div class="header">
+<div class="grouplogo">
+<a href="http://xcommand.sourceforge.net"><img class="logoImage" alt="xcommand" src="images/group.png" title="xcommand"></a>
+</div>
+<div class="projectlogo">
+<a href="http://xcommand.sourceforge.net/"><img class="logoImage" alt="xcommand" src="images/project.png" title="The extended command pattern"></a>
+</div>
+<div class="searchbox">
+<form action="http://www.google.com/search" method="get" class="roundtopsmall">
+<input value="http://xcommand.sourceforge.net" name="sitesearch" type="hidden"><input onFocus="getBlank (this, 'Search the site with google');" size="25" name="q" id="query" type="text" value="Search the site with google">&nbsp; 
+                    <input attr="value" name="Search" value="Search" type="submit">
+</form>
+</div>
+<ul id="tabs">
+<li class="current">
+<a class="base-selected" href="index.html">Home</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="main">
+<div id="publishedStrip">
+<div id="level2tabs"></div>
+<script type="text/javascript"><!--
+document.write("<text>Last Published:</text> " + document.lastModified);
+//  --></script>
+</div>
+<div class="breadtrail">
+             
+             &nbsp;
+           </div>
+<div id="menu">
+<div onclick="SwitchMenu('menu_1.1', 'skin/')" id="menu_1.1Title" class="menutitle">XCommand</div>
+<div id="menu_1.1" class="menuitemgroup">
+<div class="menuitem">
+<a href="index.html" title="Welcome to XCommand">Introduction</a>
+</div>
+</div>
+<div onclick="SwitchMenu('menu_1.2', 'skin/')" id="menu_1.2Title" class="menutitle">Collage</div>
+<div id="menu_1.2" class="menuitemgroup">
+<div class="menuitem">
+<a href="collage/5mintutorial.html" title="5 Minutes Tutorial">5 Minutes Tutorial</a>
+</div>
+<div class="menuitem">
+<a href="collage/usage_examples.html" title="Collage usage examples">Usage Examples</a>
+</div>
+</div>
+<div onclick="SwitchMenu('menu_1.3', 'skin/')" id="menu_1.3Title" class="menutitle">Best Practices</div>
+<div id="menu_1.3" class="menuitemgroup">
+<div class="menuitem">
+<a href="best_practices/index.html" title="Best Practices">Index</a>
+</div>
+</div>
+<div onclick="SwitchMenu('menu_selected_1.4', 'skin/')" id="menu_selected_1.4Title" class="menutitle" style="background-image: url('skin/images/chapter_open.gif');">All</div>
+<div id="menu_selected_1.4" class="selectedmenuitemgroup" style="display: block;">
+<div class="menupage">
+<div class="menupagetitle">Whole Site HTML</div>
+</div>
+<div class="menuitem">
+<a href="wholesite.pdf">Whole Site PDF</a>
+</div>
+</div>
+<div id="credit"></div>
+<div id="roundbottom">
+<img style="display: none" class="corner" height="15" width="15" alt="" src="skin/images/rc-b-l-15-1body-2menu-3menu.png"></div>
+<div id="credit2"></div>
+</div>
+<div id="content">
+<div title="Portable Document Format" class="pdflink">
+<a class="dida" href="wholesite.pdf"><img alt="PDF -icon" src="skin/images/pdfdoc.gif" class="skin"><br>
+        PDF</a>
+</div>
+<h1>xcommand</h1>
+<div id="minitoc-area">
+<ul class="minitoc">
+<li>
+<a href="#XCommand">XCommand</a>
+<ul class="minitoc">
+<li>
+<a href="#index.html">Welcome to xcommand</a>
+<ul class="minitoc">
+<li>
+<a href="#index.html#introduction">Introduction</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#Collage">Collage</a>
+<ul class="minitoc">
+<li>
+<a href="#collage/5mintutorial.html">Collage: 5 Minutes Tutorial</a>
+<ul class="minitoc">
+<li>
+<a href="#collage/5mintutorial.html#prerequisites">Prerequisites</a>
+</li>
+<li>
+<a href="#collage/5mintutorial.html#preparation">Preparation</a>
+</li>
+<li>
+<a href="#collage/5mintutorial.html#collage">Hello ${firstname}</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#collage/usage_examples.html">Collage usage examples</a>
+<ul class="minitoc">
+<li>
+<a href="#collage/usage_examples.html#collage">Hello ${firstname}</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#Best+Practices">Best Practices</a>
+<ul class="minitoc">
+<li>
+<a href="#best_practices/index.html">Best Practices</a>
+<ul class="minitoc">
+<li>
+<a href="#best_practices/index.html#please-contribute">Best Practices</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#All">All</a>
+</li>
+</ul>
+</div>
+<a name="N10007"></a><a name="XCommand"></a>
+<h2 class="boxed">XCommand</h2>
+<div class="section">
+<a name="N1000C"></a><a name="index.html"></a>
+<h3 class="boxed">Welcome to xcommand</h3>
+<a name="N10013"></a><a name="index.html#introduction"></a>
+<h4>Introduction</h4>
+<p>
+		XCommand is the implemention of the extended command pattern.
+		<a href="http://xcommand.sourceforge.net/xcommand.pdf">This article</a> describes the concept behind XCommand.
+		XCommand's website is available at <a href="http://xcommand.sourceforge.net">xcommand.sourceforge.net</a>.		
+	</p>
+</div>
+<a name="N10026"></a><a name="Collage"></a>
+<h2 class="boxed">Collage</h2>
+<div class="section">
+<a name="N1002B"></a><a name="collage/5mintutorial.html"></a>
+<h3 class="boxed">Collage: 5 Minutes Tutorial</h3>
+<p>
+    	This tutorial will get you going with collage in 5 minutes. It will describe how to get the required jar files
+    	and shows a first usage example.
+    </p>
+<a name="N10035"></a><a name="collage/5mintutorial.html#prerequisites"></a>
+<h4>Prerequisites</h4>
+<p>
+			The idea of this tutorial is to get most possible new users up an running smoothly in a very short time.
+			Therefor I need to make certain assumptions which result in the following requirements to run
+			this tutorial. If you do not like some of them check out the alternative hints behind them.
+		</p>
+<ul>
+			
+<li>Java 1.4.x or newer</li>			
+			
+<li>Apache Ant (1.6.x or newer)</li>			
+			
+<li>Available Internet while running ant scripts</li>			
+		
+</ul>
+<a name="N1004B"></a><a name="collage/5mintutorial.html#preparation"></a>
+<h4>Preparation</h4>
+<p>
+		
+</p>
+<ul>
+				
+<li>Create an empty directory called <span class="codefrag">X001</span> in any location you like.</li>
+				
+<li>Then create a new file named <span class="codefrag">build.xml</span> with the following content inside it:</li>
+			
+</ul>
+<pre class="code">
+&lt;?xml version="1.0"?&gt;
+&lt;project name="collage_5mintutorial" default="init" basedir="."&gt;
+  &lt;property name="rep" value="http://www.sven-ehrke.de/tmp"/&gt;
+  &lt;get src="${rep}/build.xml" dest="lib-build.xml" verbose="true" usetimestamp="true"/&gt;
+  &lt;import file="lib-build.xml"/&gt;
+&lt;/project&gt;
+</pre>
+<p>
+			This small ant file is able to bootstrap your first collage example.
+		</p>
+<ul>
+			
+<li>open a command window in your new <span class="codefrag">X001</span> directory and invoke: <span class="codefrag">ant compile run</span>
+</li>
+		
+</ul>
+<p>
+			You should see an output similar to this one:
+		</p>
+<pre class="code">
+Buildfile: build.xml
+      [get] Getting: http://www.sven-ehrke.de/tmp/build.xml
+      [get] .
+      [get] last modified = Sun Feb 18 10:52:07 CET 2007
+
+init:
+    [mkdir] Created dir: Z:\Daily\2007-02-18\lib
+    [mkdir] Created dir: Z:\Daily\2007-02-18\output\classes
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-lang-2.2.jar
+      [get] .......................
+      [get] last modified = Sun Feb 18 10:15:35 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-logging.jar
+      [get] ..
+      [get] last modified = Sun Feb 18 10:15:24 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/javacc.jar
+      [get] .....
+      [get] last modified = Sun Feb 18 10:15:54 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/javassist.jar
+      [get] .......
+      [get] last modified = Sun Feb 18 10:16:21 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/junit.jar
+      [get] ...
+      [get] last modified = Sun Feb 18 10:16:20 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-core.jar
+      [get] ..
+      [get] last modified = Sun Feb 18 10:33:38 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-misc.jar
+      [get] .
+      [get] last modified = Sun Feb 18 10:33:43 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/collage.jar
+      [get] ...
+      [get] last modified = Sun Feb 18 10:33:43 CET 2007
+    [mkdir] Created dir: Z:\Daily\2007-02-18\src
+    [mkdir] Created dir: Z:\Daily\2007-02-18\src\org\collage\example
+      [get] Getting: http://www.sven-ehrke.de/tmp/X001.java
+      [get] .
+      [get] last modified = Sun Feb 18 10:37:50 CET 2007
+
+gensrc:
+
+compile:
+    [javac] Compiling 1 source file to Z:\Daily\2007-02-18\output\classes
+
+init:
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-lang-2.2.jar
+      [get] local file date : Sun Feb 18 10:15:36 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-logging.jar
+      [get] local file date : Sun Feb 18 10:15:24 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/javacc.jar
+      [get] local file date : Sun Feb 18 10:15:54 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/javassist.jar
+      [get] local file date : Sun Feb 18 10:16:22 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/junit.jar
+      [get] local file date : Sun Feb 18 10:16:20 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-core.jar
+      [get] local file date : Sun Feb 18 10:33:38 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-misc.jar
+      [get] local file date : Sun Feb 18 10:33:44 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/collage.jar
+      [get] local file date : Sun Feb 18 10:33:44 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/X001.java
+      [get] local file date : Sun Feb 18 10:37:50 CET 2007
+      [get] Not modified - so not downloaded
+Overriding previous definition of reference to id.classpath
+
+run:
+     [java] Hi Uli. How are you?
+
+BUILD SUCCESSFUL
+Total time: 19 seconds
+</pre>
+<p>
+			Your small ant file downloaded anther ant file with targets for getting the required jars,
+			compilation and to run the example. This ant file is imported into your ant file.
+			After having downloaded the required jar files the <span class="codefrag">compile</span> and the <span class="codefrag">run</span>
+			target get invoked.
+		</p>
+<a name="N10086"></a><a name="collage/5mintutorial.html#collage"></a>
+<h4>Hello ${firstname}</h4>
+<p>
+			The interesting part is of course the Java code:
+		</p>
+<pre class="code">
+package org.collage;
+
+import org.collage.template.Template;
+import org.collage.template.TemplateSource;
+import org.collage.dom.evaluator.text.TextTemplate;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class X001
+{
+  public static void main(String[] args)
+  {
+    Map dataCtx = new HashMap();
+    dataCtx.put("firstname", "Uli");
+    Template t = new TextTemplate(new TemplateSource("Hi ${firstname}. How are you?"));
+    String s = t.getStringResult(dataCtx);
+    System.out.println(s);
+  }
+}
+</pre>
+<p>
+			First a new <span class="codefrag">HashMap dataCtx</span> is created and populated with data (here the firstname of my wife).
+			Next a new <span class="codefrag">TemplateSource</span> is created from the String <span class="codefrag">Hi ${firstname}. How are you?</span>
+			from which a new
+			<span class="codefrag">TextTemplate</span> is created. With <span class="codefrag">TextTemplate.getStringResult(dataCtx)</span> a String
+			with all placeholders replaced with the values in <span class="codefrag">dataCtx</span> is returned. This leads to the
+			expected output: <span class="codefrag">Hi Uli. How are you?</span>
+		
+</p>
+<a name="N100AD"></a><a name="collage/usage_examples.html"></a>
+<h3 class="boxed">Collage usage examples</h3>
+<p>hallo du da</p>
+<a name="N100B7"></a><a name="collage/usage_examples.html#collage"></a>
+<h4>Hello ${firstname}</h4>
+<pre class="code">
+package org.collage;
+
+import org.collage.template.Template;
+import org.collage.template.TemplateSource;
+import org.collage.dom.evaluator.text.TextTemplate;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class X001
+{
+  public static void main(String[] args)
+  {
+    Map dataCtx = new HashMap();
+    dataCtx.put("firstname", "Uli");
+    Template t = new TextTemplate(new TemplateSource("Hi ${firstname}. How are you?"));
+    String s = t.getStringResult(dataCtx);
+    System.out.println(s);
+  }
+}
+</pre>
+</div>
+<a name="N100C3"></a><a name="Best+Practices"></a>
+<h2 class="boxed">Best Practices</h2>
+<div class="section">
+<a name="N100C8"></a><a name="best_practices/index.html"></a>
+<h3 class="boxed">Best Practices</h3>
+<a name="N100CF"></a><a name="best_practices/index.html#please-contribute"></a>
+<h4>Best Practices</h4>
+<p>Best Practices ...</p>
+</div>
+<a name="N100DA"></a><a name="All"></a>
+<h2 class="boxed">All</h2>
+<div class="section"></div>
+</div>
+<div class="clearboth">&nbsp;</div>
+</div>
+<div id="footer">
+<div class="lastmodified">
+<script type="text/javascript"><!--
+document.write("<text>Last Published:</text> " + document.lastModified);
+//  --></script>
+</div>
+<div class="copyright">
+        Copyright &copy;
+         2007 <a href="http://www.apache.org/licenses/">Sven Ehrke</a>
+</div>
+<div id="feedback">
+    Send feedback about the website to:
+  <a id="feedbackto" href="mailto:webmaster@foo.com?subject=Feedback%C2%A0wholesite.html">webmaster@foo.com</a>
+</div>
+</div>
+</body>
+</html>

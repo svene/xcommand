@@ -1,0 +1,298 @@
+WARN    (2009-03-17) 20:23.35:892   [core.manager] (Unknown-URI) Unknown-Thread/CoreServiceManager: ComponentLocator exception from parent SM during lookup.
+org.apache.avalon.framework.service.ServiceException: Component for key 'org.apache.excalibur.source.SourceResolver' not found. (Key='Cocoon')
+	at org.apache.cocoon.core.container.SingleComponentServiceManager.lookup(SingleComponentServiceManager.java:68)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.i18n.XMLResourceBundleFactory.service(XMLResourceBundleFactory.java:92)
+	at org.apache.avalon.framework.container.ContainerUtil.service(ContainerUtil.java:143)
+	at org.apache.cocoon.core.container.ComponentFactory.setupInstance(ComponentFactory.java:150)
+	at org.apache.cocoon.core.container.ComponentFactory.newInstance(ComponentFactory.java:133)
+	at org.apache.cocoon.core.container.handler.ThreadSafeComponentHandler.doInitialize(ThreadSafeComponentHandler.java:54)
+	at org.apache.cocoon.core.container.handler.AbstractComponentHandler.initialize(AbstractComponentHandler.java:274)
+	at org.apache.cocoon.core.container.CoreServiceManager.initialize(CoreServiceManager.java:243)
+	at org.apache.cocoon.components.container.CocoonServiceManager.initialize(CocoonServiceManager.java:81)
+	at org.apache.avalon.framework.container.ContainerUtil.initialize(ContainerUtil.java:244)
+	at org.apache.cocoon.Cocoon.initialize(Cocoon.java:257)
+	at org.apache.avalon.framework.container.ContainerUtil.initialize(ContainerUtil.java:244)
+	at org.apache.cocoon.core.CoreUtil.createProcessor(CoreUtil.java:758)
+	at org.apache.cocoon.servlet.CocoonServlet.init(CocoonServlet.java:223)
+	at org.mortbay.jetty.servlet.ServletHolder.start(ServletHolder.java:220)
+	at org.mortbay.jetty.servlet.ServletHandler.initializeServlets(ServletHandler.java:445)
+	at org.mortbay.jetty.servlet.WebApplicationHandler.initializeServlets(WebApplicationHandler.java:150)
+	at org.mortbay.jetty.servlet.WebApplicationContext.start(WebApplicationContext.java:458)
+	at org.mortbay.http.HttpServer.start(HttpServer.java:663)
+	at org.mortbay.jetty.Server.main(Server.java:429)
+WARN    (2009-03-17) 20:23.36:439   [core.manager] (Unknown-URI) Unknown-Thread/CoreServiceManager: ComponentLocator exception from parent SM during lookup.
+org.apache.avalon.framework.service.ServiceException: Component for key 'org.apache.cocoon.components.fam.SitemapMonitor' not found. (Key='Cocoon')
+	at org.apache.cocoon.core.container.SingleComponentServiceManager.lookup(SingleComponentServiceManager.java:68)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.service(TreeProcessor.java:198)
+	at org.apache.avalon.framework.container.ContainerUtil.service(ContainerUtil.java:143)
+	at org.apache.cocoon.core.container.ComponentFactory.setupInstance(ComponentFactory.java:150)
+	at org.apache.cocoon.core.container.ComponentFactory.newInstance(ComponentFactory.java:133)
+	at org.apache.cocoon.core.container.handler.ThreadSafeComponentHandler.doInitialize(ThreadSafeComponentHandler.java:54)
+	at org.apache.cocoon.core.container.handler.AbstractComponentHandler.initialize(AbstractComponentHandler.java:274)
+	at org.apache.cocoon.core.container.CoreServiceManager.initialize(CoreServiceManager.java:243)
+	at org.apache.cocoon.components.container.CocoonServiceManager.initialize(CocoonServiceManager.java:81)
+	at org.apache.avalon.framework.container.ContainerUtil.initialize(ContainerUtil.java:244)
+	at org.apache.cocoon.Cocoon.initialize(Cocoon.java:257)
+	at org.apache.avalon.framework.container.ContainerUtil.initialize(ContainerUtil.java:244)
+	at org.apache.cocoon.core.CoreUtil.createProcessor(CoreUtil.java:758)
+	at org.apache.cocoon.servlet.CocoonServlet.init(CocoonServlet.java:223)
+	at org.mortbay.jetty.servlet.ServletHolder.start(ServletHolder.java:220)
+	at org.mortbay.jetty.servlet.ServletHandler.initializeServlets(ServletHandler.java:445)
+	at org.mortbay.jetty.servlet.WebApplicationHandler.initializeServlets(WebApplicationHandler.java:150)
+	at org.mortbay.jetty.servlet.WebApplicationContext.start(WebApplicationContext.java:458)
+	at org.mortbay.http.HttpServer.start(HttpServer.java:663)
+	at org.mortbay.jetty.Server.main(Server.java:429)
+WARN    (2009-03-17) 20:23.36:517   [core.manager] (Unknown-URI) Unknown-Thread/CoreServiceManager: ComponentLocator exception from parent SM during lookup.
+org.apache.avalon.framework.service.ServiceException: Component for key 'org.apache.cocoon.components.language.generator.ServerPagesSelector' not found. (Key='Cocoon')
+	at org.apache.cocoon.core.container.SingleComponentServiceManager.lookup(SingleComponentServiceManager.java:68)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.components.language.generator.ProgramGeneratorImpl.service(ProgramGeneratorImpl.java:133)
+	at org.apache.avalon.framework.container.ContainerUtil.service(ContainerUtil.java:143)
+	at org.apache.cocoon.core.container.ComponentFactory.setupInstance(ComponentFactory.java:150)
+	at org.apache.cocoon.core.container.ComponentFactory.newInstance(ComponentFactory.java:133)
+	at org.apache.cocoon.core.container.handler.ThreadSafeComponentHandler.doInitialize(ThreadSafeComponentHandler.java:54)
+	at org.apache.cocoon.core.container.handler.AbstractComponentHandler.initialize(AbstractComponentHandler.java:274)
+	at org.apache.cocoon.core.container.CoreServiceManager.initialize(CoreServiceManager.java:243)
+	at org.apache.cocoon.components.container.CocoonServiceManager.initialize(CocoonServiceManager.java:81)
+	at org.apache.avalon.framework.container.ContainerUtil.initialize(ContainerUtil.java:244)
+	at org.apache.cocoon.Cocoon.initialize(Cocoon.java:257)
+	at org.apache.avalon.framework.container.ContainerUtil.initialize(ContainerUtil.java:244)
+	at org.apache.cocoon.core.CoreUtil.createProcessor(CoreUtil.java:758)
+	at org.apache.cocoon.servlet.CocoonServlet.init(CocoonServlet.java:223)
+	at org.mortbay.jetty.servlet.ServletHolder.start(ServletHolder.java:220)
+	at org.mortbay.jetty.servlet.ServletHandler.initializeServlets(ServletHandler.java:445)
+	at org.mortbay.jetty.servlet.WebApplicationHandler.initializeServlets(WebApplicationHandler.java:150)
+	at org.mortbay.jetty.servlet.WebApplicationContext.start(WebApplicationContext.java:458)
+	at org.mortbay.http.HttpServer.start(HttpServer.java:663)
+	at org.mortbay.jetty.Server.main(Server.java:429)
+WARN    (2009-03-17) 20:23.36:626   [core.manager] (Unknown-URI) Unknown-Thread/JavaLanguage: Attempted to retrieve directory listing of non-directory F:\WINNT\Sun\Java\lib\ext
+WARN    (2009-03-17) 20:25.42:517   [core.manager] (/index.pdf) PoolThread-4/CoreServiceManager: ComponentLocator exception from parent SM during lookup.
+org.apache.avalon.framework.service.ServiceException: Component for key 'org.apache.cocoon.components.treeprocessor.TreeBuilder/sitemap-1.0' not found. (Key='Cocoon')
+	at org.apache.cocoon.core.container.SingleComponentServiceManager.lookup(SingleComponentServiceManager.java:68)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.getTreeBuilder(TreeProcessor.java:375)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.buildConcreteProcessor(TreeProcessor.java:720)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.setupConcreteProcessor(TreeProcessor.java:394)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.process(TreeProcessor.java:288)
+	at org.apache.cocoon.Cocoon.process(Cocoon.java:557)
+	at org.apache.cocoon.servlet.CocoonServlet.service(CocoonServlet.java:364)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:354)
+	at org.mortbay.jetty.servlet.WebApplicationHandler.dispatch(WebApplicationHandler.java:294)
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:567)
+	at org.mortbay.http.HttpContext.handle(HttpContext.java:1808)
+	at org.mortbay.jetty.servlet.WebApplicationContext.handle(WebApplicationContext.java:525)
+	at org.mortbay.http.HttpContext.handle(HttpContext.java:1758)
+	at org.mortbay.http.HttpServer.service(HttpServer.java:879)
+	at org.mortbay.http.HttpConnection.service(HttpConnection.java:790)
+	at org.mortbay.http.HttpConnection.handleNext(HttpConnection.java:952)
+	at org.mortbay.http.HttpConnection.handle(HttpConnection.java:807)
+	at org.mortbay.http.SocketListener.handleConnection(SocketListener.java:197)
+	at org.mortbay.util.ThreadedServer.handle(ThreadedServer.java:289)
+	at org.mortbay.util.ThreadPool$PoolThread.run(ThreadPool.java:501)
+WARN    (2009-03-17) 20:25.44:079   [core.manager] (/index.pdf) PoolThread-4/CoreServiceManager: ComponentLocator exception from parent SM during lookup.
+org.apache.avalon.framework.service.ServiceException: Component for key 'org.apache.cocoon.caching.Cache' not found. (Key='Cocoon')
+	at org.apache.cocoon.core.container.SingleComponentServiceManager.lookup(SingleComponentServiceManager.java:68)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.components.pipeline.impl.BaseCachingProcessingPipeline.parameterize(BaseCachingProcessingPipeline.java:61)
+	at org.apache.cocoon.components.pipeline.impl.AbstractCachingProcessingPipeline.parameterize(AbstractCachingProcessingPipeline.java:115)
+	at org.apache.avalon.framework.container.ContainerUtil.parameterize(ContainerUtil.java:228)
+	at org.apache.cocoon.core.container.ComponentFactory.setupInstance(ComponentFactory.java:157)
+	at org.apache.cocoon.core.container.ComponentFactory.newInstance(ComponentFactory.java:133)
+	at org.apache.cocoon.core.container.handler.NonThreadSafePoolableComponentHandler.getFromPool(NonThreadSafePoolableComponentHandler.java:165)
+	at org.apache.cocoon.core.container.handler.NonThreadSafePoolableComponentHandler.doGet(NonThreadSafePoolableComponentHandler.java:238)
+	at org.apache.cocoon.core.container.handler.AbstractComponentHandler.get(AbstractComponentHandler.java:181)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:427)
+	at org.apache.cocoon.core.container.DefaultServiceSelector.select(DefaultServiceSelector.java:141)
+	at org.apache.cocoon.components.treeprocessor.sitemap.ComponentsSelector.select(ComponentsSelector.java:109)
+	at org.apache.cocoon.components.treeprocessor.InvokeContext.getProcessingPipeline(InvokeContext.java:158)
+	at org.apache.cocoon.components.treeprocessor.sitemap.GenerateNode.invoke(GenerateNode.java:70)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:55)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PreparableMatchNode.invoke(PreparableMatchNode.java:116)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:55)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PreparableMatchNode.invoke(PreparableMatchNode.java:116)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelineNode.invoke(PipelineNode.java:155)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelinesNode.invoke(PipelinesNode.java:95)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:292)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.buildPipeline(ConcreteTreeProcessor.java:239)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.buildPipeline(TreeProcessor.java:302)
+	at org.apache.cocoon.components.source.impl.SitemapSource.init(SitemapSource.java:266)
+	at org.apache.cocoon.components.source.impl.SitemapSource.<init>(SitemapSource.java:146)
+	at org.apache.cocoon.components.source.impl.SitemapSourceFactory.getSource(SitemapSourceFactory.java:65)
+	at org.apache.cocoon.components.source.CocoonSourceResolver.resolveURI(CocoonSourceResolver.java:159)
+	at org.apache.cocoon.components.source.CocoonSourceResolver.resolveURI(CocoonSourceResolver.java:189)
+	at org.apache.forrest.locationmap.LocationMapModule.getLocationMap(LocationMapModule.java:95)
+	at org.apache.forrest.locationmap.LocationMapModule.getAttribute(LocationMapModule.java:203)
+	at org.apache.cocoon.components.treeprocessor.variables.PreparedVariableResolver.processModule(PreparedVariableResolver.java:246)
+	at org.apache.cocoon.components.treeprocessor.variables.PreparedVariableResolver.resolve(PreparedVariableResolver.java:197)
+	at org.apache.cocoon.components.treeprocessor.sitemap.SelectNode.invoke(SelectNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelineNode.invoke(PipelineNode.java:155)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelinesNode.invoke(PipelinesNode.java:95)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:292)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:223)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.process(TreeProcessor.java:289)
+	at org.apache.cocoon.Cocoon.process(Cocoon.java:557)
+	at org.apache.cocoon.servlet.CocoonServlet.service(CocoonServlet.java:364)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:354)
+	at org.mortbay.jetty.servlet.WebApplicationHandler.dispatch(WebApplicationHandler.java:294)
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:567)
+	at org.mortbay.http.HttpContext.handle(HttpContext.java:1808)
+	at org.mortbay.jetty.servlet.WebApplicationContext.handle(WebApplicationContext.java:525)
+	at org.mortbay.http.HttpContext.handle(HttpContext.java:1758)
+	at org.mortbay.http.HttpServer.service(HttpServer.java:879)
+	at org.mortbay.http.HttpConnection.service(HttpConnection.java:790)
+	at org.mortbay.http.HttpConnection.handleNext(HttpConnection.java:952)
+	at org.mortbay.http.HttpConnection.handle(HttpConnection.java:807)
+	at org.mortbay.http.SocketListener.handleConnection(SocketListener.java:197)
+	at org.mortbay.util.ThreadedServer.handle(ThreadedServer.java:289)
+	at org.mortbay.util.ThreadPool$PoolThread.run(ThreadPool.java:501)
+WARN    (2009-03-17) 20:25.45:579   [core.manager] (/index.pdf) PoolThread-4/CoreServiceManager: ComponentLocator exception from parent SM during lookup.
+org.apache.avalon.framework.service.ServiceException: Component for key 'org.apache.cocoon.generation.Generator/<aggregator>' not found. (Key='Cocoon')
+	at org.apache.cocoon.core.container.SingleComponentServiceManager.lookup(SingleComponentServiceManager.java:68)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.core.container.CoreServiceManager.lookup(CoreServiceManager.java:355)
+	at org.apache.cocoon.components.pipeline.AbstractProcessingPipeline.setGenerator(AbstractProcessingPipeline.java:211)
+	at org.apache.cocoon.components.pipeline.impl.AbstractCachingProcessingPipeline.setGenerator(AbstractCachingProcessingPipeline.java:134)
+	at org.apache.cocoon.components.treeprocessor.sitemap.AggregateNode.invoke(AggregateNode.java:89)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.SelectNode.invoke(SelectNode.java:86)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:55)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PreparableMatchNode.invoke(PreparableMatchNode.java:116)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelineNode.invoke(PipelineNode.java:155)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelinesNode.invoke(PipelinesNode.java:95)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:292)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.buildPipeline(ConcreteTreeProcessor.java:239)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.buildPipeline(TreeProcessor.java:302)
+	at org.apache.cocoon.components.source.impl.SitemapSource.init(SitemapSource.java:266)
+	at org.apache.cocoon.components.source.impl.SitemapSource.<init>(SitemapSource.java:146)
+	at org.apache.cocoon.components.source.impl.SitemapSourceFactory.getSource(SitemapSourceFactory.java:65)
+	at org.apache.cocoon.components.source.CocoonSourceResolver.resolveURI(CocoonSourceResolver.java:159)
+	at org.apache.cocoon.environment.internal.EnvironmentHelper.resolveURI(EnvironmentHelper.java:134)
+	at org.apache.cocoon.environment.internal.EnvironmentHelper.resolveURI(EnvironmentHelper.java:144)
+	at org.apache.cocoon.generation.FileGenerator.setup(FileGenerator.java:81)
+	at org.apache.cocoon.components.pipeline.AbstractProcessingPipeline.setupPipeline(AbstractProcessingPipeline.java:341)
+	at org.apache.cocoon.components.pipeline.impl.AbstractCachingProcessingPipeline.setupPipeline(AbstractCachingProcessingPipeline.java:614)
+	at org.apache.cocoon.components.pipeline.AbstractProcessingPipeline.preparePipeline(AbstractProcessingPipeline.java:459)
+	at org.apache.cocoon.components.pipeline.AbstractProcessingPipeline.process(AbstractProcessingPipeline.java:409)
+	at org.apache.cocoon.components.treeprocessor.sitemap.SerializeNode.invoke(SerializeNode.java:137)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.SelectNode.invoke(SelectNode.java:86)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:55)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PreparableMatchNode.invoke(PreparableMatchNode.java:116)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelineNode.invoke(PipelineNode.java:155)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelinesNode.invoke(PipelinesNode.java:95)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:292)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:223)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.process(TreeProcessor.java:289)
+	at org.apache.cocoon.components.treeprocessor.sitemap.MountNode.invoke(MountNode.java:114)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.SelectNode.invoke(SelectNode.java:81)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelineNode.invoke(PipelineNode.java:155)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelinesNode.invoke(PipelinesNode.java:95)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:292)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:223)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.process(TreeProcessor.java:289)
+	at org.apache.cocoon.components.treeprocessor.sitemap.MountNode.invoke(MountNode.java:114)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.SelectNode.invoke(SelectNode.java:81)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelineNode.invoke(PipelineNode.java:155)
+	at org.apache.cocoon.components.treeprocessor.AbstractParentProcessingNode.invokeNodes(AbstractParentProcessingNode.java:77)
+	at org.apache.cocoon.components.treeprocessor.sitemap.PipelinesNode.invoke(PipelinesNode.java:95)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:292)
+	at org.apache.cocoon.components.treeprocessor.ConcreteTreeProcessor.process(ConcreteTreeProcessor.java:223)
+	at org.apache.cocoon.components.treeprocessor.TreeProcessor.process(TreeProcessor.java:289)
+	at org.apache.cocoon.Cocoon.process(Cocoon.java:557)
+	at org.apache.cocoon.servlet.CocoonServlet.service(CocoonServlet.java:364)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:354)
+	at org.mortbay.jetty.servlet.WebApplicationHandler.dispatch(WebApplicationHandler.java:294)
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:567)
+	at org.mortbay.http.HttpContext.handle(HttpContext.java:1808)
+	at org.mortbay.jetty.servlet.WebApplicationContext.handle(WebApplicationContext.java:525)
+	at org.mortbay.http.HttpContext.handle(HttpContext.java:1758)
+	at org.mortbay.http.HttpServer.service(HttpServer.java:879)
+	at org.mortbay.http.HttpConnection.service(HttpConnection.java:790)
+	at org.mortbay.http.HttpConnection.handleNext(HttpConnection.java:952)
+	at org.mortbay.http.HttpConnection.handle(HttpConnection.java:807)
+	at org.mortbay.http.SocketListener.handleConnection(SocketListener.java:197)
+	at org.mortbay.util.ThreadedServer.handle(ThreadedServer.java:289)
+	at org.mortbay.util.ThreadPool$PoolThread.run(ThreadPool.java:501)
+ERROR   (2009-03-17) 20:25.51:689   [core.manager.fop] (/index.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:25.51:689   [core.manager.fop] (/index.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:25.51:689   [core.manager.fop] (/index.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:25.51:704   [core.manager.fop] (/index.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:25.51:720   [core.manager.fop] (/index.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:25.51:720   [core.manager.fop] (/index.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:861   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:861   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:876   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:876   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:892   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:908   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:908   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:923   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:939   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:939   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+ERROR   (2009-03-17) 20:26.17:954   [core.manager.fop] (/wholesite.pdf) PoolThread-4/MessageHandler: unknown font sans,normal,normal so defaulted font to any
+WARN    (2009-03-17) 20:26.18:642   [core.manager.fop] (/wholesite.pdf) PoolThread-4/Table: table-layout=auto is not supported, using fixed!
+WARN    (2009-03-17) 20:26.18:642   [core.manager.fop] (/wholesite.pdf) PoolThread-4/Table: Sum of fixed column widths 450000 greater than maximum specified IPD 433275
+WARN    (2009-03-17) 20:26.18:720   [core.manager.fop] (/wholesite.pdf) PoolThread-4/Table: table-layout=auto is not supported, using fixed!
+WARN    (2009-03-17) 20:26.18:720   [core.manager.fop] (/wholesite.pdf) PoolThread-4/Table: Sum of fixed column widths 450000 greater than maximum specified IPD 433275
+WARN    (2009-03-17) 20:26.18:829   [core.manager.fop] (/wholesite.pdf) PoolThread-4/Table: table-layout=auto is not supported, using fixed!
+WARN    (2009-03-17) 20:26.18:829   [core.manager.fop] (/wholesite.pdf) PoolThread-4/Table: Sum of fixed column widths 450000 greater than maximum specified IPD 433275

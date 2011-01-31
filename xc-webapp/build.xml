@@ -1,0 +1,26 @@
+<!--<project xmlns:ivy="antlib:org.apache.ivy.ant" name="hello-ivy" default="init" basedir=".">-->
+<project xmlns:artifact="antlib:org.apache.maven.artifact.ant" name="xcommand" default="init" basedir=".">
+
+	<property environment="env"/>
+
+	<artifact:dependencies filesetId="id-jarfiles" pathId="id-jars">
+		<artifact:pom id="pom" file="pom.xml"/>
+	</artifact:dependencies>
+
+	<target name="init">
+		<property name="src" value="src"/>
+	</target>
+
+	<target name="getdeps">
+		<echo>pom.version=${pom.version}</echo>
+		<echo>pom.build.directory=${pom.build.directory}</echo>
+
+		<mkdir dir="lib"/>
+		<copy todir="lib">
+			<fileset refid="id-jarfiles"/>
+
+			<mapper type="flatten"/>
+		</copy>
+
+	</target>
+</project>

@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+<header> 
+	<title>Best Practices</title> 
+</header> 
+<body>
+	<p>This chapter chapter describes solutions and patterns for common situations</p>
+
+	<!-- ================================================================================================== -->
+    <section id="static_vs_dynamic_cv">
+		<title>Static versus dynamic context views</title>
+		<p>
+			There is no easy answer to this question. At the moment of writing this I have the standpoint that it
+			depends on the situation. To make the topic clear let us quickly look at the two approaches again
+			using a <code>WebCV</code> and to keep clarity restrict it to one property: <code>request</code>.
+			Here is the static approach:
+		</p>
+<source><![CDATA[
+public class WebCV
+{
+  public static HttpServletRequest getRequest(Map aCtx)
+  {
+    return (HttpServletRequest) aCtx.get(KEY_REQUEST);
+  }
+  public static void setRequest(Map aCtx, HttpServletRequest aRequest)
+  {
+    aCtx.put(KEY_REQUEST, aRequest);
+  }
+  public static final String NS = "org.xcommand.web.";
+  public static final String KEY_REQUEST = NS + "request";
+}
+]]></source>
+
+
+		<p>
+			You would use this ContextView like this:
+		</p>
+<source><![CDATA[
+public class SomeClass
+{
+  public someRoutine(Map aCtx, ...)
+  {
+    ...
+    WebCV.setRequest(aCtx, request);
+    ...
+  }
+  public someOtherRoutine(Map aCtx, ...)
+  {
+    ...
+    HttpServletRequest request = WebCV.getRequest(aCtx);
+    ...
+  }
+}
+]]></source>
+		<p>
+			The convenience of the static approach is that there is no need to create an extra object
+			to do something with it. This is especially handy when you need to call only one method of the
+			ContextView as shown in the example above. When you need to do this more often however it
+			is not so convenient anymore since you need to pass the context again and again and therefore
+			readability alsoe suffers a bit:
+		</p>
+<source><![CDATA[
+public class SomeClass
+{
+  public someRoutine(Map aCtx, ...)
+  {
+    ...
+    WebCV.setRequest(aCtx, request);
+    WebCV.setResponse(aCtx, response);
+    WebCV.setServletContext(aCtx, servletContext);
+    ...
+  }
+  public someOtherRoutine(Map aCtx, ...)
+  {
+    ...
+    HttpServletRequest request = WebCV.getRequest(aCtx);
+    HttpServletResponse response = WebCV.getResponse(aCtx);
+    ServletContext servletContext = WebCV.getServletContext(aCtx);
+    ...
+  }
+}
+]]></source>
+		<p>
+			So let us use a non static (dynamic) version of the ContextView which
+			is passed a Context at contstruction time and keeps this context as
+			long as it lives.
+		</p>
+<source><![CDATA[
+public class WebCV
+{
+  public WebCV(Map aCtx)
+  {
+    ctx = aCtx;
+  }
+
+  public HttpServletRequest getRequest()
+  {
+    return (HttpServletRequest) ctx.get(KEY_REQUEST);
+  }
+  public void setRequest(HttpServletRequest aRequest)
+  {
+    ctx.put(KEY_REQUEST, aRequest);
+  }
+  public static final String NS = "org.xcommand.web.";
+  public static final String KEY_REQUEST = NS + "request";
+
+  private Map ctx;
+
+}
+]]></source>
+		<p>
+			This means the context parameters of the methods disappear and our usage code looks
+			like this. First the example with the once only call:
+		</p>
+<source><![CDATA[
+public class SomeClass
+{
+  public someRoutine(Map aCtx, ...)
+  {
+    ...
+    new WebCV(aCtx).setRequest(request);
+    ...
+  }
+  public someOtherRoutine(Map aCtx, ...)
+  {
+    ...
+    HttpServletRequest request = new WebCV(aCtx).getRequest();
+    ...
+  }
+}
+]]></source>
+		<p>
+			Instead of using a local variable here we construct the ContextView object
+			and use it in one shot which is the normal pattern for once only usages of
+			dynamic ContextViews. This reduces code overhead and still retains readability.
+			The multi usage example now looks as follows:
+		</p>
+<source><![CDATA[
+public class SomeClass
+{
+  public someRoutine(Map aCtx, ...)
+  {
+    ...
+    WebCV cv = new WebCV(aCtx)
+    cv.setRequest(request);
+    cv.setResponse(response);
+    cv.setServletContext(servletContext);
+    ...
+  }
+  public someOtherRoutine(Map aCtx, ...)
+  {
+    ...
+    WebCV cv = new WebCV(aCtx)
+    HttpServletRequest request = cv.getRequest();
+    HttpServletResponse response = cv.getResponse();
+    ServletContext servletContext = cv.getServletContext();
+    ...
+  }
+}
+]]></source>
+		<p>
+			So from a convenience point of view the dynamic approach is probably a bit
+			easier to use and the code is also easier to read because of less noise if you
+			have more than one access to a property of the ContextView.
+			A new object for the needed ContextView needs to be created which adds some
+			noise and might look as a disadvantage in terms of performance. But with todays
+			JVMs the cost of object creation is very cheap and thus not a thing to consider
+			(search the net for articles of Brian Goetz if you doubt this). Another advantage
+			of the dynamic approach is that if you really need to you can inherit from ContextViews
+			and redefine individual getters and/or setters in subclasses. You cannot do this with
+			static routines.
+			If you only need to make one call to a ContextView property it is probaby only a matter
+			of taste if you use <code>new WebCV(aCtx).setRequest(request)</code> or
+			<code>WebCV.setRequest(aCtx, request)</code>.
+		</p>
+		<p>
+			The conclusion I have at the moment is to provide a ContextView in one class with
+			static routines and with dynamic routines. This makes it possible to use both approaches
+			for both tastes and for situations where it is necessary to redefine ContextView routines.
+			In the future xcommand will provide a code generation tool to generate ContextView classes.
+		</p>
+
+
+    </section>
+	<!-- ================================================================================================== -->
+    <section id="thread_context">
+		<title>Thread Context</title>
+		<p>
+			If you want to you can even omit to pass the single argument <code>Map aCtx</code> to the
+			<code>execute</code> routine which results in <code>public void execute()</code>. The context
+			is not passed as argument to the routines but instead is attached to the current thread as the
+			following example demonstrates:
+		</p>
+
+<source><![CDATA[
+public class ThreadMain
+{
+  public static void main(String[] args)
+  {
+    ThreadGlobal ctx = new ThreadGlobal();
+    ctx.put("name", "Sven");
+    new ThreadMain().execute();
+  }
+
+  private void execute()
+  {
+    ThreadGlobal ctx = new ThreadGlobal();
+    String name = (String) ctx.get("name");
+    System.out.println("name = " + name);
+  }
+}
+]]></source>
+
+		<p>
+      		which produces the following output without having passed the context to <code>execute()</code> explicitly:
+		</p>
+
+<source><![CDATA[
+name = Sven
+]]></source>
+
+		<p>
+			This technique could be especially useful for webapplications where each request is associated with it's
+			own thread. The disadvantage is that it is not possible to apply the <strong>subroutine</strong> or the
+			<strong>recursion</strong> technique (see following sections) with this approach.
+		</p>
+
+		<p>
+			Here is the code of <code>ThreadGlobal</code> if you are interested how this works:
+		</p>
+		<source><![CDATA[
+public class ThreadGlobal implements IGlobal
+{
+  public Object get(String aKey)
+  {
+    Map map = (Map) threadGlobals.get();
+    return map.get(aKey);
+  }
+  public boolean containsKey(String aKey)
+  {
+    return get(aKey) != null;
+  }
+  public void put(String aKey, Object aValue)
+  {
+    Map map = (Map) threadGlobals.get();
+    map.put(aKey, aValue);
+  }
+  private static ThreadLocal threadGlobals = new ThreadLocal()
+  {
+    protected synchronized Object initialValue()
+    {
+      return new HashMap();
+    }
+  };
+}		]]></source>
+
+	<p>
+		The thing which makes this work is the usage of <code>ThreadLocal</code>. But before you start using this
+		pattern read the next section, which shows you a way to apply this pattern in a more convenient way. Regard
+		this section as an introduction to the next one.
+	</p>
+
+    </section>
+	<!-- ================================================================================================== -->
+    <section id="thread_context_TC">
+		<title>Convenient Thread Context</title>
+    	<p>
+			The pattern used in the last section used a class <code>ThreadGlobal</code> which implemented the
+			interface <code>IGlobal</code>:
+		</p>
+		<source><![CDATA[
+public interface IGlobal
+{
+  Object get(String aKey);
+  void put(String aKey, Object aValue);
+
+  boolean containsKey(String aKey);
+}
+		]]></source>
+
+	<p>
+		As you can see this partly is very similar to the <code>java.util.Map</code> interface. It feels wrong to
+		invent this again. So why not use <code>java.util.Map</code> instead of <code>IGlobal</code> ? This is
+		exactly what <code>org.xcommand.misc.TC</code> provides.  
+	</p>
+		<source><![CDATA[
+public class TC extends DecoratingMap
+{
+  private TC()
+  {
+    super();
+  }
+  public static TC getInstance()
+  {
+    return instance;
+  }
+  private static ThreadLocal threadMapHolder = new ThreadLocal()
+  {
+    protected synchronized Object initialValue()
+    {
+      return new HashMap();
+    }
+  };
+  public Map getWrappedMap()
+  {
+    Map map = (Map) threadMapHolder.get();
+    return map;
+  }
+  private static TC instance = new TC();
+}
+		]]></source>
+
+	<p>
+		By extending <code>DecoratingMap</code> it implements the <code>java.util.Map</code> interface which makes
+		it possible to use it as an argument for <code>IXCommand.execute(Map aCtx)</code>. This is very useful as
+		we can see when we adapt our previous Thread Context example to use <code>TC</code>: 
+	</p>
+		<source><![CDATA[
+public class ThreadMain2
+{
+
+  public static void main(String[] args)
+  {
+    new PersonCV(TC.getInstance()).setName("Sven");
+    new ThreadMain2().execute();
+  }
+
+  private void execute()
+  {
+    String name = new PersonCV(TC.getInstance()).getName();
+    System.out.println("name = " + name);
+  }
+
+}
+		]]></source>
+
+	<p>
+		As you can see we can now simple use our well known <em>ContextView</em> classe (<code>PersonCV</code> in
+		this case) and use <code>TC.getInstance()</code> as the context argument. This means we can apply all our
+		normal coding practices and do not have to learn any new ones.
+	</p>
+	<p>
+		But keep in mind that as with the not so convenient way the disadvantage is that it is not possible to apply
+		the <strong>subroutine</strong> or the <strong>recursion</strong> technique (see following sections) with this
+		approach. If that is not a problem however this is really a convenient way to use the context.
+	</p>
+
+	</section>
+	<!-- ================================================================================================== -->
+    <section id="subroutine_calls">
+
+		<title>Using temporary context variables for subroutine calls</title>
+		<p>
+      		If a xcommand routine <code>execute(Map aCtx)</code> expects certain input arguments in
+      		the map but these arguments are only used so that the routine can fulfill it's job it would
+      		be much better if we could pass the routine all the variables of the context as usual but the
+      		input arguments only temporarily so that they do not pollute the context. Since they
+      		are only used for the routine to be called and not anymore in the further processing lifecycle
+      		we are not interested in them anymore after the routine call. The class <code>InheritableMap</code>
+      		allows us to do exactly this. Here is an example:     		
+		</p>
+<source><![CDATA[
+public class Subroutine
+{
+  public static void main(String[] args)
+  {
+    Map ctx = new HashMap();
+    ctx.put("name", "Sven");
+    new Subroutine().execute(ctx);
+  }
+
+  private void execute(Map aCtx)
+  {
+    String name = (String) aCtx.get("name");
+    Map ctx = new InheritableMap(aCtx);
+    ctx.put("tmpString", "hi there");
+    subExecute(ctx);
+    System.out.println("after subExecute():");
+    System.out.println("name = " + name);
+    System.out.println("tmpString = " + aCtx.get("tmpString"));
+  }
+
+  private void subExecute(Map aCtx)
+  {
+    String name = (String) aCtx.get("name");
+    String tmpString = (String) aCtx.get("tmpString");
+    System.out.println("subExecute(): name = " + name);
+    System.out.println("subExecute(): tmpString = " + tmpString);    
+  }
+
+}
+]]></source>
+
+	<p>
+		The example sets up a new context in <code>main</code> with a variable
+		named <strong>name</strong>. Then a normal <code>execute(Map aCtx)</code> routine is invoked.
+		Inside that method we want to call routine <code>subExecute</code> which temporarily needs a string
+		<strong>tmpString</strong> as input argument. But <strong>tmpString</strong> is only used inside
+		<code>subExecute</code> and not anymore afterwards. Therefore we create a new <code>InheritableMap</code>
+		which decorates our normal context put the temporary string on it. When we run this program we get the
+		following output:
+	</p>
+
+<source><![CDATA[
+subExecute(): name = Sven
+subExecute(): tmpString = hi there
+after subExecute():
+name = Sven
+tmpString = null
+]]></source>
+
+	<p>
+		The last output line proofs that <strong>tmpString</strong> has been used only temporarily in <code>subExecute</code>.
+	</p>
+	<p>
+		Be aware however that the subroutine is not able to write to the context. Of course it can do so and use
+		it while it's own processing takes place or it further subroutines or <code>IXCommand</code>s are called
+		but as soon as it is returning the changes are not availabe on the original context (<code>aCtx</code> in
+		routine <code>execute()</code> of our example) but only in the inheritableMap Context (<code>ctx</code> in
+		routine <code>execute()</code> of our example). The only way around this is to copy the corresponding output
+		from the inheritableMap to the original example. Here is an example:  
+	</p>
+    <source><![CDATA[
+    public class Subroutine
+    {
+      public static void main(String[] args)
+      {
+      Map ctx = new HashMap();
+      ctx.put("name", "Sven");
+      new Subroutine().execute(ctx);
+      }
+
+      private void execute(Map aCtx)
+      {
+      String name = (String) aCtx.get("name");
+      Map ctx = new InheritableMap(aCtx);
+      ctx.put("tmpString", "hi there");
+      subExecute(ctx);
+      System.out.println("after subExecute():");
+      System.out.println("name = " + name);
+      System.out.println("tmpString = " + aCtx.get("tmpString"));
+      System.out.println("person = " + PersonCV.getPerson(aCtx)); // --> will yield "person = null"
+      System.out.println("person = " + PersonCV.getPerson(ctx)); // --> will yield "person = Sven"
+      // Make person available on "normal" context as well:
+      PersonCV.setPerson(aCtx, PersonCV.getPerson(ctx));
+      System.out.println("person = " + PersonCV.getPerson(aCtx)); // --> will yield "person = Sven"
+      }
+
+      private void subExecuteWithOutput(Map aCtx)
+      {
+      String name = (String) aCtx.get("name");
+      String tmpString = (String) aCtx.get("tmpString");
+      System.out.println("subExecute(): name = " + name);
+      System.out.println("subExecute(): tmpString = " + tmpString);
+      // Put output on `aCtx':
+      PersonCV.setPerson(aCtx, new Person("Sven"));
+      }
+
+    }
+    ]]></source>
+
+		<p>Of course the 'copy back' process is not as nice as we are used to when working with contexts.</p>
+
+    </section>
+	<!-- ================================================================================================== -->
+    <section id="recursive_calls">
+		<title>Recursive Calls</title>
+		<p>
+      		The class <code>InheritableMap</code> is also the perfect choice for situations where
+      		routines need to be called recursively. If you would call a routine recursiveley with a normal
+      		context the variables in it would be overwritten on each call. Programming languages have a built-in
+      		stack for the arguments so that this cannot happen. We simulate this built-in stack by implementing it
+      		ourselves with <code>InheritableMap</code>. For each recursive call a new <code>InheritableMap</code>
+      		is created and used as argument to the routine call. Here is an example:
+		</p>
+<source><![CDATA[
+public class Recursion
+{
+
+  public static void main(String[] args)
+  {
+    Map ctx = new HashMap();
+    String level = "";
+    ctx.put("name", "Sven");
+    ctx.put("level", level);
+    new Recursion().execute(ctx);
+  }
+
+  private void execute(Map aCtx)
+  {
+    String name = (String) aCtx.get("name");
+    String level = (String) aCtx.get("level");
+    System.out.println("before call: name=" + name + ", level=" + level);
+    if (level.length() < 5)
+    {
+      Map ctx = new InheritableMap(aCtx);
+      level = level + "#";
+      ctx.put("level", level);
+      execute(ctx);
+    }
+    System.out.println("after call: name=" + name + ", level=" + level);
+  }
+
+}
+]]></source>
+
+		<p>
+      		which produces the following output:
+		</p>
+
+<source><![CDATA[
+before call: name=Sven, level=
+before call: name=Sven, level=#
+before call: name=Sven, level=##
+before call: name=Sven, level=###
+before call: name=Sven, level=####
+before call: name=Sven, level=#####
+after call : name=Sven, level=#####
+after call : name=Sven, level=#####
+after call : name=Sven, level=####
+after call : name=Sven, level=###
+after call : name=Sven, level=##
+after call : name=Sven, level=#
+]]></source>
+
+
+    </section>
+	<!-- ================================================================================================== -->
+    <section id="xcommand_adapter">
+		<title>XCommand adapter</title>
+		<p>
+			Say you already have a XCommand like interface (let it be <code>IMyCommand</code> providing
+			a routine <code>public void execute(Map aCtx)</code> in your codebase but want
+			to make use of XCommand based classes. This is fairly easy. All you need is to write an adapter class
+			which implements both interfaces as follows:
+		</p>
+<source><![CDATA[
+public class XCommandMyCommandAdapter implements IMyCommand, IXCommand
+{
+  public XCommandServiceInterfaceAdapter()
+  {
+  }
+  public XCommandServiceInterfaceAdapter(IXCommand aCommand)
+  {
+    command = aCommand;
+  }
+
+  public void execute(Map aCtx)
+  {
+    command.execute(aCtx);
+  }
+
+  public IXCommand getCommand()
+  {
+    return command;
+  }
+
+  public void setCommand(IXCommand aCommand)
+  {
+    command = aCommand;
+  }
+
+  private IXCommand command;
+}
+]]></source>
+		<p>
+			Since this adapter implements both interfaces you can use it as a <code>IMyCommand</code> or as
+			a <code>IXCommand</code> as you need it. It gives you two different views on the same object.
+			Of course you can also do it the other way round and write an adpater wich adapts from an IXCommand
+			to an IMyCommand.
+		</p>
+
+    </section>
+	<!-- ================================================================================================== -->
+	<!-- ================================================================================================== -->
+    <section id="xcommand_routines">
+		<title>XCommand routines</title>
+		<p>
+			It is not necessary at all to implement <code>IXCommand</code> to benefit from the XCommand pattern.
+			A simple routine like
+		</p>
+<source><![CDATA[
+  public void doSomething(Map aCtx);
+]]></source>
+		<p>
+			is all you need. The important aspect is that you use a <code>java.util.Map</code> as a transport container.
+		</p>
+    </section>
+
+
+
+</body>
+</document>

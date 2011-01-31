@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2002-2004 The Apache Software Foundation or its licensors,
+  as applicable.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+  <header> 
+    <title>Collage: 5 Minutes Tutorial</title> 
+  </header> 
+  <body> 
+    <p>
+    	This tutorial will get you going with collage in 5 minutes. It will describe how to get the required jar files
+    	and shows a first usage example.
+    </p>
+
+	<section id="prerequisites">
+	    <title>Prerequisites</title> 
+		<p>
+			The idea of this tutorial is to get most possible new users up an running smoothly in a very short time.
+			Therefor I need to make certain assumptions which result in the following requirements to run
+			this tutorial. If you do not like some of them check out the alternative hints behind them.
+		</p>
+		<ul>
+			<li>Java 1.4.x or newer</li>			
+			<li>Apache Ant (1.6.x or newer)</li>			
+			<li>Available Internet while running ant scripts</li>			
+		</ul>
+		
+	</section>
+
+	<section id="preparation">
+	    <title>Preparation</title> 
+		<p>
+		</p>
+			<ul>
+				<li>Create an empty directory called <code>X001</code> in any location you like.</li>
+				<li>Then create a new file named <code>build.xml</code> with the following content inside it:</li>
+			</ul>
+<source><![CDATA[
+<?xml version="1.0"?>
+<project name="collage_5mintutorial" default="init" basedir=".">
+  <property name="rep" value="http://www.sven-ehrke.de/tmp"/>
+  <get src="${rep}/build.xml" dest="lib-build.xml" verbose="true" usetimestamp="true"/>
+  <import file="lib-build.xml"/>
+</project>
+]]></source>
+		
+	</section>
+
+		<p>
+			This small ant file is able to bootstrap your first collage example.
+		</p>
+		<ul>
+			<li>open a command window in your new <code>X001</code> directory and invoke: <code>ant compile run</code></li>
+		</ul>
+		<p>
+			You should see an output similar to this one:
+		</p>
+<source><![CDATA[
+Buildfile: build.xml
+      [get] Getting: http://www.sven-ehrke.de/tmp/build.xml
+      [get] .
+      [get] last modified = Sun Feb 18 10:52:07 CET 2007
+
+init:
+    [mkdir] Created dir: Z:\Daily\2007-02-18\lib
+    [mkdir] Created dir: Z:\Daily\2007-02-18\output\classes
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-lang-2.2.jar
+      [get] .......................
+      [get] last modified = Sun Feb 18 10:15:35 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-logging.jar
+      [get] ..
+      [get] last modified = Sun Feb 18 10:15:24 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/javacc.jar
+      [get] .....
+      [get] last modified = Sun Feb 18 10:15:54 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/javassist.jar
+      [get] .......
+      [get] last modified = Sun Feb 18 10:16:21 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/junit.jar
+      [get] ...
+      [get] last modified = Sun Feb 18 10:16:20 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-core.jar
+      [get] ..
+      [get] last modified = Sun Feb 18 10:33:38 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-misc.jar
+      [get] .
+      [get] last modified = Sun Feb 18 10:33:43 CET 2007
+      [get] Getting: http://www.sven-ehrke.de/tmp/collage.jar
+      [get] ...
+      [get] last modified = Sun Feb 18 10:33:43 CET 2007
+    [mkdir] Created dir: Z:\Daily\2007-02-18\src
+    [mkdir] Created dir: Z:\Daily\2007-02-18\src\org\collage\example
+      [get] Getting: http://www.sven-ehrke.de/tmp/X001.java
+      [get] .
+      [get] last modified = Sun Feb 18 10:37:50 CET 2007
+
+gensrc:
+
+compile:
+    [javac] Compiling 1 source file to Z:\Daily\2007-02-18\output\classes
+
+init:
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-lang-2.2.jar
+      [get] local file date : Sun Feb 18 10:15:36 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/commons-logging.jar
+      [get] local file date : Sun Feb 18 10:15:24 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/javacc.jar
+      [get] local file date : Sun Feb 18 10:15:54 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/javassist.jar
+      [get] local file date : Sun Feb 18 10:16:22 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/junit.jar
+      [get] local file date : Sun Feb 18 10:16:20 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-core.jar
+      [get] local file date : Sun Feb 18 10:33:38 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/xcommand-misc.jar
+      [get] local file date : Sun Feb 18 10:33:44 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/collage.jar
+      [get] local file date : Sun Feb 18 10:33:44 CET 2007
+      [get] Not modified - so not downloaded
+      [get] Getting: http://www.sven-ehrke.de/tmp/X001.java
+      [get] local file date : Sun Feb 18 10:37:50 CET 2007
+      [get] Not modified - so not downloaded
+Overriding previous definition of reference to id.classpath
+
+run:
+     [java] Hi Uli. How are you?
+
+BUILD SUCCESSFUL
+Total time: 19 seconds
+]]></source>
+
+		<p>
+			Your small ant file downloaded anther ant file with targets for getting the required jars,
+			compilation and to run the example. This ant file is imported into your ant file.
+			After having downloaded the required jar files the <code>compile</code> and the <code>run</code>
+			target get invoked.
+		</p>
+
+
+    <section id="collage">
+		<title>Hello ${firstname}</title>
+		<p>
+			The interesting part is of course the Java code:
+		</p>
+
+<source><![CDATA[
+package org.collage;
+
+import org.collage.template.Template;
+import org.collage.template.TemplateSource;
+import org.collage.dom.evaluator.text.TextTemplate;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public class X001
+{
+  public static void main(String[] args)
+  {
+    Map dataCtx = new HashMap();
+    dataCtx.put("firstname", "Uli");
+    Template t = new TextTemplate(new TemplateSource("Hi ${firstname}. How are you?"));
+    String s = t.getStringResult(dataCtx);
+    System.out.println(s);
+  }
+}
+]]></source>
+
+		<p>
+			First a new <code>HashMap dataCtx</code> is created and populated with data (here the firstname of my wife).
+			Next a new <code>TemplateSource</code> is created from the String <code>Hi ${firstname}. How are you?</code>
+			from which a new
+			<code>TextTemplate</code> is created. With <code>TextTemplate.getStringResult(dataCtx)</code> a String
+			with all placeholders replaced with the values in <code>dataCtx</code> is returned. This leads to the
+			expected output:
+		</p>
+<source><![CDATA[
+  Hi Uli. How are you?
+]]></source>
+
+	</section>
+
+  </body>
+</document>

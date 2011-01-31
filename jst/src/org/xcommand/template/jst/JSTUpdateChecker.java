@@ -1,0 +1,57 @@
+package org.xcommand.template.jst;
+
+import org.xcommand.core.ICommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
+
+import java.util.List;
+import java.util.Map;
+import java.util.TimerTask;
+import java.util.Date;
+
+public class JSTUpdateChecker extends TimerTask
+{
+	{
+		System.out.println("JSTUpdateChecker.instance initializer()");
+	}
+	public void run()
+	{
+		System.out.println("JSTUpdateChecker.run(): " + new Date());
+		Map classMap = jstScannerCV.getClassMap();
+		if (classMap == null) throw new IllegalStateException("classMap == null");
+
+		FileSystemBasedJSTScanner jstScanner = new FileSystemBasedJSTScanner();
+		fileSystemScannerCV.setRootDirs(srcDirs);
+		jstScanner.getChangeNotifier().registerObserver(new ChangedHandler());
+		jstScanner.execute();
+	}
+
+// --- Setting ---
+
+	public void setSrcDirs(List aSrcDirs)
+	{
+		srcDirs = aSrcDirs;
+	}
+
+	public void setJaninoObjectCreator(JSTJaninoObjectCreator aJaninoObjectCreator)
+	{
+		janinoObjectCreator = aJaninoObjectCreator;
+	}
+
+// --- Implementation ---
+
+	private class ChangedHandler implements ICommand
+	{
+		public void execute()
+		{
+			janinoObjectCreator.initialize();
+		}
+	}
+
+	private List srcDirs;
+	private JSTJaninoObjectCreator janinoObjectCreator;
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.newBeanForInterface(IJSTScannerCV.class);
+	private IFileSystemScannerCV fileSystemScannerCV = (IFileSystemScannerCV) dbp.newBeanForInterface(IFileSystemScannerCV.class);
+}
