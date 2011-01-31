@@ -3,10 +3,11 @@ subprojects {
 
 	repositories {
 	    mavenCentral()
+		mavenRepo urls:'http://repo.smokejumperit.com'
 	}
 
 	dependencies {
-		//compile 'commons-collections:commons-collections:3.2'
+//		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
 		testCompile 'junit:junit:4.8'
 	}
 
