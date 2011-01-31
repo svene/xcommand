@@ -306,7 +306,7 @@
       <module fileurl="file://$PROJECT_DIR$/xcommand/xcommand-module.iml" filepath="$PROJECT_DIR$/xcommand/xcommand-module.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="false" project-jdk-name="java version &quot;1.4.2_08&quot;" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/_idea" />
   </component>
   <component name="RUBY_DOC_SETTINGS">
