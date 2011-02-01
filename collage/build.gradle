@@ -25,18 +25,21 @@ task renameJCC(type: Copy, dependsOn: 'copyToLib') {
 	rename('javacc-4.0.jar', 'javacc.jar')
 }
 
-task gs (dependsOn: 'renameJCC') << {
+task jcc (dependsOn: 'renameJCC') {
+	def inputFile = 'templateparser.jj' 
 	def genDir = 'build/org/collage/jcc'
-	println "generate jcc source"
-	ant.mkdir(dir: 'build/_artifacts')
-	ant.mkdir(dir: 'build/org/collage/jcc')
-	ant.javacc(target: 'templateparser.jj', outputdirectory: genDir, javacchome: 'build/_artifacts')
+
+	inputs.file inputFile
+	outputs.dir genDir
+
+	doLast {
+		println "generate jcc source"
+		ant.mkdir(dir: 'build/_artifacts')
+		ant.mkdir(dir: 'build/org/collage/jcc')
+		ant.javacc(target: inputFile, outputdirectory: genDir, javacchome: 'build/_artifacts')
+	}
 
 	sourceSets.main.java.srcDir(genDir)
-}
-
-task ('jcc', dependsOn: 'gs') << {
-	println 'hallo'
 }
 
 compileJava.dependsOn(jcc)
