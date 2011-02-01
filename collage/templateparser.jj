@@ -13,6 +13,7 @@ import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.template.parser.IParserCV;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 
 public class TemplateParser
 {
@@ -39,7 +40,7 @@ public class TemplateParser
 	private INotifier textNotifier = new BasicNotifier();
 	private INotifier eofNotifier = new BasicNotifier();
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 	private IParserModeCV parserModeCV = (IParserModeCV) dbp.newBeanForInterface(IParserModeCV.class);
 
