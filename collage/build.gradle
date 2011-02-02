@@ -11,66 +11,12 @@ task listJars << {
         }
 }
 
-task ('copyToLib', dependsOn: configurations.compile, type: Copy) {
-        into('build/_artifacts')
-        from configurations.default
-        from configurations.testCompile
-        from configurations.default.allArtifacts*.file
-        from configurations.testCompile.allArtifacts*.file
-}
-
-task renameJCC(type: Copy, dependsOn: 'copyToLib') {
-	from('build/_artifacts/javacc-4.0.jar')
-	into('build/_artifacts')
-	rename('javacc-4.0.jar', 'javacc.jar')
-}
-
-task jcc (dependsOn: 'renameJCC') {
-	def inputFile = 'templateparser.jj' 
-	def genDir = 'build/org/collage/jcc'
-
-	inputs.file inputFile
-	outputs.dir genDir
-
-	doLast {
-		println "generate jcc source"
-		ant.mkdir(dir: 'build/_artifacts')
-		ant.mkdir(dir: 'build/org/collage/jcc')
-		ant.javacc(target: inputFile, outputdirectory: genDir, javacchome: 'build/_artifacts')
-	}
-
-	sourceSets.main.java.srcDir(genDir)
-}
-
-// compileJava.dependsOn(jcc)
-//__________________________________________________
-task jccTask(type: JavaCCTask) {
-	inputFile = 'templateparser.jj'
-}
-
-class JavaCCTask extends DefaultTask {
-	def inputFile
-
-	@TaskAction
-	def jcc() {
-		println "jcc: inputFile='$inputFile'"
-	}
-}
-//__________________________________________________
-
 apply plugin: JavaCCPlugin
 
 class JavaCCPlugin implements Plugin<Project>  {
 	def void apply(Project project) {
-		project.task('ttt') << {
-			println "ttt task from plugin"
-		}
 
-		project.task('xxx', type: JavaCCTask) {
-			inputFile = 'myInputFile'
-		}
-
-		project.task ('copyToLib2', dependsOn: project.configurations.compile, type: Copy) {
+		project.task ('copyToLib', dependsOn: project.configurations.compile, type: Copy) {
 	        into('build/_artifacts')
     	    from project.configurations.default
     	    from project.configurations.testCompile
@@ -78,13 +24,13 @@ class JavaCCPlugin implements Plugin<Project>  {
     	    from project.configurations.testCompile.allArtifacts*.file
 		}
 
-		project.task('renameJCC2', type: Copy, dependsOn: 'copyToLib2') {
+		project.task('renameJCC', type: Copy, dependsOn: 'copyToLib') {
 			from('build/_artifacts/javacc-4.0.jar')
 			into('build/_artifacts')
 			rename('javacc-4.0.jar', 'javacc.jar')
 		}
 
-		project.task('jcc2', dependsOn: 'renameJCC2') {
+		project.task('jcc', dependsOn: 'renameJCC') {
 			def inputFile = 'templateparser.jj' 
 			def genDir = 'build/org/collage/jcc'
 
@@ -101,7 +47,7 @@ class JavaCCPlugin implements Plugin<Project>  {
 			project.sourceSets.main.java.srcDir(genDir)
 		}
 
-		project.compileJava.dependsOn(project.jcc2)
+		project.compileJava.dependsOn(project.jcc)
 
 	}
 }
