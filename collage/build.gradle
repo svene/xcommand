@@ -9,7 +9,7 @@ dependencies {
 
 //______________________________________________________
 
-task jcc (dependsOn: 'renameJCC') {
+task jcc0 (dependsOn: 'renameJCC') {
 	def inputFile = 'templateparser.jj' 
 	def genDir = 'build/org/collage/jcc'
 
@@ -26,7 +26,31 @@ task jcc (dependsOn: 'renameJCC') {
 	sourceSets.main.java.srcDir(genDir)
 }
 
+task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
+	inputFile = 'templateparser.jj' 
+}
+
 compileJava.dependsOn(jcc)
+
+
+class JavaCCTask extends DefaultTask {
+	@InputFile
+	def inputFile = 'xxx.jj' 
+
+	@OutputDirectory
+	def genDir = 'build/org/collage/jcc'
+
+	@TaskAction
+	void execute() {
+		println "generate jcc source"
+		ant.mkdir(dir: genDir)
+		ant.javacc(target: inputFile, outputdirectory: genDir, javacchome: 'build/_artifacts')
+
+		project.sourceSets.main.java.srcDir(genDir)
+	}
+
+}
+
 //______________________________________________________
 
 
