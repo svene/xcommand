@@ -1,5 +1,7 @@
 //apply plugin: JavaCCPlugin
 
+import JavaCCTask
+
 dependencies {
 	compile project(':xcommand')
 	compile "commons-lang:commons-lang:2.3"
@@ -13,28 +15,6 @@ task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
 }
 
 compileJava.dependsOn(jcc)
-
-
-//______________________________________________________
-class JavaCCTask extends DefaultTask {
-	@InputFile
-	def inputFile = 'xxx.jj' 
-
-	@OutputDirectory
-	def genDir = 'build/org/collage/jcc'
-
-	@TaskAction
-	void execute() {
-		println "generate jcc source"
-		ant.mkdir(dir: genDir)
-		ant.javacc(target: inputFile, outputdirectory: genDir, javacchome: 'build/_artifacts')
-
-		project.sourceSets.main.java.srcDir(genDir)
-	}
-
-}
-
-//______________________________________________________
 
 
 task listJars << {
