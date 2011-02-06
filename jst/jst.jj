@@ -12,6 +12,8 @@ import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.template.parser.IParserCV;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 
 public class JSTParser
 {
@@ -46,7 +48,7 @@ public class JSTParser
 	private INotifier javaVarNotifier = new BasicNotifier();
 	private INotifier javaVarEndNotifier = new BasicNotifier();
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.getClassAndMethodBasedDynaBeanProvider();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 
 	private boolean inCommentState = false;

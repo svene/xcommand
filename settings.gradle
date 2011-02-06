@@ -1,3 +1,4 @@
 include 'xcommand'
 include 'collage'
+include 'jst'
 
