@@ -55,7 +55,7 @@ public class JSTParserTester extends TestCase
 	}
 	public void test4() throws Exception
 	{
-		InputStream is = new FileInputStream("jst/testdata/T1.txt");
+		InputStream is = new FileInputStream("testdata/T1.txt");
 		JSTParser parser = newJSTParser(is);
 		parser.Start();
 

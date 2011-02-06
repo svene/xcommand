@@ -25,7 +25,7 @@ public class FileSystemScannerTester extends TestCase
 	{
 		lh.setList(new ArrayList());
 		FileSystemScanner fssc = new FileSystemScanner();
-		List lst = Arrays.asList(new String[]{"jst/src", "jst/test"});
+		List<String> lst = Arrays.asList("src/main/java", "src/test/java");
 		fssc.setRootDirs(lst);
 		FilenameFilter javaFilenameFilter = new FilenameFilter()
 		{
@@ -38,9 +38,9 @@ public class FileSystemScannerTester extends TestCase
 		fileSystemScannerCV.setFilenameFilter(javaFilenameFilter);
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundReporter());
 		fssc.execute();
-		assertTrue(lh.getList().contains("jst/src/org/xcommand/template/jst/IJSTParserProvider.java"));
-		assertTrue(lh.getList().contains("jst/src/org/xcommand/template/jst/FileSystemBasedJSTProvider.java"));
-		assertTrue(lh.getList().contains("jst/src/org/xcommand/template/jst/JSTCompiler.java"));
+		assertTrue(lh.getList().contains("src/main/java/org/xcommand/template/jst/IJSTParserProvider.java"));
+		assertTrue(lh.getList().contains("src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java"));
+		assertTrue(lh.getList().contains("src/main/java/org/xcommand/template/jst/JSTCompiler.java"));
 	}
 
 	private class FileFoundReporter implements ICommand
