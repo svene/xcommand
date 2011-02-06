@@ -13,7 +13,8 @@ dependencies {
 
 
 task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
-	inputFile = 'jst.jj' 
+	inputFile = 'jst.jj'
+	genDir = 'build/src/java/org/xcommand/template/jst/parser'
 }
 
 compileJava.dependsOn(jcc)
