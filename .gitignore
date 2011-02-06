@@ -1,6 +1,9 @@
 genwrapper.gradle
 build/
 .gradle/
+*.iml
+*.ipr
+*.iws
 
 
 
