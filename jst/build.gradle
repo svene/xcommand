@@ -9,6 +9,7 @@ dependencies {
 	compile "commons-io:commons-io:2.0.1"
 	compile "jboss:javassist:3.6.ga"
 	compile "net.java.dev.javacc:javacc:4.0"
+	compile "janino:janino:2.5.10"
 }
 
 
