@@ -3,6 +3,7 @@ apply plugin: 'jetty'
 
 dependencies {
 	compile project(':xcommand')
+	compile project(':jst')
 }
 
 
