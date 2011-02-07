@@ -54,7 +54,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	<bean id="timerTaskBean" class="org.xcommand.template.jst.JSTUpdateChecker">
 		<property name="srcDirs">
 			<list>
-				<value>jst\src</value>
+				<value>jst/src</value>
 			</list>
 		</property>
 		<property name="janinoObjectCreator" ref="janinoObjectCreator"/>
