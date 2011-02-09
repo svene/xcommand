@@ -3,7 +3,7 @@
 import JavaCCTask
 
 dependencies {
-	compile project(':xcommand')
+	compile project(':xc-core')
 
 	compile "commons-lang:commons-lang:2.3"
 	compile "commons-io:commons-io:2.0.1"

@@ -2,7 +2,7 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 
 dependencies {
-	compile project(':xcommand')
+	compile project(':xc-core')
 	compile project(':jst')
 }
 

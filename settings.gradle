@@ -1,4 +1,4 @@
-include 'xcommand'
+include 'xc-core'
 include 'collage'
 include 'jst'
 include 'jst-testdata'
