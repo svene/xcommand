@@ -10,6 +10,8 @@ import org.collage.dom.evaluator.common.VariableToVariableNameExtractor;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.evaluator.text.JavaToStringExtractor;
 import org.collage.dom.evaluator.text.VariableNameToValueTransformer;
+import org.junit.Before;
+import org.junit.Test;
 import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.*;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
@@ -18,9 +20,12 @@ import org.xcommand.misc.IMessageCommandCV;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DomDumperLowLevelTest extends TestCase
+import static junit.framework.Assert.assertEquals;
+
+public class DomDumperLowLevelTest /*extends TestCase*/
 {
 
+	@Test
 	public void testDomNodeEnterExitNodeTraversal()
 	{
 		// Setup NotifyingTreeNodeTraverser:
@@ -191,7 +196,8 @@ public class DomDumperLowLevelTest extends TestCase
 
 // --- Implementation ---
 
-	protected void setUp() throws Exception
+	@Before
+	public void setUp() throws Exception
 	{
 		th = new TestHelper();
 		ddth = new DomDumpingTestHelper();

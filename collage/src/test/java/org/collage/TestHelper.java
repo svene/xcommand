@@ -32,9 +32,12 @@ public class TestHelper
 		{
 			rootNode = compileTemplate();
 		}
+		catch (RuntimeException e) {
+			throw e;
+		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -71,8 +74,8 @@ public class TestHelper
 
 	private ITreeNode compileTemplate() throws FileNotFoundException
 	{
-		InputStream is;
-		is = new BufferedInputStream(new FileInputStream(new File("collage/in.txt")));
+		final String fileName = "in.txt";
+		InputStream is = newInputStreamFromFilename(fileName);
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 		
@@ -80,6 +83,16 @@ public class TestHelper
 		new TemplateCompiler().execute();
 		return treeNodeCV.getTreeNode();
 	}
+
+	public static InputStream newInputStreamFromFilename(String aFileName) throws FileNotFoundException {
+		final File file = new File(aFileName);
+
+		if (!file.exists()) {
+			throw new RuntimeException(String.format("file not found: '%s' (workingdir: '%s')", aFileName, new File(".").getAbsolutePath()));
+		}
+		return new BufferedInputStream(new FileInputStream(file));
+	}
+
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
