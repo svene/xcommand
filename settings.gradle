@@ -1,0 +1,6 @@
+include 'xc-core'
+include 'collage'
+include 'jst'
+include 'jst-testdata'
+include 'xc-webapp'
+

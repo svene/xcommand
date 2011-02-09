@@ -1,0 +1,48 @@
+apply plugin: 'idea'
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'idea'
+
+	repositories {
+	    mavenCentral()
+		mavenRepo urls:'http://repo.smokejumperit.com'
+	}
+
+	dependencies {
+//		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
+		testCompile 'junit:junit:4.8'
+	}
+
+	sourceCompatibility = 1.5
+
+
+	task ('copyToLib', dependsOn: configurations.compile, type: Copy) {
+		    into('build/_artifacts')
+		    from configurations.default
+		    from configurations.testCompile
+		    from configurations.default.allArtifacts*.file
+		    from configurations.testCompile.allArtifacts*.file
+	}
+
+	task renameJCC(type: Copy, dependsOn: 'copyToLib') {
+		from('build/_artifacts/javacc-4.0.jar')
+		into('build/_artifacts')
+		rename('javacc-4.0.jar', 'javacc.jar')
+	}
+
+
+
+	version = '1.0'
+	manifest.mainAttributes(
+		'Implementation-Title': 'xcommand',
+		'Implementation-Version': version
+	)
+
+	uploadArchives {
+		repositories {
+		   flatDir(dirs: file('_repos'))
+		}
+	}
+}
+

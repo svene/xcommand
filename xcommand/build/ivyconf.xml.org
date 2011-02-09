@@ -1,9 +1,0 @@
-<ivyconf>
-  <conf defaultResolver="default"/>
-  <include file="ivyconf-public.xml"/> <!-- To support ivy sandbox as well -->
-  <include url="${ivy.default.conf.dir}/ivyconf-shared.xml"/>
-  <include url="${ivy.default.conf.dir}/ivyconf-shared.xml"/>
-  <include url="${ivy.default.conf.dir}/ivyconf-local.xml"/>
-  <include url="${ivy.default.conf.dir}/ivyconf-main-chain.xml"/>
-  <include url="${ivy.default.conf.dir}/ivyconf-default-chain.xml"/>
-</ivyconf>

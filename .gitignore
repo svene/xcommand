@@ -1,0 +1,10 @@
+genwrapper.gradle
+build/
+out/
+.gradle/
+*.iml
+*.ipr
+*.iws
+
+
+

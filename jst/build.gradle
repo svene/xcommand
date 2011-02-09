@@ -1,0 +1,34 @@
+//apply plugin: JavaCCPlugin
+
+import JavaCCTask
+
+dependencies {
+	compile project(':xc-core')
+
+	compile "commons-lang:commons-lang:2.3"
+	compile "commons-io:commons-io:2.0.1"
+	compile "jboss:javassist:3.6.ga"
+	compile "net.java.dev.javacc:javacc:4.0"
+	compile "janino:janino:2.5.10"
+}
+
+
+task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
+	inputFile = 'jst.jj'
+	genDir = 'build/src/java/org/xcommand/template/jst/parser'
+}
+
+compileJava.dependsOn(jcc)
+
+
+task listJars << {
+    configurations.compile.each { File file ->
+                println file.name
+        }
+}
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+task genwrapper(type: Wrapper) {
+	gradleVersion = '0.9.2'
+//	jarPath = 'gradlewrapper'
+}
+
+task clean << {
+	file('.gradle').deleteDir()
+	file('gradle').deleteDir()
+	file('gradlew').delete()
+	file('gradlew.bat').delete()
+}
+
+
