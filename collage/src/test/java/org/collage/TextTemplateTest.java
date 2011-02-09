@@ -7,6 +7,7 @@ import org.collage.template.TextTemplateCompiler;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.xcommand.core.*;
+import org.xcommand.util.ResourceUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,7 +50,7 @@ public class TextTemplateTest extends TestCase
 	{
 		System.out.println("\n3:");
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(
-			new TemplateSource(new FileInputStream(new File("collage/in.txt"))));
+			new TemplateSource(ResourceUtil.newInputStreamFromFilename("in.txt")));
 		PrintWriter pw = new PrintWriter(System.out);
 		tc.setWriter(pw);
 		tc.execute();
@@ -92,7 +93,7 @@ public class TextTemplateTest extends TestCase
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("name", "${firstname} ${lastname}");
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(
-			new FileInputStream(new File("collage/java05_in.txt"))));
+			ResourceUtil.newInputStreamFromFilename("java05_in.txt")));
 		tc.execute();
 		String s = stringHandlerCV.getString();
 		System.out.println("---\n" + s);

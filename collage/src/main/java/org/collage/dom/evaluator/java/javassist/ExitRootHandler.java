@@ -10,6 +10,7 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
 import org.xcommand.core.*;
+import org.xcommand.util.ResourceUtil;
 
 import java.io.InputStream;
 import java.util.Calendar;
@@ -63,7 +64,7 @@ class ExitRootHandler implements ICommand
 	private void addMethod(CtClass aCtClass, String aFilename) throws Exception
 	{
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aFilename);
+		InputStream is = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
 
 		ICommand cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
 		cmd.execute();

@@ -5,6 +5,7 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
 import org.xcommand.core.*;
+import org.xcommand.util.ResourceUtil;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -15,14 +16,15 @@ public class JavaEvalVariableHandler implements ICommand
 	{
 		try
 		{
-			String resourceLocation = "org/collage/dom/evaluator/java/javassist/javassist_var.txt";
-			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceLocation);
-			if (is == null) throw new RuntimeException("is == null");
+			InputStream is = ResourceUtil.newInputStreamFromResourceLocation("org/collage/dom/evaluator/java/javassist/javassist_var.txt");
 			TCP.pushContext(new HashMap());
 			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 
 			templateCommand = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
 			TCP.popContext();
+		}
+		catch (RuntimeException e) {
+			throw e;
 		}
 		catch (Exception e)
 		{

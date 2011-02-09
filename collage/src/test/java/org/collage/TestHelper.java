@@ -16,6 +16,7 @@ import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 import org.xcommand.template.parser.IParserCV;
+import org.xcommand.util.ResourceUtil;
 
 import java.io.*;
 
@@ -75,22 +76,13 @@ public class TestHelper
 	private ITreeNode compileTemplate() throws FileNotFoundException
 	{
 		final String fileName = "in.txt";
-		InputStream is = newInputStreamFromFilename(fileName);
+		InputStream is = ResourceUtil.newInputStreamFromFilename(fileName);
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 		
 		parserCV.setInputStream(is);
 		new TemplateCompiler().execute();
 		return treeNodeCV.getTreeNode();
-	}
-
-	public static InputStream newInputStreamFromFilename(String aFileName) throws FileNotFoundException {
-		final File file = new File(aFileName);
-
-		if (!file.exists()) {
-			throw new RuntimeException(String.format("file not found: '%s' (workingdir: '%s')", aFileName, new File(".").getAbsolutePath()));
-		}
-		return new BufferedInputStream(new FileInputStream(file));
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());

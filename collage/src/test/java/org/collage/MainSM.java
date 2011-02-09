@@ -1,6 +1,7 @@
 package org.collage;
 
 import junit.framework.TestCase;
+import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
@@ -32,6 +33,7 @@ public class MainSM extends TestCase
 		TCP.pushContext(new HashMap());
 		TemplateCompiler tc = new TemplateCompiler();
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
+		new DefaultDomNodeCreationHandlerInitializer().execute();
 		InputStream is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
 		parserCV.setInputStream(is);
 		tc.execute();
@@ -45,12 +47,14 @@ public class MainSM extends TestCase
 		tt.execute();
 		TCP.popContext();
 	}
+
 	public void test3()
 	{
 		TCP.pushContext(new HashMap());
 		TemplateCompiler tc = new TemplateCompiler();
 //		Map ctx = new HashMap();
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
+		new DefaultDomNodeCreationHandlerInitializer().execute();
 		InputStream is = new ByteArrayInputStream("hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n".getBytes());
 		parserCV.setInputStream(is);
 		tc.execute();

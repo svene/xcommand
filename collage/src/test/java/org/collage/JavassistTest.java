@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.collage.template.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.xcommand.core.*;
+import org.xcommand.util.ResourceUtil;
 
 import java.io.*;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class JavassistTest extends TestCase
 	{
 		System.out.println("JavassistTest.testJava3()");
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromStream(
-			new FileInputStream(new File("collage/java03_in.txt")));
+			ResourceUtil.newInputStreamFromFilename("java03_in.txt"));
 
 		String s = "";
 		for (int i = 0; i < 10; i++)
@@ -99,8 +100,8 @@ public class JavassistTest extends TestCase
 		String sOld = "";
 		System.out.println("\njava5b:");
 		TCP.getContext().put("name", "${firstname} ${lastname}");
-		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(
-			new FileInputStream(new File("collage/java05_in.txt"))));
+		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(
+			new TemplateSource(ResourceUtil.newInputStreamFromFilename("java05_in.txt")));
 		tc.execute();
 		String s = stringHandlerCV.getString();
 		System.out.println("---\n" + s);
@@ -129,7 +130,7 @@ public class JavassistTest extends TestCase
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("name", "${firstname} ${lastname}");
 
-		TemplateSource ts = new TemplateSource(new FileInputStream("collage/java06_in.txt"));
+		TemplateSource ts = new TemplateSource(ResourceUtil.newInputStreamFromFilename("java06_in.txt"));
 		TCP.popContext();
 		ICommand cmd = TemplateFactory.newRecursiveTemplateInstance(ts);
 		TCP.getContext().put("firstname", "Uli");
@@ -141,13 +142,13 @@ public class JavassistTest extends TestCase
 	public void testJava7() throws Exception
 	{
 		System.out.println("\njava7:");
-		String address = fileContent("collage/java07_address.txt");
-		String nameAndAddress = fileContent("collage/java07_nameandaddress.txt");
+		String address = fileContent("java07_address.txt");
+		String nameAndAddress = fileContent("java07_nameandaddress.txt");
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("address", address);
 		TCP.getContext().put("person", nameAndAddress);
 
-		String person = fileContent("collage/java07_person.txt");
+		String person = fileContent("java07_person.txt");
 		TemplateSource ts = new TemplateSource(person);
 		TCP.popContext();
 		ICommand cmd = TemplateFactory.newRecursiveTemplateInstance(ts);
@@ -164,7 +165,7 @@ public class JavassistTest extends TestCase
 
 	private String fileContent(String aFilename) throws Exception
 	{
-		FileInputStream fis = new FileInputStream(aFilename);
+		InputStream fis = ResourceUtil.newInputStreamFromFilename(aFilename);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		writeInputStreamToOutputStream(fis, bos);
 		return bos.toString();
