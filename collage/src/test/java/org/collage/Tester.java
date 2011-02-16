@@ -1,15 +1,14 @@
 package org.collage;
 
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class Tester extends TestSuite
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+//	DomDumperLowLevelTest.class,
+	TextTemplateTest.class,
+	JavassistTest.class
+})
+public class Tester
 {
-	public static TestSuite suite()
-	{
-		TestSuite suite = new TestSuite();
-//		suite.addTestSuite(DomDumperLowLevelTest.class);
-		suite.addTestSuite(TextTemplateTest.class);
-		suite.addTestSuite(JavassistTest.class);
-		return suite;
-	}
 }
