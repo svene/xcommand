@@ -1,28 +1,33 @@
 package org.xcommand.core;
 
-import junit.framework.TestCase;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.beans.PropertyDescriptor;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeanWrapper;
 
-public class DynaBeanProviderTester extends TestCase
+import static org.junit.Assert.*;
+
+public class DynaBeanProviderTester
 {
 	// TODO: instead of TCP use a normal object as storage (does this need reflection then?: java.beans.Introspector)
-
-	protected void setUp() throws Exception
+	@Before
+	public void initializeContext() throws Exception
 	{
 		TCP.pushContext(new HashMap());
 	}
 
-	protected void tearDown() throws Exception
+	@After
+	public void tearDownContext() throws Exception
 	{
 		TCP.popContext();
 	}
 
+	@Test
 	public void test0()
 	{
 		IPerson person1 = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
@@ -38,6 +43,9 @@ public class DynaBeanProviderTester extends TestCase
 		assertNotSame(person1, person2);
 
 	}
+
+
+
 	public void test1()
 	{
 		IPerson person = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
@@ -56,7 +64,7 @@ public class DynaBeanProviderTester extends TestCase
 	/** Test that two view instances point to the same virtual object if
 	 * the ClassAndMethodBasedDynaBeanProvider is used
 	 */
-	public void testClassAndMethodBasedDynaBeanProvider()
+	@Test public void testClassAndMethodBasedDynaBeanProvider()
 	{
 		// Create first view instance (person1):
 		IPerson person1 = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
@@ -100,7 +108,7 @@ public class DynaBeanProviderTester extends TestCase
 	/** Test that two view instances point to separate virtual person objects if
 	 * the ObjectIdentityBasedDynaBeanProvider is used
 	 */
-	public void testObjectIdentityBasedDynaBeanProvider()
+	@Test public void testObjectIdentityBasedDynaBeanProvider()
 	{
 		// Create first view instance (person1):
 		IPerson person1 = (IPerson) dbpOI.newBeanForInterface(IPerson.class);
@@ -140,7 +148,7 @@ public class DynaBeanProviderTester extends TestCase
 	/** Test that two view instances point to the same virtual object although two different interfaces are used if
 	 * the MethodBasedDynaBeanProvider is used
 	 */
-	public void testMethodBasedDynaBeanProvider()
+	@Test public void testMethodBasedDynaBeanProvider()
 	{
 		// Create first view instance (pv1):
 		IPerson pv1 = (IPerson) dbpM.newBeanForInterface(IPerson.class);
@@ -182,7 +190,7 @@ public class DynaBeanProviderTester extends TestCase
 
 	}
 
-	public void testPerson1()
+	@Test public void testPerson1()
 	{
 		Person1 p1 = new Person1();
 		assertNull(p1.getFirstName());
@@ -202,7 +210,7 @@ public class DynaBeanProviderTester extends TestCase
 		assertEquals("Sven", pv2.getFirstName());
 		assertEquals("Ehrke", pv2.getLastName());
 	}
-	public void test21()
+	@Test public void test21()
 	{
 		Person1 p1 = new Person1();
 		BeanWrapper bw = new BeanWrapperImpl(p1);
@@ -213,7 +221,7 @@ public class DynaBeanProviderTester extends TestCase
 		assertEquals("firstName", descriptors[2].getName());
 		assertEquals("lastName", descriptors[3].getName());
 	}
-	public void test22()
+	@Test public void test22()
 	{
 		IPerson p = new Person();
 		BeanHoldingBeanAccessor ba = new BeanHoldingBeanAccessor(p);

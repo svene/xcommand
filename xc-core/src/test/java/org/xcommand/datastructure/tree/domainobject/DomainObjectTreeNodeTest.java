@@ -44,7 +44,7 @@ public class DomainObjectTreeNodeTest extends TestCase
 		assertTrue(lst.get(4).toString().startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject@"));
 		assertTrue(lst.get(5).toString().startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject@"));
 
-		System.out.println("===");
+		//System.out.println("===");
 		lst = new ArrayList();
 //		ctx = new HashMap();
 		messageCommandCV.setList(lst);
