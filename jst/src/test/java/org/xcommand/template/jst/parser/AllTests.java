@@ -1,6 +1,5 @@
 package org.xcommand.template.jst.parser;
 
-import junit.framework.TestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
