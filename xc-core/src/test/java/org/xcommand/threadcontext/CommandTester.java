@@ -1,17 +1,21 @@
 package org.xcommand.threadcontext;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.xcommand.core.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandTester extends TestCase
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
+public class CommandTester
 {
 
 	static String s = "hello world, from '" + CommandTester.class.getName() + "'";
 
 
+	@Test
 	public void test1()
 	{
 		tIn2OutCV.setInput(s);
@@ -34,7 +38,7 @@ public class CommandTester extends TestCase
 		assertSame(savedCtx, TCP.getContext());
 		assertEquals(s, tIn2OutCV.getOutput());
 
-		System.out.println("===");
+		//System.out.println("===");
 		TCP.pushNewInheritableContext();
 		assertEquals(s, tIn2OutCV.getOutput());
 
@@ -49,7 +53,7 @@ public class CommandTester extends TestCase
 	}
 
 	/** test with two different threads */
-	public void test2()
+	@Test public void test2()
 	{
 		final ICommand cmd = new TIn2OutCommand();
 		Runnable r1 = new Runnable()

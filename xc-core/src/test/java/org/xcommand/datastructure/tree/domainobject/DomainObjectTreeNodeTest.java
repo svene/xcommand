@@ -1,6 +1,6 @@
 package org.xcommand.datastructure.tree.domainobject;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
@@ -13,9 +13,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DomainObjectTreeNodeTest extends TestCase
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+public class DomainObjectTreeNodeTest
 {
-	public void testEnterExitNodeTraversal()
+	@Test public void testEnterExitNodeTraversal()
 	{
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		tt.getEnterNodeNotifier().registerObserver(enterCmd);
@@ -70,7 +74,7 @@ public class DomainObjectTreeNodeTest extends TestCase
 		assertTrue(lst.get(5).toString().startsWith(s2 + "org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject@"));
 	}
 
-	public void testWithHandlers()
+	@Test public void testWithHandlers()
 	{
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(new DomainObjectTreeNodeTestHandlerProvider());

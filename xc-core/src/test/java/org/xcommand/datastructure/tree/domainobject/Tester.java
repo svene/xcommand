@@ -1,13 +1,12 @@
 package org.xcommand.datastructure.tree.domainobject;
 
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class Tester extends TestSuite
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	DomainObjectTreeNodeTest.class
+})
+public class Tester
 {
-	public static TestSuite suite()
-	{
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(DomainObjectTreeNodeTest.class);
-		return suite;
-	}
 }

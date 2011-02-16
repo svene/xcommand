@@ -1,15 +1,12 @@
 package org.xcommand.datastructure.tree;
 
-import junit.framework.TestSuite;
-import org.xcommand.datastructure.tree.specifictreenode.SpecificTreeNodeTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class Tester extends TestSuite
-{
-	public static TestSuite suite()
-	{
-		TestSuite suite = new TestSuite();
-		suite.addTest(org.xcommand.datastructure.tree.domainobject.Tester.suite());
-		suite.addTestSuite(SpecificTreeNodeTest.class);
-		return suite;
-	}
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	org.xcommand.datastructure.tree.domainobject.Tester.class,
+	org.xcommand.datastructure.tree.specifictreenode.SpecificTreeNodeTest.class
+})
+public class Tester {
 }
