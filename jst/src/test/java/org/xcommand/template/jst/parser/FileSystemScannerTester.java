@@ -1,6 +1,6 @@
 package org.xcommand.template.jst.parser;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
@@ -14,13 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FileSystemScannerTester extends TestCase
+import static org.junit.Assert.assertTrue;
+
+public class FileSystemScannerTester
 {
 
-	protected void setUp() throws Exception
-	{
-	}
-
+	@Test
 	public void test1() throws Exception
 	{
 		lh.setList(new ArrayList());

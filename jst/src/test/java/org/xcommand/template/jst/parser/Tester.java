@@ -1,14 +1,14 @@
 package org.xcommand.template.jst.parser;
 
 import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+	FileSystemScannerTester.class,
+	JSTParserTester.class
+})
 public class Tester extends TestSuite
 {
-	public static TestSuite suite()
-	{
-		TestSuite suite = new TestSuite();
-		suite.addTestSuite(FileSystemScannerTester.class);
-		suite.addTestSuite(JSTParserTester.class);
-		return suite;
-	}
 }
