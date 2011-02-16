@@ -7,6 +7,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	DynaBeanProviderTester.class
 })
-public class Tester
+public class AllTests
 {
 }

@@ -6,8 +6,8 @@ import org.xcommand.threadcontext.CommandTester;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.xcommand.core.Tester.class,
-	org.xcommand.datastructure.tree.Tester.class,
+	org.xcommand.core.AllTests.class,
+	org.xcommand.datastructure.tree.AllTests.class,
 	CommandTester.class
 })
 public class AllTests

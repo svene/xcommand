@@ -7,6 +7,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	DomainObjectTreeNodeTest.class
 })
-public class Tester
+public class AllTests
 {
 }
