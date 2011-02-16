@@ -1,21 +1,26 @@
 package org.collage;
 
-import junit.framework.TestCase;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.StaticStringTemplateCompiler;
 import org.collage.template.TextTemplateCompiler;
-import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.junit.Before;
+import org.junit.Test;
 import org.xcommand.core.*;
 
-public class StaticStringTemplateCompilerTester extends TestCase
+import static org.junit.Assert.assertEquals;
+
+public class StaticStringTemplateCompilerTester
 {
 
 	private static final int RUNS = 10000;
 
-	protected void setUp() throws Exception
+	@Before
+	protected void initializeContext() throws Exception
 	{
 		TCP.getContext().put("firstname", "Uli");
 	}
 
+	@Test
 	public void test1()
 	{
 //		System.out.println("TextTemplateTest.test1()");
@@ -29,7 +34,7 @@ public class StaticStringTemplateCompilerTester extends TestCase
 		}
 	}
 
-	public void test2()
+	@Test public void test2()
 	{
 		// On first template request `StaticStringTemplateCompiler' will compile unknown template:
 //		System.out.println("StaticStringTemplateCompilerTester.test2()");

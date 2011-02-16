@@ -1,20 +1,26 @@
 package org.collage;
 
-import junit.framework.TestCase;
 import org.collage.dom.ast.DomEventHandlerProvider;
-import org.collage.dom.evaluator.text.TextHandlerProvider;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.collage.dom.evaluator.text.TextHandlerProvider;
+import org.junit.Before;
+import org.junit.Test;
 import org.xcommand.core.*;
-import org.xcommand.datastructure.tree.*;
-import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
+import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 import org.xcommand.misc.IMessageCommandCV;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextEvaluationLowLevelTest extends TestCase
+import static org.junit.Assert.assertEquals;
+
+public class TextEvaluationLowLevelTest
 {
 
+	@Test
 	public void test1() throws Exception
 	{
 		// Setup:
@@ -66,7 +72,8 @@ public class TextEvaluationLowLevelTest extends TestCase
 		return cmd;
 	}
 
-	protected void setUp() throws Exception
+	@Before
+	public void setUp() throws Exception
 	{
 		th = new TestHelper();
 

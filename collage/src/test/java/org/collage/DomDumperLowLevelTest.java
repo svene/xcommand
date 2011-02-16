@@ -1,6 +1,5 @@
 package org.collage;
 
-import junit.framework.TestCase;
 import org.collage.dom.ast.DomEventHandlerProvider;
 import org.collage.dom.ast.DomObjToJavaTransformer;
 import org.collage.dom.ast.DomObjToTextTransformer;
@@ -11,6 +10,7 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.evaluator.text.JavaToStringExtractor;
 import org.collage.dom.evaluator.text.VariableNameToValueTransformer;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.*;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 
-public class DomDumperLowLevelTest /*extends TestCase*/
+public class DomDumperLowLevelTest
 {
 
 	@Test
@@ -53,6 +53,7 @@ public class DomDumperLowLevelTest /*extends TestCase*/
 	}
 
 	/** Writing to System.out only */
+	@Test
 	public void testWithHandlersAndSystemOut()
 	{
 		// Setup:
@@ -96,6 +97,7 @@ public class DomDumperLowLevelTest /*extends TestCase*/
 	}
 
 	/** Writing to System.out and to list to test output, using lowlevel observer registration */
+	@Test
 	public void testWithHandlersAndSoutAndList()
 	{
 		// Setup:
@@ -149,6 +151,7 @@ public class DomDumperLowLevelTest /*extends TestCase*/
 	}
 
 	/** Writing to list to test output, using DomDumpingHandlerProvider for highlevel observer registration */
+	@Test
 	public void testWithHandlersAndList2()
 	{
 		// Setup:

@@ -6,6 +6,9 @@ import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.xcommand.core.*;
 import org.xcommand.util.ResourceUtil;
 
@@ -14,15 +17,19 @@ import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-public class TextTemplateTest extends TestCase
+import static org.junit.Assert.assertEquals;
+
+public class TextTemplateTest
 {
-	protected void setUp() throws Exception
+	@Before
+	public void initializeContext() throws Exception
 	{
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("firstname", "Uli");
 	}
 
-	protected void tearDown() throws Exception
+	@After
+	public void tearDownContext() throws Exception
 	{
 		TCP.popContext();
 	}
@@ -37,6 +44,7 @@ public class TextTemplateTest extends TestCase
 		assertEquals("hallo Uli.\nWie gehts?\n", s);
 	}
 
+	@Test
 	public void test2()
 	{
 		System.out.println("\nTextTemplateTest.test2()");
@@ -46,7 +54,7 @@ public class TextTemplateTest extends TestCase
 		tc.execute();
 	}
 
-	public void test3() throws Exception
+	@Test public void test3() throws Exception
 	{
 		System.out.println("\n3:");
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(
@@ -56,7 +64,7 @@ public class TextTemplateTest extends TestCase
 		tc.execute();
 	}
 
-	public void test4()
+	@Test public void test4()
 	{
 		System.out.println("\n4:");
 		TCP.pushContext(new HashMap());
@@ -69,7 +77,7 @@ public class TextTemplateTest extends TestCase
 		tc.execute();
 	}
 
-	public void test5()
+	@Test public void test5()
 	{
 		System.out.println("\n5:");
 		TCP.pushContext(new HashMap());
@@ -86,7 +94,7 @@ public class TextTemplateTest extends TestCase
 	/**
 	 * Demonstrate recursive template resolution
 	 */
-	public void testJava5() throws Exception
+	@Test public void testJava5() throws Exception
 	{
 		String sOld = "";
 		System.out.println("\njava5:");

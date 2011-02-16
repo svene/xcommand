@@ -1,28 +1,35 @@
 package org.collage;
 
-import junit.framework.TestCase;
 import org.collage.template.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.xcommand.core.*;
 import org.xcommand.util.ResourceUtil;
 
 import java.io.*;
 import java.util.HashMap;
 
-public class JavassistTest extends TestCase
+import static org.junit.Assert.assertEquals;
+
+public class JavassistTest
 {
-	protected void setUp() throws Exception
+	@Before
+	public void initializeContext() throws Exception
 	{
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("firstname", "Uli");
 	}
 
-	protected void tearDown() throws Exception
+	@After
+	public void tearDownContext() throws Exception
 	{
 		TCP.popContext();
 	}
 
 	/* Create a template command from a string, execute it and write output to System.out */
+	@Test
 	public void test1()
 	{
 		System.out.println("JavassistTest.test1()");
@@ -35,7 +42,7 @@ public class JavassistTest extends TestCase
 	}
 
 	/* Create a template command via TemplateSouce, execute it and write output to StringWriter (to be able to unittest result) */
-	public void test1UsingWriter()
+	@Test public void test1UsingWriter()
 	{
 		System.out.println("JavassistTest.test1UsingWriter()");
 		TemplateSource ts = new TemplateSource("hallo ${firstname}.\nWie geht's?\n");
@@ -49,7 +56,7 @@ public class JavassistTest extends TestCase
 //!!		assertNull(StringHandlerCV.getString(TCP.getContext()));
 		assertEquals("hallo Sven.\nWie geht's?\n", sw.toString());
 	}
-	public void testJava1()
+	@Test public void testJava1()
 	{
 		System.out.println("JavassistTest.testJava1()");
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString("hallo <?java int i = 1;?> ${firstname}.\\nWie geht's?\\n");
@@ -61,7 +68,7 @@ public class JavassistTest extends TestCase
 		assertEquals("hallo  Sven.\nWie geht's?\n", sw.toString());
 	}
 
-	public void testJava2()
+	@Test public void testJava2()
 	{
 		System.out.println("JavassistTest.testJava2()");
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(
@@ -73,7 +80,7 @@ public class JavassistTest extends TestCase
 		cmd.execute();
 		assertEquals("hallo\n0 Sven.\nWie geht's?\n1 Sven.\nWie geht's?\n2 Sven.\nWie geht's?\n", sw.toString());
 	}
-	public void testJava3() throws Exception
+	@Test public void testJava3() throws Exception
 	{
 		System.out.println("JavassistTest.testJava3()");
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromStream(
@@ -95,7 +102,7 @@ public class JavassistTest extends TestCase
 	/**
 	 * Demonstrate recursive template resolution
 	 */
-	public void testJavaRecursiveInline() throws Exception
+	@Test public void testJavaRecursiveInline() throws Exception
 	{
 		String sOld = "";
 		System.out.println("\njava5b:");
@@ -124,7 +131,7 @@ public class JavassistTest extends TestCase
 	/**
 	 * Demonstrate recursive template resolution
 	 */
-	public void testJavaRecursive() throws Exception
+	@Test public void testJavaRecursive() throws Exception
 	{
 		System.out.println("\njava6:");
 		TCP.pushContext(new HashMap());
@@ -139,7 +146,7 @@ public class JavassistTest extends TestCase
 		cmd.execute();
 	}
 
-	public void testJava7() throws Exception
+	@Test public void testJava7() throws Exception
 	{
 		System.out.println("\njava7:");
 		String address = fileContent("java07_address.txt");

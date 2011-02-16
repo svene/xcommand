@@ -5,10 +5,10 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//	DomDumperLowLevelTest.class,
+	DomDumperLowLevelTest.class,
 	TextTemplateTest.class,
 	JavassistTest.class
 })
-public class Tester
+public class AllTests
 {
 }
