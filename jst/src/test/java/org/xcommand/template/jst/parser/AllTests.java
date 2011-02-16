@@ -9,6 +9,6 @@ import org.junit.runners.Suite;
 	FileSystemScannerTester.class,
 	JSTParserTester.class
 })
-public class Tester extends TestSuite
+public class AllTests
 {
 }
