@@ -6,7 +6,7 @@ public interface ITreeNode
 {
 	boolean hasChildren();
 
-	List /* <ITreeNode> */ getChildren();
+	List<ITreeNode> getChildren();
 
 	Object getDomainObject();
 

@@ -78,13 +78,13 @@ public class TextEvaluationLowLevelTest
 		th = new TestHelper();
 
 		// Setup Evaluation context:
-		lst = new ArrayList();
+		lst = new ArrayList<String>();
 		messageCommandCV.setList(lst);
 		stringHandlerCV.setString("dummy");
 	}
 
 	TestHelper th;
-	List lst;
+	List<String> lst;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);

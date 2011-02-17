@@ -16,7 +16,7 @@ public class DomainObjectHandler implements ICommand
 	{
 		Object domainObject = treeNodeCV.getDomainObject();
 		String s = domainObject.toString();
-		List lst = messageCommandCV.getList();
+		List<String> lst = messageCommandCV.getList();
 		if (lst != null)
 		{
 			lst.add(s);

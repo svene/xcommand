@@ -15,7 +15,7 @@ public class RootTreeNodeHandler implements ICommand
 	public void execute()
 	{
 		RootTreeNode el = (RootTreeNode) treeNodeCV.getTreeNode();
-		List lst = messageCommandCV.getList();
+		List<String> lst = messageCommandCV.getList();
 		PrintWriter w = messageCommandCV.getPrintWriter();
 		el.rootTreeElementRoutine(lst, w);
 	}

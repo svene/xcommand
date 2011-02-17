@@ -15,7 +15,7 @@ public class TreeNode1Handler implements ICommand
 	public void execute()
 	{
 		TreeNode1 el = (TreeNode1) treeNodeCV.getTreeNode();
-		List lst = messageCommandCV.getList();
+		List<String> lst = messageCommandCV.getList();
 		PrintWriter w = messageCommandCV.getPrintWriter();
 		el.treeElement1Routine(lst, w);
 	}

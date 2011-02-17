@@ -6,7 +6,7 @@ import java.util.List;
 public interface IMessageCommandCV
 {
 	public PrintWriter getPrintWriter();
-	public List getList();
+	public List<String> getList();
 	public void setPrintWriter(PrintWriter aPrintWriter);
-	public void setList(List aList);
+	public void setList(List<String> aList);
 }

@@ -13,7 +13,7 @@ public class ListAddingStringHandler implements IStringHandler
 
 	public void handleString(Map aCtx, String aString)
 	{
-		List lst = messageCommandCV.getList();
+		List<String> lst = messageCommandCV.getList();
 		lst.add(aString);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());

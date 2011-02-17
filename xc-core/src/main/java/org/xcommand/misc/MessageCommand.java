@@ -15,7 +15,7 @@ public abstract class MessageCommand implements ICommand
 	public void execute()
 	{
 		String s = getMessage();
-		List lst = messageCommandCV.getList();
+		List<String> lst = messageCommandCV.getList();
 		if (lst != null)
 		{
 			lst.add(s);

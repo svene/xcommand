@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 public class TreeNode1 extends TreeNode
 {
 
-	public void treeElement1Routine(List aList, PrintWriter aPrintWriter)
+	public void treeElement1Routine(List<String> aList, PrintWriter aPrintWriter)
 	{
 		String msg = "TreeNode1.treeElement1Routine()";
 		if (aList != null)

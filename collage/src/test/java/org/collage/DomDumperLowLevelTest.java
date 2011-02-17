@@ -4,18 +4,19 @@ import org.collage.dom.ast.DomEventHandlerProvider;
 import org.collage.dom.ast.DomObjToJavaTransformer;
 import org.collage.dom.ast.DomObjToTextTransformer;
 import org.collage.dom.ast.DomObjToVariableTransformer;
+import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.evaluator.common.TextToStringExtractor;
 import org.collage.dom.evaluator.common.VariableToVariableNameExtractor;
-import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.evaluator.text.JavaToStringExtractor;
 import org.collage.dom.evaluator.text.VariableNameToValueTransformer;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xcommand.core.*;
-import org.xcommand.datastructure.tree.*;
-import org.xcommand.pattern.observer.AbstractBasicNotifier;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
+import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 import org.xcommand.misc.IMessageCommandCV;
+import org.xcommand.pattern.observer.AbstractBasicNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,18 @@ import static junit.framework.Assert.assertEquals;
 
 public class DomDumperLowLevelTest
 {
+
+	@Before
+	public void setUp() throws Exception
+	{
+		th = new TestHelper();
+		ddth = new DomDumpingTestHelper();
+
+		// Setup Evaluation context:
+		lst = new ArrayList<String>();
+		messageCommandCV.setList(lst);
+		stringHandlerCV.setString("dummy");
+	}
 
 	@Test
 	public void testDomNodeEnterExitNodeTraversal()
@@ -199,21 +212,9 @@ public class DomDumperLowLevelTest
 
 // --- Implementation ---
 
-	@Before
-	public void setUp() throws Exception
-	{
-		th = new TestHelper();
-		ddth = new DomDumpingTestHelper();
-
-		// Setup Evaluation context:
-		lst = new ArrayList();
-		messageCommandCV.setList(lst);
-		stringHandlerCV.setString("dummy");
-	}
-
 	TestHelper th;
 	DomDumpingTestHelper ddth;
-	List lst;
+	List<String> lst;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);

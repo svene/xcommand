@@ -7,8 +7,6 @@ import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
-import java.util.Iterator;
-
 /**
  * TreeNodeTraverser sending out notifications while traversing the tree
  */
@@ -40,10 +38,7 @@ public class NotifyingTreeNodeTraverser implements ICommand
 		treeNodeCV.setTreeNode(aNode);
 		treeNodeCV.setDomainObject(aNode.getDomainObject());
 		enterNodeNotifier.execute();
-		Iterator it = aNode.getChildren().iterator();
-		while (it.hasNext())
-		{
-			ITreeNode node = (ITreeNode) it.next();
+		for (ITreeNode node : aNode.getChildren()) {
 			traverse(node);
 		}
 		treeNodeCV.setTreeNode(aNode);

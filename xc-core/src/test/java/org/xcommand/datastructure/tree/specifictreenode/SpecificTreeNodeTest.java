@@ -21,7 +21,7 @@ public class SpecificTreeNodeTest extends TestCase
 		tt.getEnterNodeNotifier().registerObserver(enterCmd);
 		tt.getExitNodeNotifier().registerObserver(exitCmd);
 
-		List lst = new ArrayList();
+		List<String> lst = new ArrayList<String>();
 		messageCommandCV.setList(lst);
 //		MessageCommandCV.setPrintToSystemOut(ctx, true);
 		treeNodeCV.setTreeNode(tdp.getRoot1());
@@ -34,7 +34,7 @@ public class SpecificTreeNodeTest extends TestCase
 		assertEquals("leaving TreeNode: org.xcommand.datastructure.tree.specifictreenode.domain.RootTreeNode", lst.get(5));
 
 //		System.out.println("===");
-		lst = new ArrayList();
+		lst = new ArrayList<String>();
 //		ctx = new HashMap();
 		messageCommandCV.setList(lst);
 //		MessageCommandCV.setPrintToSystemOut(ctx, true);
