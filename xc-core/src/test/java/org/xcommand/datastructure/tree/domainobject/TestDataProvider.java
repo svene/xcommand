@@ -15,9 +15,22 @@ public class TestDataProvider
 		return root1;
 	}
 
+	public ITreeNode getRoot1Child() {
+		return root1.getChildren().get(0);
+	}
+	public ITreeNode getRoot1ChildChild() {
+		return getRoot1Child().getChildren().get(0);
+	}
+
 	public ITreeNode getRoot2()
 	{
 		return root2;
+	}
+	public ITreeNode getRoot2Child1() {
+		return root2.getChildren().get(0);
+	}
+	public ITreeNode getRoot2Child2() {
+		return root2.getChildren().get(1);
 	}
 
 // --- Implementation ---
