@@ -26,11 +26,7 @@ class HandlerProviderBasedCommand implements ICommand
 	public void execute()
 	{
 		ITreeNode tn = treeNodeCV.getTreeNode();
-		Object key = tn;
-		if (handlerKeyProvider != null)
-		{
-			key = handlerKeyProvider.getHandlerKey(tn);
-		}
+		Object key = handlerKeyProvider == null ? tn : handlerKeyProvider.getHandlerKey(tn);
 		ICommand cmd = handlerProvider.getHandler(key);
 		if (cmd != null)
 		{
