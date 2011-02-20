@@ -7,30 +7,30 @@ import java.util.Map;
 /**
  * `IHandlerProvider' using a handlerMap to lookup a handler 
  */
-public abstract class MapBasedHandlerProvider implements IHandlerProvider
+public class MapBasedHandlerProvider implements IHandlerProvider
 {
 
 // --- Access ---
 
-	public Map getHandlerMap()
+	public Map<Object, ICommand> getHandlerMap()
 	{
 		return handlerMap;
 	}
 
 	public ICommand getHandler(Object aObj)
 	{
-		return (ICommand) handlerMap.get(aObj);
+		return handlerMap.get(aObj);
 	}
 
 // --- Setting ---
 
-	public void setHandlerMap(Map aHandlerMap)
+	public void setHandlerMap(Map<Object, ICommand> aHandlerMap)
 	{
 		handlerMap = aHandlerMap;
 	}
 
 // --- Implementation ---
 
-	private Map/*<Object, IComand>*/ handlerMap;
+	private Map<Object, ICommand> handlerMap;
 
 }
