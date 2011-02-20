@@ -44,19 +44,17 @@ public class DomainObjectTreeNodeTest
 		assertNotNull(lst.get(4));
 		assertNotNull(lst.get(5));
 
-		String s = "entering TreeNode with DomainObject: ";
-		assertTrue(lst.get(0).startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject@"));
-		assertTrue(lst.get(1).startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject@"));
-		assertTrue(lst.get(2).startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject@"));
-		s = "leaving TreeNode with DomainObject: ";
-		assertTrue(lst.get(3).startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject@"));
-		assertTrue(lst.get(4).startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject@"));
-		assertTrue(lst.get(5).startsWith(s + "org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject@"));
+		String s0 = "TreeNode with DomainObject: org.xcommand.datastructure.tree.domainobject.domain.";
+		String s = "entering " + s0;
+		assertTrue(lst.get(0).startsWith(s + "RootDomainObject@"));
+		assertTrue(lst.get(1).startsWith(s + "OneDomainObject@"));
+		assertTrue(lst.get(2).startsWith(s + "AnotherDomainObject@"));
+		s = "leaving " + s0;
+		assertTrue(lst.get(3).startsWith(s + "AnotherDomainObject@"));
+		assertTrue(lst.get(4).startsWith(s + "OneDomainObject@"));
+		assertTrue(lst.get(5).startsWith(s + "RootDomainObject@"));
 
-		//System.out.println("===");
-		lst = new ArrayList<String>();
-//		ctx = new HashMap();
-		messageCommandCV.setList(lst);
+		messageCommandCV.setList(lst = new ArrayList<String>());
 		messageCommandCV.setPrintWriter(new PrintWriter(System.out));
 		treeNodeCV.setTreeNode(tdp.getRoot2());
 		tt.execute();
@@ -69,14 +67,14 @@ public class DomainObjectTreeNodeTest
 		assertNotNull(lst.get(4));
 		assertNotNull(lst.get(5));
 
-		String s1 = "entering TreeNode with DomainObject: ";
-		assertTrue(lst.get(0).startsWith(s1 + "org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject@"));
-		assertTrue(lst.get(1).startsWith(s1 + "org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject@"));
-		String s2 = "leaving TreeNode with DomainObject: ";
-		assertTrue(lst.get(2).startsWith(s2 + "org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject@"));
-		assertTrue(lst.get(3).startsWith(s1 + "org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject@"));
-		assertTrue(lst.get(4).startsWith(s2 + "org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject@"));
-		assertTrue(lst.get(5).startsWith(s2 + "org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject@"));
+		String s1 = "entering " + s0;
+		assertTrue(lst.get(0).startsWith(s1 + "RootDomainObject@"));
+		assertTrue(lst.get(1).startsWith(s1 + "OneDomainObject@"));
+		String s2 = "leaving " + s0;
+		assertTrue(lst.get(2).startsWith(s2 + "OneDomainObject@"));
+		assertTrue(lst.get(3).startsWith(s1 + "AnotherDomainObject@"));
+		assertTrue(lst.get(4).startsWith(s2 + "AnotherDomainObject@"));
+		assertTrue(lst.get(5).startsWith(s2 + "RootDomainObject@"));
 	}
 
 	@Test public void testWithHandlers()
@@ -85,7 +83,6 @@ public class DomainObjectTreeNodeTest
 		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(new DomainObjectTreeNodeTestHandlerProvider());
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
-//		Map ctx = new HashMap();
 		treeNodeCV.setTreeNode(tdp.getRoot1());
 		List<String> lst = new ArrayList<String>();
 		messageCommandCV.setList(lst);
