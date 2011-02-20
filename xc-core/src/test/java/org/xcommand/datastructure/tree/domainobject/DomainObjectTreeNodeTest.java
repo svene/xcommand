@@ -1,5 +1,6 @@
 package org.xcommand.datastructure.tree.domainobject;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.xcommand.core.ClassAndMethodKeyProvider;
@@ -22,62 +23,51 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 public class DomainObjectTreeNodeTest
 {
+	private NotifyingTreeNodeTraverser tt;
+	private List enterList;
+	private MyCommand enterCmdSpy;
+	private MyCommand exitCmdSpy;
+
+	@Before
+	public void initialize() {
+		treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+
+		tt = new NotifyingTreeNodeTraverser();
+		enterList = new ArrayList();
+		enterCmdSpy = Mockito.spy(new MyCommand(enterList));
+		exitCmdSpy = Mockito.spy(new MyCommand(enterList));
+		tt.getEnterNodeNotifier().registerObserver(enterCmdSpy);
+		tt.getExitNodeNotifier().registerObserver(exitCmdSpy);
+	}
+
 	@Test public void testEnterExitNodeTraversal()
 	{
-		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-		tt.getEnterNodeNotifier().registerObserver(enterCmd);
-		tt.getExitNodeNotifier().registerObserver(exitCmd);
-
-		List<String> lst = new ArrayList<String>();
-//		Map ctx = new HashMap();
-		messageCommandCV.setList(lst);
-		messageCommandCV.setPrintWriter(new PrintWriter(System.out));
 		treeNodeCV.setTreeNode(tdp.getRoot1());
 		tt.execute();
-		assertTrue(lst.size() == 6);
-		assertNotNull(lst.get(0));
-		assertNotNull(lst.get(1));
-		assertNotNull(lst.get(2));
-		assertNotNull(lst.get(3));
-		assertNotNull(lst.get(4));
-		assertNotNull(lst.get(5));
 
-		String s0 = "TreeNode with DomainObject: org.xcommand.datastructure.tree.domainobject.domain.";
-		String s = "entering " + s0;
-		assertTrue(lst.get(0).startsWith(s + "RootDomainObject@"));
-		assertTrue(lst.get(1).startsWith(s + "OneDomainObject@"));
-		assertTrue(lst.get(2).startsWith(s + "AnotherDomainObject@"));
-		s = "leaving " + s0;
-		assertTrue(lst.get(3).startsWith(s + "AnotherDomainObject@"));
-		assertTrue(lst.get(4).startsWith(s + "OneDomainObject@"));
-		assertTrue(lst.get(5).startsWith(s + "RootDomainObject@"));
+		org.mockito.InOrder inOrder = Mockito.inOrder(enterCmdSpy, exitCmdSpy);
+		inOrder.verify(enterCmdSpy).testHook(0, tdp.getRoot1().getDomainObject());
+		inOrder.verify(enterCmdSpy).testHook(1, tdp.getRoot1Child().getDomainObject());
+		inOrder.verify(enterCmdSpy).testHook(2, tdp.getRoot1ChildChild().getDomainObject());
+		inOrder.verify(exitCmdSpy).testHook(3, tdp.getRoot1ChildChild().getDomainObject());
+		inOrder.verify(exitCmdSpy).testHook(4, tdp.getRoot1Child().getDomainObject());
+		inOrder.verify(exitCmdSpy).testHook(5, tdp.getRoot1().getDomainObject());
+	}
 
-		messageCommandCV.setList(lst = new ArrayList<String>());
-		messageCommandCV.setPrintWriter(new PrintWriter(System.out));
+	@Test public void testEnterExitNodeTraversal2()
+	{
 		treeNodeCV.setTreeNode(tdp.getRoot2());
 		tt.execute();
 
-		assertTrue(lst.size() == 6);
-		assertNotNull(lst.get(0));
-		assertNotNull(lst.get(1));
-		assertNotNull(lst.get(2));
-		assertNotNull(lst.get(3));
-		assertNotNull(lst.get(4));
-		assertNotNull(lst.get(5));
-
-		String s1 = "entering " + s0;
-		assertTrue(lst.get(0).startsWith(s1 + "RootDomainObject@"));
-		assertTrue(lst.get(1).startsWith(s1 + "OneDomainObject@"));
-		String s2 = "leaving " + s0;
-		assertTrue(lst.get(2).startsWith(s2 + "OneDomainObject@"));
-		assertTrue(lst.get(3).startsWith(s1 + "AnotherDomainObject@"));
-		assertTrue(lst.get(4).startsWith(s2 + "AnotherDomainObject@"));
-		assertTrue(lst.get(5).startsWith(s2 + "RootDomainObject@"));
+		org.mockito.InOrder inOrder = Mockito.inOrder(enterCmdSpy, exitCmdSpy);
+		inOrder.verify(enterCmdSpy).testHook(0, tdp.getRoot2().getDomainObject());
+		inOrder.verify(enterCmdSpy).testHook(1, tdp.getRoot2Child1().getDomainObject());
+		inOrder.verify(exitCmdSpy).testHook(2, tdp.getRoot2Child1().getDomainObject());
+		inOrder.verify(enterCmdSpy).testHook(3, tdp.getRoot2Child2().getDomainObject());
+		inOrder.verify(exitCmdSpy).testHook(4, tdp.getRoot2Child2().getDomainObject());
+		inOrder.verify(exitCmdSpy).testHook(5, tdp.getRoot2().getDomainObject());
 	}
 
 	@Test public void testWithHandlers()
@@ -98,9 +88,6 @@ public class DomainObjectTreeNodeTest
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		treeNodeCV.setTreeNode(tdp.getRoot1());
-		List<String> lst = new ArrayList<String>();
-		messageCommandCV.setList(lst);
-		messageCommandCV.setPrintWriter(new PrintWriter(System.out));
 
 		tt.execute();
 		org.mockito.InOrder inOrder = Mockito.inOrder(rootDomainObjectHandler, oneDomainObjectHandler, anotherDomainObjectHandler);
@@ -109,26 +96,29 @@ public class DomainObjectTreeNodeTest
 		inOrder.verify(anotherDomainObjectHandler).execute();
 	}
 
-
 	TestDataProvider tdp = new TestDataProvider();
 
-	ICommand enterCmd = new MessageCommand()
-	{
-		public String getMessage()
-		{
-			return "entering TreeNode with DomainObject: " + treeNodeCV.getTreeNode().getDomainObject();
-		}
-	};
-	ICommand exitCmd = new MessageCommand()
-	{
-		public String getMessage()
-		{
-			return "leaving TreeNode with DomainObject: " + treeNodeCV.getTreeNode().getDomainObject();
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private ITreeNodeCV treeNodeCV;
+
+	// ICommand class with list as workaround for not fully functional InOrder support of Mockito (see http://krkadev.blogspot.com/2010/02/mockito-vs-mockachino.html)
+	private class MyCommand implements ICommand {
+		List list;
+
+		private MyCommand(List aList) {
+			list = aList;
 		}
 
-	};
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
-	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+		@Override
+		public void execute() {
+			testHook(list.size(), treeNodeCV.getDomainObject());
+		}
+
+		// necessary for inspection by mocks:
+		protected void testHook(int position, Object aDomainObject) {
+			list.add(aDomainObject);
+		}
+	}
+
 
 }
