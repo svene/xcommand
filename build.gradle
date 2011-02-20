@@ -12,6 +12,7 @@ subprojects {
 	dependencies {
 //		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
 		testCompile 'junit:junit:4.8'
+		testCompile "org.mockito:mockito-all:1.8.5"
 	}
 
 	sourceCompatibility = 1.5

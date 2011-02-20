@@ -1,24 +1,21 @@
 package org.xcommand.datastructure.tree.domainobject;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.MethodRule;
-import org.junit.rules.TestWatchman;
-import org.junit.runners.Suite;
-import org.junit.runners.model.FrameworkMethod;
-import org.xcommand.core.ICommand;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
+import org.mockito.Mockito;
 import org.xcommand.core.ClassAndMethodKeyProvider;
-import org.xcommand.datastructure.tree.*;
-import org.xcommand.misc.MessageCommand;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
+import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 import org.xcommand.misc.IMessageCommandCV;
+import org.xcommand.misc.MessageCommand;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -80,7 +77,11 @@ public class DomainObjectTreeNodeTest
 	@Test public void testWithHandlers()
 	{
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(new DomainObjectTreeNodeTestHandlerProvider());
+		ICommand rootDomainObjectHandler = Mockito.mock(ICommand.class);
+		ICommand oneDomainObjectHandler = Mockito.mock(ICommand.class);
+		ICommand anotherDomainObjectHandler = Mockito.mock(ICommand.class);
+		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(
+			new DomainObjectTreeNodeTestHandlerProvider(rootDomainObjectHandler, oneDomainObjectHandler, anotherDomainObjectHandler));
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		treeNodeCV.setTreeNode(tdp.getRoot1());
@@ -89,10 +90,12 @@ public class DomainObjectTreeNodeTest
 		messageCommandCV.setPrintWriter(new PrintWriter(System.out));
 
 		tt.execute();
-		assertEquals("handling RootDomainObject", lst.get(0));
-		assertEquals("handling OneDomainObject", lst.get(1));
-		assertEquals("handling AnotherDomainObject", lst.get(2));
+		org.mockito.InOrder inOrder = Mockito.inOrder(rootDomainObjectHandler, oneDomainObjectHandler, anotherDomainObjectHandler);
+		inOrder.verify(rootDomainObjectHandler).execute();
+		inOrder.verify(oneDomainObjectHandler).execute();
+		inOrder.verify(anotherDomainObjectHandler).execute();
 	}
+
 
 	TestDataProvider tdp = new TestDataProvider();
 
