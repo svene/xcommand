@@ -15,7 +15,7 @@ public class StaticStringTemplateCompilerTester
 	private static final int RUNS = 10000;
 
 	@Before
-	protected void initializeContext() throws Exception
+	public void initializeContext() throws Exception
 	{
 		TCP.getContext().put("firstname", "Uli");
 	}
@@ -23,13 +23,11 @@ public class StaticStringTemplateCompilerTester
 	@Test
 	public void test1()
 	{
-//		System.out.println("TextTemplateTest.test1()");
 		for (int i = 0; i < RUNS; i++)
 		{
 			ICommand cmd = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}. Wie gehts?");
 			cmd.execute();
 			String s = stringHandlerCV.getString();
-//			System.out.println(s);
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}
 	}
@@ -37,11 +35,9 @@ public class StaticStringTemplateCompilerTester
 	@Test public void test2()
 	{
 		// On first template request `StaticStringTemplateCompiler' will compile unknown template:
-//		System.out.println("StaticStringTemplateCompilerTester.test2()");
 		ICommand cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
 		cmd.execute();
 		String s = stringHandlerCV.getString();
-//		System.out.println(s);
 		assertEquals("hallo Uli. Wie gehts?", s);
 
 		// For further template request `StaticStringTemplateCompiler' should find template in cache: 
@@ -50,7 +46,6 @@ public class StaticStringTemplateCompilerTester
 			cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
 			cmd.execute();
 			s = stringHandlerCV.getString();
-//			System.out.println(s);
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}
 	}
