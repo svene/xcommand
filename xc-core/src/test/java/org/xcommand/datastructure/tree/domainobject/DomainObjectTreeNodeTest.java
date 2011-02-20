@@ -7,14 +7,20 @@ import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
+import org.xcommand.datastructure.tree.MapBasedHandlerProvider;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
+import org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject;
+import org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject;
+import org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject;
 import org.xcommand.misc.IMessageCommandCV;
 import org.xcommand.misc.MessageCommand;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -80,8 +86,15 @@ public class DomainObjectTreeNodeTest
 		ICommand rootDomainObjectHandler = Mockito.mock(ICommand.class);
 		ICommand oneDomainObjectHandler = Mockito.mock(ICommand.class);
 		ICommand anotherDomainObjectHandler = Mockito.mock(ICommand.class);
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(
-			new DomainObjectTreeNodeTestHandlerProvider(rootDomainObjectHandler, oneDomainObjectHandler, anotherDomainObjectHandler));
+
+		Map<Object, ICommand> map = new HashMap<Object, ICommand>();
+		map.put(RootDomainObject.class, rootDomainObjectHandler);
+		map.put(OneDomainObject.class, oneDomainObjectHandler);
+		map.put(AnotherDomainObject.class, anotherDomainObjectHandler);
+
+		MapBasedHandlerProvider hp = new MapBasedHandlerProvider();
+		hp.setHandlerMap(map);
+		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		treeNodeCV.setTreeNode(tdp.getRoot1());
