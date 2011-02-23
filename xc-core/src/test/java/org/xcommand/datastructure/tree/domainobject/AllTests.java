@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	DomainObjectTreeNodeTest.class
+//	DomainObjectTreeNodeTest.class
 })
 public class AllTests
 {

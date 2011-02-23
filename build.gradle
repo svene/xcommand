@@ -12,6 +12,7 @@ subprojects {
 	dependencies {
 //		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
 		testCompile 'junit:junit:4.8'
+		testCompile 'org.testng:testng:5.14.10'
 		testCompile "org.mockito:mockito-all:1.8.5"
 	}
 
@@ -45,5 +46,15 @@ subprojects {
 		   flatDir(dirs: file('_repos'))
 		}
 	}
+
+	task testng(type: Test) {
+		useTestNG()
+		testResultsDir = new File(project.testResultsDir, '../testng')
+		testReportDir = new File(project.testReportDir, '../testng')
+	}
+
+	check.dependsOn testng
+
+
 }
 

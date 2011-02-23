@@ -1,8 +1,8 @@
 package org.xcommand.datastructure.tree.domainobject;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mockito;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
@@ -14,10 +14,7 @@ import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 import org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject;
 import org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject;
 import org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject;
-import org.xcommand.misc.IMessageCommandCV;
-import org.xcommand.misc.MessageCommand;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +27,7 @@ public class DomainObjectTreeNodeTest
 	private MyCommand enterCmdSpy;
 	private MyCommand exitCmdSpy;
 
-	@Before
+	@BeforeMethod
 	public void initialize() {
 		treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 
@@ -42,7 +39,8 @@ public class DomainObjectTreeNodeTest
 		tt.getExitNodeNotifier().registerObserver(exitCmdSpy);
 	}
 
-	@Test public void testEnterExitNodeTraversal()
+	@Test
+	public void testEnterExitNodeTraversal()
 	{
 		treeNodeCV.setTreeNode(tdp.getRoot1());
 		tt.execute();
