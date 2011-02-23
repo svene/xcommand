@@ -15,15 +15,13 @@ import org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject;
 import org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject;
 import org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DomainObjectTreeNodeTest
 {
 	private NotifyingTreeNodeTraverser tt;
-	private List enterList;
+	int counter;
 	private MyCommand enterCmdSpy;
 	private MyCommand exitCmdSpy;
 
@@ -32,9 +30,9 @@ public class DomainObjectTreeNodeTest
 		treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 
 		tt = new NotifyingTreeNodeTraverser();
-		enterList = new ArrayList();
-		enterCmdSpy = Mockito.spy(new MyCommand(enterList));
-		exitCmdSpy = Mockito.spy(new MyCommand(enterList));
+		counter = 0;
+		enterCmdSpy = Mockito.spy(new MyCommand());
+		exitCmdSpy = Mockito.spy(new MyCommand());
 		tt.getEnterNodeNotifier().registerObserver(enterCmdSpy);
 		tt.getExitNodeNotifier().registerObserver(exitCmdSpy);
 	}
@@ -101,20 +99,17 @@ public class DomainObjectTreeNodeTest
 
 	// ICommand class with list as workaround for not fully functional InOrder support of Mockito (see http://krkadev.blogspot.com/2010/02/mockito-vs-mockachino.html)
 	private class MyCommand implements ICommand {
-		List list;
-
-		private MyCommand(List aList) {
-			list = aList;
+		private MyCommand() {
 		}
 
 		@Override
 		public void execute() {
-			testHook(list.size(), treeNodeCV.getDomainObject());
+			testHook(counter, treeNodeCV.getDomainObject());
+			counter++;
 		}
 
 		// necessary for inspection by mocks:
 		protected void testHook(int position, Object aDomainObject) {
-			list.add(aDomainObject);
 		}
 	}
 
