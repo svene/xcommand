@@ -22,8 +22,13 @@ public class DomainObjectTreeNodeTest
 {
 	private NotifyingTreeNodeTraverser tt;
 	int counter;
-	private MyCommand enterCmdSpy;
-	private MyCommand exitCmdSpy;
+	private ICommandHook enterHook;
+	private ICommandHook exitHook;
+
+	private TestDataProvider tdp = new TestDataProvider();
+
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private ITreeNodeCV treeNodeCV;
 
 	@BeforeMethod
 	public void initialize() {
@@ -31,10 +36,10 @@ public class DomainObjectTreeNodeTest
 
 		tt = new NotifyingTreeNodeTraverser();
 		counter = 0;
-		enterCmdSpy = Mockito.spy(new MyCommand());
-		exitCmdSpy = Mockito.spy(new MyCommand());
-		tt.getEnterNodeNotifier().registerObserver(enterCmdSpy);
-		tt.getExitNodeNotifier().registerObserver(exitCmdSpy);
+		enterHook = Mockito.mock(ICommandHook.class);
+		exitHook = Mockito.mock(ICommandHook.class);
+		tt.getEnterNodeNotifier().registerObserver(new MyCommand(enterHook));
+		tt.getExitNodeNotifier().registerObserver(new MyCommand(exitHook));
 	}
 
 	@Test
@@ -43,13 +48,13 @@ public class DomainObjectTreeNodeTest
 		treeNodeCV.setTreeNode(tdp.getRoot1());
 		tt.execute();
 
-		org.mockito.InOrder inOrder = Mockito.inOrder(enterCmdSpy, exitCmdSpy);
-		inOrder.verify(enterCmdSpy).testHook(0, tdp.getRoot1().getDomainObject());
-		inOrder.verify(enterCmdSpy).testHook(1, tdp.getRoot1Child().getDomainObject());
-		inOrder.verify(enterCmdSpy).testHook(2, tdp.getRoot1ChildChild().getDomainObject());
-		inOrder.verify(exitCmdSpy).testHook(3, tdp.getRoot1ChildChild().getDomainObject());
-		inOrder.verify(exitCmdSpy).testHook(4, tdp.getRoot1Child().getDomainObject());
-		inOrder.verify(exitCmdSpy).testHook(5, tdp.getRoot1().getDomainObject());
+		org.mockito.InOrder inOrder = Mockito.inOrder(enterHook, exitHook);
+		inOrder.verify(enterHook).executeWithArguments(0, tdp.getRoot1().getDomainObject());
+		inOrder.verify(enterHook).executeWithArguments(1, tdp.getRoot1Child().getDomainObject());
+		inOrder.verify(enterHook).executeWithArguments(2, tdp.getRoot1ChildChild().getDomainObject());
+		inOrder.verify(exitHook).executeWithArguments(3, tdp.getRoot1ChildChild().getDomainObject());
+		inOrder.verify(exitHook).executeWithArguments(4, tdp.getRoot1Child().getDomainObject());
+		inOrder.verify(exitHook).executeWithArguments(5, tdp.getRoot1().getDomainObject());
 	}
 
 	@Test public void testEnterExitNodeTraversal2()
@@ -57,13 +62,13 @@ public class DomainObjectTreeNodeTest
 		treeNodeCV.setTreeNode(tdp.getRoot2());
 		tt.execute();
 
-		org.mockito.InOrder inOrder = Mockito.inOrder(enterCmdSpy, exitCmdSpy);
-		inOrder.verify(enterCmdSpy).testHook(0, tdp.getRoot2().getDomainObject());
-		inOrder.verify(enterCmdSpy).testHook(1, tdp.getRoot2Child1().getDomainObject());
-		inOrder.verify(exitCmdSpy).testHook(2, tdp.getRoot2Child1().getDomainObject());
-		inOrder.verify(enterCmdSpy).testHook(3, tdp.getRoot2Child2().getDomainObject());
-		inOrder.verify(exitCmdSpy).testHook(4, tdp.getRoot2Child2().getDomainObject());
-		inOrder.verify(exitCmdSpy).testHook(5, tdp.getRoot2().getDomainObject());
+		org.mockito.InOrder inOrder = Mockito.inOrder(enterHook, exitHook);
+		inOrder.verify(enterHook).executeWithArguments(0, tdp.getRoot2().getDomainObject());
+		inOrder.verify(enterHook).executeWithArguments(1, tdp.getRoot2Child1().getDomainObject());
+		inOrder.verify(exitHook).executeWithArguments(2, tdp.getRoot2Child1().getDomainObject());
+		inOrder.verify(enterHook).executeWithArguments(3, tdp.getRoot2Child2().getDomainObject());
+		inOrder.verify(exitHook).executeWithArguments(4, tdp.getRoot2Child2().getDomainObject());
+		inOrder.verify(exitHook).executeWithArguments(5, tdp.getRoot2().getDomainObject());
 	}
 
 	@Test public void testWithHandlers()
@@ -92,24 +97,25 @@ public class DomainObjectTreeNodeTest
 		inOrder.verify(anotherDomainObjectHandler).execute();
 	}
 
-	TestDataProvider tdp = new TestDataProvider();
+	public interface ICommandHook {
+		// necessary for inspection by mocks:
+		public void executeWithArguments(int position, Object aDomainObject);
+	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private ITreeNodeCV treeNodeCV;
-
-	// ICommand class with list as workaround for not fully functional InOrder support of Mockito (see http://krkadev.blogspot.com/2010/02/mockito-vs-mockachino.html)
+	// ICommand class with a counter as a workaround for not fully functional InOrder support of Mockito (see http://krkadev.blogspot.com/2010/02/mockito-vs-mockachino.html)
 	private class MyCommand implements ICommand {
-		private MyCommand() {
+		ICommandHook commandHook;
+
+		private MyCommand(ICommandHook aCommandHook) {
+			commandHook = aCommandHook;
 		}
 
 		@Override
 		public void execute() {
-			testHook(counter, treeNodeCV.getDomainObject());
+			// Pass context state as arguments to 'commandHook.executeWithArguments()' so that they can be verified
+			// by the mocking-fw. Just with 'execute()' this is not possible since we cannot access the context from the verification:
+			commandHook.executeWithArguments(counter, treeNodeCV.getDomainObject());
 			counter++;
-		}
-
-		// necessary for inspection by mocks:
-		protected void testHook(int position, Object aDomainObject) {
 		}
 	}
 

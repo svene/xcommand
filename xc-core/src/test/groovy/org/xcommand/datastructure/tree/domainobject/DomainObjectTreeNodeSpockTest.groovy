@@ -21,10 +21,10 @@ class DomainObjectTreeNodeSpockTest extends Specification {
 
 	def "testEnterExitNodeTraversal"() {
 		setup:
-			IMySpy enterSpy = Mock(IMySpy)
-			IMySpy exitSpy = Mock(IMySpy)
-			MyCommand enterCmd = new MyCommand(enterSpy)
-			MyCommand exitCmd = new MyCommand(exitSpy)
+			ICommandHook enterHook = Mock(ICommandHook)
+			ICommandHook exitHook = Mock(ICommandHook)
+			MyCommand enterCmd = new MyCommand(enterHook)
+			MyCommand exitCmd = new MyCommand(exitHook)
 
 		when:
 			treeNodeCV.setTreeNode(tdp.getRoot1());
@@ -33,40 +33,39 @@ class DomainObjectTreeNodeSpockTest extends Specification {
 			tt.execute();
 
 		then:
-			1 * enterSpy.testHook(0, tdp.getRoot1().getDomainObject())
+			1 * enterHook.testHook(0, tdp.getRoot1().getDomainObject())
 		then:
-			1 * enterSpy.testHook(1, tdp.getRoot1Child().getDomainObject())
+			1 * enterHook.testHook(1, tdp.getRoot1Child().getDomainObject())
 		then:
-			1 * enterSpy.testHook(2, tdp.getRoot1ChildChild().getDomainObject())
+			1 * enterHook.testHook(2, tdp.getRoot1ChildChild().getDomainObject())
 		then:
-			1 * exitSpy.testHook(3, tdp.getRoot1ChildChild().getDomainObject())
+			1 * exitHook.testHook(3, tdp.getRoot1ChildChild().getDomainObject())
 		then:
-			1 * exitSpy.testHook(4, tdp.getRoot1Child().getDomainObject())
+			1 * exitHook.testHook(4, tdp.getRoot1Child().getDomainObject())
 		then:
-			1 * exitSpy.testHook(5, tdp.getRoot1().getDomainObject())
+			1 * exitHook.testHook(5, tdp.getRoot1().getDomainObject())
 			0 * _._
 
 	}
 
-	public class IMySpy {
+	public class ICommandHook {
 		public void testHook(int position, Object aDomainObject) {}
 	}
 
 	class MyCommand implements ICommand {
-		IMySpy spy;
-		MyCommand(IMySpy aSpy) {
-			spy = aSpy
+		ICommandHook commandHook;
+		MyCommand(ICommandHook aCommandHook) {
+			commandHook = aCommandHook
 		}
 
 		@Override
 		public void execute() {
-			spy.testHook(counter, treeNodeCV.getDomainObject());
+			// Pass context state as arguments to 'commandHook.executeWithArguments()' so that they can be verified
+			// by the mocking-fw. Just with 'execute()' this is not possible since we cannot access the context from the verification:
+			commandHook.testHook(counter, treeNodeCV.getDomainObject());
 			counter++;
 		}
 
-		// necessary for inspection by mocks:
-		protected void testHook(int position, Object aDomainObject) {
-		}
 	}
 
 }
