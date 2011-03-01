@@ -2,17 +2,23 @@ apply plugin: 'idea'
 
 subprojects {
 	apply plugin: 'java'
+	apply plugin: 'groovy'
 	apply plugin: 'idea'
 
 	repositories {
 	    mavenCentral()
 		mavenRepo urls:'http://repo.smokejumperit.com'
+		mavenRepo urls: "http://m2repo.spockframework.org/snapshots"
+
 	}
 
 	dependencies {
 //		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
+		groovy 'org.codehaus.groovy:groovy:1.7.8'
 		testCompile 'junit:junit:4.8'
 		testCompile 'org.testng:testng:5.14.10'
+		testCompile "org.spockframework:spock-core:0.5-groovy-1.7"
+		testCompile "cglib:cglib:2.2"
 		testCompile "org.mockito:mockito-all:1.8.5"
 	}
 
