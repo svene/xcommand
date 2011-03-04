@@ -43,7 +43,7 @@ public class DomainObjectTreeNodeTest
 	}
 
 	@Test
-	public void testEnterExitNodeTraversal()
+	public void makeSureThatRoot1TraversalNotifiesEnterExitNodeObserversInProperOrder()
 	{
 		treeNodeCV.setTreeNode(tdp.getRoot1());
 		tt.execute();
@@ -57,7 +57,7 @@ public class DomainObjectTreeNodeTest
 		inOrder.verify(exitHook).executeWithArguments(5, tdp.getRoot1().getDomainObject());
 	}
 
-	@Test public void testEnterExitNodeTraversal2()
+	@Test public void makeSureThatRoot2TraversalNotifiesEnterExitNodeObserversInProperOrder()
 	{
 		treeNodeCV.setTreeNode(tdp.getRoot2());
 		tt.execute();
