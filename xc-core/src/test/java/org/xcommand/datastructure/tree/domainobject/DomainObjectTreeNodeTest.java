@@ -11,9 +11,6 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.MapBasedHandlerProvider;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
-import org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject;
-import org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject;
-import org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,9 +76,9 @@ public class DomainObjectTreeNodeTest
 		ICommand anotherDomainObjectHandler = Mockito.mock(ICommand.class);
 
 		Map<Object, ICommand> map = new HashMap<Object, ICommand>();
-		map.put(RootDomainObject.class, rootDomainObjectHandler);
-		map.put(OneDomainObject.class, oneDomainObjectHandler);
-		map.put(AnotherDomainObject.class, anotherDomainObjectHandler);
+		map.put(TestDataProvider.RootDomainObject.class, rootDomainObjectHandler);
+		map.put(TestDataProvider.OneDomainObject.class, oneDomainObjectHandler);
+		map.put(TestDataProvider.AnotherDomainObject.class, anotherDomainObjectHandler);
 
 		MapBasedHandlerProvider hp = new MapBasedHandlerProvider();
 		hp.setHandlerMap(map);

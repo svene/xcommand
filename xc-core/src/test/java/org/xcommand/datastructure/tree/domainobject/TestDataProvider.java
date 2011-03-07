@@ -3,7 +3,6 @@ package org.xcommand.datastructure.tree.domainobject;
 import org.xcommand.datastructure.tree.TreeNode;
 import org.xcommand.datastructure.tree.TreeBuilder;
 import org.xcommand.datastructure.tree.ITreeNode;
-import org.xcommand.datastructure.tree.domainobject.domain.*;
 
 public class TestDataProvider
 {
@@ -61,4 +60,7 @@ public class TestDataProvider
 		tb.addChild(root2, te2);
 	}
 
+	public static class OneDomainObject {}
+	public static class AnotherDomainObject {}
+	public static class RootDomainObject {}
 }

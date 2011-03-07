@@ -7,12 +7,12 @@ import org.xcommand.core.IDynaBeanProvider
 import org.xcommand.datastructure.tree.ITreeNodeCV
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser
 import org.xcommand.core.ICommand
-import org.xcommand.datastructure.tree.domainobject.domain.AnotherDomainObject
-import org.xcommand.datastructure.tree.domainobject.domain.OneDomainObject
-import org.xcommand.datastructure.tree.domainobject.domain.RootDomainObject
+import org.xcommand.datastructure.tree.domainobject.TestDataProvider.RootDomainObject
+import org.xcommand.datastructure.tree.domainobject.TestDataProvider.OneDomainObject
+import org.xcommand.datastructure.tree.domainobject.TestDataProvider.AnotherDomainObject
+
 import org.xcommand.datastructure.tree.MapBasedHandlerProvider
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory
-
 
 class DomainObjectTreeNodeSpockTest extends Specification {
 
