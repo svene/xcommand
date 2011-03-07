@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 public class CommandTester
@@ -16,45 +17,68 @@ public class CommandTester
 
 
 	@Test
-	public void test1()
+	public void testTIn2OutCommand()
 	{
 		tIn2OutCV.setInput(s);
-		ICommand cmd = new TIn2OutCommand();
-		cmd.execute();
-		assertEquals(s, tIn2OutCV.getOutput());
-
-		Map savedCtx = TCP.getContext();
-
-		Map ctx = new HashMap();
-		TCP.pushContext(ctx);
-		assertSame(ctx, TCP.getContext());
-
-		String sven = "sven";
-		tIn2OutCV.setInput(sven);
-		cmd.execute();
-		assertEquals(sven, tIn2OutCV.getOutput());
-
-		TCP.popContext();
-		assertSame(savedCtx, TCP.getContext());
-		assertEquals(s, tIn2OutCV.getOutput());
-
-		//System.out.println("===");
-		TCP.pushNewInheritableContext();
-		assertEquals(s, tIn2OutCV.getOutput());
-
-		tIn2OutCV.setInput(sven);
-		assertEquals(s, tIn2OutCV.getOutput());
-		cmd.execute();
-		assertEquals(sven, tIn2OutCV.getOutput());
-
-		TCP.popContext();
-		assertSame(savedCtx, TCP.getContext());
+		new TIn2OutCommand().execute();
 		assertEquals(s, tIn2OutCV.getOutput());
 	}
 
-	/** test with two different threads */
-	@Test public void test2()
+	@Test
+	public void testContextStack()
 	{
+		// Save current context:
+		Map savedCtx = TCP.getContext();
+
+		// Create new context and push it on stack:
+		Map ctx = new HashMap();
+		TCP.pushContext(ctx);
+		// Verify that pushed context is current one:
+		assertSame(ctx, TCP.getContext());
+
+		// Set a value on the current context:
+		String sven = "sven";
+		tIn2OutCV.setInput(sven);
+		// Verify that there is not output yet in the new context:
+		assertNull(tIn2OutCV.getOutput());
+		new TIn2OutCommand().execute();
+		// Verify that the value got set:
+		assertEquals(sven, tIn2OutCV.getOutput());
+
+		// Remove the new context from the stack:
+		TCP.popContext();
+		// Verify that saved context is current one:
+		assertSame(savedCtx, TCP.getContext());
+		// Verify that old value is returned and not 'sven':
+		assertEquals(s, tIn2OutCV.getOutput());
+
+	}
+
+	@Test
+	public void testInheritableContextStack()
+	{
+		// Save current context:
+		Map savedCtx = TCP.getContext();
+
+		TCP.pushNewInheritableContext();
+		assertEquals(s, tIn2OutCV.getOutput());
+
+		// Set a value on the current context:
+		String sven = "sven";
+		tIn2OutCV.setInput(sven);
+		// Verify that output is not null but the output of the inherited context:
+		assertEquals(s, tIn2OutCV.getOutput());
+		new TIn2OutCommand().execute();
+		// Verify that execute put the output on the new context:
+		assertEquals(sven, tIn2OutCV.getOutput());
+
+		TCP.popContext();
+		assertSame(savedCtx, TCP.getContext());
+		// Verify that old value is returned and not 'sven':
+		assertEquals(s, tIn2OutCV.getOutput());
+	}
+
+	@Test public void verifyThatEachThreadHasItsOwnContext() throws InterruptedException {
 		final ICommand cmd = new TIn2OutCommand();
 		Runnable r1 = new Runnable()
 		{
@@ -62,18 +86,16 @@ public class CommandTester
 			{
 				tIn2OutCV.setInput("runnable 1");
 				cmd.execute();
-				System.out.println("runnable 1: " + tIn2OutCV.getOutput());
-				System.out.flush();
+				assertEquals("runnable 1", tIn2OutCV.getOutput());
 			}
 		};
 		tIn2OutCV.setInput("main thread");
 		cmd.execute();
 
-		// Note that in the following two lines `t1' does not overwrite the context of the main thread:
-		Thread t1 = new Thread(r1);
-		t1.start();
-		System.out.println("main thread: " + tIn2OutCV.getOutput());
-
+		// Note that executing the following line does not overwrite the context of the main thread:
+		new Thread(r1).start();
+		Thread.sleep(200);// Make sure thread finished. todo: improve this with proper wait/notify
+		assertEquals("main thread", tIn2OutCV.getOutput());
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
