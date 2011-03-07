@@ -2,19 +2,23 @@ package org.xcommand.datastructure.tree;
 
 import org.xcommand.core.ICommand;
 import org.xcommand.util.ClassAdapter;
+import org.xcommand.util.NestableObjectAdapter;
 
 public class TreeNodeCommandFactory
 {
 	public static ICommand newTreeNodeKeyedCommand(IHandlerProvider aHandlerProvider)
 	{
-		IHandlerKeyProvider hkp = new AdapterBasedHandlerKeyProvider(new ClassAdapter(new TreeNodeAdapter(null)));
-		return new HandlerProviderBasedCommand(hkp, aHandlerProvider);
+		return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeAdapter(null));
 	}
 
 	public static ICommand newTreeNodeDomainObjectKeyedCommand(IHandlerProvider aHandlerProvider)
 	{
-		IHandlerKeyProvider hkp = new AdapterBasedHandlerKeyProvider(new ClassAdapter(new TreeNodeDomainObjectAdapter(null)));
-		return new HandlerProviderBasedCommand(hkp, aHandlerProvider);
+		return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeDomainObjectAdapter(null));
+	}
+
+	private static ICommand newHandlerProviderBasedCommand(IHandlerProvider aHandlerProvider, NestableObjectAdapter aObjectAdapter) {
+		IHandlerKeyProvider handlerKeyProvider = new AdapterBasedHandlerKeyProvider(new ClassAdapter(aObjectAdapter));
+		return new HandlerProviderBasedCommand(handlerKeyProvider, aHandlerProvider);
 	}
 
 }

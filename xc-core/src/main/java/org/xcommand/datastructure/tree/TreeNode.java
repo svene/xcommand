@@ -20,7 +20,7 @@ public class TreeNode implements ITreeNode
 
 // --- Access ---
 
-	public List /* <ITreeNode> */ getChildren()
+	public List<ITreeNode> getChildren()
 	{
 		return children;
 	}
@@ -39,6 +39,6 @@ public class TreeNode implements ITreeNode
 
 // --- Implementation ---
 
-	private List children = new ArrayList();
+	private List<ITreeNode> children = new ArrayList<ITreeNode>();
 	private Object domainObject;
 }
