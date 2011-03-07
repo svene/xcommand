@@ -7,9 +7,10 @@ import org.xcommand.core.IDynaBeanProvider
 import org.xcommand.datastructure.tree.ITreeNodeCV
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser
 import org.xcommand.core.ICommand
-import org.xcommand.datastructure.tree.specifictreenode.domain.TreeNode2
-import org.xcommand.datastructure.tree.specifictreenode.domain.TreeNode1
-import org.xcommand.datastructure.tree.specifictreenode.domain.RootTreeNode
+import org.xcommand.datastructure.tree.specifictreenode.TestDataProvider.TreeNode2
+import org.xcommand.datastructure.tree.specifictreenode.TestDataProvider.TreeNode1
+import org.xcommand.datastructure.tree.specifictreenode.TestDataProvider.RootTreeNode
+
 import org.xcommand.datastructure.tree.MapBasedHandlerProvider
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory
 
@@ -20,7 +21,6 @@ class SpecificTreeNodeSpockTest extends Specification {
 	NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser()
 	int counter
 	TestDataProvider tdp = new TestDataProvider();
-
 
 	def "verify that that Root1-traversal notifies Enter/Exit-NodeObservers in proper order"() {
 		given:
@@ -87,7 +87,6 @@ class SpecificTreeNodeSpockTest extends Specification {
 			ICommand treeNode2Handler = Mock(ICommand)
 
 			Map<Object, ICommand> map = new HashMap<Object, ICommand>();
-
 			map.put(RootTreeNode.class, rootTreeNodeHandler);
 			map.put(TreeNode1.class, treeNode1Handler);
 			map.put(TreeNode2.class, treeNode2Handler);

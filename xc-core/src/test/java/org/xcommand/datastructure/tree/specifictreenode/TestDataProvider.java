@@ -3,9 +3,6 @@ package org.xcommand.datastructure.tree.specifictreenode;
 import org.xcommand.datastructure.tree.TreeNode;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.TreeBuilder;
-import org.xcommand.datastructure.tree.specifictreenode.domain.RootTreeNode;
-import org.xcommand.datastructure.tree.specifictreenode.domain.TreeNode1;
-import org.xcommand.datastructure.tree.specifictreenode.domain.TreeNode2;
 
 public class TestDataProvider
 {
@@ -34,6 +31,10 @@ public class TestDataProvider
 	public ITreeNode getRoot2Child2() {
 		return root2.getChildren().get(1);
 	}
+
+	public static class RootTreeNode extends TreeNode {}
+	public static class TreeNode2 extends TreeNode {}
+	public static class TreeNode1 extends TreeNode {}
 
 // --- Implementation ---
 
