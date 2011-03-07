@@ -12,7 +12,7 @@ import static org.junit.Assert.assertSame;
 public class CommandTester
 {
 
-	static String s = "hello world, from '" + CommandTester.class.getName() + "'";
+	static String s = String.format("hello world, from '%s'", CommandTester.class.getName());
 
 
 	@Test
