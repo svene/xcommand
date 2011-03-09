@@ -7,34 +7,40 @@ public class Person1 implements IPerson
 
 	public Person1()
 	{
-		delegate = (IPerson) DBP.newBeanForInterface(IPerson.class);
+		delegate = DBP.newBeanForInterface(IPerson.class);
 	}
 
+	@Override
 	public String getFirstName()
 	{
 		return delegate.getFirstName();
 	}
 
+	@Override
 	public String getLastName()
 	{
 		return delegate.getLastName();
 	}
 
+	@Override
 	public Date getBirthDate()
 	{
 		return delegate.getBirthDate();
 	}
 
+	@Override
 	public void setFirstName(String aFirstName)
 	{
 		delegate.setFirstName(aFirstName);
 	}
 
+	@Override
 	public void setLastName(String aLastName)
 	{
 		delegate.setLastName(aLastName);
 	}
 
+	@Override
 	public void setBirthDate(Date aBirthDate)
 	{
 		delegate.setBirthDate(aBirthDate);
