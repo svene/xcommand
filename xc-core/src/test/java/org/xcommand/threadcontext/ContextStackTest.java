@@ -5,6 +5,7 @@ import org.xcommand.core.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -78,7 +79,7 @@ public class ContextStackTest
 		assertEquals(s, tIn2OutCV.getOutput());
 	}
 
-	@Test public void verifyThatEachThreadHasItsOwnContext() throws InterruptedException {
+	@Test public void verifyThatEachThreadHasItsOwnContext() throws Exception {
 		final ICommand cmd = new TIn2OutCommand();
 		Runnable r1 = new Runnable()
 		{
@@ -92,9 +93,13 @@ public class ContextStackTest
 		tIn2OutCV.setInput("main thread");
 		cmd.execute();
 
+
+		final ExecutorService es = Executors.newSingleThreadExecutor();
 		// Note that executing the following line does not overwrite the context of the main thread:
-		new Thread(r1).start();
-		Thread.sleep(200);// Make sure thread finished. todo: improve this with proper wait/notify
+		final Future<?> future = es.submit(r1);
+		// Wait until 'es' is done:
+		future.get(3, TimeUnit.SECONDS);
+		es.shutdown();
 		assertEquals("main thread", tIn2OutCV.getOutput());
 	}
 
