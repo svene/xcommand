@@ -10,10 +10,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-public class CommandTester
+public class ContextStackTest
 {
 
-	static String s = String.format("hello world, from '%s'", CommandTester.class.getName());
+	static String s = String.format("hello world, from '%s'", ContextStackTest.class.getName());
 
 
 	@Test

@@ -28,27 +28,22 @@ public class DynaBeanProviderTester
 	}
 
 	@Test
-	public void test0()
+	public void testClassAndMethodBasedDynaBeanProvider0()
 	{
-		IPerson person1 = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
-		assertNotNull(person1);
-
-		IPerson person2 = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
-		assertNotSame(person1, person2);
-
-		person1 = (IPerson) dbpOI.newBeanForInterface(IPerson.class);
-		assertNotNull(person1);
-
-		person2 = (IPerson) dbpOI.newBeanForInterface(IPerson.class);
-		assertNotSame(person1, person2);
-
+		assertNotNull(dbpCM.newBeanForInterface(IPerson.class));
+		assertNotSame(dbpCM.newBeanForInterface(IPerson.class), dbpCM.newBeanForInterface(IPerson.class));
 	}
 
-
-
-	public void test1()
+	@Test
+	public void testObjectIdentityKeyBasedDynaBeanProvider()
 	{
-		IPerson person = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
+		assertNotNull(dbpOI.newBeanForInterface(IPerson.class));
+		assertNotSame(dbpOI.newBeanForInterface(IPerson.class), dbpOI.newBeanForInterface(IPerson.class));
+	}
+
+	public void verifyThatSettersAndGettersForADynamicallyCreatedObjectWork()
+	{
+		IPerson person = dbpCM.newBeanForInterface(IPerson.class);
 		assertNull(person.getFirstName());
 		assertNull(person.getLastName());
 		person.setFirstName("Sven");
@@ -57,7 +52,6 @@ public class DynaBeanProviderTester
 		person.setBirthDate(d);
 		assertEquals("Sven", person.getFirstName());
 		assertEquals("Ehrke", person.getLastName());
-		assertEquals(d, person.getBirthDate());
 		assertSame(d, person.getBirthDate());
 	}
 
@@ -67,9 +61,9 @@ public class DynaBeanProviderTester
 	@Test public void testClassAndMethodBasedDynaBeanProvider()
 	{
 		// Create first view instance (person1):
-		IPerson person1 = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
+		IPerson person1 = dbpCM.newBeanForInterface(IPerson.class);
 		// Create second view instance (person2):
-		IPerson person2 = (IPerson) dbpCM.newBeanForInterface(IPerson.class);
+		IPerson person2 = dbpCM.newBeanForInterface(IPerson.class);
 		// Check that the two view instances are disctinct:
 		assertNotSame(person1, person2);
 
@@ -111,9 +105,9 @@ public class DynaBeanProviderTester
 	@Test public void testObjectIdentityBasedDynaBeanProvider()
 	{
 		// Create first view instance (person1):
-		IPerson person1 = (IPerson) dbpOI.newBeanForInterface(IPerson.class);
+		IPerson person1 = dbpOI.newBeanForInterface(IPerson.class);
 		// Create second view instance (person2):
-		IPerson person2 = (IPerson) dbpOI.newBeanForInterface(IPerson.class);
+		IPerson person2 = dbpOI.newBeanForInterface(IPerson.class);
 		// Check that the two view instances are disctinct:
 		assertNotSame(person1, person2);
 
@@ -151,9 +145,9 @@ public class DynaBeanProviderTester
 	@Test public void testMethodBasedDynaBeanProvider()
 	{
 		// Create first view instance (pv1):
-		IPerson pv1 = (IPerson) dbpM.newBeanForInterface(IPerson.class);
+		IPerson pv1 = dbpM.newBeanForInterface(IPerson.class);
 		// Create second view instance (pv2):
-		IPersonNamesView pv2 = (IPersonNamesView) dbpM.newBeanForInterface(IPersonNamesView.class);
+		IPersonNamesView pv2 = dbpM.newBeanForInterface(IPersonNamesView.class);
 		// Check that the two view instances are disctinct:
 		assertNotSame(pv1, pv2);
 
@@ -202,11 +196,11 @@ public class DynaBeanProviderTester
 		assertEquals("Ehrke", p1.getLastName());
 
 		// Create first view instance (pv1):
-		IPerson pv1 = (IPerson) dbpM.newBeanForInterface(IPerson.class);
+		IPerson pv1 = dbpM.newBeanForInterface(IPerson.class);
 		assertEquals("Sven", pv1.getFirstName());
 		assertEquals("Ehrke", pv1.getLastName());
 
-		IPersonNamesView pv2 = (IPersonNamesView) dbpM.newBeanForInterface(IPersonNamesView.class);
+		IPersonNamesView pv2 = dbpM.newBeanForInterface(IPersonNamesView.class);
 		assertEquals("Sven", pv2.getFirstName());
 		assertEquals("Ehrke", pv2.getLastName());
 	}
@@ -226,7 +220,7 @@ public class DynaBeanProviderTester
 		IPerson p = new Person();
 		BeanHoldingBeanAccessor ba = new BeanHoldingBeanAccessor(p);
 		IDynaBeanProvider dbp = DynaBeanProvider.newDynabeanProvider(ba);
-		IPerson pv1 = (IPerson) dbp.newBeanForInterface(IPerson.class);
+		IPerson pv1 = dbp.newBeanForInterface(IPerson.class);
 		assertNull(pv1.getFirstName());
 		assertNull(pv1.getLastName());
 		assertNull(pv1.getBirthDate());

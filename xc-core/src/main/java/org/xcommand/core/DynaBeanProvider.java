@@ -26,12 +26,16 @@ public class DynaBeanProvider
 			ih = aIh;
 		}
 
-		public Object newBeanForInterface(Class aInterface)
+		@Override
+		public <T> T newBeanForInterface(Class<T> aInterface)
 		{
-			return newBeanFromInterfaces(new Class[]{aInterface});
+			@SuppressWarnings("unchecked")
+			final T result = (T) newBeanFromInterfaces(new Class[]{aInterface});
+			return result;
 		}
 
-		public Object newBeanFromInterfaces(Class[] aInterfaces)
+		@Override
+		public Object newBeanFromInterfaces(Class<?>[] aInterfaces)
 		{
 			return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), aInterfaces, ih);
 		}

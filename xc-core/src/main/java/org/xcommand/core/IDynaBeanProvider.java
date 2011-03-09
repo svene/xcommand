@@ -2,6 +2,6 @@ package org.xcommand.core;
 
 public interface IDynaBeanProvider
 {
-	public Object newBeanForInterface(Class aInterface);
-	public Object newBeanFromInterfaces(Class[] aInterfaces);
+	public <T> T newBeanForInterface(Class<T> aInterface);
+	public Object newBeanFromInterfaces(Class<?>[] aInterfaces);
 }
