@@ -1,6 +1,9 @@
 package org.xcommand.core
 
 import spock.lang.Specification
+import org.springframework.beans.BeanWrapper
+import org.springframework.beans.BeanWrapperImpl
+import java.beans.PropertyDescriptor
 
 public class DynaBeanProviderSpockTest extends Specification
 {
@@ -163,6 +166,45 @@ public class DynaBeanProviderSpockTest extends Specification
 			// Verify that properties of view instances still point to same destination:
 			pv1.getFirstName().is(pv2.getFirstName())
 			pv1.getLastName().is(pv2.getLastName())
+	}
+
+	def "demonstrate Spring BeanWrapper"()
+	{
+		DelegatingPerson p1 = new DelegatingPerson(dbpM.newBeanForInterface(IPerson.class))
+		BeanWrapper bw = new BeanWrapperImpl(p1)
+		PropertyDescriptor[] descriptors = bw.getPropertyDescriptors()
+		4 == descriptors.length
+		"birthDate" == descriptors[0].getName()
+		"class" == descriptors[1].getName()
+		"firstName" == descriptors[2].getName()
+		"lastName" == descriptors[3].getName()
+	}
+
+	def "verify that object-backed bean provider works"()
+	{
+		given:
+			IPerson p = new Person();
+			BeanHoldingBeanAccessor ba = new BeanHoldingBeanAccessor(p)
+			IDynaBeanProvider dbp = DynaBeanProvider.newDynabeanProvider(ba)
+			IPerson pv = dbp.newBeanForInterface(IPerson.class)
+		expect:
+			!pv.getFirstName()
+			!pv.getLastName()
+			!pv.getBirthDate()
+		when:
+			// Modify real Person 'p':
+			p.setFirstName("Sven")
+		then:
+			"Sven" == p.getFirstName()
+			"Sven" == pv.getFirstName()
+		when:
+			// Modify through view 'pv':
+			pv.setLastName("Ehrke")
+		then:
+			// Check modification on view 'pv':
+			"Ehrke" == pv.getLastName()
+			// Check modification on 'p':
+			"Ehrke" == p.getLastName()
 	}
 
 	private IDynaBeanProvider newCM_DBP() {
