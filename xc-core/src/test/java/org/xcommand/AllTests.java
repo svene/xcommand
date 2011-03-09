@@ -6,7 +6,6 @@ import org.xcommand.threadcontext.ContextStackTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	org.xcommand.datastructure.tree.AllTests.class,
 	ContextStackTest.class
 })
 public class AllTests
