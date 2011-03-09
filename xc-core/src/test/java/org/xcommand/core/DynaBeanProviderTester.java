@@ -1,6 +1,5 @@
 package org.xcommand.core;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.beans.PropertyDescriptor;
 
@@ -74,7 +73,7 @@ public class DynaBeanProviderTester
 
 	@Test public void testPerson1()
 	{
-		Person1 p1 = new Person1();
+		DelegatingPerson p1 = new DelegatingPerson(dbpM.newBeanForInterface(IPerson.class));
 		assertNull(p1.getFirstName());
 		assertNull(p1.getLastName());
 
@@ -94,7 +93,7 @@ public class DynaBeanProviderTester
 	}
 	@Test public void test21()
 	{
-		Person1 p1 = new Person1();
+		DelegatingPerson p1 = new DelegatingPerson(dbpM.newBeanForInterface(IPerson.class));
 		BeanWrapper bw = new BeanWrapperImpl(p1);
 		PropertyDescriptor[] descriptors = bw.getPropertyDescriptors();
 		assertEquals(4, descriptors.length);

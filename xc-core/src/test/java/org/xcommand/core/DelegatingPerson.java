@@ -2,12 +2,12 @@ package org.xcommand.core;
 
 import java.util.Date;
 
-public class Person1 implements IPerson
+public class DelegatingPerson implements IPerson
 {
 
-	public Person1()
+	public DelegatingPerson(final IPerson aDelegate)
 	{
-		delegate = DBP.newBeanForInterface(IPerson.class);
+		delegate = aDelegate;
 	}
 
 	@Override
@@ -46,5 +46,4 @@ public class Person1 implements IPerson
 		delegate.setBirthDate(aBirthDate);
 	}
 	private final IPerson delegate;
-	private static final IDynaBeanProvider DBP = DynaBeanProvider.newThreadBasedDynabeanProvider(new MethodKeyProvider());
 }
