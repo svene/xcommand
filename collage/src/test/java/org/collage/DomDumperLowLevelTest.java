@@ -13,12 +13,8 @@ import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
-import org.xcommand.misc.IMessageCommandCV;
-import org.xcommand.pattern.observer.AbstractBasicNotifier;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
@@ -29,16 +25,12 @@ import static org.junit.Assert.assertThat;
 public class DomDumperLowLevelTest
 {
 
+	private TestHelper th;
+
 	@Before
 	public void setUp() throws Exception
 	{
 		th = new TestHelper();
-		ddth = new DomDumpingTestHelper();
-
-		// Setup Evaluation context:
-		lst = new ArrayList<String>();
-		messageCommandCV.setList(lst);
-		stringHandlerCV.setString("dummy");
 	}
 
 	@Test
@@ -67,59 +59,13 @@ public class DomDumperLowLevelTest
 	}
 
 	@Test
-	public void testWithHandlersAndSystemOut()
-	{
-		StringHandlerCommand dbg = new StringHandlerCommand(new IStringHandler() {
-			@Override
-			public void handleString(Map aCtx, String aString) {
-				System.out.printf("'*%s*'", aString);
-			}
-		});
-
-		IStringHandler sh = Mockito.mock(IStringHandler.class);
-		StringHandlerCommand shCmd = new StringHandlerCommand(sh);
-		// Setup:
-		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-
-		hp.getTextNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToTextTransformer(), new TextToStringExtractor(), dbg, shCmd)));
-
-		hp.getVariableNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToVariableTransformer(), new VariableToVariableNameExtractor(), new VariableNameToValueTransformer(), dbg, shCmd)));
-
-		hp.getJavaNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToJavaTransformer(), new JavaToStringExtractor(), dbg, shCmd)));
-
-		//TODO: think about this:
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeNotifier().registerObserver(cmd);
-
-		// Setup dynamic data:
-		_treeNodeCV.setTreeNode(th.rootNode);
-		TCP.getContext().put("firstname", "Uli");
-
-		// Execution:
-		tt.execute();
-
-		// Verification:
-		Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.<Map>any(), Mockito.<String>any());
-		final InOrder inOrder = Mockito.inOrder(sh);
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Hallo "));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Uli"));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("! Willkommen bei uns.\n"));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("<?java int i = 1 ?>"));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("d\n"));
-	}
-
-	@Test
 	public void testWithHandlersUsingLowlevelObserverRegistration()
 	{
 		// Setup:
 		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 		final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
-
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
+
 		final IStringMockHook textMockHook = Mockito.mock(IStringMockHook.class);
 		hp.getTextNotifier().registerObserver(new TextMockHookCommand(textMockHook, treeNodeCV));
 
@@ -148,6 +94,59 @@ public class DomDumperLowLevelTest
 		inOrder.verify(javaMockHook).hookRoutineForMockVerification(" int i = 1 ");
 		inOrder.verify(textMockHook).hookRoutineForMockVerification("d\n");
 	}
+
+	@Test
+	public void testWithHandlersAndSystemOut()
+	{
+		// TODO: think about what we really want to test here. The difference to previous test is that here
+		// we use classes like 'DomObjToTextTransformer', 'TextToStringExtractor', etc.
+		// but those could be tested standalone if necessary at all.
+
+		// Setup:
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+		IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+		stringHandlerCV.setString("dummy");
+
+		IStringHandler sh = Mockito.mock(IStringHandler.class);
+		StringHandlerCommand shCmd = new StringHandlerCommand(sh);
+		// Setup:
+		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
+		DomEventHandlerProvider hp = new DomEventHandlerProvider();
+
+		hp.getTextNotifier().registerObserver(new ListCommand(
+			Arrays.asList(new DomObjToTextTransformer(), new TextToStringExtractor(), shCmd)));
+
+		hp.getVariableNotifier().registerObserver(new ListCommand(
+			Arrays.asList(new DomObjToVariableTransformer(), new VariableToVariableNameExtractor(), new VariableNameToValueTransformer(), shCmd)));
+
+		hp.getJavaNotifier().registerObserver(new ListCommand(
+			Arrays.asList(new DomObjToJavaTransformer(), new JavaToStringExtractor(), shCmd)));
+
+		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+		tt.getEnterNodeNotifier().registerObserver(cmd);
+
+		// Setup dynamic data:
+		treeNodeCV.setTreeNode(th.rootNode);
+		TCP.getContext().put("firstname", "Uli");
+
+		// Execution:
+		tt.execute();
+
+		// Verification:
+		Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.<Map>any(), Mockito.<String>any());
+		final InOrder inOrder = Mockito.inOrder(sh);
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Hallo "));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Uli"));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("! Willkommen bei uns.\n"));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("<?java int i = 1 ?>"));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("d\n"));
+	}
+
+
+
+
+// --- Implementation ---
 
 	private interface IStringMockHook {
 		void hookRoutineForMockVerification(String aString);
@@ -192,60 +191,4 @@ public class DomDumperLowLevelTest
 		}
 	}
 
-	/** Writing to list to test output, using DomDumpingHandlerProvider for highlevel observer registration */
-	@Test
-	public void testWithHandlersAndList2()
-	{
-		// Setup:
-		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-		hp.getTextNotifier().registerObserver(newDomDumpingTextObserver(true, true));
-		hp.getVariableNotifier().registerObserver(newDomDumpingVariableObserver(true, true));
-		hp.getJavaNotifier().registerObserver(newDomDumpingJavaObserver(true, true));
-
-		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeNotifier().registerObserver(cmd);
-
-		// Execution:
-		_treeNodeCV.setTreeNode(th.rootNode);
-
-		tt.execute();
-
-		assertEquals(5, lst.size());
-		assertEquals("@@@ TEXT: 'Hallo '", lst.get(0));
-		assertEquals("@@@ VARIABLE: 'firstname'", lst.get(1));
-		String sExpected = "@@@ TEXT: '! Willkommen bei uns.\n'";
-		assertEquals(sExpected, lst.get(2));
-		assertEquals("@@@ JAVA CODE: '<?java int i = 1 ?>'", lst.get(3));
-		assertEquals("@@@ TEXT: 'd\n'", lst.get(4));
-	}
-
-	private ICommand newDomDumpingTextObserver(boolean aPrint, boolean aList)
-	{
-		ICommand cmd = ddth.newDomDumpingTextObserver();
-		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
-		return cmd;
-	}
-	private ICommand newDomDumpingVariableObserver(boolean aPrint, boolean aList)
-	{
-		ICommand cmd = ddth.newDomDumpingVariableObserver();
-		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
-		return cmd;
-	}
-	private ICommand newDomDumpingJavaObserver(boolean aPrint, boolean aList)
-	{
-		ICommand cmd = ddth.newDomDumpingJavaObserver();
-		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
-		return cmd;
-	}
-
-// --- Implementation ---
-
-	TestHelper th;
-	DomDumpingTestHelper ddth;
-	List<String> lst;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV _treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

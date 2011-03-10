@@ -1,24 +1,23 @@
 package org.collage;
 
-import org.collage.dom.evaluator.common.StringHandlerCommand;
-import org.collage.dom.evaluator.common.SystemOutStringHandler;
-import org.collage.dom.evaluator.common.ListAddingStringHandler;
-import org.collage.dom.evaluator.common.WritingStringHandler;
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
+import org.collage.dom.evaluator.common.ListAddingStringHandler;
+import org.collage.dom.evaluator.common.StringHandlerCommand;
+import org.collage.dom.evaluator.common.SystemOutStringHandler;
+import org.collage.dom.evaluator.common.WritingStringHandler;
 import org.collage.template.TemplateCompiler;
-import org.xcommand.core.ICommand;
+import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
-import org.xcommand.misc.MessageCommand;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 import org.xcommand.template.parser.IParserCV;
 import org.xcommand.util.ResourceUtil;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class TestHelper
 {
@@ -52,22 +51,6 @@ public class TestHelper
 	StringHandlerCommand soutCmd;
 	StringHandlerCommand lstCmd;
 	StringHandlerCommand pwCmd;
-
-	ICommand enterCmd = new MessageCommand()
-	{
-		public String getMessage()
-		{
-			return "entering TreeNode: " + treeNodeCV.getTreeNode().getDomainObject().getClass().getName();
-		}
-	};
-	ICommand exitCmd = new MessageCommand()
-	{
-		public String getMessage()
-		{
-			return "leaving TreeNode: " + treeNodeCV.getTreeNode().getDomainObject().getClass().getName();
-		}
-
-	};
 
 	ITreeNode rootNode;
 
