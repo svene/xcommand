@@ -35,6 +35,7 @@ public class DomDumpingTestHelper
 	private ICommand textDumper = new ICommand()
 	{
 
+		@Override
 		public void execute()
 		{
 			String s = stringHandlerCV.getString();
@@ -45,6 +46,7 @@ public class DomDumpingTestHelper
 	private ICommand variableDumper = new ICommand()
 	{
 
+		@Override
 		public void execute()
 		{
 			String s = stringHandlerCV.getString();
@@ -55,6 +57,7 @@ public class DomDumpingTestHelper
 	private ICommand javaDumper = new ICommand()
 	{
 
+		@Override
 		public void execute()
 		{
 			String s = stringHandlerCV.getString();

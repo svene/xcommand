@@ -9,6 +9,7 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 
 public class DomObjToVariableTransformer implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		ITreeNode node = treeNodeCV.getTreeNode();

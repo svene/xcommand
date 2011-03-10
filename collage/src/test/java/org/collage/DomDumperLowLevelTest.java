@@ -66,7 +66,6 @@ public class DomDumperLowLevelTest
 		assertEquals(0, child.getChildren().size());
 	}
 
-	/** Writing to System.out only */
 	@Test
 	public void testWithHandlersAndSystemOut()
 	{
@@ -84,20 +83,20 @@ public class DomDumperLowLevelTest
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 
 		hp.getTextNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToTextTransformer(), new TextToStringExtractor(), /*th.soutCmd*/dbg, shCmd)));
+			Arrays.asList(new DomObjToTextTransformer(), new TextToStringExtractor(), dbg, shCmd)));
 
 		hp.getVariableNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToVariableTransformer(), new VariableToVariableNameExtractor(), new VariableNameToValueTransformer(), /*th.soutCmd*/dbg, shCmd)));
+			Arrays.asList(new DomObjToVariableTransformer(), new VariableToVariableNameExtractor(), new VariableNameToValueTransformer(), dbg, shCmd)));
 
 		hp.getJavaNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToJavaTransformer(), new JavaToStringExtractor(), /*th.soutCmd*/dbg, shCmd)));
+			Arrays.asList(new DomObjToJavaTransformer(), new JavaToStringExtractor(), dbg, shCmd)));
 
 		//TODO: think about this:
 		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// Setup dynamic data:
-		treeNodeCV.setTreeNode(th.rootNode);
+		_treeNodeCV.setTreeNode(th.rootNode);
 		TCP.getContext().put("firstname", "Uli");
 
 		// Execution:
@@ -113,58 +112,84 @@ public class DomDumperLowLevelTest
 		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("d\n"));
 	}
 
-	/** Writing to System.out and to list to test output, using lowlevel observer registration */
 	@Test
-	public void testWithHandlersAndSoutAndList()
+	public void testWithHandlersUsingLowlevelObserverRegistration()
 	{
 		// Setup:
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-		List list = new ArrayList();
-		list.add(new DomObjToTextTransformer());
-		list.add(new TextToStringExtractor());
-		list.add(ddth.getTextDumper());
-		list.add(th.soutCmd);
-		list.add(th.lstCmd);
-		ListCommand lc = new ListCommand();
-		lc.setCommands(list);
-		hp.getTextNotifier().registerObserver(lc);
+		final IStringMockHook textMockHook = Mockito.mock(IStringMockHook.class);
+		hp.getTextNotifier().registerObserver(new TextMockHookCommand(textMockHook, treeNodeCV));
 
-		list = new ArrayList();
-		list.add(new DomObjToVariableTransformer());
-		list.add(new VariableToVariableNameExtractor());
-		list.add(ddth.getVariableDumper());
-		list.add(th.soutCmd);
-		list.add(th.lstCmd);
-		lc = new ListCommand();
-		lc.setCommands(list);
-		hp.getVariableNotifier().registerObserver(lc);
+		final IStringMockHook variableMockHook = Mockito.mock(IStringMockHook.class);
+		hp.getVariableNotifier().registerObserver(new VariableMockHookCommand(variableMockHook, treeNodeCV));
 
-		list = new ArrayList();
-		list.add(new DomObjToJavaTransformer());
-		list.add(new JavaToStringExtractor());
-		list.add(ddth.getJavaDumper());
-		list.add(th.soutCmd);
-		list.add(th.lstCmd);
-		lc = new ListCommand();
-		lc.setCommands(list);
-		hp.getJavaNotifier().registerObserver(lc);
+		final IStringMockHook javaMockHook = Mockito.mock(IStringMockHook.class);
+		hp.getJavaNotifier().registerObserver(new JavaMockHookCommand(javaMockHook, treeNodeCV));
 
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeNotifier().registerObserver(cmd);
-
-		// Execution:
+		tt.getEnterNodeNotifier().registerObserver(TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp));
 		treeNodeCV.setTreeNode(th.rootNode);
 
+		// Execution:
 		tt.execute();
 
-		assertEquals(5, lst.size());
-		assertEquals("@@@ TEXT: 'Hallo '", lst.get(0));
-		assertEquals("@@@ VARIABLE: 'firstname'", lst.get(1));
-		String sExpected = "@@@ TEXT: '! Willkommen bei uns.\n'";
-		assertEquals(sExpected, lst.get(2));
-		assertEquals("@@@ JAVA CODE: '<?java int i = 1 ?>'", lst.get(3));
-		assertEquals("@@@ TEXT: 'd\n'", lst.get(4));
+		// Verification:
+		Mockito.verify(textMockHook, Mockito.times(3)).hookRoutineForMockVerification(Mockito.anyString());
+		Mockito.verify(variableMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
+		Mockito.verify(javaMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
+
+		final InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
+		inOrder.verify(textMockHook).hookRoutineForMockVerification("Hallo ");
+		inOrder.verify(variableMockHook).hookRoutineForMockVerification("firstname");
+		inOrder.verify(textMockHook).hookRoutineForMockVerification("! Willkommen bei uns.\n");
+		inOrder.verify(javaMockHook).hookRoutineForMockVerification(" int i = 1 ");
+		inOrder.verify(textMockHook).hookRoutineForMockVerification("d\n");
+	}
+
+	private interface IStringMockHook {
+		void hookRoutineForMockVerification(String aString);
+	}
+
+	private static abstract class AbstractMockHookCommand implements ICommand {
+		protected final IStringMockHook stringMockHook;
+		protected final ITreeNodeCV treeNodeCV;
+		public AbstractMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+			stringMockHook = aStringMockHook;
+			treeNodeCV = aTreeNodeCV;
+		}
+	}
+	private static class TextMockHookCommand extends AbstractMockHookCommand {
+		public TextMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+			super(aStringMockHook, aTreeNodeCV);
+		}
+		@Override
+		public void execute() {
+			final Text text = (Text) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
+			stringMockHook.hookRoutineForMockVerification(text.getValue());
+		}
+	}
+	private static class VariableMockHookCommand extends AbstractMockHookCommand {
+		public VariableMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+			super(aStringMockHook, aTreeNodeCV);
+		}
+		@Override
+		public void execute() {
+			final Variable v = (Variable) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
+			stringMockHook.hookRoutineForMockVerification(v.getVariableName());
+		}
+	}
+	private static class JavaMockHookCommand extends AbstractMockHookCommand {
+		public JavaMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+			super(aStringMockHook, aTreeNodeCV);
+		}
+		@Override
+		public void execute() {
+			final Java java = (Java) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
+			stringMockHook.hookRoutineForMockVerification(java.getValue());
+		}
 	}
 
 	/** Writing to list to test output, using DomDumpingHandlerProvider for highlevel observer registration */
@@ -182,7 +207,7 @@ public class DomDumperLowLevelTest
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// Execution:
-		treeNodeCV.setTreeNode(th.rootNode);
+		_treeNodeCV.setTreeNode(th.rootNode);
 
 		tt.execute();
 
@@ -220,7 +245,7 @@ public class DomDumperLowLevelTest
 	DomDumpingTestHelper ddth;
 	List<String> lst;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+	ITreeNodeCV _treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
 	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }
