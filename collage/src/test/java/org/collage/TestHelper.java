@@ -75,8 +75,7 @@ public class TestHelper
 
 	private ITreeNode compileTemplate() throws FileNotFoundException
 	{
-		final String fileName = "in.txt";
-		InputStream is = ResourceUtil.newInputStreamFromFilename(fileName);
+		InputStream is = ResourceUtil.newInputStreamFromResourceLocation("in.txt");
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 		

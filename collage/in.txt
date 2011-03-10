@@ -1,3 +1,0 @@
-Hallo ${firstname}! Willkommen bei uns.
-<?java int i = 1 ?>
-d

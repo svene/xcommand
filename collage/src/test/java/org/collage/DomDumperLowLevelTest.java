@@ -1,9 +1,6 @@
 package org.collage;
 
-import org.collage.dom.ast.DomEventHandlerProvider;
-import org.collage.dom.ast.DomObjToJavaTransformer;
-import org.collage.dom.ast.DomObjToTextTransformer;
-import org.collage.dom.ast.DomObjToVariableTransformer;
+import org.collage.dom.ast.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.dom.evaluator.common.TextToStringExtractor;
 import org.collage.dom.evaluator.common.VariableToVariableNameExtractor;
@@ -12,6 +9,7 @@ import org.collage.dom.evaluator.text.VariableNameToValueTransformer;
 import org.junit.Before;
 import org.junit.Test;
 import org.xcommand.core.*;
+import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
@@ -22,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.junit.Assert.assertThat;
 
 public class DomDumperLowLevelTest
 {
@@ -39,30 +40,28 @@ public class DomDumperLowLevelTest
 	}
 
 	@Test
-	public void testDomNodeEnterExitNodeTraversal()
+	public void testParsedFile()
 	{
-		// Setup NotifyingTreeNodeTraverser:
-		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-		tt.getEnterNodeNotifier().registerObserver(th.enterCmd);
-		tt.getExitNodeNotifier().registerObserver(th.exitCmd);
+		ITreeNode p = th.rootNode;
+		assertTrue(p instanceof RootNode);
+		{
+			assertEquals(5, p.getChildren().size());
 
-		// Use NotifyingTreeNodeTraverser:
-		treeNodeCV.setTreeNode(th.rootNode);
-		tt.execute();
+			verifyChildNode(p, 0, Text.class);
+			verifyChildNode(p, 1, Variable.class);
+			verifyChildNode(p, 2, Text.class);
+			verifyChildNode(p, 3, Java.class);
+			verifyChildNode(p, 4, Text.class);
+		}
+	}
 
-		assertEquals(12, lst.size());
-		assertEquals("entering TreeNode: org.collage.dom.ast.RootNode", lst.get(0));
-		assertEquals("entering TreeNode: org.collage.dom.ast.Text", lst.get(1));
-		assertEquals("leaving TreeNode: org.collage.dom.ast.Text", lst.get(2));
-		assertEquals("entering TreeNode: org.collage.dom.ast.Variable", lst.get(3));
-		assertEquals("leaving TreeNode: org.collage.dom.ast.Variable", lst.get(4));
-		assertEquals("entering TreeNode: org.collage.dom.ast.Text", lst.get(5));
-		assertEquals("leaving TreeNode: org.collage.dom.ast.Text", lst.get(6));
-		assertEquals("entering TreeNode: org.collage.dom.ast.Java", lst.get(7));
-		assertEquals("leaving TreeNode: org.collage.dom.ast.Java", lst.get(8));
-		assertEquals("entering TreeNode: org.collage.dom.ast.Text", lst.get(9));
-		assertEquals("leaving TreeNode: org.collage.dom.ast.Text", lst.get(10));
-		assertEquals("leaving TreeNode: org.collage.dom.ast.RootNode", lst.get(11));
+	/**
+	 * Verify that child 'aIdx' of 'aParentNode' is of type 'aChildClass' and has no children.
+	 */
+	private void verifyChildNode(ITreeNode aParentNode, int aIdx, Class<?> aChildClass) {
+		final ITreeNode child = aParentNode.getChildren().get(aIdx);
+		assertThat(child.getDomainObject(), instanceOf(aChildClass));
+		assertEquals(0, child.getChildren().size());
 	}
 
 	/** Writing to System.out only */
