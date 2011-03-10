@@ -1,13 +1,13 @@
 package org.collage;
 
 import org.collage.dom.ast.*;
-import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.collage.dom.evaluator.common.TextToStringExtractor;
-import org.collage.dom.evaluator.common.VariableToVariableNameExtractor;
+import org.collage.dom.evaluator.common.*;
 import org.collage.dom.evaluator.text.JavaToStringExtractor;
 import org.collage.dom.evaluator.text.VariableNameToValueTransformer;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
 import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
@@ -17,7 +17,9 @@ import org.xcommand.misc.IMessageCommandCV;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -68,44 +70,47 @@ public class DomDumperLowLevelTest
 	@Test
 	public void testWithHandlersAndSystemOut()
 	{
+		StringHandlerCommand dbg = new StringHandlerCommand(new IStringHandler() {
+			@Override
+			public void handleString(Map aCtx, String aString) {
+				System.out.printf("'*%s*'", aString);
+			}
+		});
+
+		IStringHandler sh = Mockito.mock(IStringHandler.class);
+		StringHandlerCommand shCmd = new StringHandlerCommand(sh);
 		// Setup:
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-		List list = new ArrayList();
-		list.add(new DomObjToTextTransformer());
-		list.add(new TextToStringExtractor());
-		list.add(th.soutCmd);
-		ListCommand lc = new ListCommand();
-		lc.setCommands(list);
-		hp.getTextNotifier().registerObserver(lc);
 
-		list = new ArrayList();
-		list.add(new DomObjToVariableTransformer());
-		list.add(new VariableToVariableNameExtractor());
-		list.add(new VariableNameToValueTransformer());
-		list.add(th.soutCmd);
-		lc = new ListCommand();
-		lc.setCommands(list);
-		hp.getVariableNotifier().registerObserver(lc);
+		hp.getTextNotifier().registerObserver(new ListCommand(
+			Arrays.asList(new DomObjToTextTransformer(), new TextToStringExtractor(), /*th.soutCmd*/dbg, shCmd)));
 
-		list = new ArrayList();
-		list.add(new DomObjToJavaTransformer());
-		list.add(new JavaToStringExtractor());
-		list.add(th.soutCmd);
-		lc = new ListCommand();
-		lc.setCommands(list);
-		hp.getJavaNotifier().registerObserver(lc);
+		hp.getVariableNotifier().registerObserver(new ListCommand(
+			Arrays.asList(new DomObjToVariableTransformer(), new VariableToVariableNameExtractor(), new VariableNameToValueTransformer(), /*th.soutCmd*/dbg, shCmd)));
+
+		hp.getJavaNotifier().registerObserver(new ListCommand(
+			Arrays.asList(new DomObjToJavaTransformer(), new JavaToStringExtractor(), /*th.soutCmd*/dbg, shCmd)));
 
 		//TODO: think about this:
 		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
-		// Execution:
-
 		// Setup dynamic data:
 		treeNodeCV.setTreeNode(th.rootNode);
 		TCP.getContext().put("firstname", "Uli");
+
+		// Execution:
 		tt.execute();
+
+		// Verification:
+		Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.<Map>any(), Mockito.<String>any());
+		final InOrder inOrder = Mockito.inOrder(sh);
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Hallo "));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Uli"));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("! Willkommen bei uns.\n"));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("<?java int i = 1 ?>"));
+		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("d\n"));
 	}
 
 	/** Writing to System.out and to list to test output, using lowlevel observer registration */

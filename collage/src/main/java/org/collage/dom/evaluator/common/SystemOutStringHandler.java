@@ -7,6 +7,7 @@ import java.util.Map;
 public class SystemOutStringHandler implements IStringHandler
 {
 
+	@Override
 	public void handleString(Map aCtx, String aString)
 	{
 		System.out.println(aString);

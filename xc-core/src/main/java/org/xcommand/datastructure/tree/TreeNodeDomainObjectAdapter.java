@@ -13,6 +13,7 @@ class TreeNodeDomainObjectAdapter extends NestableObjectAdapter
 		super(aNestedAdapter);
 	}
 
+	@Override
 	public Object adaptedObject(Object aSourceObject)
 	{
 		ITreeNode tn = (ITreeNode) (super.adaptedObject(aSourceObject));

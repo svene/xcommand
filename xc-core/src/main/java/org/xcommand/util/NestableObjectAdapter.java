@@ -12,10 +12,10 @@ public class NestableObjectAdapter implements IObjectAdapter
 
 // --- Access ---
 
+	@Override
 	public Object adaptedObject(Object aSourceObject)
 	{
-		if (nestedAdapter == null) return aSourceObject;
-		return nestedAdapter.adaptedObject(aSourceObject);
+		return nestedAdapter == null ? aSourceObject : nestedAdapter.adaptedObject(aSourceObject);
 	}
 
 // --- Implementation ---

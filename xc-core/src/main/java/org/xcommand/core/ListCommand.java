@@ -9,34 +9,38 @@ import java.util.Iterator;
  */
 public class ListCommand implements ICommand
 {
+	public ListCommand() {
+	}
+
+	public ListCommand(List<? extends ICommand> aCommands) {
+		commands = aCommands;
+	}
 
 // --- Access ---
 
-	public List getCommands()
+	public List<? extends ICommand> getCommands()
 	{
 		return commands;
 	}
 
 // --- Setting ---
 
-	public void setCommands(List aCommands)
+	public void setCommands(List<? extends ICommand> aCommands)
 	{
 		commands = aCommands;
 	}
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
-		Iterator it = commands.iterator();
-		while (it.hasNext())
-		{
-			ICommand cmd = (ICommand) it.next();
-			cmd.execute();
+		for (ICommand command : commands) {
+			command.execute();
 		}
 	}
 
 // --- Implementation ---
 
-	private List/*<IXCommand>*/ commands = new ArrayList();
+	private List<? extends ICommand> commands = new ArrayList<ICommand>();
 }

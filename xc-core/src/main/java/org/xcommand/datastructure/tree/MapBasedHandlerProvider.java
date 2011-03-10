@@ -5,18 +5,19 @@ import org.xcommand.core.ICommand;
 import java.util.Map;
 
 /**
- * `IHandlerProvider' using a handlerMap to lookup a handler 
+ * `IHandlerProvider' using a 'java.util.Map' to lookup a handler
  */
 public class MapBasedHandlerProvider implements IHandlerProvider
 {
 
 // --- Access ---
 
-	public Map<Object, ICommand> getHandlerMap()
+	public Map<Object, ? extends ICommand> getHandlerMap()
 	{
 		return handlerMap;
 	}
 
+	@Override
 	public ICommand getHandler(Object aObj)
 	{
 		return handlerMap.get(aObj);
@@ -24,13 +25,13 @@ public class MapBasedHandlerProvider implements IHandlerProvider
 
 // --- Setting ---
 
-	public void setHandlerMap(Map<Object, ICommand> aHandlerMap)
+	public void setHandlerMap(Map<Object, ? extends ICommand> aHandlerMap)
 	{
 		handlerMap = aHandlerMap;
 	}
 
 // --- Implementation ---
 
-	private Map<Object, ICommand> handlerMap;
+	private Map<Object, ? extends ICommand> handlerMap;
 
 }

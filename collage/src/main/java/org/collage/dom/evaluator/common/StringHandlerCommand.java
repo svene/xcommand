@@ -13,6 +13,7 @@ public class StringHandlerCommand implements ICommand
 		stringHandler = aStringHandler;
 	}
 
+	@Override
 	public void execute()
 	{
 		String s = stringHandlerCV.getString();
