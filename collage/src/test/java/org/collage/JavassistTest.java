@@ -84,7 +84,7 @@ public class JavassistTest
 	{
 		System.out.println("JavassistTest.testJava3()");
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromStream(
-			ResourceUtil.newInputStreamFromFilename("java03_in.txt"));
+			ResourceUtil.newInputStreamFromResourceLocation("java03_in.txt"));
 
 		String s = "";
 		for (int i = 0; i < 10; i++)
@@ -108,7 +108,7 @@ public class JavassistTest
 		System.out.println("\njava5b:");
 		TCP.getContext().put("name", "${firstname} ${lastname}");
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(
-			new TemplateSource(ResourceUtil.newInputStreamFromFilename("java05_in.txt")));
+			new TemplateSource(ResourceUtil.newInputStreamFromResourceLocation("java05_in.txt")));
 		tc.execute();
 		String s = stringHandlerCV.getString();
 		System.out.println("---\n" + s);
@@ -137,7 +137,7 @@ public class JavassistTest
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("name", "${firstname} ${lastname}");
 
-		TemplateSource ts = new TemplateSource(ResourceUtil.newInputStreamFromFilename("java06_in.txt"));
+		TemplateSource ts = new TemplateSource(ResourceUtil.newInputStreamFromResourceLocation("java06_in.txt"));
 		TCP.popContext();
 		ICommand cmd = TemplateFactory.newRecursiveTemplateInstance(ts);
 		TCP.getContext().put("firstname", "Uli");
@@ -172,7 +172,7 @@ public class JavassistTest
 
 	private String fileContent(String aFilename) throws Exception
 	{
-		InputStream fis = ResourceUtil.newInputStreamFromFilename(aFilename);
+		InputStream fis = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		writeInputStreamToOutputStream(fis, bos);
 		return bos.toString();

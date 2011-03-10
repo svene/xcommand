@@ -58,7 +58,7 @@ public class TextTemplateTest
 	{
 		System.out.println("\n3:");
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(
-			new TemplateSource(ResourceUtil.newInputStreamFromFilename("in.txt")));
+			new TemplateSource(ResourceUtil.newInputStreamFromResourceLocation("in.txt")));
 		PrintWriter pw = new PrintWriter(System.out);
 		tc.setWriter(pw);
 		tc.execute();
@@ -101,7 +101,7 @@ public class TextTemplateTest
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("name", "${firstname} ${lastname}");
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(
-			ResourceUtil.newInputStreamFromFilename("java05_in.txt")));
+			ResourceUtil.newInputStreamFromResourceLocation("java05_in.txt")));
 		tc.execute();
 		String s = stringHandlerCV.getString();
 		System.out.println("---\n" + s);
