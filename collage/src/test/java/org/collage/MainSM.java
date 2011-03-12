@@ -1,6 +1,5 @@
 package org.collage;
 
-import junit.framework.TestCase;
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
@@ -9,6 +8,7 @@ import org.collage.dom.evaluator.text.TextTraverser;
 import org.collage.dom.evaluator.IEvaluationCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateCompiler;
+import org.junit.Test;
 import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
@@ -17,69 +17,84 @@ import org.xcommand.template.parser.IParserCV;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 
-public class MainSM extends TestCase
+import static org.junit.Assert.*;
+
+public class MainSM
 {
-	public static void main(String[] args)
+
+	@Test
+	public void testTemplateCompiler()
 	{
-		MainSM m = new MainSM();
-		m.test2();
-//		m.test3();
+		assertNull(treeNodeCV.getTreeNode());
+
+		// Compile template:
+		createASTforTemplateString("hallo ${firstname}.\nWie gehts?\n", Boolean.FALSE);
+		// Now the root node of the AST for the compiled template string is available via 'treeNodeCV.getTreeNode()'
+		assertNotNull(treeNodeCV.getTreeNode());
 	}
 
-	public void test2()
+	@Test
+	public void testTemplateEvaluation()
 	{
-		TCP.pushContext(new HashMap());
-		TemplateCompiler tc = new TemplateCompiler();
-		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		new DefaultDomNodeCreationHandlerInitializer().execute();
-		InputStream is = new ByteArrayInputStream("hallo ${firstname}.\nWie gehts?\n".getBytes());
-		parserCV.setInputStream(is);
-		tc.execute();
+		// Compile template:
+		createASTforTemplateString("hallo ${firstname}.\nWie gehts?\n", Boolean.FALSE);
 
-		ITreeNode rootNode = treeNodeCV.getTreeNode();
-		TextTraverser tt = new TextTraverser();
-//		ctx = new HashMap();
-		treeNodeCV.setTreeNode(rootNode);
-		evaluationCV.setWriter(new PrintWriter(System.out));
+		// Evaluate template with a binding (firstname=Uli):
+		StringWriter sw = new StringWriter();
+		evaluationCV.setWriter(sw);
 		TCP.getContext().put("firstname", "Uli");
-		tt.execute();
-		TCP.popContext();
+		new TextTraverser().execute();
+		assertEquals("hallo Uli.\nWie gehts?\n", sw.toString());
 	}
 
-	public void test3()
+	@Test
+	public void testTemplateWithJavaEvaluation()
 	{
-		TCP.pushContext(new HashMap());
-		TemplateCompiler tc = new TemplateCompiler();
-//		Map ctx = new HashMap();
-		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
-		new DefaultDomNodeCreationHandlerInitializer().execute();
-		InputStream is = new ByteArrayInputStream("hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n".getBytes());
-		parserCV.setInputStream(is);
-		tc.execute();
+		// Compile template:
+		createASTforTemplateString("hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n", Boolean.TRUE);
 
 		// Evaluate using DomDumper:
 		ITreeNode rootNode = treeNodeCV.getTreeNode();
-		TCP.popContext();
 
-//		NodeVisitor nv = new org.collage.dom.evaluator.java.javassist.Evaluator();
-		JavassistTraverser tt = new JavassistTraverser();
-//		ctx = new HashMap();
+		// Use new context to produce javaTemplateCommand:
 		TCP.pushContext(new HashMap());
 		stringHandlerCV.setString("dummy");
 		treeNodeCV.setTreeNode(rootNode);
-		tt.execute();
+		new JavassistTraverser().execute();
 		ICommand cmd = javaTemplateCmdCV.getTemplateComand();
 		TCP.popContext();
 
+		// Evaluate template with a binding (firstname=Sven):
 		TCP.pushContext(new HashMap());
-//		ctx = new HashMap();
 		TCP.getContext().put("firstname", "Sven");
-		evaluationCV.setWriter(new PrintWriter(System.out));
+		StringWriter sw = new StringWriter();
+		TCP.getContext().put("writer", sw); // todo: is there a CV for this?
 		cmd.execute();
 		TCP.popContext();
+		assertEquals("hallo  Sven.\nWie gehts?\n", sw.toString());
 	}
+
+	/**
+	 * AST available after execution via 'treeNodeCV.getTreeNode()'
+	 */
+	private void createASTforTemplateString(String aTemplateString, final Boolean aProduceJavaCode) {
+		TCP.pushContext(new HashMap());
+		domNodeCreationHandlerCV.setProduceJavaSource(aProduceJavaCode);
+		new DefaultDomNodeCreationHandlerInitializer().execute();
+		parserCV.setInputStream(new ByteArrayInputStream(aTemplateString.getBytes()));
+		new TemplateCompiler().execute();
+
+		// Get produced treeNode so that temporary context can be removed:
+		final ITreeNode treeNode = treeNodeCV.getTreeNode();
+		TCP.popContext();
+		// Now put treeNode on original context:
+		treeNodeCV.setTreeNode(treeNode);
+	}
+
+
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);

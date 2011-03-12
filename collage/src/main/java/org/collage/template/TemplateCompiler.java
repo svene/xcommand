@@ -17,6 +17,7 @@ public class TemplateCompiler implements ICommand
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 		InputStream is = parserCV.getInputStream();
