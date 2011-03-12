@@ -15,6 +15,9 @@ import static org.junit.Assert.assertEquals;
 
 public class JavassistTest
 {
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
+
 	@Before
 	public void initializeContext() throws Exception
 	{
@@ -127,70 +130,5 @@ public class JavassistTest
 		cmd.execute();
 		assertEquals("hallo Uli Ehrke. Wie gehts?", sw.toString());
 	}
-
-	/**
-	 * Demonstrate recursive template resolution
-	 * @deprecated moved to 'JavassistSpockTest'
-	 */
-	@Test public void testJavaRecursive() throws Exception
-	{
-		TCP.pushContext(new HashMap());
-		TCP.getContext().put("name", "${firstname} ${lastname}");
-
-		TemplateSource ts = new TemplateSource(ResourceUtil.newInputStreamFromResourceLocation("java06_in.txt"));
-		ICommand cmd = TemplateFactory.newRecursiveTemplateInstance(ts);
-		TCP.popContext();
-		TCP.getContext().put("firstname", "Uli");
-		TCP.getContext().put("lastname", "Ehrke");
-		cmd.execute();
-	}
-
-	/**
-	 * @deprecated moved to 'JavassistSpockTest'
-	 */
-	@Test public void testJava7() throws Exception
-	{
-		System.out.println("\njava7:");
-		String address = fileContent("java07_address.txt");
-		String nameAndAddress = fileContent("java07_nameandaddress.txt");
-		TCP.pushContext(new HashMap());
-		TCP.getContext().put("address", address);
-		TCP.getContext().put("person", nameAndAddress);
-
-		String person = fileContent("java07_person.txt");
-		TemplateSource ts = new TemplateSource(person);
-		ICommand cmd = TemplateFactory.newRecursiveTemplateInstance(ts);
-		TCP.popContext();
-		System.out.println("---");
-		cmd.execute();
-
-		TCP.getContext().put("firstname", "Uli");
-		TCP.getContext().put("lastname", "Ehrke");
-		System.out.println("---");
-		cmd.execute();
-	}
-
-// --- Implementation ---
-
-	private String fileContent(String aFilename) throws Exception
-	{
-		InputStream fis = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		writeInputStreamToOutputStream(fis, bos);
-		return bos.toString();
-	}
-
-	private static void writeInputStreamToOutputStream(InputStream a_is, OutputStream a_os)
-		throws IOException
-	{
-		byte[] buffer = new byte[4096];
-		int bytes_read;
-		while ((bytes_read = a_is.read(buffer)) != -1)
-		{
-			a_os.write(buffer, 0, bytes_read);
-		}
-	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 
 }

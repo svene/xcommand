@@ -1,7 +1,0 @@
-Header
-
-<?java for (int i = 0; i< 3; i++) {?>
-hallo ${name}.
-  Wie gehts?
-<?java }?>
-Footer
