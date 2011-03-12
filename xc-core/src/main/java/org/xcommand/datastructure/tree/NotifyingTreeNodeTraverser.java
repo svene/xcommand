@@ -27,6 +27,7 @@ public class NotifyingTreeNodeTraverser implements ICommand
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 		ITreeNode node = treeNodeCV.getTreeNode();
