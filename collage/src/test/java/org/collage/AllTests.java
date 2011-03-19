@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	DomDumperLowLevelTest.class,
 	TextTemplateTest.class,
+	TestHelperTest.class,
 	JavassistTest.class
 })
 public class AllTests

@@ -2,12 +2,13 @@ package org.collage;
 
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
-import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
-import org.collage.dom.evaluator.text.TextTraverser;
 import org.collage.dom.evaluator.IEvaluationCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
+import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
+import org.collage.dom.evaluator.text.TextTraverser;
 import org.collage.template.TemplateCompiler;
+import org.junit.Before;
 import org.junit.Test;
 import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.ITreeNode;
@@ -15,8 +16,6 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.template.parser.IParserCV;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 
@@ -24,6 +23,30 @@ import static org.junit.Assert.*;
 
 public class MainSM
 {
+
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private IParserCV parserCV;
+	private ITreeNodeCV treeNodeCV;
+	private IJavaTemplateCmdCV javaTemplateCmdCV;
+	private IEvaluationCV evaluationCV;
+	private IStringHandlerCV stringHandlerCV;
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV;
+
+	@Before
+	public void setUp() {
+		dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		parserCV = dbp.newBeanForInterface(IParserCV.class);
+		treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+		javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
+		evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
+		stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+		domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
+
+		TCP.pushContext(new HashMap());
+	}
+	public void tearDown() {
+		TCP.popContext();
+	}
 
 	@Test
 	public void testTemplateCompiler()
@@ -34,6 +57,7 @@ public class MainSM
 		createASTforTemplateString("hallo ${firstname}.\nWie gehts?\n", Boolean.FALSE);
 		// Now the root node of the AST for the compiled template string is available via 'treeNodeCV.getTreeNode()'
 		assertNotNull(treeNodeCV.getTreeNode());
+
 	}
 
 	@Test
@@ -95,12 +119,4 @@ public class MainSM
 	}
 
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
-	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.newBeanForInterface(IEvaluationCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
-		IDomNodeCreationHandlerCV.class);
 }

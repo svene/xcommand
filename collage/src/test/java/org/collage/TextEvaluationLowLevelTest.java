@@ -1,21 +1,16 @@
 package org.collage;
 
 import org.collage.dom.ast.DomEventHandlerProvider;
-import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.collage.dom.evaluator.text.TextHandlerProvider;
-import org.junit.Before;
 import org.junit.Test;
-import org.xcommand.core.*;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
+import org.xcommand.core.ClassAndMethodKeyProvider;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
-import org.xcommand.misc.IMessageCommandCV;
-import org.xcommand.pattern.observer.AbstractBasicNotifier;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class TextEvaluationLowLevelTest
 {
@@ -24,69 +19,39 @@ public class TextEvaluationLowLevelTest
 	public void test1() throws Exception
 	{
 		// Setup:
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-		hp.getTextNotifier().registerObserver(newTextObserver(true, true));
-		hp.getVariableNotifier().registerObserver(newVariableObserver(true, true));
-		hp.getJavaNotifier().registerObserver(newJavaObserver(true, true));
+
+		final TC.IStringMockHook textMockHook, variableMockHook, javaMockHook;
+
+		hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
+		hp.getVariableNotifier().registerObserver(new TC.VariableValueMockHookCommand(variableMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
+		hp.getJavaNotifier().registerObserver(new TC.JavaMockHookCommand(javaMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
 
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		//TODO: think about this:
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-		tt.getEnterNodeNotifier().registerObserver(cmd);
+		tt.getEnterNodeNotifier().registerObserver(TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp));
 
-		// === Execution === :
 		// Setup dynamic data:
-		treeNodeCV.setTreeNode(th.rootNode);
+		treeNodeCV.setTreeNode(new TestHelper().rootNode);
 		TCP.getContext().put("firstname", "Uli");
 
-		// Execute evalutation:
+		// Execution:
 		tt.execute();
 
-		assertEquals(5, lst.size());
-		assertEquals("Hallo ", lst.get(0));
-		assertEquals("Uli", lst.get(1));
-		String sExpected = "! Willkommen bei uns.\n";
-		assertEquals(sExpected, lst.get(2));
-		assertEquals("<?java int i = 1 ?>", lst.get(3));
-		assertEquals("d\n", lst.get(4));
+		// Verification:
+		Mockito.verify(textMockHook, Mockito.times(3)).hookRoutineForMockVerification(Mockito.anyString());
+		Mockito.verify(variableMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
+		Mockito.verify(javaMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
+
+		final InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
+		inOrder.verify(textMockHook).hookRoutineForMockVerification("Hallo ");
+		inOrder.verify(variableMockHook).hookRoutineForMockVerification("Uli");
+		inOrder.verify(textMockHook).hookRoutineForMockVerification("! Willkommen bei uns.\n");
+		inOrder.verify(javaMockHook).hookRoutineForMockVerification(" int i = 1 ");
+		inOrder.verify(textMockHook).hookRoutineForMockVerification("d\n");
 	}
 
-// --- Implementation ---
-
-	private ICommand newTextObserver(boolean aPrint, boolean aList)
-	{
-		ICommand cmd = new TextHandlerProvider().newTextObserver();
-		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
-		return cmd;
-	}
-	private ICommand newVariableObserver(boolean aPrint, boolean aList)
-	{
-		ICommand cmd = new TextHandlerProvider().newVariableObserver();
-		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
-		return cmd;
-	}
-	private ICommand newJavaObserver(boolean aPrint, boolean aList)
-	{
-		ICommand cmd = new TextHandlerProvider().newJavaObserver();
-		th.attachTestObservers((AbstractBasicNotifier) cmd, aPrint, aList);
-		return cmd;
-	}
-
-	@Before
-	public void setUp() throws Exception
-	{
-		th = new TestHelper();
-
-		// Setup Evaluation context:
-		lst = new ArrayList<String>();
-		messageCommandCV.setList(lst);
-		stringHandlerCV.setString("dummy");
-	}
-
-	TestHelper th;
-	List<String> lst;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	IMessageCommandCV messageCommandCV = (IMessageCommandCV) dbp.newBeanForInterface(IMessageCommandCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

@@ -1,7 +1,7 @@
 package org.collage;
 
 import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.collage.template.StaticStringTemplateCompiler;
+import org.collage.template.CachingTextTemplateCompiler;
 import org.collage.template.TextTemplateCompiler;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.xcommand.core.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class StaticStringTemplateCompilerTester
+public class CachingTextTemplateCompilerSample
 {
 
 	private static final int RUNS = 10000;
@@ -21,30 +21,27 @@ public class StaticStringTemplateCompilerTester
 	}
 
 	@Test
-	public void test1()
+	public void exerciseTextTemplateCompiler()
 	{
 		for (int i = 0; i < RUNS; i++)
 		{
-			ICommand cmd = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}. Wie gehts?");
-			cmd.execute();
-			String s = stringHandlerCV.getString();
-			assertEquals("hallo Uli. Wie gehts?", s);
+			new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}. Wie gehts?").execute();
+			assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
 		}
 	}
 
-	@Test public void test2()
+	/** Much faster than previous routine */
+	@Test public void exerciseCachingTextTemplateCompiler()
 	{
-		// On first template request `StaticStringTemplateCompiler' will compile unknown template:
-		ICommand cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
-		cmd.execute();
+		// On first template request `CachingTextTemplateCompiler' will compile unknown template:
+		new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();
 		String s = stringHandlerCV.getString();
 		assertEquals("hallo Uli. Wie gehts?", s);
 
-		// For further template request `StaticStringTemplateCompiler' should find template in cache: 
+		// For further template request `CachingTextTemplateCompiler' should find template in cache:
 		for (int i = 0; i < RUNS; i++)
 		{
-			cmd = new StaticStringTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?");
-			cmd.execute();
+			new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();
 			s = stringHandlerCV.getString();
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}

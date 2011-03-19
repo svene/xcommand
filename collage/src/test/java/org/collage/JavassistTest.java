@@ -36,10 +36,8 @@ public class JavassistTest
 	@Test
 	public void exerciseNewTemplateCommandFromStringUsingSystemOut()
 	{
-		System.out.println("JavassistTest.test1()");
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie geht's?\n");
 
-		System.out.println("-----------");
 		TCP.getContext().put("firstname", "Sven");
 		cmd.execute();
 	}
