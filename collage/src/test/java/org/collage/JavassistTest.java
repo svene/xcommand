@@ -97,36 +97,5 @@ public class JavassistTest
 		assertEquals(s, sw.toString());
 	}
 
-	/**
-	 * Demonstrate recursive template resolution
-	 */
-	@Test public void testJavaRecursiveInline() throws Exception
-	{
-		TCP.getContext().put("name", "${firstname} ${lastname}");
-		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommand(
-			new TemplateSource(ResourceUtil.newInputStreamFromResourceLocation("java05_in.txt"))); // file content: hallo ${name}. Wie gehts?
-		tc.execute();
-		String s = stringHandlerCV.getString();
-		assertEquals("hallo ${firstname} ${lastname}. Wie gehts?", s);
-
-		tc = new TextTemplateCompiler().newTemplateCommandFromString(s);
-		tc.execute();
-		s = stringHandlerCV.getString();
-		assertEquals("hallo Uli ${lastname}. Wie gehts?", s);
-
-		tc = new TextTemplateCompiler().newTemplateCommandFromString(s);
-		tc.execute();
-		s = stringHandlerCV.getString();
-		assertEquals("hallo Uli ${lastname}. Wie gehts?", s);
-
-		System.out.println("---\n" + s);
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(s);
-		TCP.getContext().put("firstname", "Uli");
-		TCP.getContext().put("lastname", "Ehrke");
-		StringWriter sw = new StringWriter();
-		TemplateCV.setWriter(sw);
-		cmd.execute();
-		assertEquals("hallo Uli Ehrke. Wie gehts?", sw.toString());
-	}
 
 }

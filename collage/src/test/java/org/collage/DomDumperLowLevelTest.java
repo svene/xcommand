@@ -74,14 +74,12 @@ public class DomDumperLowLevelTest
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 
-		hp.getTextNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToTextTransformer(), new TextToStringExtractor(), shCmd)));
+		hp.getTextNotifier().registerObserver(new ListCommand(new DomObjToTextTransformer(), new TextToStringExtractor(), shCmd));
 
-		hp.getVariableNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToVariableTransformer(), new VariableToVariableNameExtractor(), new VariableNameToValueTransformer(), shCmd)));
+		hp.getVariableNotifier().registerObserver(
+			new ListCommand(new DomObjToVariableTransformer(), new VariableToVariableNameExtractor(), new VariableNameToValueTransformer(), shCmd));
 
-		hp.getJavaNotifier().registerObserver(new ListCommand(
-			Arrays.asList(new DomObjToJavaTransformer(), new JavaToStringExtractor(), shCmd)));
+		hp.getJavaNotifier().registerObserver(new ListCommand(new DomObjToJavaTransformer(), new JavaToStringExtractor(), shCmd));
 
 		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		tt.getEnterNodeNotifier().registerObserver(cmd);

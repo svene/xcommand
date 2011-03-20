@@ -10,6 +10,7 @@ import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.template.parser.IParserCV;
+import org.xcommand.util.ResourceUtil;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -20,6 +21,10 @@ public class TextTemplateCompiler
 	public TemplateCommand newTemplateCommandFromString(String aString)
 	{
 		return newTemplateCommand(new TemplateSource(aString));
+	}
+	public TemplateCommand newTemplateCommandFromResourceName(String aResourceName)
+	{
+		return newTemplateCommand(new TemplateSource(ResourceUtil.newInputStreamFromResourceLocation(aResourceName)));
 	}
 
 	public TemplateCommand newTemplateCommand(TemplateSource aTemplateSource)

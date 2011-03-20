@@ -1,8 +1,8 @@
 package org.xcommand.core;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Command executing commands stored in a list
@@ -10,6 +10,10 @@ import java.util.Iterator;
 public class ListCommand implements ICommand
 {
 	public ListCommand() {
+	}
+
+	public ListCommand(ICommand... aCommands) {
+		this(Arrays.asList(aCommands));
 	}
 
 	public ListCommand(List<? extends ICommand> aCommands) {
