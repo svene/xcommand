@@ -9,26 +9,22 @@ import org.xcommand.pattern.observer.INotifier;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 public class FileSystemScanner implements ICommand
 {
-
-
+	@Override
 	public void execute()
 	{
-		Iterator it1 = rootDirs.iterator();
 		// Loop over all configured source directories,
-		while (it1.hasNext())
-		{
-			String rootDir = (String) it1.next();
+		for (String rootDir : rootDirs) {
 			fileSystemScannerCV.setRootDir(rootDir);
 			FilenameFilter fnf = fileSystemScannerCV.getFilenameFilter();
-			Iterator it = new DirectoryIteratorProvider(fnf).newIterator(rootDir);
-			while (it.hasNext())
-			{
-				File file = (File) it.next();
+			Iterator<File> it = new DirectoryIteratorProvider(fnf).newIterator(rootDir);
+			while (it.hasNext()) {
+				File file = it.next();
 				fileSystemScannerCV.setFile(file);
 				fileFoundNotifier.execute();
 			}
@@ -38,7 +34,7 @@ public class FileSystemScanner implements ICommand
 
 // --- Access ---
 
-	public List getRootDirs()
+	public List<String> getRootDirs()
 	{
 		return rootDirs;
 	}
@@ -50,17 +46,20 @@ public class FileSystemScanner implements ICommand
 
 // --- Setting ---
 
-	public void setRootDirs(List aRootDirs)
+	public void setRootDirs(String... aRootDirs) {
+		setRootDirs(Arrays.asList(aRootDirs));
+	}
+
+	public void setRootDirs(List<String> aRootDirs)
 	{
 		rootDirs = aRootDirs;
 	}
 
 // --- Implementation ---
 
-	private List rootDirs;
+	private List<String> rootDirs;
 	private INotifier fileFoundNotifier = new BasicNotifier();
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IFileSystemScannerCV fileSystemScannerCV = (IFileSystemScannerCV) dbp.newBeanForInterface(
-		IFileSystemScannerCV.class);
+	private IFileSystemScannerCV fileSystemScannerCV = (IFileSystemScannerCV) dbp.newBeanForInterface(IFileSystemScannerCV.class);
 
 }

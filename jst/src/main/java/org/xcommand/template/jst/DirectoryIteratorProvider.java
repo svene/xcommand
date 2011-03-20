@@ -11,21 +11,18 @@ public class DirectoryIteratorProvider
 
 	public DirectoryIteratorProvider(FilenameFilter aFilenameFilter)
 	{
-		javaFilenameFilter = aFilenameFilter;
+		filenameFilter = aFilenameFilter;
 	}
 
-	public DirectoryIteratorProvider(String aEnding)
+	@SuppressWarnings("unchecked")
+	public Iterator<File> newIterator(String aSrcDir)
 	{
-		ending = aEnding;
-	}
-
-	public Iterator newIterator(String aSrcDir)
-	{
-		return DirectoryIterator.traverseDirectories(new File[]{new File(aSrcDir)}, dirnameFilter, javaFilenameFilter);
+		return DirectoryIterator.traverseDirectories(new File[]{new File(aSrcDir)}, dirnameFilter, filenameFilter);
 	}
 
 	private FilenameFilter dirnameFilter = new FilenameFilter()
 	{
+		@Override
 		public boolean accept(File aFile, String aString)
 		{
 			// Accept all directory names:
@@ -33,15 +30,5 @@ public class DirectoryIteratorProvider
 		}
 	};
 
-	private FilenameFilter javaFilenameFilter = new FilenameFilter()
-	{
-		public boolean accept(File aFile, String aString)
-		{
-			return aString.endsWith(ending);
-		}
-	};
-
-
-	private String ending;
-
+	private FilenameFilter filenameFilter;
 }

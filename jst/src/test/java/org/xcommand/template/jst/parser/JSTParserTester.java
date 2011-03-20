@@ -36,8 +36,7 @@ public class JSTParserTester
 	@Test
 	public void test1() throws Exception
 	{
-		InputStream is = new ByteArrayInputStream("hi there!".getBytes());
-		JSTParser parser = newJSTParser(is);
+		JSTParser parser = newJSTParser(new ByteArrayInputStream("hi there!".getBytes()));
 
 		jstParserCV.setGeneratedJavaCode(new StringBuffer());
 		parser.Start();
@@ -47,8 +46,7 @@ public class JSTParserTester
 	@Test
 	public void test2() throws Exception
 	{
-		InputStream is = new ByteArrayInputStream("hi there! /*#some comment#*/".getBytes());
-		JSTParser parser = newJSTParser(is);
+		JSTParser parser = newJSTParser(new ByteArrayInputStream("hi there! /*#some comment#*/".getBytes()));
 		parser.Start();
 
 		assertEquals("hi there! $s(\"some comment\");", jstParserCV.getGeneratedJavaCode().toString());
@@ -57,8 +55,7 @@ public class JSTParserTester
 	@Test
 	public void test3() throws Exception
 	{
-		InputStream is = new ByteArrayInputStream("hi there! /*#af $jv{somename} jj#*/".getBytes());
-		JSTParser parser = newJSTParser(is);
+		JSTParser parser = newJSTParser(new ByteArrayInputStream("hi there! /*#af $jv{somename} jj#*/".getBytes()));
 		parser.Start();
 
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");", jstParserCV.getGeneratedJavaCode().toString());
@@ -67,8 +64,7 @@ public class JSTParserTester
 	@Test
 	public void test4() throws Exception
 	{
-		InputStream is = new FileInputStream("testdata/T1.txt");
-		JSTParser parser = newJSTParser(is);
+		JSTParser parser = newJSTParser(new FileInputStream("testdata/T1.txt"));
 		parser.Start();
 
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");\nhow are you?\n",

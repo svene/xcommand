@@ -52,9 +52,9 @@ public class JSTTester
 
 		StringWriter sw = new StringWriter();
 		TCP.getContext().put("writer", sw);
-		TCP.getContext().put("firstname", "Bart");
 		cmd.execute();
-		assertEquals("\n\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>\n\t<p>hallihallo</p>\n", sw.toString());
+		String bart = "\n\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>\n\t<p>hallihallo</p>\n";
+		assertEquals(bart, sw.toString());
 	}
 
 	@Test
