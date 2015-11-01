@@ -7,9 +7,21 @@ apply plugin: 'sonar'
 apply plugin: 'sonar'
 
 subprojects {
+	buildscript {
+		repositories {
+			maven {
+				url "https://plugins.gradle.org/m2/"
+			}
+		}
+		dependencies {
+			classpath "com.ofg:uptodate-gradle-plugin:1.6.2"
+		}
+	}
+
 	apply plugin: 'java'
 	apply plugin: 'groovy'
 	apply plugin: 'idea'
+	apply plugin: "com.ofg.uptodate"
 
 	repositories {
 		jcenter()

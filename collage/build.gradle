@@ -4,7 +4,7 @@ import JavaCCTask
 
 dependencies {
 	compile project(':xc-core')
-	compile "commons-lang:commons-lang:2.3"
+	compile "commons-lang:commons-lang:2.6"
 	compile "jboss:javassist:3.6.ga"
 	compile "net.java.dev.javacc:javacc:4.0"
 }
