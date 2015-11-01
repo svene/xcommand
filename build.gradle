@@ -33,14 +33,14 @@ subprojects {
 
 	dependencies {
 //		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
-		compile 'org.codehaus.groovy:groovy:1.7.8'
-		testCompile 'junit:junit:4.8'
-		testCompile 'org.testng:testng:5.14.10'
-		testCompile "org.spockframework:spock-core:0.5-groovy-1.7"
+		compile 'org.codehaus.groovy:groovy:2.4.5'
+		testCompile 'junit:junit:4.12'
+		testCompile 'org.testng:testng:6.9.9'
+		testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 		testCompile "cglib:cglib:2.2"
-		testCompile "org.mockito:mockito-all:1.8.5"
+		testCompile "org.mockito:mockito-all:1.10.19"
 
-		jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.5.3.201107060350", classifier: "runtime"
+		jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.7.5.201505241946", classifier: "runtime"
 	}
 
 	sourceCompatibility = 1.7
