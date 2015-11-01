@@ -1,4 +1,10 @@
+plugins {
+  id "com.ofg.uptodate" version "1.6.2"
+}
+
 apply plugin: 'idea'
+apply plugin: 'sonar'
+apply plugin: 'sonar'
 
 subprojects {
 	apply plugin: 'java'
@@ -6,23 +12,27 @@ subprojects {
 	apply plugin: 'idea'
 
 	repositories {
-	    mavenCentral()
-		mavenRepo urls:'http://repo.smokejumperit.com'
-		mavenRepo urls: "http://m2repo.spockframework.org/snapshots"
+		jcenter()
+	}
 
+	configurations {
+		jacoco
 	}
 
 	dependencies {
 //		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
-		groovy 'org.codehaus.groovy:groovy:1.7.8'
+		compile 'org.codehaus.groovy:groovy:1.7.8'
 		testCompile 'junit:junit:4.8'
 		testCompile 'org.testng:testng:5.14.10'
 		testCompile "org.spockframework:spock-core:0.5-groovy-1.7"
 		testCompile "cglib:cglib:2.2"
 		testCompile "org.mockito:mockito-all:1.8.5"
+
+		jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.5.3.201107060350", classifier: "runtime"
 	}
 
-	sourceCompatibility = 1.5
+	sourceCompatibility = 1.7
+	targetCompatibility = 1.7
 
 
 	task ('copyToLib', dependsOn: configurations.compile, type: Copy) {
@@ -42,17 +52,18 @@ subprojects {
 
 
 	version = '1.0'
+	/*
 	manifest.mainAttributes(
 		'Implementation-Title': 'xcommand',
 		'Implementation-Version': version
 	)
-
+*/
 	uploadArchives {
 		repositories {
 		   flatDir(dirs: file('_repos'))
 		}
 	}
-
+/*
 	task testng(type: Test) {
 		useTestNG()
 		testResultsDir = new File(project.testResultsDir, '../testng')
@@ -60,7 +71,27 @@ subprojects {
 	}
 
 	check.dependsOn testng
+*/
+sonar {
+  server {
+    url = System.getProperty("sonar.host.url") ?: "http://localhost:9000/"
+  }
 
+/*
+  database {
+    url = System.getProperty("sonar.jdbc.url") ?: "jdbc:derby://localhost:1527/sonar"
+    driverClassName = System.getProperty("sonar.jdbc.driver") ?: "org.apache.derby.jdbc.ClientDriver"
+    username = System.getProperty("sonar.jdbc.username") ?: "sonar"
+    password = System.getProperty("sonar.jdbc.password") ?: "sonar"
+  }
+*/
+
+  project {
+    withProjectProperties { props ->
+      props["sonar.core.codeCoveragePlugin"] = "jacoco"
+    }
+  }
+}
 
 }
 

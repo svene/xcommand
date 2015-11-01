@@ -12,6 +12,13 @@ dependencies {
 	compile "janino:janino:2.5.10"
 }
 
+sourceSets {
+	main {
+		java {
+			srcDir 'build/src/java'
+		}
+	}
+}
 
 task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
 	inputFile = 'jst.jj'

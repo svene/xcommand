@@ -9,10 +9,17 @@ dependencies {
 	compile "net.java.dev.javacc:javacc:4.0"
 }
 
+sourceSets {
+	main {
+		java {
+			srcDir 'build/src/java'
+		}
+	}
+}
 
 task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
-	inputFile = 'templateparser.jj' 
-	genDir = 'build/src/java/org/collage/jcc'
+	inputFile = file('templateparser.jj')
+	genDir = file('build/src/java/org/collage/jcc')
 }
 
 compileJava.dependsOn(jcc)
