@@ -7,8 +7,8 @@ dependencies {
 
 	compile "commons-lang:commons-lang:2.6"
 	compile "commons-io:commons-io:2.0.1"
-	compile "jboss:javassist:3.6.ga"
-	compile "net.java.dev.javacc:javacc:4.0"
+	compile "jboss:javassist:3.8.0.GA"
+	compile "net.java.dev.javacc:javacc:6.1.2"
 	compile "janino:janino:2.5.10"
 }
 

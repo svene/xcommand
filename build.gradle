@@ -56,9 +56,9 @@ subprojects {
 	}
 
 	task renameJCC(type: Copy, dependsOn: 'copyToLib') {
-		from('build/_artifacts/javacc-4.0.jar')
+		from('build/_artifacts/javacc-6.1.2.jar')
 		into('build/_artifacts')
-		rename('javacc-4.0.jar', 'javacc.jar')
+		rename('javacc-6.1.2.jar', 'javacc.jar')
 	}
 
 
