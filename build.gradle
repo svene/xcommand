@@ -37,13 +37,12 @@ subprojects {
 	targetCompatibility = 1.8
 
 
-/*
-	task ('copyToLib', dependsOn: configurations.compile, type: Copy) {
+	task ('copyToLib', type: Copy) {
 		    into('build/_artifacts')
 		    from configurations.default
-		    from configurations.testCompile
+		    from configurations.compileClasspath
 		    from configurations.default.allArtifacts*.file
-		    from configurations.testCompile.allArtifacts*.file
+		    from configurations.compileClasspath.allArtifacts*.file
 	}
 
 	task renameJCC(type: Copy, dependsOn: 'copyToLib') {
@@ -51,17 +50,7 @@ subprojects {
 		into('build/_artifacts')
 		rename('javacc-6.1.2.jar', 'javacc.jar')
 	}
-*/
-
-
 
 	version = '1.0'
-/*
-	uploadArchives {
-		repositories {
-		   flatDir(dirs: file('_repos'))
-		}
-	}
-*/
 }
 

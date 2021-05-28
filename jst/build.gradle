@@ -1,12 +1,9 @@
-//apply plugin: JavaCCPlugin
-
-import JavaCCTask
-
 dependencies {
 	implementation project(':xc-core')
 
 	implementation "commons-lang:commons-lang:2.6"
 	implementation "commons-io:commons-io:2.4"
+	implementation "javax.servlet:javax.servlet-api:3.0.1"
 	implementation "jboss:javassist:3.8.0.GA"
 	implementation "net.java.dev.javacc:javacc:6.1.2"
 	implementation "janino:janino:2.5.10"
@@ -21,12 +18,11 @@ sourceSets {
 }
 
 task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
-	inputFile = 'jst.jj'
-	genDir = 'build/src/java/org/xcommand/template/jst/parser'
+	inputFile 'src/main/javacc/jst.jj'
+	genDir 'build/src/java/org/xcommand/template/jst/parser'
 }
 
 compileJava.dependsOn(jcc)
-
 
 task listJars {
 	doLast {

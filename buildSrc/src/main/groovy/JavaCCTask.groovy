@@ -2,10 +2,10 @@ import org.gradle.api.*
 import org.gradle.api.tasks.*
 
 class JavaCCTask extends DefaultTask {
-//	@InputFile
+	@InputFile
 	def inputFile = 'xxx.jj'
 
-//	@OutputDirectory
+	@OutputDirectory
 	def genDir = 'build/org/collage/jcc'
 
 	@TaskAction
