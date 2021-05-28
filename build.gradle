@@ -1,10 +1,6 @@
-plugins {
-  id "com.ofg.uptodate" version "1.6.2"
-}
-
-apply plugin: 'idea'
-apply plugin: 'sonar'
-apply plugin: 'sonar'
+//plugins {
+//  id "com.ofg.uptodate" version "1.6.2"
+//}
 
 subprojects {
 	buildscript {
@@ -20,11 +16,9 @@ subprojects {
 
 	apply plugin: 'java'
 	apply plugin: 'groovy'
-	apply plugin: 'idea'
-	apply plugin: "com.ofg.uptodate"
 
 	repositories {
-		jcenter()
+		mavenCentral()
 	}
 
 	configurations {
@@ -84,26 +78,6 @@ subprojects {
 
 	check.dependsOn testng
 */
-sonar {
-  server {
-    url = System.getProperty("sonar.host.url") ?: "http://localhost:9000/"
-  }
-
-/*
-  database {
-    url = System.getProperty("sonar.jdbc.url") ?: "jdbc:derby://localhost:1527/sonar"
-    driverClassName = System.getProperty("sonar.jdbc.driver") ?: "org.apache.derby.jdbc.ClientDriver"
-    username = System.getProperty("sonar.jdbc.username") ?: "sonar"
-    password = System.getProperty("sonar.jdbc.password") ?: "sonar"
-  }
-*/
-
-  project {
-    withProjectProperties { props ->
-      props["sonar.core.codeCoveragePlugin"] = "jacoco"
-    }
-  }
-}
 
 }
 
