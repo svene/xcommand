@@ -1,7 +1,3 @@
-//apply plugin: JavaCCPlugin
-
-import JavaCCTask
-
 dependencies {
 	implementation project(':xc-core')
 	implementation "commons-lang:commons-lang:2.6"
@@ -18,8 +14,8 @@ sourceSets {
 }
 
 task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
-	inputFile = file('templateparser.jj')
-	genDir = file('build/src/java/org/collage/jcc')
+	inputFile file('src/main/javacc/templateparser.jj')
+	genDir file('build/src/java/org/collage/jcc')
 }
 
 compileJava.dependsOn(jcc)
