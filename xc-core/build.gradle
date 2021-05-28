@@ -1,9 +1,9 @@
 dependencies {
-	compile "org.mortbay.jetty:jetty:6.1.7"
-	compile "struts:struts:1.2.9"
-	compile "org.springframework:spring-core:2.5.1"
-	compile "org.springframework:spring-web:2.5.1"
-	compile "janino:janino:2.5.10"
+	implementation "org.mortbay.jetty:jetty:6.1.7"
+	implementation "struts:struts:1.2.9"
+	implementation "org.springframework:spring-core:2.5.1"
+	implementation "org.springframework:spring-web:2.5.1"
+	implementation "janino:janino:2.5.10"
 }
 
 

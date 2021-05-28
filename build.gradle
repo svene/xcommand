@@ -1,7 +1,3 @@
-//plugins {
-//  id "com.ofg.uptodate" version "1.6.2"
-//}
-
 subprojects {
 	buildscript {
 		repositories {
@@ -27,12 +23,12 @@ subprojects {
 
 	dependencies {
 //		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
-		compile 'org.codehaus.groovy:groovy:2.4.5'
-		testCompile 'junit:junit:4.12'
-		testCompile 'org.testng:testng:6.9.9'
-		testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
-		testCompile "cglib:cglib:2.2"
-		testCompile "org.mockito:mockito-all:1.10.19"
+//		implementation 'org.codehaus.groovy:groovy:2.4.5'
+		testImplementation 'junit:junit:4.12'
+		testImplementation 'org.testng:testng:6.9.9'
+		testImplementation "org.spockframework:spock-core:1.0-groovy-2.4"
+		testImplementation "cglib:cglib:2.2"
+		testImplementation "org.mockito:mockito-all:1.10.19"
 
 		jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.7.5.201505241946", classifier: "runtime"
 	}
@@ -41,6 +37,7 @@ subprojects {
 	targetCompatibility = 1.7
 
 
+/*
 	task ('copyToLib', dependsOn: configurations.compile, type: Copy) {
 		    into('build/_artifacts')
 		    from configurations.default
@@ -54,30 +51,17 @@ subprojects {
 		into('build/_artifacts')
 		rename('javacc-6.1.2.jar', 'javacc.jar')
 	}
+*/
 
 
 
 	version = '1.0'
-	/*
-	manifest.mainAttributes(
-		'Implementation-Title': 'xcommand',
-		'Implementation-Version': version
-	)
-*/
+/*
 	uploadArchives {
 		repositories {
 		   flatDir(dirs: file('_repos'))
 		}
 	}
-/*
-	task testng(type: Test) {
-		useTestNG()
-		testResultsDir = new File(project.testResultsDir, '../testng')
-		testReportDir = new File(project.testReportDir, '../testng')
-	}
-
-	check.dependsOn testng
 */
-
 }
 

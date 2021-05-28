@@ -2,8 +2,8 @@
 //apply plugin: 'jetty'
 
 dependencies {
-	compile project(':xc-core')
-	compile project(':jst')
+	implementation project(':xc-core')
+	implementation project(':jst')
 }
 
 

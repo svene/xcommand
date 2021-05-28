@@ -3,13 +3,13 @@
 import JavaCCTask
 
 dependencies {
-	compile project(':xc-core')
+	implementation project(':xc-core')
 
-	compile "commons-lang:commons-lang:2.6"
-	compile "commons-io:commons-io:2.4"
-	compile "jboss:javassist:3.8.0.GA"
-	compile "net.java.dev.javacc:javacc:6.1.2"
-	compile "janino:janino:2.5.10"
+	implementation "commons-lang:commons-lang:2.6"
+	implementation "commons-io:commons-io:2.4"
+	implementation "jboss:javassist:3.8.0.GA"
+	implementation "net.java.dev.javacc:javacc:6.1.2"
+	implementation "janino:janino:2.5.10"
 }
 
 sourceSets {
