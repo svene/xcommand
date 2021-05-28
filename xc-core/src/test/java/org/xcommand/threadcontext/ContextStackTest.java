@@ -14,20 +14,22 @@ import static org.junit.Assert.assertSame;
 public class ContextStackTest
 {
 
-	static String s = String.format("hello world, from '%s'", ContextStackTest.class.getName());
-
-
 	@Test
 	public void testTIn2OutCommand()
 	{
-		tIn2OutCV.setInput(s);
+		String v1 = "v1";
+		tIn2OutCV.setInput(v1);
 		new TIn2OutCommand().execute();
-		assertEquals(s, tIn2OutCV.getOutput());
+		assertEquals(v1, tIn2OutCV.getOutput());
 	}
 
 	@Test
 	public void testContextStack()
 	{
+		String v1 = "v1";
+		tIn2OutCV.setOutput(v1);
+		assertEquals(v1, tIn2OutCV.getOutput());
+
 		// Save current context:
 		Map savedCtx = TCP.getContext();
 
@@ -38,45 +40,49 @@ public class ContextStackTest
 		assertSame(ctx, TCP.getContext());
 
 		// Set a value on the current context:
-		String sven = "sven";
-		tIn2OutCV.setInput(sven);
+		String v2 = "v2";
+		tIn2OutCV.setInput(v2);
 		// Verify that there is not output yet in the new context:
 		assertNull(tIn2OutCV.getOutput());
 		new TIn2OutCommand().execute();
 		// Verify that the value got set:
-		assertEquals(sven, tIn2OutCV.getOutput());
+		assertEquals(v2, tIn2OutCV.getOutput());
 
 		// Remove the new context from the stack:
 		TCP.popContext();
 		// Verify that saved context is current one:
 		assertSame(savedCtx, TCP.getContext());
-		// Verify that old value is returned and not 'sven':
-		assertEquals(s, tIn2OutCV.getOutput());
+		// Verify that old value is returned and not 'v2':
+		assertEquals(v1, tIn2OutCV.getOutput());
 
 	}
 
 	@Test
 	public void testInheritableContextStack()
 	{
+		String v1 = "v1";
+		tIn2OutCV.setOutput(v1);
+		assertEquals(v1, tIn2OutCV.getOutput());
+
 		// Save current context:
 		Map savedCtx = TCP.getContext();
 
 		TCP.pushNewInheritableContext();
-		assertEquals(s, tIn2OutCV.getOutput());
+		assertEquals(v1, tIn2OutCV.getOutput());
 
 		// Set a value on the current context:
-		String sven = "sven";
-		tIn2OutCV.setInput(sven);
+		String v2 = "v2";
+		tIn2OutCV.setInput(v2);
 		// Verify that output is not null but the output of the inherited context:
-		assertEquals(s, tIn2OutCV.getOutput());
+		assertEquals(v1, tIn2OutCV.getOutput());
 		new TIn2OutCommand().execute();
 		// Verify that execute put the output on the new context:
-		assertEquals(sven, tIn2OutCV.getOutput());
+		assertEquals(v2, tIn2OutCV.getOutput());
 
 		TCP.popContext();
 		assertSame(savedCtx, TCP.getContext());
-		// Verify that old value is returned and not 'sven':
-		assertEquals(s, tIn2OutCV.getOutput());
+		// Verify that old value is returned and not 'v2':
+		assertEquals(v1, tIn2OutCV.getOutput());
 	}
 
 	@Test public void verifyThatEachThreadHasItsOwnContext() throws Exception {
@@ -104,5 +110,5 @@ public class ContextStackTest
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private ITIn2OutCV tIn2OutCV = (ITIn2OutCV) dbp.newBeanForInterface(ITIn2OutCV.class);
+	private ITIn2OutCV tIn2OutCV = dbp.newBeanForInterface(ITIn2OutCV.class);
 }
