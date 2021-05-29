@@ -1,7 +1,7 @@
 dependencies {
 	implementation project(':xc-core')
-	implementation "jboss:javassist:3.8.0.GA"
-	implementation "net.java.dev.javacc:javacc:6.1.2"
+	implementation DEP_JAVASSIST
+	implementation DEP_JAVACC
 	testImplementation DEP_GROOVY
 	testImplementation DEP_SPOCK
 }
