@@ -1,6 +1,6 @@
 package org.xcommand.template.jst;
 
-import org.codehaus.janino.util.iterator.DirectoryIterator;
+import org.codehaus.commons.compiler.util.iterator.DirectoryIterator;
 
 import java.util.Iterator;
 import java.io.File;

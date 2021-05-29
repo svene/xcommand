@@ -1,9 +1,9 @@
 package org.xcommand.technology.janino;
 
+import org.codehaus.commons.compiler.util.resource.MapResourceCreator;
+import org.codehaus.commons.compiler.util.resource.MapResourceFinder;
+import org.codehaus.commons.compiler.util.resource.ResourceCreator;
 import org.codehaus.janino.CachingJavaSourceClassLoader;
-import org.codehaus.janino.util.resource.MapResourceCreator;
-import org.codehaus.janino.util.resource.MapResourceFinder;
-import org.codehaus.janino.util.resource.ResourceCreator;
 
 
 import java.nio.charset.StandardCharsets;

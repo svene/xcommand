@@ -1,5 +1,5 @@
 project.ext {
-	DEP_JANINO = 'org.codehaus.janino:janino:3.0.0'
+	DEP_JANINO = 'org.codehaus.janino:janino:3.1.4'
 }
 
 allprojects {
