@@ -2,8 +2,8 @@ dependencies {
 	implementation project(':xc-core')
 	implementation "jboss:javassist:3.8.0.GA"
 	implementation "net.java.dev.javacc:javacc:6.1.2"
-	testImplementation 'org.codehaus.groovy:groovy:2.4.5'
-	testImplementation "org.spockframework:spock-core:1.0-groovy-2.4"
+	testImplementation DEP_GROOVY
+	testImplementation DEP_SPOCK
 }
 
 sourceSets {

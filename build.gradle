@@ -1,5 +1,7 @@
 project.ext {
 	DEP_JANINO = 'org.codehaus.janino:janino:3.1.4'
+	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.8'
+	DEP_SPOCK = 'org.spockframework:spock-core:2.0-groovy-3.0'
 }
 
 allprojects {
