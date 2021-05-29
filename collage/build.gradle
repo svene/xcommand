@@ -3,6 +3,8 @@ dependencies {
 	implementation "commons-lang:commons-lang:2.6"
 	implementation "jboss:javassist:3.8.0.GA"
 	implementation "net.java.dev.javacc:javacc:6.1.2"
+	testImplementation 'org.codehaus.groovy:groovy:2.4.5'
+	testImplementation "org.spockframework:spock-core:1.0-groovy-2.4"
 }
 
 sourceSets {

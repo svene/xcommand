@@ -1,15 +1,4 @@
-subprojects {
-	buildscript {
-		repositories {
-			maven {
-				url "https://plugins.gradle.org/m2/"
-			}
-		}
-		dependencies {
-			classpath "com.ofg:uptodate-gradle-plugin:1.6.2"
-		}
-	}
-
+allprojects {
 	apply plugin: 'java'
 	apply plugin: 'groovy'
 
@@ -17,32 +6,19 @@ subprojects {
 		mavenCentral()
 	}
 
-	configurations {
-		jacoco
-	}
-
 	dependencies {
-//		classpath 'com.smokejumperit:gradle-plugins:0.3-SNAPSHOT'
-//		implementation 'org.codehaus.groovy:groovy:2.4.5'
 		testImplementation 'junit:junit:4.12'
-		testImplementation 'org.testng:testng:6.9.9'
-		testImplementation "org.spockframework:spock-core:1.0-groovy-2.4"
-		testImplementation "cglib:cglib:2.2"
 		testImplementation "org.mockito:mockito-all:1.10.19"
-
-		jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.7.5.201505241946", classifier: "runtime"
 	}
 
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 
-
 	task ('copyToLib', type: Copy) {
-		    into('build/_artifacts')
-		    from configurations.default
-		    from configurations.compileClasspath
-		    from configurations.default.allArtifacts*.file
-		    from configurations.compileClasspath.allArtifacts*.file
+		into('build/_artifacts')
+		from configurations.compileClasspath
+		from configurations.default.allArtifacts*.file
+		from configurations.compileClasspath.allArtifacts*.file
 	}
 
 	task renameJCC(type: Copy, dependsOn: 'copyToLib') {
@@ -51,6 +27,6 @@ subprojects {
 		rename('javacc-6.1.2.jar', 'javacc.jar')
 	}
 
-	version = '1.0'
 }
+version = '1.0'
 
