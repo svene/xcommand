@@ -1,9 +1,10 @@
 project.ext {
+	VERSION_JAVACC = '6.1.2'
 	DEP_JANINO = 'org.codehaus.janino:janino:3.1.4'
 	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.8'
 	DEP_SPOCK = 'org.spockframework:spock-core:2.0-groovy-3.0'
 	DEP_JAVASSIST = 'jboss:javassist:3.8.0.GA'
-	DEP_JAVACC = 'net.java.dev.javacc:javacc:6.1.2'
+	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
 }
 
 allprojects {
@@ -30,9 +31,9 @@ allprojects {
 	}
 
 	task renameJCC(type: Copy, dependsOn: 'copyToLib') {
-		from('build/_artifacts/javacc-6.1.2.jar')
+		from("build/_artifacts/javacc-${VERSION_JAVACC}.jar")
 		into('build/_artifacts')
-		rename('javacc-6.1.2.jar', 'javacc.jar')
+		rename("javacc-${VERSION_JAVACC}.jar", 'javacc.jar')
 	}
 
 }
