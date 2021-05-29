@@ -12,12 +12,12 @@ import java.io.ByteArrayInputStream;
  * Janino-ResourceFinder implementation providing the base for in-memory Java compilation.
  * See {@ link http://www.janino.net/ } for details.
  */
-public class MapResourceFinder extends ResourceFinder
+public class XCMapResourceFinder extends ResourceFinder
 {
 	private final Map map;
 	private long lastModified = 0L;
 
-	public MapResourceFinder(Map map)
+	public XCMapResourceFinder(Map map)
 	{
 		this.map = map;
 	}
@@ -48,7 +48,7 @@ public class MapResourceFinder extends ResourceFinder
 
 			public long lastModified()
 			{
-				return MapResourceFinder.this.lastModified;
+				return XCMapResourceFinder.this.lastModified;
 			}
 		};
 	}

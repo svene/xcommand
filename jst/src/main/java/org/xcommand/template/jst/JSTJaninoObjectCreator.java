@@ -1,13 +1,13 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.technology.janino.MapResourceFinder;
+import org.xcommand.technology.janino.XCMapResourceFinder;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.codehaus.janino.JavaSourceClassLoader;
-import org.codehaus.janino.DebuggingInformation;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,7 +30,7 @@ public class JSTJaninoObjectCreator
 			janinoClassMap.put(me.getKey(), cme.fme.content.getBytes());
 			cme.fme.lastmodified = cme.fme.file.lastModified();
 		}
-		mrf = new MapResourceFinder(janinoClassMap);
+		mrf = new XCMapResourceFinder(janinoClassMap);
 	}
 
 	public Class getClass(String aClassname)
@@ -49,9 +49,8 @@ public class JSTJaninoObjectCreator
 		}
 		// Load class via Janino:
 		ClassLoader parentClassLoader = getClass().getClassLoader();
-		String encoding = null;
 		System.out.println("loading class '" + aClassname + "'");
-		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, mrf, encoding, DebuggingInformation.ALL);
+		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, mrf, StandardCharsets.UTF_8.name());
 	 	String dotClassName = aClassname.replace('/', '.');
 		try
 		{
@@ -94,7 +93,7 @@ public class JSTJaninoObjectCreator
 
 	private Map janinoClassMap = new HashMap();
 	private IJSTProvider jstProvider;
-	MapResourceFinder mrf;
+	XCMapResourceFinder mrf;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.newBeanForInterface(IJSTScannerCV.class);
 }

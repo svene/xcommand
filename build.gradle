@@ -1,3 +1,7 @@
+project.ext {
+	DEP_JANINO = 'org.codehaus.janino:janino:2.6.1'
+}
+
 allprojects {
 	apply plugin: 'java'
 	apply plugin: 'groovy'

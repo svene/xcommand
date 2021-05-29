@@ -2,7 +2,7 @@ dependencies {
 	implementation "javax.servlet:javax.servlet-api:3.0.1"
 	implementation "org.springframework:spring-core:2.5.1"
 	implementation "org.springframework:spring-web:2.5.1"
-	implementation "janino:janino:2.5.10"
+	implementation DEP_JANINO
 	testImplementation 'org.codehaus.groovy:groovy:2.4.5'
 	testImplementation "org.spockframework:spock-core:1.0-groovy-2.4"
 	testImplementation "cglib:cglib:2.2"

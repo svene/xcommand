@@ -6,7 +6,7 @@ dependencies {
 	implementation "javax.servlet:javax.servlet-api:3.0.1"
 	implementation "jboss:javassist:3.8.0.GA"
 	implementation "net.java.dev.javacc:javacc:6.1.2"
-	implementation "janino:janino:2.5.10"
+	implementation DEP_JANINO
 }
 
 sourceSets {

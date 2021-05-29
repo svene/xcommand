@@ -1,11 +1,12 @@
 package org.xcommand.technology.janino;
 
-import org.codehaus.janino.JavaSourceClassLoader;
-import org.codehaus.janino.DebuggingInformation;
 import org.codehaus.janino.CachingJavaSourceClassLoader;
-import org.codehaus.janino.util.resource.*;
+import org.codehaus.janino.util.resource.MapResourceCreator;
+import org.codehaus.janino.util.resource.MapResourceFinder;
+import org.codehaus.janino.util.resource.ResourceCreator;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -17,19 +18,18 @@ public class JaninoObjectCreator
 	public JaninoObjectCreator(Map aJavaSourceMap)
 	{
 		javaSourceMap = aJavaSourceMap;
-		javaSourceResourceFinder = new MapResourceFinder(javaSourceMap);
-		javaClassResourceFinder = new org.codehaus.janino.util.resource.MapResourceFinder(javaClassMap);
+		javaSourceResourceFinder = new XCMapResourceFinder(javaSourceMap);
+		javaClassResourceFinder = new MapResourceFinder(javaClassMap);
 	}
 
 	public Class getClass(String aClassname)
 	{
 		ClassLoader parentClassLoader = getClass().getClassLoader();
-		String encoding = null;
 //		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, encoding, DebuggingInformation.ALL);
 		//TODO: implement caching loader:
 		ResourceCreator classFileCacheResourceCreator = new MapResourceCreator(javaClassMap);
-		ClassLoader cl = new CachingJavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, encoding,
-			javaClassResourceFinder, classFileCacheResourceCreator, DebuggingInformation.ALL);
+		ClassLoader cl = new CachingJavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, StandardCharsets.UTF_8.name(),
+			javaClassResourceFinder, classFileCacheResourceCreator);
 	 	String dotClassName = aClassname.replace('/', '.');
 		Class clazz = null;
 		try
@@ -73,7 +73,7 @@ public class JaninoObjectCreator
 			return super.put(key, value);
 		}
 	};
-	private MapResourceFinder javaSourceResourceFinder;
-	private org.codehaus.janino.util.resource.MapResourceFinder javaClassResourceFinder;
+	private XCMapResourceFinder javaSourceResourceFinder;
+	private MapResourceFinder javaClassResourceFinder;
 
 }
