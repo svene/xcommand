@@ -1,5 +1,5 @@
 dependencies {
-	implementation "struts:struts:1.2.9"
+	implementation "javax.servlet:javax.servlet-api:3.0.1"
 	implementation "org.springframework:spring-core:2.5.1"
 	implementation "org.springframework:spring-web:2.5.1"
 	implementation "janino:janino:2.5.10"
