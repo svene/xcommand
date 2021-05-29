@@ -1,6 +1,5 @@
 package org.collage.dom.evaluator.java.independent;
 
-import org.apache.commons.lang.StringUtils;
 import org.xcommand.core.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 
@@ -17,7 +16,7 @@ public class JavaEvalTextHandler implements ICommand
 
 	private String decodedString(String aString)
 	{
-		return StringUtils.replace(aString, "#", "\"");
+		return aString.replace("#", "\"");
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
