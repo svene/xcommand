@@ -2,8 +2,8 @@ package org.xcommand.datastructure.tree.domainobject;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestUtils {
 	private void assertListContainsStrings(List<String> actualValues, String... expectedValues) {

@@ -1,15 +1,13 @@
 package org.xcommand.threadcontext;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ContextStackTest
 {

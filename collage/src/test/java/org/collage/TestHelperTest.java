@@ -5,14 +5,13 @@ import org.collage.dom.ast.Java;
 import org.collage.dom.ast.RootNode;
 import org.collage.dom.ast.Text;
 import org.collage.dom.ast.Variable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xcommand.datastructure.tree.ITreeNode;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestHelperTest {
 

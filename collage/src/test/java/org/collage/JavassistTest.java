@@ -2,30 +2,30 @@ package org.collage;
 
 import org.collage.template.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 import org.xcommand.util.ResourceUtil;
 
 import java.io.*;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JavassistTest
 {
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 
-	@Before
+	@BeforeAll
 	public void initializeContext() throws Exception
 	{
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("firstname", "Uli");
 	}
 
-	@After
+	@AfterAll
 	public void tearDownContext() throws Exception
 	{
 		TCP.popContext();

@@ -1,7 +1,7 @@
 package org.collage;
 
 import org.collage.dom.ast.DomEventHandlerProvider;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.xcommand.core.ClassAndMethodKeyProvider;

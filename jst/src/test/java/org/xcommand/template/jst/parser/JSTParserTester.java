@@ -5,9 +5,9 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.util.HashMap;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.xcommand.template.jst.DefaultJSTParserProvider;
 import org.xcommand.template.jst.IJSTParserCV;
 import org.xcommand.core.TCP;
@@ -20,14 +20,14 @@ import static junit.framework.Assert.assertEquals;
 public class JSTParserTester
 {
 
-	@Before
+	@BeforeAll
 	public void initializeContext() throws Exception
 	{
 		TCP.pushContext(new HashMap());
 		jstParserCV.setGeneratedJavaCode(new StringBuffer());
 	}
 
-	@After
+	@AfterAll
 	public void tearDownContext() throws Exception
 	{
 		TCP.popContext();

@@ -1,6 +1,6 @@
 package org.xcommand.template.jst.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 import org.xcommand.technology.janino.JaninoObjectCreator;

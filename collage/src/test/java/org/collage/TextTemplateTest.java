@@ -6,21 +6,21 @@ import org.collage.template.JavassistTemplateCompiler;
 import org.collage.template.TemplateCV;
 import org.collage.template.TemplateCommand;
 import org.collage.template.TextTemplateCompiler;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
 import java.io.StringWriter;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TextTemplateTest
 {
 	StringWriter sw;
 
-	@Before
+	@BeforeAll
 	public void initializeContext() throws Exception
 	{
 		TCP.pushContext(new HashMap());
@@ -29,7 +29,7 @@ public class TextTemplateTest
 		sw = new StringWriter();
 	}
 
-	@After
+	@AfterAll
 	public void tearDownContext() throws Exception
 	{
 		TCP.popContext();

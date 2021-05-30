@@ -7,7 +7,7 @@ import org.collage.dom.ast.DomObjToVariableTransformer;
 import org.collage.dom.evaluator.common.*;
 import org.collage.dom.evaluator.text.JavaToStringExtractor;
 import org.collage.dom.evaluator.text.VariableNameToValueTransformer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.xcommand.core.*;

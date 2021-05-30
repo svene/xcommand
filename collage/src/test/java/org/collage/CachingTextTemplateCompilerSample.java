@@ -3,18 +3,18 @@ package org.collage;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.CachingTextTemplateCompiler;
 import org.collage.template.TextTemplateCompiler;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CachingTextTemplateCompilerSample
 {
 
 	private static final int RUNS = 10000;
 
-	@Before
+	@BeforeAll
 	public void initializeContext() throws Exception
 	{
 		TCP.getContext().put("firstname", "Uli");
