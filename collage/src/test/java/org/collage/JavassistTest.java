@@ -2,8 +2,8 @@ package org.collage;
 
 import org.collage.template.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 import org.xcommand.util.ResourceUtil;
@@ -18,15 +18,15 @@ public class JavassistTest
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 
-	@BeforeAll
-	public void initializeContext() throws Exception
+	@BeforeEach
+	public void initializeContext()
 	{
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("firstname", "Uli");
 	}
 
-	@AfterAll
-	public void tearDownContext() throws Exception
+	@AfterEach
+	public void tearDownContext()
 	{
 		TCP.popContext();
 	}

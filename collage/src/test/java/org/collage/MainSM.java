@@ -8,7 +8,7 @@ import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
 import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.dom.evaluator.text.TextTraverser;
 import org.collage.template.TemplateCompiler;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 import org.xcommand.datastructure.tree.ITreeNode;
@@ -32,7 +32,7 @@ public class MainSM
 	private IStringHandlerCV stringHandlerCV;
 	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV;
 
-	@BeforeAll
+	@BeforeEach
 	public void setUp() {
 		dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 		parserCV = dbp.newBeanForInterface(IParserCV.class);

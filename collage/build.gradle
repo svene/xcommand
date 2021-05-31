@@ -3,7 +3,8 @@ dependencies {
 	implementation DEP_JAVASSIST
 	implementation DEP_JAVACC
 	testImplementation DEP_GROOVY
-	testImplementation DEP_SPOCK
+	testImplementation platform(DEP_SPOCK_BOM)
+	testImplementation DEP_SPOCK_CORE
 }
 
 sourceSets {
@@ -20,7 +21,6 @@ task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
 }
 
 compileJava.dependsOn(jcc)
-
 
 task listJars {
 	doLast {

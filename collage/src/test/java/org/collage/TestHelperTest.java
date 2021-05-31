@@ -1,6 +1,5 @@
 package org.collage;
 
-import junit.framework.Assert;
 import org.collage.dom.ast.Java;
 import org.collage.dom.ast.RootNode;
 import org.collage.dom.ast.Text;
@@ -8,8 +7,7 @@ import org.collage.dom.ast.Variable;
 import org.junit.jupiter.api.Test;
 import org.xcommand.datastructure.tree.ITreeNode;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,8 +34,8 @@ public class TestHelperTest {
 	 */
 	private void verifyChildNode(ITreeNode aParentNode, int aIdx, Class<?> aChildClass) {
 		final ITreeNode child = aParentNode.getChildren().get(aIdx);
-		assertThat(child.getDomainObject(), instanceOf(aChildClass));
-		Assert.assertEquals(0, child.getChildren().size());
+		assertThat(child.getDomainObject()).isInstanceOf(aChildClass);
+		assertThat(child.getChildren()).isEmpty();
 	}
 
 }

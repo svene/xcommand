@@ -1,10 +1,12 @@
 project.ext {
 	VERSION_JAVACC = '7.0.10'
 	DEP_JANINO = 'org.codehaus.janino:janino:3.1.4'
-	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.8'
-	DEP_SPOCK = 'org.spockframework:spock-core:2.0-groovy-3.0'
 	DEP_JAVASSIST = 'jboss:javassist:3.8.0.GA'
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
+
+	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.8'
+	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.0-groovy-3.0'
+	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 }
 
 allprojects {
@@ -38,6 +40,14 @@ allprojects {
 		rename("javacc-${VERSION_JAVACC}.jar", 'javacc.jar')
 	}
 
+	test {
+		useJUnitPlatform {
+//        	includeEngines 'junit-jupiter' // enabling this line causes spock tests not to be executed
+		}
+		testLogging {
+			events /*'passed',*/ 'skipped', 'failed'
+		}
+	}
 }
 version = '1.0'
 

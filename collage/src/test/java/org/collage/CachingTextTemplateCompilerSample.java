@@ -3,7 +3,7 @@ package org.collage;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.CachingTextTemplateCompiler;
 import org.collage.template.TextTemplateCompiler;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
@@ -14,7 +14,7 @@ public class CachingTextTemplateCompilerSample
 
 	private static final int RUNS = 10000;
 
-	@BeforeAll
+	@BeforeEach
 	public void initializeContext() throws Exception
 	{
 		TCP.getContext().put("firstname", "Uli");

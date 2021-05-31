@@ -4,7 +4,8 @@ dependencies {
 	implementation "org.springframework:spring-websocket:5.3.7"
 	implementation DEP_JANINO
 	testImplementation DEP_GROOVY
-	testImplementation DEP_SPOCK
+	testImplementation platform(DEP_SPOCK_BOM)
+	testImplementation DEP_SPOCK_CORE
 	testImplementation "cglib:cglib:2.2"
 }
 

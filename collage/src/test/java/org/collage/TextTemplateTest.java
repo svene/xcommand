@@ -6,8 +6,8 @@ import org.collage.template.JavassistTemplateCompiler;
 import org.collage.template.TemplateCV;
 import org.collage.template.TemplateCommand;
 import org.collage.template.TextTemplateCompiler;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
@@ -20,8 +20,8 @@ public class TextTemplateTest
 {
 	StringWriter sw;
 
-	@BeforeAll
-	public void initializeContext() throws Exception
+	@BeforeEach
+	public void initializeContext()
 	{
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("firstname", "Uli");
@@ -29,8 +29,8 @@ public class TextTemplateTest
 		sw = new StringWriter();
 	}
 
-	@AfterAll
-	public void tearDownContext() throws Exception
+	@AfterEach
+	public void tearDownContext()
 	{
 		TCP.popContext();
 	}
