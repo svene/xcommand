@@ -9,7 +9,7 @@ import org.xcommand.template.jst.JSTSourceLoader;
 import java.io.StringWriter;
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JSTTester
 {
