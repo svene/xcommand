@@ -77,7 +77,7 @@ public class JarResourceServlet extends HttpServlet
 			{
 				if (resName.endsWith(".swf"))
 				{
-					System.out.println("** setting mimetype to: 'application/x-shockwave-flash'");
+					System.out.println("Setting mimetype to: 'application/x-shockwave-flash'");
 					mimeType = "application/x-shockwave-flash";
 				}
 			}
@@ -113,8 +113,8 @@ public class JarResourceServlet extends HttpServlet
 		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
-	private IJarResourceProviderCV jarResourceProviderCV = (IJarResourceProviderCV) dbp.newBeanForInterface(
+	private IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
+	private IJarResourceProviderCV jarResourceProviderCV = dbp.newBeanForInterface(
 		IJarResourceProviderCV.class);
 
 }

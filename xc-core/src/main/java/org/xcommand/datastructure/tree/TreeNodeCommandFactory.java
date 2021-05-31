@@ -6,6 +6,9 @@ import org.xcommand.util.NestableObjectAdapter;
 
 public class TreeNodeCommandFactory
 {
+	private TreeNodeCommandFactory() {
+	}
+
 	public static ICommand newTreeNodeKeyedCommand(IHandlerProvider aHandlerProvider)
 	{
 		return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeAdapter(null));

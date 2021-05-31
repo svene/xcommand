@@ -5,6 +5,8 @@ import org.xcommand.core.TCP;
 /** TODO: think about how to replace this with IModeCV (since 'KEY_MODE' is used directly outside for example */
 public class ModeContextView
 {
+	private ModeContextView() {
+	}
 
 // --- Access ---
 

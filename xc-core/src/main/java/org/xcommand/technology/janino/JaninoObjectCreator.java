@@ -17,8 +17,7 @@ public class JaninoObjectCreator
 
 	public JaninoObjectCreator(Map aJavaSourceMap)
 	{
-		javaSourceMap = aJavaSourceMap;
-		javaSourceResourceFinder = new XCMapResourceFinder(javaSourceMap);
+		javaSourceResourceFinder = new XCMapResourceFinder(aJavaSourceMap);
 		javaClassResourceFinder = new MapResourceFinder(javaClassMap);
 	}
 
@@ -31,7 +30,7 @@ public class JaninoObjectCreator
 		ClassLoader cl = new CachingJavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, StandardCharsets.UTF_8.name(),
 			javaClassResourceFinder, classFileCacheResourceCreator);
 	 	String dotClassName = aClassname.replace('/', '.');
-		Class clazz = null;
+		Class clazz;
 		try
 		{
 			clazz = cl.loadClass(dotClassName);
@@ -58,7 +57,6 @@ public class JaninoObjectCreator
 
 // --- Implementation ---
 
-	private Map javaSourceMap = new HashMap();
 	private Map javaClassMap = new HashMap()
 	{
 		public Object get(Object key)

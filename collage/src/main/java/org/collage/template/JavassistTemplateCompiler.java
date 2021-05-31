@@ -46,9 +46,9 @@ public class JavassistTemplateCompiler
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
+	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
-	IJavaTemplateCmdCV javaTemplateCmdCV = (IJavaTemplateCmdCV) dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
+	IJavaTemplateCmdCV javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
 }

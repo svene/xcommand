@@ -16,6 +16,6 @@ public class JavaHandler implements ICommand
 		javaCV.setJava(java);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	IJavaCV javaCV = (IJavaCV) dbp.newBeanForInterface(IJavaCV.class);
+	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 }

@@ -52,6 +52,6 @@ public class JSTUpdateChecker extends TimerTask
 	private List srcDirs;
 	private JSTJaninoObjectCreator janinoObjectCreator;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.newBeanForInterface(IJSTScannerCV.class);
-	private IFileSystemScannerCV fileSystemScannerCV = (IFileSystemScannerCV) dbp.newBeanForInterface(IFileSystemScannerCV.class);
+	private IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
+	private IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
 }

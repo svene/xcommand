@@ -82,5 +82,5 @@ public class JSTParserTester
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.newBeanForInterface(IJSTParserCV.class);
+	private IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }

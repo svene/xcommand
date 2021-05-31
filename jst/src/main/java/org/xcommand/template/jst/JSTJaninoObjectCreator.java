@@ -1,7 +1,6 @@
 package org.xcommand.template.jst;
 
 import org.xcommand.technology.janino.XCMapResourceFinder;
-import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.ClassAndMethodKeyProvider;
@@ -81,13 +80,7 @@ public class JSTJaninoObjectCreator
 	public void setJstProvider(IJSTProvider aJstProvider)
 	{
 		jstProvider = aJstProvider;
-		jstProvider.getChangeNotifier().registerObserver(new ICommand()
-		{
-			public void execute()
-			{
-				initialize();
-			}
-		});
+		jstProvider.getChangeNotifier().registerObserver(this::initialize);
 	}
 // --- Implementation ---
 
@@ -95,5 +88,5 @@ public class JSTJaninoObjectCreator
 	private IJSTProvider jstProvider;
 	XCMapResourceFinder mrf;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.newBeanForInterface(IJSTScannerCV.class);
+	private IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
 }

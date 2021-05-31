@@ -8,6 +8,9 @@ import java.io.FilenameFilter;
  * Factory for 'FilenameFilter's
  */
 public class FileNameFilters {
+	private FileNameFilters() {
+	}
+
 	/**
 	 * FilenameFilter for all files with an extension of 'aExtension'
 	 *

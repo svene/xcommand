@@ -84,5 +84,5 @@ public class JSTSourceLoader
 		return className;
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.newBeanForInterface(IJSTParserCV.class);
+	private IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }

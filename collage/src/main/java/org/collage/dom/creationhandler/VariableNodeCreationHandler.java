@@ -35,8 +35,8 @@ public class VariableNodeCreationHandler implements ICommand
 	}
 	private TreeBuilder tb = new TreeBuilder();
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
+	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

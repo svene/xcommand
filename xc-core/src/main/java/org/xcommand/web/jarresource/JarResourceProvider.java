@@ -87,7 +87,7 @@ public class JarResourceProvider implements ICommand
 	private static final String WEBINF_LIB = "/WEB-INF/lib";
 	private static final String BANG_SLASH = "!/";
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IWebCV webCV = (IWebCV) dbp.newBeanForInterface(IWebCV.class);
-	private IJarResourceProviderCV jarResourceProviderCV = (IJarResourceProviderCV) dbp.newBeanForInterface(
+	private IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
+	private IJarResourceProviderCV jarResourceProviderCV = dbp.newBeanForInterface(
 		IJarResourceProviderCV.class); 
 }

@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class TestUtil {
+	private TestUtil() {
+	}
+
 	public static String fileContent(String aFilename) throws Exception
 	{
 		InputStream fis = ResourceUtil.newInputStreamFromResourceLocation(aFilename);

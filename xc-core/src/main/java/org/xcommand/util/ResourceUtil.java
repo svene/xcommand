@@ -3,6 +3,9 @@ package org.xcommand.util;
 import java.io.*;
 
 public class ResourceUtil {
+	private ResourceUtil() {
+	}
+
 	public static InputStream newInputStreamFromResourceLocation(String aResourceLocation) {
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aResourceLocation);
 		if (is == null) throw new RuntimeException(String.format("could not load resource '%s' via context classloader", aResourceLocation));

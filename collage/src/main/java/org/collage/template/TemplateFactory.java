@@ -8,6 +8,9 @@ import org.xcommand.core.ClassAndMethodKeyProvider;
 
 public class TemplateFactory
 {
+	private TemplateFactory() {
+	}
+
 	public static ICommand newRecursiveTemplateInstance(TemplateSource aTemplateSource) throws Exception
 	{
 		String sOld = "";
@@ -35,5 +38,5 @@ public class TemplateFactory
 	}
 	private static final IDynaBeanProvider dbp =
 		DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private static IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
+	private static IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

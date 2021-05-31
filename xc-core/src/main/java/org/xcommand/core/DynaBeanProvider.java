@@ -4,8 +4,8 @@ import java.lang.reflect.Proxy;
 
 public class DynaBeanProvider
 {
-	public DynaBeanProvider()
-	{
+
+	private DynaBeanProvider() {
 	}
 
 	public static IDynaBeanProvider newThreadBasedDynabeanProvider(IDynaBeanKeyProvider aDynaBeanKeyProvider)

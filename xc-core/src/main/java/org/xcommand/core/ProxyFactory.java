@@ -5,6 +5,9 @@ import java.lang.reflect.Proxy;
 
 public class ProxyFactory
 {
+	private ProxyFactory() {
+	}
+
 	public static Object newInstanceFromInterface(ClassLoader aClassLoader, Class aInterface, InvocationHandler aIh)
 	{
 		return newInstanceFromInterfaces(aClassLoader, new Class[]{aInterface}, aIh);

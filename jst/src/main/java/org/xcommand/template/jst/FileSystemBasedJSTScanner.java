@@ -123,10 +123,9 @@ public class FileSystemBasedJSTScanner implements ICommand
 	private INotifier changeNotifier = new BasicNotifier();
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IFileSystemScannerCV fileSystemScannerCV = (IFileSystemScannerCV) dbp.newBeanForInterface(
-		IFileSystemScannerCV.class);
-	private ICachingFilesSystemScannerCV cachingFilesSystemScannerCV = (ICachingFilesSystemScannerCV)
+	private IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
+	private ICachingFilesSystemScannerCV cachingFilesSystemScannerCV =
 		dbp.newBeanForInterface(ICachingFilesSystemScannerCV.class);
-	private IJSTScannerCV jstScannerCV = (IJSTScannerCV) dbp.newBeanForInterface(IJSTScannerCV.class);
-	private IJSTParserCV jstParserCV = (IJSTParserCV) dbp.newBeanForInterface(IJSTParserCV.class);
+	private IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
+	private IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }

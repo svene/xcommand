@@ -31,7 +31,7 @@ public class Recursion
 		if (level.length() < 5)
 		{
 			Map ctx = new InheritableMap(aCtx);
-			level = level + "#";
+			level += "#";
 			ctx.put("level", level);
 			execute(ctx);
 		}

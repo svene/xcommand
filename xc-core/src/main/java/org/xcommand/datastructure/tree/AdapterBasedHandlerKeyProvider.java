@@ -7,7 +7,7 @@ class AdapterBasedHandlerKeyProvider implements IHandlerKeyProvider
 
 // --- Initialization ---
 
-	public AdapterBasedHandlerKeyProvider(IObjectAdapter aObjectAdapter)
+	AdapterBasedHandlerKeyProvider(IObjectAdapter aObjectAdapter)
 	{
 		objectAdapter = aObjectAdapter;
 	}

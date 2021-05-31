@@ -17,5 +17,5 @@ public class JavaEvalJavaHandler implements ICommand
 		methodBody.append(ss);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IJavaCV javaCV = (IJavaCV) dbp.newBeanForInterface(IJavaCV.class);
+	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 }

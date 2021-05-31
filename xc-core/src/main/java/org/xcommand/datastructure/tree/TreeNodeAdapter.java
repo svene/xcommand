@@ -8,13 +8,13 @@ class TreeNodeAdapter extends NestableObjectAdapter
 
 // --- Initialization ---
 
-	public TreeNodeAdapter(IObjectAdapter aNestedAdapter)
+	TreeNodeAdapter(IObjectAdapter aNestedAdapter)
 	{
 		super(aNestedAdapter);
 	}
 
 	public Object adaptedObject(Object aSourceObject)
 	{
-		return (ITreeNode) super.adaptedObject(aSourceObject);
+		return super.adaptedObject(aSourceObject);
 	}
 }

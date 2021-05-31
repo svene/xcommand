@@ -22,5 +22,5 @@ public class Main
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IEchoCV echoCV = (IEchoCV) dbp.newBeanForInterface(IEchoCV.class);
+	private IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 }

@@ -8,6 +8,9 @@ import java.util.HashMap;
  */
 public class MainRoutines
 {
+	private MainRoutines() {
+	}
+
 	/** New `java.util.Map' from `String[] aArgs'*/
 	public static Map newNameValueMapFromArgs(String[] aArgs)
 	{
@@ -18,7 +21,7 @@ public class MainRoutines
 			int p = s.indexOf('=');
 			if (p == -1) continue;
 			String k = s.substring(0, p);
-			String v = s.substring(p + 1, s.length());
+			String v = s.substring(p + 1);
 			System.out.println("argument: " + k + "=" + v);
 			System.out.flush();
 			result.put(k, v);

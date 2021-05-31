@@ -9,6 +9,11 @@ public class TCBasedBeanAccessor implements IBeanAccessor
 {
 	public TCBasedBeanAccessor(IDynaBeanKeyProvider aDynaBeanKeyProvider)
 	{
+		IContextProvider cp = new IContextProvider() {
+			public Map getContext() {
+				return TCP.getContext();
+			}
+		};
 		contextProviderBasedBeanAccessor = new ContextProviderBasedBeanAccessor(cp, aDynaBeanKeyProvider);
 	}
 
@@ -21,12 +26,6 @@ public class TCBasedBeanAccessor implements IBeanAccessor
 	{
 		return contextProviderBasedBeanAccessor.get(aTargetObj, aMethodInfo, aArgs);
 	}
-	private IContextProvider cp = new IContextProvider()
-	{
-		public Map getContext()
-		{
-			return TCP.getContext();
-		}
-	};
+
 	private ContextProviderBasedBeanAccessor contextProviderBasedBeanAccessor;
 }

@@ -11,14 +11,14 @@ public class TC {
 	static abstract class AbstractMockHookCommand implements ICommand {
 		protected final IStringMockHook stringMockHook;
 		protected final ITreeNodeCV treeNodeCV;
-		public AbstractMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+		AbstractMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			stringMockHook = aStringMockHook;
 			treeNodeCV = aTreeNodeCV;
 		}
 	}
 
 	static class TextMockHookCommand extends AbstractMockHookCommand {
-		public TextMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+		TextMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
 		@Override
@@ -29,7 +29,7 @@ public class TC {
 	}
 
 	static class VariableMockHookCommand extends AbstractMockHookCommand {
-		public VariableMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+		VariableMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
 		@Override
@@ -39,7 +39,7 @@ public class TC {
 		}
 	}
 	static class VariableValueMockHookCommand extends AbstractMockHookCommand {
-		public VariableValueMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+		VariableValueMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
 		@Override
@@ -50,7 +50,7 @@ public class TC {
 	}
 
 	static class JavaMockHookCommand extends AbstractMockHookCommand {
-		public JavaMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
+		JavaMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
 		@Override

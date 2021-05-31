@@ -15,7 +15,7 @@ class HandlerProviderBasedCommand implements ICommand
 
 // --- Initialization ---
 
-	public HandlerProviderBasedCommand(IHandlerKeyProvider aHandlerKeyProvider, IHandlerProvider aHandlerProvider)
+	HandlerProviderBasedCommand(IHandlerKeyProvider aHandlerKeyProvider, IHandlerProvider aHandlerProvider)
 	{
 		handlerKeyProvider = aHandlerKeyProvider;
 		handlerProvider = aHandlerProvider;
@@ -36,9 +36,9 @@ class HandlerProviderBasedCommand implements ICommand
 
 // --- Implementation ---
 
-	private IHandlerKeyProvider handlerKeyProvider = null;
+	private IHandlerKeyProvider handlerKeyProvider;
 	private IHandlerProvider handlerProvider;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
+	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 
 }

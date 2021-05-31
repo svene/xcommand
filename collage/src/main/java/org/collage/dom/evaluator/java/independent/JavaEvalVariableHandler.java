@@ -47,7 +47,7 @@ public class JavaEvalVariableHandler implements ICommand
 
 	private ICommand templateCommand;
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
-	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
+	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

@@ -91,13 +91,13 @@ public class DomDumperLowLevelTest
 		tt.execute();
 
 		// Verification:
-		Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.<Map>any(), Mockito.<String>any());
+		Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.any(), Mockito.any());
 		final InOrder inOrder = Mockito.inOrder(sh);
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Hallo "));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("Uli"));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("! Willkommen bei uns.\n"));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("<?java int i = 1 ?>"));
-		inOrder.verify(sh).handleString(Mockito.<Map>any(), Mockito.eq("d\n"));
+		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Hallo "));
+		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Uli"));
+		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("! Willkommen bei uns.\n"));
+		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("<?java int i = 1 ?>"));
+		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("d\n"));
 	}
 
 }

@@ -16,6 +16,6 @@ public class TextHandler implements ICommand
 		textCV.setText(text);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	ITextCV textCV = (ITextCV) dbp.newBeanForInterface(ITextCV.class);
+	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	ITextCV textCV = dbp.newBeanForInterface(ITextCV.class);
 }

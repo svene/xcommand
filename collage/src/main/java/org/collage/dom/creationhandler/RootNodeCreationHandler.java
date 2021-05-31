@@ -27,6 +27,6 @@ public class RootNodeCreationHandler implements ICommand
 		ps.println("### " + aString);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }

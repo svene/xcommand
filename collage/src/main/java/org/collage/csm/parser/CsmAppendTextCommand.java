@@ -16,5 +16,5 @@ public class CsmAppendTextCommand implements ICommand
 		sb.append(value);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }

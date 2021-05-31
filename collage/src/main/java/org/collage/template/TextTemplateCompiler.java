@@ -49,15 +49,14 @@ public class TextTemplateCompiler
 	private class TextTemplateEvaluationCommand extends TemplateCommand
 	{
 
-		public TextTemplateEvaluationCommand(ITreeNode aRootNode)
+		private TextTemplateEvaluationCommand(ITreeNode aRootNode)
 		{
 			super(aRootNode);
 			setNotifyingTreeNodeTraverser(new TextTraverser());
 		}
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
-	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
-		IDomNodeCreationHandlerCV.class);
+	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 }

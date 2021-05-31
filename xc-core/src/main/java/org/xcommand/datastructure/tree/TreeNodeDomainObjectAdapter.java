@@ -8,7 +8,7 @@ class TreeNodeDomainObjectAdapter extends NestableObjectAdapter
 
 // --- Initialization ---
 
-	public TreeNodeDomainObjectAdapter(IObjectAdapter aNestedAdapter)
+	TreeNodeDomainObjectAdapter(IObjectAdapter aNestedAdapter)
 	{
 		super(aNestedAdapter);
 	}

@@ -23,5 +23,5 @@ public class WriterFlusher implements ICommand
 		}
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IEvaluationCV evaluationCV = (IEvaluationCV) dbp.newBeanForInterface(IEvaluationCV.class);
+	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 }

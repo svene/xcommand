@@ -9,5 +9,5 @@ public class TrueCondition implements ICommand
 		resultCV.setResult(Boolean.TRUE);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IResultCV resultCV = (IResultCV) dbp.newBeanForInterface(IResultCV.class);
+	private IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
 }

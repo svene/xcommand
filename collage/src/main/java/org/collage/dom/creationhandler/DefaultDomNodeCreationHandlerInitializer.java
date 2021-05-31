@@ -28,7 +28,7 @@ public class DefaultDomNodeCreationHandlerInitializer implements ICommand
 		domNodeCreationHandlerCV.setCreateRootNodeRequestNotifier(notifier);
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 
 }

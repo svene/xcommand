@@ -20,5 +20,5 @@ public class StateMachine implements ICommand
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IStateCV stateCV = (IStateCV) dbp.newBeanForInterface(IStateCV.class);
+	private IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
 }

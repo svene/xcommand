@@ -21,7 +21,7 @@ public class CachingFilesSystemScanner implements ICommand
 		FileSystemScanner fssc = new FileSystemScanner();
 		fssc.setRootDirs(rootDirs);
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundHandler());
-		HashMap changedFiles = new HashMap();
+		Map changedFiles = new HashMap();
 		cachingFilesSystemScannerCV.setChangedFiles(changedFiles);
 		if (cachingFilesSystemScannerCV.getCurrentFiles() == null)
 		{
@@ -74,8 +74,8 @@ public class CachingFilesSystemScanner implements ICommand
 
 	private INotifier changedFilesNotifier = new BasicNotifier();
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IFileSystemScannerCV fileSystemScannerCV = (IFileSystemScannerCV) dbp.newBeanForInterface(IFileSystemScannerCV.class);
-	ICachingFilesSystemScannerCV cachingFilesSystemScannerCV = (ICachingFilesSystemScannerCV) dbp.newBeanForInterface(
+	IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
+	ICachingFilesSystemScannerCV cachingFilesSystemScannerCV = dbp.newBeanForInterface(
 		ICachingFilesSystemScannerCV.class);
 
 }

@@ -46,8 +46,8 @@ public class TestHelper
 	}
 
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
-	private ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
+	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	private ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

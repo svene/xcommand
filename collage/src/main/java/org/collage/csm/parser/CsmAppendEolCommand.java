@@ -28,7 +28,7 @@ public class CsmAppendEolCommand implements ICommand
 		}
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
+	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

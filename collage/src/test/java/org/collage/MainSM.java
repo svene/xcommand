@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MainSM
 {
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	private IParserCV parserCV;
 	private ITreeNodeCV treeNodeCV;
 	private IJavaTemplateCmdCV javaTemplateCmdCV;
@@ -34,7 +33,7 @@ public class MainSM
 
 	@BeforeEach
 	public void setUp() {
-		dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 		parserCV = dbp.newBeanForInterface(IParserCV.class);
 		treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 		javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);

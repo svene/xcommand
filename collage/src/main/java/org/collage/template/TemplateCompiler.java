@@ -36,6 +36,6 @@ public class TemplateCompiler implements ICommand
 		}
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
-	private IStateCV stateCV = (IStateCV) dbp.newBeanForInterface(IStateCV.class);
+	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	private IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
 }

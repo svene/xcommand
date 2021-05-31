@@ -16,8 +16,8 @@ public class CsmCreateVariableDomNodeCommand implements ICommand
 		domNodeCreationHandlerCV.getCreateVariableNodeRequestNotifier().execute();
 	}
 	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = (IDomNodeCreationHandlerCV) dbp.newBeanForInterface(
+	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
-	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 
 }
