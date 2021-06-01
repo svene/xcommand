@@ -6,8 +6,6 @@ import java.util.Map;
 
 public interface IMultiCommandProvider
 {
-// --- Access ---
-
-	Map getCommandMap();
+	Map<String, ICommand> getCommandMap();
 	ICommand getCommand(String aName);
 }

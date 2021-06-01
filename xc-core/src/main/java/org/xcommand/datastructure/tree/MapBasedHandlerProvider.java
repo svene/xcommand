@@ -10,11 +10,10 @@ import java.util.Map;
 public class MapBasedHandlerProvider implements IHandlerProvider
 {
 
-// --- Access ---
+	private Map<Object, ? extends ICommand> handlerMap;
 
-	public Map<Object, ? extends ICommand> getHandlerMap()
-	{
-		return handlerMap;
+	public MapBasedHandlerProvider(Map<Object, ? extends ICommand> handlerMap) {
+		this.handlerMap = handlerMap;
 	}
 
 	@Override
@@ -22,16 +21,5 @@ public class MapBasedHandlerProvider implements IHandlerProvider
 	{
 		return handlerMap.get(aObj);
 	}
-
-// --- Setting ---
-
-	public void setHandlerMap(Map<Object, ? extends ICommand> aHandlerMap)
-	{
-		handlerMap = aHandlerMap;
-	}
-
-// --- Implementation ---
-
-	private Map<Object, ? extends ICommand> handlerMap;
 
 }

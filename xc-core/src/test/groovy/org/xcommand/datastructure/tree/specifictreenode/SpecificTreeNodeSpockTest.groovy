@@ -91,8 +91,7 @@ class SpecificTreeNodeSpockTest extends Specification {
 			map.put(TreeNode1.class, treeNode1Handler);
 			map.put(TreeNode2.class, treeNode2Handler);
 
-			MapBasedHandlerProvider hp = new MapBasedHandlerProvider();
-			hp.setHandlerMap(map);
+			MapBasedHandlerProvider hp = new MapBasedHandlerProvider(map);
 			ICommand cmd = TreeNodeCommandFactory.newTreeNodeKeyedCommand(hp);
 			tt.getEnterNodeNotifier().registerObserver(cmd);
 

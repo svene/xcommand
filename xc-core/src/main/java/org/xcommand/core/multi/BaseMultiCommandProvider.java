@@ -8,10 +8,8 @@ import java.util.Map;
 public class BaseMultiCommandProvider implements IMultiCommandProvider
 {
 
-// --- Access ---
-
 	@Override
-	public Map getCommandMap()
+	public Map<String, ICommand> getCommandMap()
 	{
 		return commandMap;
 	}
@@ -19,10 +17,8 @@ public class BaseMultiCommandProvider implements IMultiCommandProvider
 	@Override
 	public ICommand getCommand(String aName)
 	{
-		return (ICommand) commandMap.get(aName);
+		return commandMap.get(aName);
 	}
 
-// --- Implementation ---
-
-	protected Map commandMap = new HashMap();
+	protected Map<String, ICommand> commandMap = new HashMap<>();
 }

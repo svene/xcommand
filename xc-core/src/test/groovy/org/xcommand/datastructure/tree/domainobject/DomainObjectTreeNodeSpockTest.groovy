@@ -93,8 +93,7 @@ class DomainObjectTreeNodeSpockTest extends Specification {
 			map.put(OneDomainObject.class, oneDomainObjectHandler);
 			map.put(AnotherDomainObject.class, anotherDomainObjectHandler);
 
-			MapBasedHandlerProvider hp = new MapBasedHandlerProvider();
-			hp.setHandlerMap(map);
+			MapBasedHandlerProvider hp = new MapBasedHandlerProvider(map);
 			ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 			tt.getEnterNodeNotifier().registerObserver(cmd);
 
