@@ -1,7 +1,8 @@
 package org.xcommand.core;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
-import java.util.Stack;
 
 /**
  * ThreadContext Provider
@@ -13,7 +14,7 @@ public class TCP
 	}
 	public static Map getContext()
 	{
-		return (Map) getStack().peek();
+		return getStack().peek();
 	}
 
 	public static void pushContext(Map aCtx)
@@ -31,17 +32,17 @@ public class TCP
 
 // --- Implementation ---
 
-	private static Stack getStack()
+	private static Deque<Map> getStack()
 	{
-		return (Stack) threadMapHolder.get();
+		return threadMapHolder.get();
 	}
 
-	private static final ThreadLocal threadMapHolder = new ThreadLocal()
+	private static final ThreadLocal<Deque<Map>> threadMapHolder = new ThreadLocal<Deque<Map>>()
 	{
 		@Override
-		protected synchronized Object initialValue()
+		protected synchronized Deque<Map> initialValue()
 		{
-			Stack stack = new Stack();
+			Deque<Map> stack = new ArrayDeque<>();
 			stack.push(new InheritableMap(AC.getInstance()));
 			return stack;
 		}
