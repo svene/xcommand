@@ -4,7 +4,6 @@ import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.template.parser.IParserCV;
 
 /**

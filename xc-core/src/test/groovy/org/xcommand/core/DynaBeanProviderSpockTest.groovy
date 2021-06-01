@@ -7,7 +7,7 @@ import java.beans.PropertyDescriptor
 
 public class DynaBeanProviderSpockTest extends Specification
 {
-	IDynaBeanProvider dbpM = DynaBeanProvider.newThreadBasedDynabeanProvider(new MethodKeyProvider())
+	IDynaBeanProvider dbpM = DynaBeanProvider.newThreadBasedDynabeanProvider(DynaBeanKeyProviders::methodKeyProvider)
 
 	// TODO: instead of TCP use a normal object as storage (does this need reflection then?: java.beans.Introspector)
 	def setup() {
@@ -211,11 +211,11 @@ public class DynaBeanProviderSpockTest extends Specification
 	}
 
 	private static IDynaBeanProvider newOID_DBP() {
-		return DynaBeanProvider.newThreadBasedDynabeanProvider(new ObjectIdentityKeyProvider())
+		return DynaBeanProvider.newThreadBasedDynabeanProvider(DynaBeanKeyProviders::objectIdentityKeyProvider)
 	}
 
 	private static IDynaBeanProvider newM_DBP() {
-		return DynaBeanProvider.newThreadBasedDynabeanProvider(new MethodKeyProvider())
+		return DynaBeanProvider.newThreadBasedDynabeanProvider(DynaBeanKeyProviders::methodKeyProvider)
 	}
 
 }

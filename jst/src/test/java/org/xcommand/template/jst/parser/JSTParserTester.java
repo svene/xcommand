@@ -13,7 +13,6 @@ import org.xcommand.template.jst.IJSTParserCV;
 import org.xcommand.core.TCP;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -3,7 +3,6 @@ package org.xcommand.web.jarresource;
 import org.springframework.core.io.Resource;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletOutputStream;

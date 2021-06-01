@@ -3,7 +3,6 @@ package org.collage.dom.creationhandler;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 import org.xcommand.pattern.observer.BasicNotifier;
 

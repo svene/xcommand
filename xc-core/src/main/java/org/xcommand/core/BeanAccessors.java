@@ -5,7 +5,7 @@ public class BeanAccessors {
 	}
 
 	public static IBeanAccessor newThreadClassMethodInstance() {
-		return newBeanAccessor(TCP::getContext, new ClassAndMethodKeyProvider());
+		return newBeanAccessor(TCP::getContext, DynaBeanKeyProviders::classAndMethodKeyProvider);
 	}
 
 	public static IBeanAccessor newBeanAccessor(IContextProvider contextProvider, IDynaBeanKeyProvider dynaBeanKeyProvider) {

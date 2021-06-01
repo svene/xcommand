@@ -3,7 +3,6 @@ package org.xcommand.template.jst;
 import org.xcommand.technology.janino.XCMapResourceFinder;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.codehaus.janino.JavaSourceClassLoader;
 
 import java.nio.charset.StandardCharsets;

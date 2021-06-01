@@ -5,7 +5,6 @@ import org.collage.jcc.TemplateParser;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.misc.statemachine.StateMachine;
 import org.xcommand.misc.statemachine.IStateCV;
 import org.xcommand.template.parser.IParserCV;

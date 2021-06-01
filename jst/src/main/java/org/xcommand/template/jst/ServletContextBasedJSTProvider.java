@@ -2,7 +2,6 @@ package org.xcommand.template.jst;
 
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.web.IWebCV;

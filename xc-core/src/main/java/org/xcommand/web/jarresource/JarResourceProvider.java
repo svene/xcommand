@@ -7,7 +7,6 @@ import org.springframework.web.context.support.ServletContextResource;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletContext;

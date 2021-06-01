@@ -3,7 +3,6 @@ package org.xcommand.template.jst;
 import org.xcommand.template.jst.parser.JSTParser;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 
 import java.io.FileInputStream;
 import java.util.HashMap;

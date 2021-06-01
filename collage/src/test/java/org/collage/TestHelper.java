@@ -3,7 +3,6 @@ package org.collage;
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.template.TemplateCompiler;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNode;

@@ -4,7 +4,6 @@ import org.collage.dom.ast.DomEventHandlerProvider;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.TCP;

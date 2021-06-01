@@ -1,6 +1,5 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
