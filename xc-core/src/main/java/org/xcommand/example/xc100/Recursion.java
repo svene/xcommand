@@ -16,7 +16,7 @@ public class Recursion
 
 	public static void main(String[] args)
 	{
-		Map ctx = new HashMap();
+		Map<String, Object> ctx = new HashMap<>();
 		String level = "";
 		ctx.put("name", "Sven");
 		ctx.put("level", level);

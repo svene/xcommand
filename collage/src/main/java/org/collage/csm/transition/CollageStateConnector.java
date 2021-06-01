@@ -1,9 +1,9 @@
 package org.collage.csm.transition;
 
-import org.xcommand.misc.statemachine.IState;
-import org.xcommand.misc.statemachine.DefaultStateTransitionBinder;
-import org.xcommand.misc.statemachine.Transition;
+import org.xcommand.api.ContextViews;
 import org.xcommand.core.ICommand;
+import org.xcommand.misc.statemachine.IState;
+import org.xcommand.misc.statemachine.Transition;
 
 public class CollageStateConnector
 {
@@ -12,7 +12,7 @@ public class CollageStateConnector
 	{
 		Transition t = new Transition();
 		t.setName(aFromState.getName() + "->" + aToState.getName());
-		new DefaultStateTransitionBinder().bind(aFromState, t, aToState);
+		ContextViews.get().defaultStateTransitionBinder().bind(aFromState, t, aToState);
 		// Setup entry condition for transition:
 		ParserModeConditionTester pmct = new ParserModeConditionTester(aParserMode);
 		// Attach transition to entry condition tester:

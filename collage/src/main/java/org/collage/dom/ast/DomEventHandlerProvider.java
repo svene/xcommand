@@ -10,8 +10,6 @@ import java.util.Map;
 public class DomEventHandlerProvider extends MapBasedHandlerProvider
 {
 
-// --- Initialization ---
-
 	private static Map<Object, INotifier> handlerMap() {
 		Map<Object, INotifier> map = new HashMap<>();
 		map.put(RootNode.class, new BasicNotifier());
@@ -25,8 +23,6 @@ public class DomEventHandlerProvider extends MapBasedHandlerProvider
 	{
 		super(handlerMap());
 	}
-
-// --- Access ---
 
 	public INotifier getRootNotifier()
 	{
@@ -47,7 +43,5 @@ public class DomEventHandlerProvider extends MapBasedHandlerProvider
 	{
 		return (INotifier) getHandler(Java.class);
 	}
-
-// --- Implementation ---
 
 }

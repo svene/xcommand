@@ -11,15 +11,11 @@ import java.util.ArrayList;
 public class TreeNode implements ITreeNode
 {
 
-// --- Status report ---
-
 	@Override
 	public boolean hasChildren()
 	{
 		return children.size() > 0;
 	}
-
-// --- Access ---
 
 	@Override
 	public List<ITreeNode> getChildren()

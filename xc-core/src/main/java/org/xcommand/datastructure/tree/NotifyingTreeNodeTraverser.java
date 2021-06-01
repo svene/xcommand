@@ -12,8 +12,6 @@ import org.xcommand.pattern.observer.INotifier;
 public class NotifyingTreeNodeTraverser implements ICommand
 {
 
-// --- Access ---
-
 	public INotifier getEnterNodeNotifier()
 	{
 		return enterNodeNotifier;
@@ -23,8 +21,6 @@ public class NotifyingTreeNodeTraverser implements ICommand
 	{
 		return exitNodeNotifier;
 	}
-
-// --- Processing ---
 
 	@Override
 	public void execute()
@@ -45,8 +41,6 @@ public class NotifyingTreeNodeTraverser implements ICommand
 		treeNodeCV.setDomainObject(aNode.getDomainObject());
 		exitNodeNotifier.execute();
 	}
-
-// --- Implementation ---
 
 	private final INotifier enterNodeNotifier = new BasicNotifier();
 	private final INotifier exitNodeNotifier = new BasicNotifier();

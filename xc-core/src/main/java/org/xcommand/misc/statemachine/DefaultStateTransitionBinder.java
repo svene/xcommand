@@ -1,12 +1,15 @@
 package org.xcommand.misc.statemachine;
 
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
-
-public class DefaultStateTransitionBinder implements IStateTransitionBinder
+public class DefaultStateTransitionBinder
 {
+	public static DefaultStateTransitionBinder create(IStateCV stateCV) {
+		return new DefaultStateTransitionBinder(stateCV);
+	}
 
-	@Override
+	private DefaultStateTransitionBinder(IStateCV stateCV) {
+		this.stateCV = stateCV;
+	}
+
 	public void bind(IState aFromState, Transition aTransition, IState aToState)
 	{
 		aTransition.getPreExecuteNotifier().registerObserver(aFromState.getExitStateNotifier());
@@ -18,6 +21,5 @@ public class DefaultStateTransitionBinder implements IStateTransitionBinder
 		aTransition.getPostExecuteNotifier().registerObserver(aFromState.getExecuteNotifier().getStopCommand());
 
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
+	private final IStateCV stateCV;
 }

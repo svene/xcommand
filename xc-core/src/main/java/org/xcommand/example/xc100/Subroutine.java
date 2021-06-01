@@ -16,15 +16,15 @@ public class Subroutine
 {
 	public static void main(String[] args)
 	{
-		Map ctx = new HashMap();
+		Map<String, Object> ctx = new HashMap<>();
 		ctx.put("name", "Sven");
 		new Subroutine().execute(ctx);
 	}
 
-	private void execute(Map aCtx)
+	private void execute(Map<String, Object> aCtx)
 	{
 		String name = (String) aCtx.get("name");
-		Map ctx = new InheritableMap(aCtx);
+		Map<String, Object> ctx = new InheritableMap<>(aCtx);
 		ctx.put("tmpString", "hi there");
 		subExecute(ctx);
 		System.out.println("after subExecute():");

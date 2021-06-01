@@ -20,7 +20,7 @@ public class TreeNodeCommandFactory
 	}
 
 	private static ICommand newHandlerProviderBasedCommand(IHandlerProvider aHandlerProvider, NestableObjectAdapter aObjectAdapter) {
-		IHandlerKeyProvider handlerKeyProvider = new AdapterBasedHandlerKeyProvider(new ClassAdapter(aObjectAdapter));
+		IHandlerKeyProvider handlerKeyProvider = (obj) -> new ClassAdapter(aObjectAdapter).adaptedObject(obj);
 		return new HandlerProviderBasedCommand(handlerKeyProvider, aHandlerProvider);
 	}
 

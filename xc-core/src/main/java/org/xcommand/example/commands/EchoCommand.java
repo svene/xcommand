@@ -9,8 +9,7 @@ public class EchoCommand implements ICommand
 	@Override
 	public void execute()
 	{
-		String message = echoCV.getMessage();
-		System.out.println(message);
+		System.out.println(echoCV.getMessage());
 	}
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);

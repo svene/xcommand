@@ -6,8 +6,6 @@ import org.xcommand.core.multi.ModeContextView;
 public class CompareModeCommand implements ICommand
 {
 
-// --- Initialization ---
-
 	public CompareModeCommand(String aMode)
 	{
 		this(ModeContextView.KEY_MODE, aMode);
@@ -20,8 +18,6 @@ public class CompareModeCommand implements ICommand
 		mode = aMode;
 	}
 
-// --- Processing ---
-
 	@Override
 	public void execute()
 	{
@@ -29,8 +25,6 @@ public class CompareModeCommand implements ICommand
 		Boolean result = mode.equals(ctxMode) ? Boolean.TRUE : Boolean.FALSE;
 		resultCV.setResult(result);
 	}
-
-// --- Implementation ---
 
 	private final String modeKey;
 	private String mode;
