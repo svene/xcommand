@@ -30,11 +30,13 @@ public class VariableNodeCreationHandler implements ICommand
 	private void trace(String aString)
 	{
 		PrintStream ps = parserCV.getTraceStream();
-		if (ps == null) return;
+		if (ps == null) {
+			return;
+		}
 		ps.println("### " + aString);
 	}
-	private TreeBuilder tb = new TreeBuilder();
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final TreeBuilder tb = new TreeBuilder();
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(

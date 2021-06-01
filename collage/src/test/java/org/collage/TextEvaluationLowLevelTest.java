@@ -16,15 +16,16 @@ public class TextEvaluationLowLevelTest
 {
 
 	@Test
-	public void test1() throws Exception
-	{
+	public void test1() {
 		// Setup:
 		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 
-		final TC.IStringMockHook textMockHook, variableMockHook, javaMockHook;
+		TC.IStringMockHook textMockHook;
+		TC.IStringMockHook variableMockHook;
+		TC.IStringMockHook javaMockHook;
 
 		hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
 		hp.getVariableNotifier().registerObserver(new TC.VariableValueMockHookCommand(variableMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
@@ -46,7 +47,7 @@ public class TextEvaluationLowLevelTest
 		Mockito.verify(variableMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
 		Mockito.verify(javaMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
 
-		final InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
+		InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
 		inOrder.verify(textMockHook).hookRoutineForMockVerification("Hallo ");
 		inOrder.verify(variableMockHook).hookRoutineForMockVerification("Uli");
 		inOrder.verify(textMockHook).hookRoutineForMockVerification("! Willkommen bei uns.\n");

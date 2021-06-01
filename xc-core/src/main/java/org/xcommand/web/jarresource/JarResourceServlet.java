@@ -43,27 +43,24 @@ public class JarResourceServlet extends HttpServlet
 	private String getResourceNameFromRequest(HttpServletRequest request)
 	{
 		String requestURI = request.getRequestURI();
-		final String contextPath = request.getContextPath();
+		String contextPath = request.getContextPath();
 		System.out.println("request.getRequestURI(): " + requestURI);
 		System.out.println("request.getServletPath(): " + request.getServletPath());
 		System.out.println("request.getContextPath(): " + contextPath);
 
-		final String prefix = contextPath + request.getServletPath() + "/";
+		String prefix = contextPath + request.getServletPath() + "/";
 		System.out.println("prefix: " + prefix);
 		String resName;
 		int i1 = requestURI.indexOf(prefix);
-		if (i1 != -1)
-		{
-			resName = requestURI.substring(i1 + prefix.length());
-		}
-		else
-		{
+		if (i1 == -1) {
 			resName = request.getParameter("resource");
+		} else {
+			resName = requestURI.substring(i1 + prefix.length());
 		}
 		return resName;
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		System.out.println("JarResourceServlet.doGet(): serving content");
 		String resName = jarResourceProviderCV.getResourceName();
@@ -112,9 +109,9 @@ public class JarResourceServlet extends HttpServlet
 
 		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
-	private IJarResourceProviderCV jarResourceProviderCV = dbp.newBeanForInterface(
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
+	private final IJarResourceProviderCV jarResourceProviderCV = dbp.newBeanForInterface(
 		IJarResourceProviderCV.class);
 
 }

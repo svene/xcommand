@@ -48,8 +48,8 @@ public class ServletContextBasedJSTProvider implements IJSTProvider
 	}
 
 	private List srcDirs;
-	private Map classMap = new HashMap();
-	private INotifier changeNotifier = new BasicNotifier();
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
+	private final Map classMap = new HashMap();
+	private final INotifier changeNotifier = new BasicNotifier();
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 }

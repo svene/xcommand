@@ -21,15 +21,13 @@ public class JSTParserTester
 {
 
 	@BeforeEach
-	public void initializeContext() throws Exception
-	{
+	public void initializeContext() {
 		TCP.pushContext(new HashMap());
 		jstParserCV.setGeneratedJavaCode(new StringBuffer());
 	}
 
 	@AfterEach
-	public void tearDownContext() throws Exception
-	{
+	public void tearDownContext() {
 		TCP.popContext();
 	}
 
@@ -81,6 +79,6 @@ public class JSTParserTester
 		return parser;
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }

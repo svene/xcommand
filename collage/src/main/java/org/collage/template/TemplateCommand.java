@@ -78,8 +78,8 @@ public abstract class TemplateCommand implements ICommand
 	private Writer writer;
 	protected ITreeNode rootNode;
 	protected NotifyingTreeNodeTraverser notifyingTreeNodeTraverser;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

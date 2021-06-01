@@ -35,8 +35,7 @@ public class TestHelper
 
 // --- Implementation ---
 
-	private ITreeNode compileTemplate() throws FileNotFoundException
-	{
+	private ITreeNode compileTemplate() {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 		
@@ -45,9 +44,9 @@ public class TestHelper
 		return treeNodeCV.getTreeNode();
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
-	private ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	private final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+	private final IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 }

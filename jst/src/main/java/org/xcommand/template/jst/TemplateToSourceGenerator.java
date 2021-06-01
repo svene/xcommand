@@ -105,7 +105,9 @@ public class TemplateToSourceGenerator implements ICommand
 				else
 				{
 					// Skip empty lines outside of text blocks:
-					if (line.length() == 0) continue;
+					if (line.length() == 0) {
+						continue;
+					}
 					// Write a newline for Java code EOL:
 					writer.write("\n");
 				}

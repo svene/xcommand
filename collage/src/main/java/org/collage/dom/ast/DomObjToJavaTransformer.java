@@ -16,7 +16,7 @@ public class DomObjToJavaTransformer implements ICommand
 		javaCV.setJava(java);
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 }

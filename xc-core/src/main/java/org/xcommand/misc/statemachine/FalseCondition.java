@@ -8,6 +8,6 @@ public class FalseCondition implements ICommand
 	{
 		resultCV.setResult(Boolean.FALSE);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
 }

@@ -34,8 +34,8 @@ public class TestDataProvider
 
 // --- Implementation ---
 
-	private ITreeNode root1;
-	private ITreeNode root2;
+	private final ITreeNode root1;
+	private final ITreeNode root2;
 
 	{
 		TreeBuilder tb = new TreeBuilder();

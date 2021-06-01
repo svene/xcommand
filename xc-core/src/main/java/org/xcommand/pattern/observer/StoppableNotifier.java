@@ -39,7 +39,7 @@ public class StoppableNotifier extends AbstractBasicNotifier
 
 	private boolean stopNotifying = false;
 
-	private ICommand stopCommand = new ICommand()
+	private final ICommand stopCommand = new ICommand()
 	{
 		public void execute()
 		{
@@ -47,5 +47,5 @@ public class StoppableNotifier extends AbstractBasicNotifier
 		}
 	};
 
-	private INotifier noStopRequestedNotifier = new BasicNotifier();
+	private final INotifier noStopRequestedNotifier = new BasicNotifier();
 }

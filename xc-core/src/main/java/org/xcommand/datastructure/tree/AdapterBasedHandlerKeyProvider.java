@@ -19,6 +19,6 @@ class AdapterBasedHandlerKeyProvider implements IHandlerKeyProvider
 
 // --- Implementation ---
 
-	private IObjectAdapter objectAdapter;
+	private final IObjectAdapter objectAdapter;
 
 }

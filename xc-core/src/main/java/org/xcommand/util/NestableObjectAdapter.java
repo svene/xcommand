@@ -20,5 +20,5 @@ public class NestableObjectAdapter implements IObjectAdapter
 
 // --- Implementation ---
 
-	private IObjectAdapter nestedAdapter;
+	private final IObjectAdapter nestedAdapter;
 }

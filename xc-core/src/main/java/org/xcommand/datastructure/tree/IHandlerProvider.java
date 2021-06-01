@@ -7,5 +7,5 @@ import org.xcommand.core.ICommand;
  */
 public interface IHandlerProvider
 {
-	public ICommand getHandler(Object aObj);
+	ICommand getHandler(Object aObj);
 }

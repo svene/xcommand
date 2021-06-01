@@ -8,6 +8,6 @@ public interface IMultiCommandProvider
 {
 // --- Access ---
 
-	public Map getCommandMap();
-	public ICommand getCommand(String aName);
+	Map getCommandMap();
+	ICommand getCommand(String aName);
 }

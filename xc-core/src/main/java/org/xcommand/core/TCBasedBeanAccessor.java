@@ -27,5 +27,5 @@ public class TCBasedBeanAccessor implements IBeanAccessor
 		return contextProviderBasedBeanAccessor.get(aTargetObj, aMethodInfo, aArgs);
 	}
 
-	private ContextProviderBasedBeanAccessor contextProviderBasedBeanAccessor;
+	private final ContextProviderBasedBeanAccessor contextProviderBasedBeanAccessor;
 }

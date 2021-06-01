@@ -16,6 +16,6 @@ public class JavaEvalJavaHandler implements ICommand
 		String ss = "\t" + s + "\n";
 		methodBody.append(ss);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 }

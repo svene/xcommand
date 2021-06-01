@@ -18,8 +18,9 @@ public class TextToStringExtractor implements ICommand
 {
 	public void execute()
 	{
-		if (stringHandlerCV.getString() == null && evaluationCV.getWriter() == null)
+		if (stringHandlerCV.getString() == null && evaluationCV.getWriter() == null) {
 			throw new IllegalStateException("StringHandlerCV.getString(aCtx) == null && EvaluationCV.getWriter(aCtx) == null");
+		}
 		Text text = textCV.getText();
 		if (stringHandlerCV.getString() != null)
 		{
@@ -42,7 +43,7 @@ public class TextToStringExtractor implements ICommand
 
 		}
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 	ITextCV textCV = dbp.newBeanForInterface(ITextCV.class);

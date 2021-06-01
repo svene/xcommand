@@ -57,7 +57,7 @@ public class JaninoObjectCreator
 
 // --- Implementation ---
 
-	private Map javaClassMap = new HashMap()
+	private final Map javaClassMap = new HashMap()
 	{
 		public Object get(Object key)
 		{
@@ -71,7 +71,7 @@ public class JaninoObjectCreator
 			return super.put(key, value);
 		}
 	};
-	private XCMapResourceFinder javaSourceResourceFinder;
-	private MapResourceFinder javaClassResourceFinder;
+	private final XCMapResourceFinder javaSourceResourceFinder;
+	private final MapResourceFinder javaClassResourceFinder;
 
 }

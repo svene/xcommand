@@ -4,11 +4,11 @@ import java.util.Date;
 
 public interface IPerson
 {
-	public String getFirstName();
-	public String getLastName();
-	public Date getBirthDate();
+	String getFirstName();
+	String getLastName();
+	Date getBirthDate();
 
-	public void setFirstName(String aFirstName);
-	public void setLastName(String aLastName);
-	public void setBirthDate(Date aBirthDate);
+	void setFirstName(String aFirstName);
+	void setLastName(String aLastName);
+	void setBirthDate(Date aBirthDate);
 }

@@ -7,10 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestUtils {
 	private void assertListContainsStrings(List<String> actualValues, String... expectedValues) {
-		if (expectedValues == null) throw new NullPointerException("expectedValues must not be null");
+		if (expectedValues == null) {
+			throw new NullPointerException("expectedValues must not be null");
+		}
 		assertNotNull(actualValues);
 		assertEquals(actualValues.size(), expectedValues.length);
-		final Object[] avs = actualValues.toArray();
+		Object[] avs = actualValues.toArray();
 		for (int i = 0; i < expectedValues.length; i++) {
 			assertEquals(expectedValues[i], avs[i]);
 		}

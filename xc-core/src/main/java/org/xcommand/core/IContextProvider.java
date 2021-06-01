@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface IContextProvider
 {
-	public Map getContext();
+	Map getContext();
 }

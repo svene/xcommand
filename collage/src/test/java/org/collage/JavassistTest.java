@@ -15,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JavassistTest
 {
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
-
 	@BeforeEach
 	public void initializeContext()
 	{
@@ -78,8 +75,7 @@ public class JavassistTest
 		assertEquals("hallo\n0 Sven.\nWie geht's?\n1 Sven.\nWie geht's?\n2 Sven.\nWie geht's?\n", sw.toString());
 	}
 
-	@Test public void testNewTemplateCommandFromFileWithEffectiveJava() throws Exception
-	{
+	@Test public void testNewTemplateCommandFromFileWithEffectiveJava() {
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromStream(
 			ResourceUtil.newInputStreamFromResourceLocation("java03_in.txt"));
 

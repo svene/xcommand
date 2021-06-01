@@ -15,6 +15,6 @@ public class CsmAppendTextCommand implements ICommand
 //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 		sb.append(value);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }

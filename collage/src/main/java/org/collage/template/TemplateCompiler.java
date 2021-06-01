@@ -21,7 +21,9 @@ public class TemplateCompiler implements ICommand
 	public void execute()
 	{
 		InputStream is = parserCV.getInputStream();
-		if (is == null) throw new RuntimeException("is == null");
+		if (is == null) {
+			throw new RuntimeException("is == null");
+		}
 		StateMachine sm = new StateMachine();
 		TemplateParser parser = new CollageTemplateParserBuilder().newTemplateParser(is, sm);
 
@@ -35,7 +37,7 @@ public class TemplateCompiler implements ICommand
 			throw new RuntimeException(e);
 		}
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
-	private IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
 }

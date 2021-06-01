@@ -25,10 +25,12 @@ public class DomDumperLowLevelTest
 	{
 		// Setup:
 		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-		final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 
-		final TC.IStringMockHook textMockHook, variableMockHook, javaMockHook;
+		TC.IStringMockHook textMockHook;
+		TC.IStringMockHook variableMockHook;
+		TC.IStringMockHook javaMockHook;
 
 		hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
 		hp.getVariableNotifier().registerObserver(new TC.VariableMockHookCommand(variableMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
@@ -46,7 +48,7 @@ public class DomDumperLowLevelTest
 		Mockito.verify(variableMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
 		Mockito.verify(javaMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
 
-		final InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
+		InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
 		inOrder.verify(textMockHook).hookRoutineForMockVerification("Hallo ");
 		inOrder.verify(variableMockHook).hookRoutineForMockVerification("firstname");
 		inOrder.verify(textMockHook).hookRoutineForMockVerification("! Willkommen bei uns.\n");
@@ -63,7 +65,7 @@ public class DomDumperLowLevelTest
 
 		// Setup:
 		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-		final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 		IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 		stringHandlerCV.setString("dummy");
 
@@ -92,7 +94,7 @@ public class DomDumperLowLevelTest
 
 		// Verification:
 		Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.any(), Mockito.any());
-		final InOrder inOrder = Mockito.inOrder(sh);
+		InOrder inOrder = Mockito.inOrder(sh);
 		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Hallo "));
 		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Uli"));
 		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("! Willkommen bei uns.\n"));

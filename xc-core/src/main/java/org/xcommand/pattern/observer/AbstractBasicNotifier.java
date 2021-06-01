@@ -14,5 +14,5 @@ public abstract class AbstractBasicNotifier implements INotifier
 
 // --- Implementation ---
 
-	protected List/*<ICommand>*/ observers = new ArrayList();
+	protected final List/*<ICommand>*/ observers = new ArrayList();
 }

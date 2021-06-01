@@ -13,7 +13,9 @@ public class TemplateSource
 
 	public TemplateSource(InputStream aTemplateStream)
 	{
-		if (aTemplateStream == null) throw new RuntimeException("aTemplateStream == null");
+		if (aTemplateStream == null) {
+			throw new RuntimeException("aTemplateStream == null");
+		}
 
 		inputStream = aTemplateStream;
 	}

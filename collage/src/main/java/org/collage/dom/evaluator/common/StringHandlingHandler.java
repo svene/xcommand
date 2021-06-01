@@ -24,7 +24,9 @@ public abstract class StringHandlingHandler implements ICommand
 		stringHandlerCV.setString(s);
 
 		ICommand shc = stringHandlerCV.getStringHandlerCommand();
-		if (shc == null) shc = stringHandlerCommand;
+		if (shc == null) {
+			shc = stringHandlerCommand;
+		}
 		shc.execute();
 	}
 
@@ -37,7 +39,7 @@ public abstract class StringHandlingHandler implements ICommand
 		return aString;
 	}
 
-	private StringHandlerCommand stringHandlerCommand;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final StringHandlerCommand stringHandlerCommand;
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

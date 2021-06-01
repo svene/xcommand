@@ -19,25 +19,26 @@ public class DefaultJSTRoutines implements IJSTRoutines
 	}
 	public void $s(String aString)
 	{
-		if (aString == null) throw new IllegalArgumentException("aString == null");
+		if (aString == null) {
+			throw new IllegalArgumentException("aString == null");
+		}
 		writeToWriter(aString);
 	}
 
 	public void $v(String aName)
 	{
-		if (aName == null) throw new IllegalArgumentException("aName == null");
+		if (aName == null) {
+			throw new IllegalArgumentException("aName == null");
+		}
 		String value = (String) TCP.getContext().get(aName);
-		if (value == null) throw new IllegalArgumentException("unknown property '" + aName + "'");
+		if (value == null) {
+			throw new IllegalArgumentException("unknown property '" + aName + "'");
+		}
 		writeToWriter(value);
 	}
 	private void writeToWriter(String aString)
 	{
 		Writer writer = (Writer) TCP.getContext().get("writer");
-//		if (writer == null)
-//		{
-//			writer = new OutputStreamWriter(System.out);
-//			aCtx.put("writer", writer);
-//		}
 		try
 		{
 			writer.write(aString);

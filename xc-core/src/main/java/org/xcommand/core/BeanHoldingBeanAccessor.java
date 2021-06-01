@@ -41,5 +41,5 @@ public class BeanHoldingBeanAccessor implements IBeanAccessor
 		}
 	}
 
-	private Object obj;
+	private final Object obj;
 }

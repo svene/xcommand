@@ -8,7 +8,7 @@ import org.xcommand.core.ClassAndMethodKeyProvider;
 public class DefaultStateTransitionBinder implements IStateTransitionBinder
 {
 
-	public void bind(IState aFromState, Transition aTransition, final IState aToState)
+	public void bind(IState aFromState, Transition aTransition, IState aToState)
 	{
 		aTransition.getPreExecuteNotifier().registerObserver(aFromState.getExitStateNotifier());
 		aTransition.getPostExecuteNotifier().registerObserver(aToState.getEnterStateNotifier());
@@ -25,6 +25,6 @@ public class DefaultStateTransitionBinder implements IStateTransitionBinder
 		aTransition.getPostExecuteNotifier().registerObserver(aFromState.getExecuteNotifier().getStopCommand());
 
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
 }

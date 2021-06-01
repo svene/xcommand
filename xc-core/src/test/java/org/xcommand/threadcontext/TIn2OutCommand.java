@@ -11,6 +11,6 @@ public class TIn2OutCommand implements ICommand
 	{
 		tIn2OutCV.setOutput(tIn2OutCV.getInput());
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private ITIn2OutCV tIn2OutCV = dbp.newBeanForInterface(ITIn2OutCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final ITIn2OutCV tIn2OutCV = dbp.newBeanForInterface(ITIn2OutCV.class);
 }

@@ -8,7 +8,7 @@ import org.xcommand.core.TCP;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 
 public class TC {
-	static abstract class AbstractMockHookCommand implements ICommand {
+	abstract static class AbstractMockHookCommand implements ICommand {
 		protected final IStringMockHook stringMockHook;
 		protected final ITreeNodeCV treeNodeCV;
 		AbstractMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
@@ -23,7 +23,7 @@ public class TC {
 		}
 		@Override
 		public void execute() {
-			final Text text = (Text) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
+			Text text = (Text) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
 			stringMockHook.hookRoutineForMockVerification(text.getValue());
 		}
 	}
@@ -34,7 +34,7 @@ public class TC {
 		}
 		@Override
 		public void execute() {
-			final Variable v = (Variable) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
+			Variable v = (Variable) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
 			stringMockHook.hookRoutineForMockVerification(v.getVariableName());
 		}
 	}
@@ -44,7 +44,7 @@ public class TC {
 		}
 		@Override
 		public void execute() {
-			final Variable v = (Variable) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
+			Variable v = (Variable) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
 			stringMockHook.hookRoutineForMockVerification((String) TCP.getContext().get(v.getVariableName()));
 		}
 	}
@@ -55,7 +55,7 @@ public class TC {
 		}
 		@Override
 		public void execute() {
-			final Java java = (Java) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
+			Java java = (Java) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
 			stringMockHook.hookRoutineForMockVerification(java.getValue());
 		}
 	}

@@ -13,6 +13,6 @@ public class JSTInitializer implements ICommand
 	{
 		jstScannerCV.setClassMap(new HashMap());
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
 }

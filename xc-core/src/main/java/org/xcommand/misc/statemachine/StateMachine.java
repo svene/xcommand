@@ -15,10 +15,12 @@ public class StateMachine implements ICommand
 	 */
 	public void execute()
 	{
-		if (stateCV.getState() == null) throw new IllegalStateException("StateCV.getState(aCtx) == null");
+		if (stateCV.getState() == null) {
+			throw new IllegalStateException("StateCV.getState(aCtx) == null");
+		}
 		stateCV.getState().execute();
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
 }

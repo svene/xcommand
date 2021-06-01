@@ -103,7 +103,7 @@ public class MainSM
 	/**
 	 * AST available after execution via 'treeNodeCV.getTreeNode()'
 	 */
-	private void createASTforTemplateString(String aTemplateString, final Boolean aProduceJavaCode) {
+	private void createASTforTemplateString(String aTemplateString, Boolean aProduceJavaCode) {
 		TCP.pushContext(new HashMap());
 		domNodeCreationHandlerCV.setProduceJavaSource(aProduceJavaCode);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
@@ -111,7 +111,7 @@ public class MainSM
 		new TemplateCompiler().execute();
 
 		// Get produced treeNode so that temporary context can be removed:
-		final ITreeNode treeNode = treeNodeCV.getTreeNode();
+		ITreeNode treeNode = treeNodeCV.getTreeNode();
 		TCP.popContext();
 		// Now put treeNode on original context:
 		treeNodeCV.setTreeNode(treeNode);

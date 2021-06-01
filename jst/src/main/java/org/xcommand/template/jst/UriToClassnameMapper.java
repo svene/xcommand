@@ -4,8 +4,12 @@ public class UriToClassnameMapper implements IUriToClassnameMapper
 {
 	public String getClassnameForUri(String aURI)
 	{
-		if (aURI == null) throw new IllegalArgumentException("aURI == null");
-		if (aURI.length() == 0) throw new IllegalArgumentException("aURI.length() == 0");
+		if (aURI == null) {
+			throw new IllegalArgumentException("aURI == null");
+		}
+		if (aURI.length() == 0) {
+			throw new IllegalArgumentException("aURI.length() == 0");
+		}
 		int idx = aURI.indexOf(ENDING);
 		if (idx == -1)
 		{

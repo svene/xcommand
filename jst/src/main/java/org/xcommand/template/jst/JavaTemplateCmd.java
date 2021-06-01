@@ -20,7 +20,9 @@ public class JavaTemplateCmd implements ICommand
 			System.out.println("contextPath = " + contextPath);
 			String uri = request.getRequestURI();
 			int idx = uri.indexOf(contextPath);
-			if (idx == -1) System.out.println(contextPath + " not found in request uri: " + uri);
+			if (idx == -1) {
+				System.out.println(contextPath + " not found in request uri: " + uri);
+			}
 			uri = uri.substring(idx + contextPath.length() + 1);
 			System.out.println("uri = " + uri);
 			String className = uriToClassnameMapper.getClassnameForUri(uri);
@@ -49,6 +51,6 @@ public class JavaTemplateCmd implements ICommand
 
 	private IUriToClassnameMapper uriToClassnameMapper;
 	private JSTJaninoObjectCreator jstJaninoObjectCreator;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 }

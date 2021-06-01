@@ -48,7 +48,7 @@ public class Transition implements ICommand
 // --- Implementation ---
 
 	private String name;
-	private INotifier preExecuteNotifier = new BasicNotifier();
-	private INotifier executeNotifier = new BasicNotifier();
-	private INotifier postExecuteNotifier = new BasicNotifier();
+	private final INotifier preExecuteNotifier = new BasicNotifier();
+	private final INotifier executeNotifier = new BasicNotifier();
+	private final INotifier postExecuteNotifier = new BasicNotifier();
 }

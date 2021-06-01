@@ -12,6 +12,6 @@ public class EchoCommand implements ICommand
 		String message = echoCV.getMessage();
 		System.out.println(message);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 }

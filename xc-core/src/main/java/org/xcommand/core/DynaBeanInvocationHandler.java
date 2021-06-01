@@ -12,20 +12,16 @@ public class DynaBeanInvocationHandler implements InvocationHandler
 		beanAccessor = aBeanAccessor;
 	}
 
-	public Object invoke(Object aProxy, Method aMethod, Object[] aArgs) throws Throwable
-	{
+	public Object invoke(Object aProxy, Method aMethod, Object[] aArgs) {
 		// Get method:
 		MethodInfo mi;
 		synchronized (methodInfoMap)
 		{
-			if (!methodInfoMap.containsKey(aMethod))
-			{
+			if (methodInfoMap.containsKey(aMethod)) {
+				mi = (MethodInfo) methodInfoMap.get(aMethod);
+			} else {
 				mi = new MethodInfo(aMethod);
 				methodInfoMap.put(aMethod, mi);
-			}
-			else
-			{
-				mi = (MethodInfo) methodInfoMap.get(aMethod);
 			}
 		}
 		// Set or get value:
@@ -36,6 +32,6 @@ public class DynaBeanInvocationHandler implements InvocationHandler
 		}
 		return beanAccessor.get(aProxy, mi, aArgs);
 	}
-	private IBeanAccessor beanAccessor;
+	private final IBeanAccessor beanAccessor;
 	private final Map methodInfoMap = new HashMap();
 }

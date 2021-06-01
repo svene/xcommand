@@ -7,5 +7,5 @@ package org.xcommand.datastructure.tree;
 public interface IHandlerKeyProvider
 {
 	/** get key to lookup handler via `aObj' */
-	public Object getHandlerKey(Object aObj);
+	Object getHandlerKey(Object aObj);
 }

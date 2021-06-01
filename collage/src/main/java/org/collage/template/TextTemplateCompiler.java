@@ -35,7 +35,9 @@ public class TextTemplateCompiler
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 
 		InputStream is = aTemplateSource.getInputStream();
-		if (is == null) throw new RuntimeException("is == null");
+		if (is == null) {
+			throw new RuntimeException("is == null");
+		}
 		parserCV.setInputStream(is);
 		new TemplateCompiler().execute();
 		ITreeNode rootNode = treeNodeCV.getTreeNode();
@@ -55,7 +57,7 @@ public class TextTemplateCompiler
 			setNotifyingTreeNodeTraverser(new TextTraverser());
 		}
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);

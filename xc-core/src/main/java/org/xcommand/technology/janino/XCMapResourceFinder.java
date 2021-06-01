@@ -27,17 +27,18 @@ public class XCMapResourceFinder extends ResourceFinder
 		this.lastModified = lastModified;
 	}
 
-	public final Resource findResource(final String resourceName)
+	public final Resource findResource(String resourceName)
 	{
 		int p = resourceName.indexOf(".java");
-		final String s = resourceName.substring(0, p);
-		final byte[] ba = (byte[]) this.map.get(s);
-		if (ba == null) return null;
+		String s = resourceName.substring(0, p);
+		byte[] ba = (byte[]) map.get(s);
+		if (ba == null) {
+			return null;
+		}
 
 		return new Resource()
 		{
-			public InputStream open() throws IOException
-			{
+			public InputStream open() {
 				return new ByteArrayInputStream(ba);
 			}
 
@@ -48,7 +49,7 @@ public class XCMapResourceFinder extends ResourceFinder
 
 			public long lastModified()
 			{
-				return XCMapResourceFinder.this.lastModified;
+				return lastModified;
 			}
 		};
 	}

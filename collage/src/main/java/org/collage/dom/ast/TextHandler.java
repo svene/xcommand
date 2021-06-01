@@ -15,7 +15,7 @@ public class TextHandler implements ICommand
 		Text text = (Text) node.getDomainObject();
 		textCV.setText(text);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	ITextCV textCV = dbp.newBeanForInterface(ITextCV.class);
 }

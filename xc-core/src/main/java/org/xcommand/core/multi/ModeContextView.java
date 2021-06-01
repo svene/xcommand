@@ -35,6 +35,6 @@ public class ModeContextView
 // --- Implementation ---
 
 	public static final String NS = "org.xcommand.core.multi.ModeContextView.";
-	public static final String KEY_MODE = ModeContextView.NS + "mode";
-	public static final String KEY_NEW_MODE = ModeContextView.NS + "new_mode";
+	public static final String KEY_MODE = NS + "mode";
+	public static final String KEY_NEW_MODE = NS + "new_mode";
 }

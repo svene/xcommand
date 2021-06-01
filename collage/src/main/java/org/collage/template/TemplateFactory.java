@@ -19,8 +19,6 @@ public class TemplateFactory
 //!!		Map cctx = aTemplateSource.getContext();
 		cmd.execute();
 		String s = stringHandlerCV.getString();
-//		System.out.println("-----------------------");
-//		System.out.println(s);
 
 		while (!sOld.equals(s))
 		{
@@ -29,8 +27,6 @@ public class TemplateFactory
 			cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(s));
 			cmd.execute();
 			s = stringHandlerCV.getString();
-//			System.out.println("-----------------------");
-//			System.out.println(s);
 		}
 		cmd = new JavassistTemplateCompiler().newTemplateCommand(new TemplateSource(s));
 
@@ -38,5 +34,5 @@ public class TemplateFactory
 	}
 	private static final IDynaBeanProvider dbp =
 		DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private static IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+	private static final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

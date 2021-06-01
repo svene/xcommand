@@ -21,5 +21,5 @@ public class T2 implements ICommand
 		jstr.$v(aName);
 	}
 
-	private IJSTRoutines jstr = new DefaultJSTRoutines();
+	private final IJSTRoutines jstr = new DefaultJSTRoutines();
 }

@@ -23,10 +23,12 @@ public class RootNodeCreationHandler implements ICommand
 	private void trace(String aString)
 	{
 		PrintStream ps = parserCV.getTraceStream();
-		if (ps == null) return;
+		if (ps == null) {
+			return;
+		}
 		ps.println("### " + aString);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }

@@ -38,8 +38,8 @@ public class TestDataProvider
 
 // --- Implementation ---
 
-	private TreeNode root1;
-	private ITreeNode root2;
+	private final TreeNode root1;
+	private final ITreeNode root2;
 
 	{
 		/*

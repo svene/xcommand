@@ -84,7 +84,7 @@ public class ContextStackTest
 	}
 
 	@Test public void verifyThatEachThreadHasItsOwnContext() throws Exception {
-		final ICommand cmd = new TIn2OutCommand();
+		ICommand cmd = new TIn2OutCommand();
 		Runnable r1 = new Runnable()
 		{
 			public void run()
@@ -98,15 +98,15 @@ public class ContextStackTest
 		cmd.execute();
 
 
-		final ExecutorService es = Executors.newSingleThreadExecutor();
+		ExecutorService es = Executors.newSingleThreadExecutor();
 		// Note that executing the following line does not overwrite the context of the main thread:
-		final Future<?> future = es.submit(r1);
+		Future<?> future = es.submit(r1);
 		// Wait until 'es' is done:
 		future.get(3, TimeUnit.SECONDS);
 		es.shutdown();
 		assertEquals("main thread", tIn2OutCV.getOutput());
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private ITIn2OutCV tIn2OutCV = dbp.newBeanForInterface(ITIn2OutCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final ITIn2OutCV tIn2OutCV = dbp.newBeanForInterface(ITIn2OutCV.class);
 }

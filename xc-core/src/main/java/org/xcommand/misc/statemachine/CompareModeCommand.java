@@ -31,8 +31,8 @@ public class CompareModeCommand implements ICommand
 
 // --- Implementation ---
 
-	private String modeKey;
+	private final String modeKey;
 	private String mode;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
 }

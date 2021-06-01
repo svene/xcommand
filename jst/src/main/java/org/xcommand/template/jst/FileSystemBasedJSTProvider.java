@@ -34,8 +34,8 @@ public class FileSystemBasedJSTProvider implements IJSTProvider
 // --- Implementation ---
 
 	private List srcDirs;
-	private Map classMap = new HashMap();
-	private INotifier changeNotifier = new BasicNotifier();
+	private final Map classMap = new HashMap();
+	private final INotifier changeNotifier = new BasicNotifier();
 	private String genSourceDir;
 }
 

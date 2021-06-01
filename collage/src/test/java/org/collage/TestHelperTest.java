@@ -33,7 +33,7 @@ public class TestHelperTest {
 	 * Verify that child 'aIdx' of 'aParentNode' is of type 'aChildClass' and has no children.
 	 */
 	private void verifyChildNode(ITreeNode aParentNode, int aIdx, Class<?> aChildClass) {
-		final ITreeNode child = aParentNode.getChildren().get(aIdx);
+		ITreeNode child = aParentNode.getChildren().get(aIdx);
 		assertThat(child.getDomainObject()).isInstanceOf(aChildClass);
 		assertThat(child.getChildren()).isEmpty();
 	}

@@ -6,10 +6,10 @@ package org.xcommand.misc.statemachine;
 public interface IStateCV
 {
 	/** @deprecated */
-	public String getMode();
-	public IState getState();
+	String getMode();
+	IState getState();
 
 	/** @deprecated */
-	public void setMode(String aMode);
-	public void setState(IState aState);
+	void setMode(String aMode);
+	void setState(IState aState);
 }

@@ -26,7 +26,7 @@ public class ParserModeConditionTester extends ConditionObserver
 		notifier.execute();
 	}
 
-	private String parserMode;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final String parserMode;
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IParserModeCV parserModeCV = dbp.newBeanForInterface(IParserModeCV.class);
 }

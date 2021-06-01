@@ -52,8 +52,7 @@ public class TextTemplateTest
 	}
 
 	@Test
-	public void verfiyProperFunctionIfInputComesFromFile() throws Exception
-	{
+	public void verfiyProperFunctionIfInputComesFromFile() {
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromResourceName("in.txt");
 		tc.setWriter(sw);
 		tc.execute();
@@ -76,8 +75,7 @@ public class TextTemplateTest
 	 * Demonstrate recursive template resolution
 	 */
 	@Test
-	public void testRecursiveInlining() throws Exception
-	{
+	public void testRecursiveInlining() {
 		TCP.getContext().put("name", "${firstname} ${lastname}");
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${name}. Wie gehts?");
 		tc.execute();
@@ -102,7 +100,7 @@ public class TextTemplateTest
 		assertEquals("hallo Uli Ehrke. Wie gehts?", sw.toString());
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
-	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+	final IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 }

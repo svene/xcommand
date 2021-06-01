@@ -16,7 +16,7 @@ public class JavaTemplateDirectoryIteratorProvider
 		return DirectoryIterator.traverseDirectories(new File[]{new File(aSrcDir)}, dirnameFilter, javaFilenameFilter);
 	}
 
-	private FilenameFilter dirnameFilter = new FilenameFilter()
+	private final FilenameFilter dirnameFilter = new FilenameFilter()
 	{
 		public boolean accept(File aFile, String aString)
 		{
@@ -25,7 +25,7 @@ public class JavaTemplateDirectoryIteratorProvider
 		}
 	};
 
-	private FilenameFilter javaFilenameFilter = new FilenameFilter()
+	private final FilenameFilter javaFilenameFilter = new FilenameFilter()
 	{
 		public boolean accept(File aFile, String aString)
 		{

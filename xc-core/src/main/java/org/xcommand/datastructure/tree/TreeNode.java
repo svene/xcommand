@@ -39,6 +39,6 @@ public class TreeNode implements ITreeNode
 
 // --- Implementation ---
 
-	private List<ITreeNode> children = new ArrayList<ITreeNode>();
+	private final List<ITreeNode> children = new ArrayList<ITreeNode>();
 	private Object domainObject;
 }

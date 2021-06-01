@@ -20,7 +20,7 @@ public class StringHandlerCommand implements ICommand
 		stringHandler.handleString(TCP.getContext(), s);
 	}
 
-	private IStringHandler stringHandler;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IStringHandler stringHandler;
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

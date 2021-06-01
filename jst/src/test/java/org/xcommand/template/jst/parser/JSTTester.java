@@ -15,8 +15,7 @@ public class JSTTester
 {
 	/** Test JSTLoader and JaninoObjectCreator */
 	@Test
-	public void test1() throws Exception
-	{
+	public void test1() {
 		// Load and parse JST source:
 		TCP.pushContext(new HashMap());
 		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
@@ -36,8 +35,7 @@ public class JSTTester
 	}
 
 	@Test
-	public void test4() throws Exception
-	{
+	public void test4() {
 		// Load and parse JST source:
 		TCP.pushContext(new HashMap());
 		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
@@ -58,8 +56,7 @@ public class JSTTester
 	}
 
 	@Test
-	public void test2() throws Exception
-	{
+	public void test2() {
 		// Load and parse JST source:
 		TCP.pushContext(new HashMap());
 		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();

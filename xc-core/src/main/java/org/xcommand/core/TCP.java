@@ -36,7 +36,7 @@ public class TCP
 		return (Stack) threadMapHolder.get();
 	}
 
-	private static ThreadLocal threadMapHolder = new ThreadLocal()
+	private static final ThreadLocal threadMapHolder = new ThreadLocal()
 	{
 		protected synchronized Object initialValue()
 		{

@@ -24,6 +24,6 @@ public class WritingStringHandler implements IStringHandler
 			throw new RuntimeException(e);
 		}
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 }

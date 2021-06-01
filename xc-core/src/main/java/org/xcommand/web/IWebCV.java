@@ -9,15 +9,15 @@ public interface IWebCV
 
 // --- Access ---
 
-	public HttpServletRequest getRequest();
-	public HttpServletResponse getResponse();
-	public String getHttpMethod();
-	public ServletContext getServletContext();
+	HttpServletRequest getRequest();
+	HttpServletResponse getResponse();
+	String getHttpMethod();
+	ServletContext getServletContext();
 
 // --- Setting ---
 
-	public void setRequest(HttpServletRequest aRequest);
-	public void setResponse(HttpServletResponse aResponse);
-	public void setHttpMethod(String aMethod);
-	public void setServletContext(ServletContext aServletContext);
+	void setRequest(HttpServletRequest aRequest);
+	void setResponse(HttpServletResponse aResponse);
+	void setHttpMethod(String aMethod);
+	void setServletContext(ServletContext aServletContext);
 }

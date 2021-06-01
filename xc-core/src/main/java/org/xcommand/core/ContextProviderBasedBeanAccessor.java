@@ -21,7 +21,7 @@ public class ContextProviderBasedBeanAccessor implements IBeanAccessor
 		return contextProvider.getContext().get(key);
 	}
 
-	private IContextProvider contextProvider;
-	private IDynaBeanKeyProvider dynaBeanKeyProvider;
+	private final IContextProvider contextProvider;
+	private final IDynaBeanKeyProvider dynaBeanKeyProvider;
 
 }

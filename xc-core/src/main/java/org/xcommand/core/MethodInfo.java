@@ -12,8 +12,8 @@ class MethodInfo
 		methodClassName = aMethod.getDeclaringClass().getName();
 	}
 
-	Method method;
-	boolean isSetter;
-	String methodClassName;
-	String property;
+	final Method method;
+	final boolean isSetter;
+	final String methodClassName;
+	final String property;
 }

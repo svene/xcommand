@@ -17,7 +17,7 @@ public class VariableToVariableNameExtractor implements ICommand
 		Variable v = variableCV.getVariable();
 		stringHandlerCV.setString(v.getVariableName());
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IVariableCV variableCV = dbp.newBeanForInterface(IVariableCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

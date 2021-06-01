@@ -72,8 +72,8 @@ public class CachingFilesSystemScanner implements ICommand
 		}
 	}
 
-	private INotifier changedFilesNotifier = new BasicNotifier();
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final INotifier changedFilesNotifier = new BasicNotifier();
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
 	ICachingFilesSystemScannerCV cachingFilesSystemScannerCV = dbp.newBeanForInterface(
 		ICachingFilesSystemScannerCV.class);

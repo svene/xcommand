@@ -30,7 +30,7 @@ public class DynaBeanProvider
 		public <T> T newBeanForInterface(Class<T> aInterface)
 		{
 			@SuppressWarnings("unchecked")
-			final T result = (T) newBeanFromInterfaces(new Class[]{aInterface});
+			T result = (T) newBeanFromInterfaces(new Class[]{aInterface});
 			return result;
 		}
 

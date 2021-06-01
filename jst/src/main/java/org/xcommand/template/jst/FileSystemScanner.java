@@ -58,8 +58,8 @@ public class FileSystemScanner implements ICommand
 // --- Implementation ---
 
 	private List<String> rootDirs;
-	private INotifier fileFoundNotifier = new BasicNotifier();
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
+	private final INotifier fileFoundNotifier = new BasicNotifier();
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
 
 }

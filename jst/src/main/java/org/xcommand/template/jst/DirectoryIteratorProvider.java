@@ -20,7 +20,7 @@ public class DirectoryIteratorProvider
 		return DirectoryIterator.traverseDirectories(new File[]{new File(aSrcDir)}, dirnameFilter, filenameFilter);
 	}
 
-	private FilenameFilter dirnameFilter = new FilenameFilter()
+	private final FilenameFilter dirnameFilter = new FilenameFilter()
 	{
 		@Override
 		public boolean accept(File aFile, String aString)
@@ -30,5 +30,5 @@ public class DirectoryIteratorProvider
 		}
 	};
 
-	private FilenameFilter filenameFilter;
+	private final FilenameFilter filenameFilter;
 }

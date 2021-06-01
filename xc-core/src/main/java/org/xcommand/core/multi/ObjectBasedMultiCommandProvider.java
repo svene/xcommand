@@ -27,8 +27,12 @@ public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider
 		{
 			Method m = methods[i];
 			Class[] classes = m.getParameterTypes();
-			if (classes.length != 1) continue;
-			if (!classes[0].isAssignableFrom(Map.class) ) continue;
+			if (classes.length != 1) {
+				continue;
+			}
+			if (!classes[0].isAssignableFrom(Map.class) ) {
+				continue;
+			}
 			MethodCmd mc;
 			mc = new MethodCmd(targetObject);
 			mc.setMethod(m);

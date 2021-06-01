@@ -19,7 +19,9 @@ public class JSTUpdateChecker extends TimerTask
 	{
 		System.out.println("JSTUpdateChecker.run(): " + new Date());
 		Map classMap = jstScannerCV.getClassMap();
-		if (classMap == null) throw new IllegalStateException("classMap == null");
+		if (classMap == null) {
+			throw new IllegalStateException("classMap == null");
+		}
 
 		FileSystemBasedJSTScanner jstScanner = new FileSystemBasedJSTScanner();
 		fileSystemScannerCV.setRootDirs(srcDirs);
@@ -51,7 +53,7 @@ public class JSTUpdateChecker extends TimerTask
 
 	private List srcDirs;
 	private JSTJaninoObjectCreator janinoObjectCreator;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
-	private IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
+	private final IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
 }

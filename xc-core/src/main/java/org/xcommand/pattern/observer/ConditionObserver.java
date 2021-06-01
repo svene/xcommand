@@ -19,7 +19,7 @@ public abstract class ConditionObserver implements ICommand
 
 // --- Implementation ---
 
-	private INotifier trueNotifier = new BasicNotifier();
-	private INotifier falseNotifier = new BasicNotifier();
+	private final INotifier trueNotifier = new BasicNotifier();
+	private final INotifier falseNotifier = new BasicNotifier();
 
 }

@@ -119,5 +119,5 @@ public class ServletContextMapAdapter implements Map
 		return result;
 	}
 
-	ServletContext servletContext;
+	final ServletContext servletContext;
 }

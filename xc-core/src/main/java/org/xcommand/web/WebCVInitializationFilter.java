@@ -15,8 +15,7 @@ import java.io.IOException;
  */
 public class WebCVInitializationFilter implements Filter
 {
-	public void init(FilterConfig filterConfig) throws ServletException
-	{
+	public void init(FilterConfig filterConfig) {
 		servletContext = filterConfig.getServletContext();
 	}
 
@@ -38,6 +37,6 @@ public class WebCVInitializationFilter implements Filter
 	}
 
 	ServletContext servletContext;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 }

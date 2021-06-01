@@ -22,8 +22,8 @@ public class CsmFlushTextCommand implements ICommand
 		domNodeCreationHandlerCV.setValue(s);
 		domNodeCreationHandlerCV.getCreateTextNodeRequestNotifier().execute();
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
-	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }

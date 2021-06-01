@@ -16,7 +16,7 @@ public class DomObjToVariableTransformer implements ICommand
 		Variable v = (Variable) node.getDomainObject();
 		variableCV.setVariable(v);
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IVariableCV variableCV = dbp.newBeanForInterface(IVariableCV.class);
 }

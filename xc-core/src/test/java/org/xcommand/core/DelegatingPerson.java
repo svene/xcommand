@@ -5,7 +5,7 @@ import java.util.Date;
 public class DelegatingPerson implements IPerson
 {
 
-	public DelegatingPerson(final IPerson aDelegate)
+	public DelegatingPerson(IPerson aDelegate)
 	{
 		delegate = aDelegate;
 	}

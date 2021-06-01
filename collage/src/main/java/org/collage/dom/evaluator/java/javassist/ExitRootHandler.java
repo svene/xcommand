@@ -55,7 +55,7 @@ class ExitRootHandler implements ICommand
 		{
 			if (cc != null)
 			{
-				System.err.println("class source:\n" + cc.toString());
+				System.err.println("class source:\n" + cc);
 			}
 			throw new RuntimeException(e);
 		}
@@ -90,7 +90,7 @@ class ExitRootHandler implements ICommand
 //		System.out.println(className);
 		return className;
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IJavaTemplateCmdCV javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);

@@ -79,14 +79,12 @@ public class JSTJaninoObjectCreator
 
 	public void setJstProvider(IJSTProvider aJstProvider)
 	{
-		jstProvider = aJstProvider;
-		jstProvider.getChangeNotifier().registerObserver(this::initialize);
+		aJstProvider.getChangeNotifier().registerObserver(this::initialize);
 	}
 // --- Implementation ---
 
-	private Map janinoClassMap = new HashMap();
-	private IJSTProvider jstProvider;
+	private final Map janinoClassMap = new HashMap();
 	XCMapResourceFinder mrf;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
 }

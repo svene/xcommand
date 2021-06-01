@@ -24,7 +24,9 @@ public class InheritableMap extends DecoratingMap
 
 	public Object get(Object aKey)
 	{
-		if (map.containsKey(aKey)) return map.get(aKey);
+		if (map.containsKey(aKey)) {
+			return map.get(aKey);
+		}
 		return super.get(aKey);
 	}
 
@@ -37,5 +39,5 @@ public class InheritableMap extends DecoratingMap
 
 // --- Implementation ---
 
-	protected Map map = new HashMap();
+	protected final Map map = new HashMap();
 }

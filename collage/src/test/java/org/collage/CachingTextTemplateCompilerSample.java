@@ -15,8 +15,7 @@ public class CachingTextTemplateCompilerSample
 	private static final int RUNS = 10000;
 
 	@BeforeEach
-	public void initializeContext() throws Exception
-	{
+	public void initializeContext() {
 		TCP.getContext().put("firstname", "Uli");
 	}
 
@@ -46,6 +45,6 @@ public class CachingTextTemplateCompilerSample
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}
 	}
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

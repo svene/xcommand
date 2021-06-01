@@ -47,6 +47,6 @@ public class RegExpDispatcherCmd implements ICommand
 
 	// Commands identified by pattern (e.g. '^/bla.*') used as key for this map:
 	private Map/*<ICommand>*/ commands;
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 }

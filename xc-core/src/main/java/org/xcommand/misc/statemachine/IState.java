@@ -10,9 +10,9 @@ public interface IState extends ICommand
 
 	void setName(String aName);
 
-	public INotifier getExitStateNotifier();
-	public INotifier getExecuteStateNotifier();
-	public INotifier getEnterStateNotifier();
+	INotifier getExitStateNotifier();
+	INotifier getExecuteStateNotifier();
+	INotifier getEnterStateNotifier();
 
-	public StoppableNotifier getExecuteNotifier();
+	StoppableNotifier getExecuteNotifier();
 }

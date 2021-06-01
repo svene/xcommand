@@ -24,7 +24,6 @@ public class AC extends HashMap
 	 */
 	private AC()
 	{
-		super();
 	}
 
 // --- Access ---
@@ -36,5 +35,5 @@ public class AC extends HashMap
 
 // --- Implementation ---
 
-	private static AC instance = new AC();
+	private static final AC instance = new AC();
 }

@@ -22,5 +22,5 @@ public class T4 implements ICommand
 		jstr.$v(aName);
 	}
 
-	private IJSTRoutines jstr = new DefaultJSTRoutines();
+	private final IJSTRoutines jstr = new DefaultJSTRoutines();
 }

@@ -64,11 +64,11 @@ public class State implements IState
 
 	private String name;
 
-	private INotifier exitStateNotifier = new BasicNotifier();
-	private INotifier executeStateNotifier = new BasicNotifier();
-	private INotifier enterStateNotifier = new BasicNotifier();
+	private final INotifier exitStateNotifier = new BasicNotifier();
+	private final INotifier executeStateNotifier = new BasicNotifier();
+	private final INotifier enterStateNotifier = new BasicNotifier();
 
-	private StoppableNotifier executeNotifier = new StoppableNotifier();
+	private final StoppableNotifier executeNotifier = new StoppableNotifier();
 
 	{
 		// If no transition is currently able to execute, let state execute:

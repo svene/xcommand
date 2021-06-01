@@ -13,8 +13,7 @@ import org.xcommand.template.jst.IFileSystemScannerCV;
 public class FileSystemScannerTester
 {
 	@Test
-	public void test1() throws Exception
-	{
+	public void test1() {
 		FileSystemScanner scanner = new FileSystemScanner();
 		scanner.setRootDirs("src/main/java", "src/test/java");
 
@@ -47,6 +46,6 @@ public class FileSystemScannerTester
 
 // --- Implementation ---
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	final IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
 }

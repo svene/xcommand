@@ -2,9 +2,9 @@ package org.xcommand.core;
 
 public interface IPersonNamesView
 {
-	public String getFirstName();
-	public String getLastName();
+	String getFirstName();
+	String getLastName();
 
-	public void setFirstName(String aFirstName);
-	public void setLastName(String aLastName);
+	void setFirstName(String aFirstName);
+	void setLastName(String aLastName);
 }

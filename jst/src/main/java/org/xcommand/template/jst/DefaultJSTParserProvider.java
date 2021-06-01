@@ -12,7 +12,9 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 	public JSTParser newJSTParser()
 	{
 		String encoding = jstParserCV.getEncoding();
-		if (encoding == null) encoding = "UTF-8";
+		if (encoding == null) {
+			encoding = "UTF-8";
+		}
 		JSTParser parser = new JSTParser(jstParserCV.getInputStream(), encoding);
 		parser.getJavaVarNotifier().registerObserver(javaVariableObserver);
 		parser.getJavaTextNotifier().registerObserver(javaTextObserver);
@@ -24,7 +26,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		return parser;
 	}
 
-	private ICommand javaVariableObserver = new ICommand()
+	private final ICommand javaVariableObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -37,7 +39,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append("$s(\"");
 			}
 		};
-	private ICommand javaTextObserver = new ICommand()
+	private final ICommand javaTextObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -46,7 +48,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append(parserCV.getValue());
 			}
 		};
-	private ICommand commentStartObserver = new ICommand()
+	private final ICommand commentStartObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -55,7 +57,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append("$s(\"");
 			}
 		};
-	private ICommand commentEndObserver = new ICommand()
+	private final ICommand commentEndObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -64,7 +66,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append("\");");
 			}
 		};
-	private ICommand commentTextObserver = new ICommand()
+	private final ICommand commentTextObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -78,7 +80,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append(v);
 			}
 		};
-	private ICommand eolObserver = new ICommand()
+	private final ICommand eolObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -87,7 +89,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append('\n');
 			}
 		};
-	private ICommand eolInCommentObserver = new ICommand()
+	private final ICommand eolInCommentObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -96,7 +98,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 				code.append("\\n");
 			}
 		};
-	private ICommand eolInJavaObserver = new ICommand()
+	private final ICommand eolInJavaObserver = new ICommand()
 		{
 			public void execute()
 			{
@@ -106,7 +108,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 			}
 		};
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
-	private IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+	private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }

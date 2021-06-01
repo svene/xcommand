@@ -19,7 +19,9 @@ public class MainRoutines
 		{
 			String s = aArgs[i];
 			int p = s.indexOf('=');
-			if (p == -1) continue;
+			if (p == -1) {
+				continue;
+			}
 			String k = s.substring(0, p);
 			String v = s.substring(p + 1);
 			System.out.println("argument: " + k + "=" + v);
