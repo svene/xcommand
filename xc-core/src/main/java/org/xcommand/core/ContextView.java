@@ -3,8 +3,6 @@ package org.xcommand.core;
 public abstract class ContextView
 {
 
-// --- Initialization ---
-
 	public ContextView()
 	{
 		register();

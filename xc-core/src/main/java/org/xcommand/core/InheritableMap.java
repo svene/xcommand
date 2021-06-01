@@ -1,21 +1,19 @@
 package org.xcommand.core;
 
-import org.xcommand.core.DecoratingMap;
-
 import java.util.Map;
 import java.util.HashMap;
 
-public class InheritableMap extends DecoratingMap
+public class InheritableMap<K, V> extends DecoratingMap<K, V>
 {
 
 // --- Initialization ---
 
 	public InheritableMap()
 	{
-		super(new HashMap());
+		super(new HashMap<>());
 	}
 
-	public InheritableMap(Map aMap)
+	public InheritableMap(Map<K, V> aMap)
 	{
 		super(aMap);
 	}
@@ -23,7 +21,7 @@ public class InheritableMap extends DecoratingMap
 // --- Access ---
 
 	@Override
-	public Object get(Object aKey)
+	public V get(Object aKey)
 	{
 		if (map.containsKey(aKey)) {
 			return map.get(aKey);
@@ -34,12 +32,12 @@ public class InheritableMap extends DecoratingMap
 // --- Setting ---
 
 	@Override
-	public Object put(Object aKey, Object aValue)
+	public V put(K aKey, V aValue)
 	{
 		return map.put(aKey, aValue);
 	}
 
 // --- Implementation ---
 
-	protected final Map map = new HashMap();
+	protected final Map<K, V> map = new HashMap<>();
 }

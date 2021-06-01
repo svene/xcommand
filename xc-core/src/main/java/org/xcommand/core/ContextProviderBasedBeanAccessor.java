@@ -12,7 +12,6 @@ public class ContextProviderBasedBeanAccessor implements IBeanAccessor
 	public void set(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs)
 	{
 		String key = dynaBeanKeyProvider.getKey(aTargetObj, aMethodInfo, aArgs);
-		//System.out.println("***key = " + key);
 		contextProvider.getContext().put(key, aArgs.length == 1 ? aArgs[0] : aArgs);
 	}
 

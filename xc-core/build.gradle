@@ -1,13 +1,13 @@
 dependencies {
-	implementation "javax.servlet:javax.servlet-api:3.0.1"
-	implementation "org.springframework:spring-core:5.3.7"
-	implementation "org.springframework:spring-web:5.3.7"
+	implementation 'javax.servlet:javax.servlet-api:3.0.1'
+	implementation 'org.springframework:spring-core:5.3.7'
+	implementation 'org.springframework:spring-web:5.3.7'
 	implementation DEP_JANINO
-	testImplementation "org.springframework:spring-test:5.3.7"
+	testImplementation 'org.springframework:spring-test:5.3.7'
 	testImplementation DEP_GROOVY
 	testImplementation platform(DEP_SPOCK_BOM)
 	testImplementation DEP_SPOCK_CORE
-	testImplementation "cglib:cglib:2.2"
+	testImplementation 'cglib:cglib:2.2'
 }
 
 

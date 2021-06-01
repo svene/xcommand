@@ -1,25 +1,20 @@
 package org.xcommand.core;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
-public class DecoratingMap implements Map
+public class DecoratingMap<K, V> implements Map<K, V>
 {
 	public DecoratingMap()
 	{
-		decoratedMap = new HashMap();
+		decoratedMap = new HashMap<>();
 	}
 
-	public DecoratingMap(Map aMap) {
-		if (aMap == null) {
-			throw new IllegalArgumentException("`aMap' must not be null");
-		}
+	public DecoratingMap(Map<K, V> aMap) {
+		Objects.nonNull(aMap);
 		decoratedMap = aMap;
 	}
 
-	protected Map getDecoratedMap() {
+	protected Map<K, V> getDecoratedMap() {
 		return decoratedMap;
 	}
 
@@ -39,12 +34,12 @@ public class DecoratingMap implements Map
 	}
 
 	@Override
-	public Set entrySet() {
+	public Set<Map.Entry<K, V>> entrySet() {
 		return decoratedMap.entrySet();
 	}
 
 	@Override
-	public Object get(Object key) {
+	public V get(Object key) {
 		return decoratedMap.get(key);
 	}
 
@@ -54,22 +49,22 @@ public class DecoratingMap implements Map
 	}
 
 	@Override
-	public Set keySet() {
+	public Set<K> keySet() {
 		return decoratedMap.keySet();
 	}
 
 	@Override
-	public Object put(Object key, Object value) {
+	public V put(K key, V value) {
 		return decoratedMap.put(key, value);
 	}
 
 	@Override
-	public void putAll(Map mapToCopy) {
+	public void putAll(Map<? extends K, ? extends V> mapToCopy) {
 		decoratedMap.putAll(mapToCopy);
 	}
 
 	@Override
-	public Object remove(Object key) {
+	public V remove(Object key) {
 		return decoratedMap.remove(key);
 	}
 
@@ -79,7 +74,7 @@ public class DecoratingMap implements Map
 	}
 
 	@Override
-	public Collection values() {
+	public Collection<V> values() {
 		return decoratedMap.values();
 	}
 
@@ -97,7 +92,7 @@ public class DecoratingMap implements Map
 
 // --- Implementation ---
 
-	protected transient Map decoratedMap;
+	protected transient Map<K, V> decoratedMap;
 
 
 }

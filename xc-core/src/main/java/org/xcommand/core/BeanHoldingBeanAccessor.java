@@ -14,10 +14,6 @@ public class BeanHoldingBeanAccessor implements IBeanAccessor
 		{
 			aMethodInfo.method.invoke(obj, aArgs);
 		}
-		catch (RuntimeException e)
-		{
-			throw e;
-		}
 		catch (Exception e)
 		{
 			throw new RuntimeException(e);
@@ -30,10 +26,6 @@ public class BeanHoldingBeanAccessor implements IBeanAccessor
 		try
 		{
 			return aMethodInfo.method.invoke(obj, aArgs);
-		}
-		catch (RuntimeException e)
-		{
-			throw e;
 		}
 		catch (Exception e)
 		{
