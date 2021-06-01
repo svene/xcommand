@@ -12,6 +12,7 @@ class AdapterBasedHandlerKeyProvider implements IHandlerKeyProvider
 		objectAdapter = aObjectAdapter;
 	}
 
+	@Override
 	public Object getHandlerKey(Object aObj)
 	{
 		return objectAdapter.adaptedObject(aObj);

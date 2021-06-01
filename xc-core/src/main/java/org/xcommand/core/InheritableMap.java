@@ -22,6 +22,7 @@ public class InheritableMap extends DecoratingMap
 
 // --- Access ---
 
+	@Override
 	public Object get(Object aKey)
 	{
 		if (map.containsKey(aKey)) {
@@ -32,6 +33,7 @@ public class InheritableMap extends DecoratingMap
 
 // --- Setting ---
 
+	@Override
 	public Object put(Object aKey, Object aValue)
 	{
 		return map.put(aKey, aValue);

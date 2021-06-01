@@ -19,6 +19,7 @@ public class StoppableNotifier extends AbstractBasicNotifier
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 
@@ -38,14 +39,6 @@ public class StoppableNotifier extends AbstractBasicNotifier
 // --- Implementation ---
 
 	private boolean stopNotifying = false;
-
-	private final ICommand stopCommand = new ICommand()
-	{
-		public void execute()
-		{
-			stopNotifying = true;
-		}
-	};
-
+	private final ICommand stopCommand = () -> stopNotifying = true;
 	private final INotifier noStopRequestedNotifier = new BasicNotifier();
 }

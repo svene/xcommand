@@ -10,11 +10,13 @@ public class BaseMultiCommandProvider implements IMultiCommandProvider
 
 // --- Access ---
 
+	@Override
 	public Map getCommandMap()
 	{
 		return commandMap;
 	}
 
+	@Override
 	public ICommand getCommand(String aName)
 	{
 		return (ICommand) commandMap.get(aName);

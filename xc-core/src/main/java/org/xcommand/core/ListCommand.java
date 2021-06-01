@@ -46,5 +46,5 @@ public class ListCommand implements ICommand
 
 // --- Implementation ---
 
-	private List<? extends ICommand> commands = new ArrayList<ICommand>();
+	private List<? extends ICommand> commands = new ArrayList<>();
 }

@@ -13,6 +13,7 @@ public class TreeNode implements ITreeNode
 
 // --- Status report ---
 
+	@Override
 	public boolean hasChildren()
 	{
 		return children.size() > 0;
@@ -20,11 +21,13 @@ public class TreeNode implements ITreeNode
 
 // --- Access ---
 
+	@Override
 	public List<ITreeNode> getChildren()
 	{
 		return children;
 	}
 
+	@Override
 	public Object getDomainObject()
 	{
 		return domainObject == null ? this : domainObject;
@@ -32,6 +35,7 @@ public class TreeNode implements ITreeNode
 
 // --- Setting ---
 
+	@Override
 	public void setDomainObject(Object aDomainObject)
 	{
 		domainObject = aDomainObject;
@@ -39,6 +43,6 @@ public class TreeNode implements ITreeNode
 
 // --- Implementation ---
 
-	private final List<ITreeNode> children = new ArrayList<ITreeNode>();
+	private final List<ITreeNode> children = new ArrayList<>();
 	private Object domainObject;
 }

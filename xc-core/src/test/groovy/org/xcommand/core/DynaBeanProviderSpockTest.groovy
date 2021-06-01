@@ -65,7 +65,6 @@ public class DynaBeanProviderSpockTest extends Specification
 	def "verify that method based DynaBeanProvider (M-DBP) produces new instances for each call and that getters/setters work"()
 	{
 		given:
-		given:
 			IDynaBeanProvider dbp = newM_DBP()
 		when:
 			IPerson person = dbp.newBeanForInterface(IPerson)
@@ -207,15 +206,15 @@ public class DynaBeanProviderSpockTest extends Specification
 			"Ehrke" == p.getLastName()
 	}
 
-	private IDynaBeanProvider newCM_DBP() {
+	private static IDynaBeanProvider newCM_DBP() {
 		return DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider())
 	}
 
-	private IDynaBeanProvider newOID_DBP() {
+	private static IDynaBeanProvider newOID_DBP() {
 		return DynaBeanProvider.newThreadBasedDynabeanProvider(new ObjectIdentityKeyProvider())
 	}
 
-	private IDynaBeanProvider newM_DBP() {
+	private static IDynaBeanProvider newM_DBP() {
 		return DynaBeanProvider.newThreadBasedDynabeanProvider(new MethodKeyProvider())
 	}
 

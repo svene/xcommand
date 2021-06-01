@@ -21,9 +21,9 @@ public class DynaBeanProvider
 
 	private static class BasicDynaBeanProvider implements IDynaBeanProvider
 	{
-		private BasicDynaBeanProvider(DynaBeanInvocationHandler aIh)
+		private BasicDynaBeanProvider(DynaBeanInvocationHandler dynaBeanInvocationHandler)
 		{
-			ih = aIh;
+			this.dynaBeanInvocationHandler = dynaBeanInvocationHandler;
 		}
 
 		@Override
@@ -37,10 +37,10 @@ public class DynaBeanProvider
 		@Override
 		public Object newBeanFromInterfaces(Class<?>[] aInterfaces)
 		{
-			return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), aInterfaces, ih);
+			return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), aInterfaces, dynaBeanInvocationHandler);
 		}
 
-		private final DynaBeanInvocationHandler ih;
+		private final DynaBeanInvocationHandler dynaBeanInvocationHandler;
 	}
 
 }

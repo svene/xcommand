@@ -26,6 +26,7 @@ public class JarResourceProvider implements ICommand
 	 *  JarResourceProviderContextView.getResource(): Resource
 	 *  JarResourceProviderContextView.getLastModified(): Long
 	 */
+	@Override
 	public void execute()
 	{
 		System.out.println("JarResourceProvider.execute");
@@ -37,28 +38,28 @@ public class JarResourceProvider implements ICommand
 			// No problem to get access to resource, so simply provide info about it:
 			jarResourceProviderCV.setResource(resource);
 			long lm = f.lastModified();
-			jarResourceProviderCV.setLastModified(new Long(lm));
+			jarResourceProviderCV.setLastModified(lm);
 		}
 		catch (Exception e)
 		{
 			//e.printStackTrace();
 			String msg = e.getMessage();
-			if (msg.indexOf(WSJAR_FILE) == -1)
+			if (!msg.contains(WSJAR_FILE))
 			{
-				throw new RuntimeException("unsupported resource: " + resource.getDescription());
+				throw new RuntimeException("unsupported resource: " + resource.getDescription(), e);
 			}
 			int i1 = msg.indexOf(WEBINF_LIB);
 			if (i1 == -1)
 			{
 				// jar file is outside of 'WEB-INF-LIB'
 				// TBD
-				throw new RuntimeException("unsupported resource: " + resource.getDescription());
+				throw new RuntimeException("unsupported resource: " + resource.getDescription(), e);
 			}
 
 			int i2 = msg.indexOf(BANG_SLASH, i1);
 			if (i2 == -1)
 			{
-				throw new RuntimeException("unsupported resource: " + resource.getDescription());
+				throw new RuntimeException("unsupported resource: " + resource.getDescription(), e);
 			}
 
 			String filename = msg.substring(i1, i2);
@@ -69,7 +70,7 @@ public class JarResourceProvider implements ICommand
 			{
 				File f = resource.getFile();
 				long lm = f.lastModified();
-				jarResourceProviderCV.setLastModified(new Long(lm));
+				jarResourceProviderCV.setLastModified(lm);
 
 				String s = msg.substring(msg.indexOf(WSJAR_FILE));
 				resource = new UrlResource(s);
@@ -78,7 +79,7 @@ public class JarResourceProvider implements ICommand
 			catch (Exception e1)
 			{
 				e1.printStackTrace();
-				throw new RuntimeException(e);
+				throw new RuntimeException(e1);
 			}
 		}
 	}

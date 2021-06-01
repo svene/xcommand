@@ -7,6 +7,7 @@ import org.xcommand.core.ClassAndMethodKeyProvider;
 
 public class EchoCommand implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		String message = echoCV.getMessage();

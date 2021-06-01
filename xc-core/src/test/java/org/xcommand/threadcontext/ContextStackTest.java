@@ -85,14 +85,10 @@ public class ContextStackTest
 
 	@Test public void verifyThatEachThreadHasItsOwnContext() throws Exception {
 		ICommand cmd = new TIn2OutCommand();
-		Runnable r1 = new Runnable()
-		{
-			public void run()
-			{
-				tIn2OutCV.setInput("runnable 1");
-				cmd.execute();
-				assertEquals("runnable 1", tIn2OutCV.getOutput());
-			}
+		Runnable r1 = () -> {
+			tIn2OutCV.setInput("runnable 1");
+			cmd.execute();
+			assertEquals("runnable 1", tIn2OutCV.getOutput());
 		};
 		tIn2OutCV.setInput("main thread");
 		cmd.execute();

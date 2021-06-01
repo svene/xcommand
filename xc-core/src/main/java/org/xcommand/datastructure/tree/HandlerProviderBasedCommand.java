@@ -23,6 +23,7 @@ class HandlerProviderBasedCommand implements ICommand
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 		ITreeNode tn = treeNodeCV.getTreeNode();

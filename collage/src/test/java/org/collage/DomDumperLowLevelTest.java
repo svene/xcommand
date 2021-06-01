@@ -15,8 +15,6 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 
-import java.util.Map;
-
 public class DomDumperLowLevelTest
 {
 

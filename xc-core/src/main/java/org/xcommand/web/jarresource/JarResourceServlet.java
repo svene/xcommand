@@ -6,7 +6,6 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.web.IWebCV;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +28,7 @@ import java.util.Date;
 public class JarResourceServlet extends HttpServlet
 {
 
+	@Override
 	protected long getLastModified(HttpServletRequest request)
 	{
 		JarResourceProvider jrp = new JarResourceProvider();
@@ -37,7 +37,7 @@ public class JarResourceServlet extends HttpServlet
 		jarResourceProviderCV.setResourceName(resName);
 		jrp.execute();
 		showLastModifiedDate();
-		return jarResourceProviderCV.getLastModified().longValue();
+		return jarResourceProviderCV.getLastModified();
 	}
 
 	private String getResourceNameFromRequest(HttpServletRequest request)
@@ -60,6 +60,7 @@ public class JarResourceServlet extends HttpServlet
 		return resName;
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		System.out.println("JarResourceServlet.doGet(): serving content");
@@ -105,7 +106,7 @@ public class JarResourceServlet extends HttpServlet
 	private void showLastModifiedDate()
 	{
 		Resource resource = jarResourceProviderCV.getResource();
-		long l = jarResourceProviderCV.getLastModified().longValue();
+		long l = jarResourceProviderCV.getLastModified();
 
 		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
 	}

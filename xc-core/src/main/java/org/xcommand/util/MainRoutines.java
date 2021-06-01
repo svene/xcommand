@@ -15,9 +15,7 @@ public class MainRoutines
 	public static Map newNameValueMapFromArgs(String[] aArgs)
 	{
 		Map result = new HashMap();
-		for (int i = 0, n = aArgs.length; i < n; i++)
-		{
-			String s = aArgs[i];
+		for (String s : aArgs) {
 			int p = s.indexOf('=');
 			if (p == -1) {
 				continue;

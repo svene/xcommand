@@ -18,14 +18,12 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider
 	public void init()
 	{
 		Method[] methods = targetClass.getDeclaredMethods();
-		for (int i = 0; i < methods.length; i++)
-		{
-			Method m = methods[i];
+		for (Method m : methods) {
 			Class[] classes = m.getParameterTypes();
 			if (classes.length != 1) {
 				continue;
 			}
-			if (!classes[0].isAssignableFrom(Map.class) ) {
+			if (!classes[0].isAssignableFrom(Map.class)) {
 				continue;
 			}
 			MethodCmd mc;

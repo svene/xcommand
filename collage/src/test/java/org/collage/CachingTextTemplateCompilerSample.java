@@ -30,7 +30,8 @@ public class CachingTextTemplateCompilerSample
 	}
 
 	/** Much faster than previous routine */
-	@Test public void exerciseCachingTextTemplateCompiler()
+	@Test
+	public void exerciseCachingTextTemplateCompiler()
 	{
 		// On first template request `CachingTextTemplateCompiler' will compile unknown template:
 		new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TextTemplateTest
 {
-	StringWriter sw;
+	StringWriter stringWriter;
 
 	@BeforeEach
 	public void initializeContext()
@@ -26,7 +26,7 @@ public class TextTemplateTest
 		TCP.pushContext(new HashMap());
 		TCP.getContext().put("firstname", "Uli");
 
-		sw = new StringWriter();
+		stringWriter = new StringWriter();
 	}
 
 	@AfterEach
@@ -46,17 +46,17 @@ public class TextTemplateTest
 	public void test2()
 	{
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
-		tc.setWriter(sw);
+		tc.setWriter(stringWriter);
 		tc.execute();
-		assertEquals("hallo Uli.\nWie gehts?\n", sw.toString());
+		assertEquals("hallo Uli.\nWie gehts?\n", stringWriter.toString());
 	}
 
 	@Test
 	public void verfiyProperFunctionIfInputComesFromFile() {
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromResourceName("in.txt");
-		tc.setWriter(sw);
+		tc.setWriter(stringWriter);
 		tc.execute();
-		assertEquals("Hallo Uli! Willkommen bei uns.\n<?java int i = 1 ?>d\n", sw.toString());
+		assertEquals("Hallo Uli! Willkommen bei uns.\n<?java int i = 1 ?>d\n", stringWriter.toString());
 	}
 
 	@Test
@@ -66,9 +66,9 @@ public class TextTemplateTest
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
 
 		TCP.getContext().put("firstname", "Sven");
-		tc.setWriter(sw);
+		tc.setWriter(stringWriter);
 		tc.execute();
-		assertEquals("hallo Sven.\nWie gehts?\n", sw.toString());
+		assertEquals("hallo Sven.\nWie gehts?\n", stringWriter.toString());
 	}
 
 	/**
@@ -95,9 +95,9 @@ public class TextTemplateTest
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(s);
 		TCP.getContext().put("firstname", "Uli");
 		TCP.getContext().put("lastname", "Ehrke");
-		TemplateCV.setWriter(sw);
+		TemplateCV.setWriter(stringWriter);
 		cmd.execute();
-		assertEquals("hallo Uli Ehrke. Wie gehts?", sw.toString());
+		assertEquals("hallo Uli Ehrke. Wie gehts?", stringWriter.toString());
 	}
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());

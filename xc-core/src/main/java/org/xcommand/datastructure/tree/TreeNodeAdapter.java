@@ -13,6 +13,7 @@ class TreeNodeAdapter extends NestableObjectAdapter
 		super(aNestedAdapter);
 	}
 
+	@Override
 	public Object adaptedObject(Object aSourceObject)
 	{
 		return super.adaptedObject(aSourceObject);

@@ -12,6 +12,7 @@ public class DynaBeanInvocationHandler implements InvocationHandler
 		beanAccessor = aBeanAccessor;
 	}
 
+	@Override
 	public Object invoke(Object aProxy, Method aMethod, Object[] aArgs) {
 		// Get method:
 		MethodInfo mi;

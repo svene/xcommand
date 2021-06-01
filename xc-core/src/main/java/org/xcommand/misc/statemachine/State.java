@@ -21,26 +21,31 @@ public class State implements IState
 
 // --- Access ---
 
+	@Override
 	public String getName()
 	{
 		return name;
 	}
 
+	@Override
 	public INotifier getExitStateNotifier()
 	{
 		return exitStateNotifier;
 	}
 
+	@Override
 	public INotifier getExecuteStateNotifier()
 	{
 		return executeStateNotifier;
 	}
 
+	@Override
 	public INotifier getEnterStateNotifier()
 	{
 		return enterStateNotifier;
 	}
 
+	@Override
 	public StoppableNotifier getExecuteNotifier()
 	{
 		return executeNotifier;
@@ -48,6 +53,7 @@ public class State implements IState
 
 // --- Setting ---
 
+	@Override
 	public void setName(String aName)
 	{
 		name = aName;
@@ -55,6 +61,7 @@ public class State implements IState
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 		getExecuteNotifier().execute();

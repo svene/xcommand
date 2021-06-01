@@ -10,6 +10,7 @@ public class ClassAdapter extends NestableObjectAdapter
 		super(aNestedAdapter);
 	}
 
+	@Override
 	public Object adaptedObject(Object aSourceObject)
 	{
 		Object obj = super.adaptedObject(aSourceObject);

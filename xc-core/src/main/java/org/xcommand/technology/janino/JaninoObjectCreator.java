@@ -59,12 +59,14 @@ public class JaninoObjectCreator
 
 	private final Map javaClassMap = new HashMap()
 	{
+		@Override
 		public Object get(Object key)
 		{
 			System.out.println("JaninoObjectCreator.get()");
 			return super.get(key);
 		}
 
+		@Override
 		public Object put(Object key, Object value)
 		{
 			System.out.println("JaninoObjectCreator.put()");

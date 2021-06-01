@@ -7,6 +7,7 @@ import org.xcommand.core.ClassAndMethodKeyProvider;
 
 public class TIn2OutCommand implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		tIn2OutCV.setOutput(tIn2OutCV.getInput());

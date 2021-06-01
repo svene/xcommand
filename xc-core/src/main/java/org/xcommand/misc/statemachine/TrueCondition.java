@@ -4,6 +4,7 @@ import org.xcommand.core.*;
 
 public class TrueCondition implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		resultCV.setResult(Boolean.TRUE);

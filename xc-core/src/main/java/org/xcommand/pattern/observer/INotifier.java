@@ -12,5 +12,6 @@ public interface INotifier extends ICommand
 	/**
 	 * Notify all registered observers by calling their `execute' method.
 	 */
+	@Override
 	void execute();
 }

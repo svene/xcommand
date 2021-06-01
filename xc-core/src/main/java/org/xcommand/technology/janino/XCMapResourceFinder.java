@@ -5,7 +5,6 @@ import org.codehaus.commons.compiler.util.resource.ResourceFinder;
 
 import java.util.Map;
 import java.io.InputStream;
-import java.io.IOException;
 import java.io.ByteArrayInputStream;
 
 /**
@@ -27,6 +26,7 @@ public class XCMapResourceFinder extends ResourceFinder
 		this.lastModified = lastModified;
 	}
 
+	@Override
 	public final Resource findResource(String resourceName)
 	{
 		int p = resourceName.indexOf(".java");

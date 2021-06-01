@@ -5,6 +5,7 @@ package org.xcommand.core;
  */
 public class NopCommand implements ICommand
 {
+	@Override
 	public final void execute()
 	{
 	}

@@ -23,11 +23,13 @@ public class ServletContextMapAdapter implements Map
 
 // --- java.util.Map routines ---
 
+	@Override
 	public int size()
 	{
 		return _size();
 	}
 
+	@Override
 	public boolean isEmpty()
 	{
 		return _size() == 0;
@@ -36,11 +38,13 @@ public class ServletContextMapAdapter implements Map
 	/**
 	 * `key' must be of type String
 	 */
+	@Override
 	public boolean containsKey(Object key)
 	{
 		return servletContext.getAttribute((String) key) != null;
 	}
 
+	@Override
 	public boolean containsValue(Object value)
 	{
 		Enumeration enumeration = servletContext.getAttributeNames();
@@ -58,6 +62,7 @@ public class ServletContextMapAdapter implements Map
 	/**
 	 * `key' must be of type String
 	 */
+	@Override
 	public Object get(Object key)
 	{
 		return servletContext.getAttribute((String) key);
@@ -66,6 +71,7 @@ public class ServletContextMapAdapter implements Map
 	/**
 	 * `key' must be of type String
 	 */
+	@Override
 	public Object put(Object key, Object value)
 	{
 		servletContext.setAttribute((String) key, value);
@@ -75,6 +81,7 @@ public class ServletContextMapAdapter implements Map
 	/**
 	 * `key' must be of type String
 	 */
+	@Override
 	public Object remove(Object key)
 	{
 		Object result = servletContext.getAttribute((String) key);
@@ -82,24 +89,29 @@ public class ServletContextMapAdapter implements Map
 		return result;
 	}
 
+	@Override
 	public void putAll(Map m)
 	{
 	}
 
+	@Override
 	public void clear()
 	{
 	}
 
+	@Override
 	public Set keySet()
 	{
 		return null;
 	}
 
+	@Override
 	public Collection values()
 	{
 		return null;
 	}
 
+	@Override
 	public Set entrySet()
 	{
 		return null;

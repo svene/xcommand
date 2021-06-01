@@ -1,7 +1,6 @@
 package org.collage;
 
 import org.collage.template.*;
-import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

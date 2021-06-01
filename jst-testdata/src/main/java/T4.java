@@ -4,6 +4,7 @@ import org.xcommand.core.ICommand;
 
 public class T4 implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		String localString = "Bart";

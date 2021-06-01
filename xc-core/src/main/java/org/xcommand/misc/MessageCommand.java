@@ -12,6 +12,7 @@ public abstract class MessageCommand implements ICommand
 {
 	public abstract String getMessage();
 
+	@Override
 	public void execute()
 	{
 		String s = getMessage();

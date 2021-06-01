@@ -5,12 +5,12 @@ import org.xcommand.core.ICommand;
 public class BasicNotifier extends AbstractBasicNotifier
 {
 
+	@Override
 	public void execute()
 	{
 
-		for (int i = 0, n = observers.size(); i < n; i++)
-		{
-			ICommand observer = (ICommand) observers.get(i);
+		for (Object o : observers) {
+			ICommand observer = (ICommand) o;
 			observer.execute();
 		}
 	}
