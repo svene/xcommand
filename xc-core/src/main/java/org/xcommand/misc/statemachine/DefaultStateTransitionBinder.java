@@ -19,6 +19,6 @@ public class DefaultStateTransitionBinder implements IStateTransitionBinder
 		aTransition.getPostExecuteNotifier().registerObserver(aFromState.getExecuteNotifier().getStopCommand());
 
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
 }

@@ -3,7 +3,6 @@ package org.xcommand.example.commands;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 
 public class EchoCommand implements ICommand
 {
@@ -13,6 +12,6 @@ public class EchoCommand implements ICommand
 		String message = echoCV.getMessage();
 		System.out.println(message);
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 }

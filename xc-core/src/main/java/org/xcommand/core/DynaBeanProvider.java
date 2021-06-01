@@ -8,10 +8,15 @@ public class DynaBeanProvider
 	private DynaBeanProvider() {
 	}
 
+	public static IDynaBeanProvider newThreadClassMethodInstance() {
+		return newDynabeanProvider(BeanAccessors.newThreadClassMethodInstance());
+	}
+
 	public static IDynaBeanProvider newThreadBasedDynabeanProvider(IDynaBeanKeyProvider aDynaBeanKeyProvider)
 	{
-		return newDynabeanProvider(new TCBasedBeanAccessor(aDynaBeanKeyProvider));
+		return newDynabeanProvider(BeanAccessors.newBeanAccessor(TCP::getContext, aDynaBeanKeyProvider));
 	}
+
 	public static IDynaBeanProvider newDynabeanProvider(IBeanAccessor aBeanAccessor)
 	{
 		return new BasicDynaBeanProvider(new DynaBeanInvocationHandler(aBeanAccessor));

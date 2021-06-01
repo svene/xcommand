@@ -108,7 +108,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 			}
 		};
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 	private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }

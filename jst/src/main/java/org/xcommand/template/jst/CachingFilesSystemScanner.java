@@ -1,9 +1,6 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.core.ICommand;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
+import org.xcommand.core.*;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
@@ -73,7 +70,7 @@ public class CachingFilesSystemScanner implements ICommand
 	}
 
 	private final INotifier changedFilesNotifier = new BasicNotifier();
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
 	ICachingFilesSystemScannerCV cachingFilesSystemScannerCV = dbp.newBeanForInterface(
 		ICachingFilesSystemScannerCV.class);

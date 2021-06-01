@@ -40,7 +40,7 @@ public class JavaToStringExtractor implements ICommand
 		}
 	}
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);

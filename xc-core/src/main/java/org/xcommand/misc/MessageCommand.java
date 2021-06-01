@@ -27,6 +27,6 @@ public abstract class MessageCommand implements ICommand
 			pw.println(s);
 		}
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IMessageCommandCV messageCommandCV = dbp.newBeanForInterface(IMessageCommandCV.class);
 }

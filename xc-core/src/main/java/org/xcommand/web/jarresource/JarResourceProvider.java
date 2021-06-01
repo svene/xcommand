@@ -87,7 +87,7 @@ public class JarResourceProvider implements ICommand
 	private static final String WSJAR_FILE = "wsjar:file:/";
 	private static final String WEBINF_LIB = "/WEB-INF/lib";
 	private static final String BANG_SLASH = "!/";
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 	private final IJarResourceProviderCV jarResourceProviderCV = dbp.newBeanForInterface(
 		IJarResourceProviderCV.class); 

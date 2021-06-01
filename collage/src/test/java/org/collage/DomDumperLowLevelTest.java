@@ -22,7 +22,7 @@ public class DomDumperLowLevelTest
 	public void testWithHandlersUsingLowlevelObserverRegistration()
 	{
 		// Setup:
-		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 
@@ -62,7 +62,7 @@ public class DomDumperLowLevelTest
 		// but those could be tested standalone if necessary at all.
 
 		// Setup:
-		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 		IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 		stringHandlerCV.setString("dummy");

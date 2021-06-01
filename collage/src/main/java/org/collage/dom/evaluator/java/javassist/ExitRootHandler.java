@@ -87,10 +87,9 @@ class ExitRootHandler implements ICommand
 		s += "-" + cal.get(Calendar.SECOND);
 		s += "-" + cal.get(Calendar.MILLISECOND);
 		String className = "JavassistTemplate" + s;
-//		System.out.println(className);
 		return className;
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IJavaTemplateCmdCV javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);

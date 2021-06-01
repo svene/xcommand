@@ -33,6 +33,6 @@ public class TemplateFactory
 		return cmd;
 	}
 	private static final IDynaBeanProvider dbp =
-		DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		DynaBeanProvider.newThreadClassMethodInstance();
 	private static final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

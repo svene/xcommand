@@ -14,7 +14,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegExpDispatcherCmdTest {
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 	private final ITIn2OutCV inoutCV = dbp.newBeanForInterface(ITIn2OutCV.class);
 

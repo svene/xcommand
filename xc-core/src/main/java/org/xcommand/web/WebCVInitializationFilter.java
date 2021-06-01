@@ -40,6 +40,6 @@ public class WebCVInitializationFilter implements Filter
 	}
 
 	ServletContext servletContext;
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 }

@@ -12,6 +12,6 @@ public class CsmStartTextCommand implements ICommand
 	{
 		parserCV.setStringBuffer(new StringBuffer());
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }

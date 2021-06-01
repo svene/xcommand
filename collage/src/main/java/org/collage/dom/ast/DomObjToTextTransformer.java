@@ -16,7 +16,7 @@ public class DomObjToTextTransformer implements ICommand
 		Text text = (Text) node.getDomainObject();
 		textCV.setText(text);
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	ITextCV textCV = dbp.newBeanForInterface(ITextCV.class);
 }

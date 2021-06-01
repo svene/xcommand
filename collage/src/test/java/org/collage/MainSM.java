@@ -33,7 +33,7 @@ public class MainSM
 
 	@BeforeEach
 	public void setUp() {
-		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 		parserCV = dbp.newBeanForInterface(IParserCV.class);
 		treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 		javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);

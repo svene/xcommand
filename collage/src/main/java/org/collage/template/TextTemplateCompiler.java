@@ -57,7 +57,7 @@ public class TextTemplateCompiler
 			setNotifyingTreeNodeTraverser(new TextTraverser());
 		}
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);

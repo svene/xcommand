@@ -2,23 +2,23 @@ package org.xcommand.core;
 
 public class ContextProviderBasedBeanAccessor implements IBeanAccessor
 {
-	public ContextProviderBasedBeanAccessor(IContextProvider aContextProvider, IDynaBeanKeyProvider aDynaBeanKeyProvider)
+	public ContextProviderBasedBeanAccessor(IContextProvider contextProvider, IDynaBeanKeyProvider dynaBeanKeyProvider)
 	{
-		contextProvider = aContextProvider;
-		dynaBeanKeyProvider = aDynaBeanKeyProvider;
+		this.contextProvider = contextProvider;
+		this.dynaBeanKeyProvider = dynaBeanKeyProvider;
 	}
 
 	@Override
-	public void set(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs)
+	public void set(Object targetObj, MethodInfo methodInfo, Object[] args)
 	{
-		String key = dynaBeanKeyProvider.getKey(aTargetObj, aMethodInfo, aArgs);
-		contextProvider.getContext().put(key, aArgs.length == 1 ? aArgs[0] : aArgs);
+		String key = dynaBeanKeyProvider.getKey(targetObj, methodInfo, args);
+		contextProvider.getContext().put(key, args.length == 1 ? args[0] : args);
 	}
 
 	@Override
-	public Object get(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs)
+	public Object get(Object targetObj, MethodInfo methodInfo, Object[] args)
 	{
-		String key = dynaBeanKeyProvider.getKey(aTargetObj, aMethodInfo, aArgs);
+		String key = dynaBeanKeyProvider.getKey(targetObj, methodInfo, args);
 		return contextProvider.getContext().get(key);
 	}
 

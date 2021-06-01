@@ -22,6 +22,6 @@ public class WriterFlusher implements ICommand
 			throw new RuntimeException(e);
 		}
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 }

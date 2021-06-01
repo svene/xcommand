@@ -207,7 +207,7 @@ public class DynaBeanProviderSpockTest extends Specification
 	}
 
 	private static IDynaBeanProvider newCM_DBP() {
-		return DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider())
+		return DynaBeanProvider.newThreadClassMethodInstance()
 	}
 
 	private static IDynaBeanProvider newOID_DBP() {

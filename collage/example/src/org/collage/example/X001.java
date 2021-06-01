@@ -21,6 +21,6 @@ public class X001
 		System.out.println(s);
 	}
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 }

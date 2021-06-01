@@ -2,7 +2,6 @@ package org.xcommand.example.xc100;
 
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.core.ClassAndMethodKeyProvider;
 import org.xcommand.example.commands.EchoCommand;
 import org.xcommand.example.commands.IEchoCV;
 
@@ -21,6 +20,6 @@ public class Main
 		cmd.execute();
 	}
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 }

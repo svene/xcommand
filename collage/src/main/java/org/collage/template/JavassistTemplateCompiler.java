@@ -45,7 +45,7 @@ public class JavassistTemplateCompiler
 		return newTemplateCommand(new TemplateSource(aInputStream));
 	}
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(

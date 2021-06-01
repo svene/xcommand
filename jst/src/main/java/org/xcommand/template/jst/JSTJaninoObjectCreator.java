@@ -85,6 +85,6 @@ public class JSTJaninoObjectCreator
 
 	private final Map janinoClassMap = new HashMap();
 	XCMapResourceFinder mrf;
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
 }

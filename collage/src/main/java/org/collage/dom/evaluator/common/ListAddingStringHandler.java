@@ -16,6 +16,6 @@ public class ListAddingStringHandler implements IStringHandler
 		List<String> lst = messageCommandCV.getList();
 		lst.add(aString);
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IMessageCommandCV messageCommandCV = dbp.newBeanForInterface(IMessageCommandCV.class);
 }

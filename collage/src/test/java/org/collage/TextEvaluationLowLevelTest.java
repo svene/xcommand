@@ -18,7 +18,7 @@ public class TextEvaluationLowLevelTest
 	@Test
 	public void test1() {
 		// Setup:
-		IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();

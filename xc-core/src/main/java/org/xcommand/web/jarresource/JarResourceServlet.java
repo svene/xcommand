@@ -110,7 +110,7 @@ public class JarResourceServlet extends HttpServlet
 
 		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 	private final IJarResourceProviderCV jarResourceProviderCV = dbp.newBeanForInterface(
 		IJarResourceProviderCV.class);

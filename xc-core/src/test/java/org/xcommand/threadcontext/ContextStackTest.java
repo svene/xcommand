@@ -103,6 +103,6 @@ public class ContextStackTest
 		assertEquals("main thread", tIn2OutCV.getOutput());
 	}
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final ITIn2OutCV tIn2OutCV = dbp.newBeanForInterface(ITIn2OutCV.class);
 }

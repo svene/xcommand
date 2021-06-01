@@ -8,7 +8,7 @@ import spock.lang.Specification
 import org.xcommand.core.*
 
 class JavassistSpockTest extends Specification {
-	IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IStringHandlerCV stringHandlerCV = (IStringHandlerCV) dbp.newBeanForInterface(IStringHandlerCV.class);
 
 	// TODO: instead of TCP use a normal object as storage (does this need reflection then?: java.beans.Introspector)

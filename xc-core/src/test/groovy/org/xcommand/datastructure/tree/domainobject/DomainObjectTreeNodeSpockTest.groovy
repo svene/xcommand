@@ -18,7 +18,7 @@ class DomainObjectTreeNodeSpockTest extends Specification {
 
 	// fields:
 	TestDataProvider tdp = new TestDataProvider()
-	IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser()
 	int counter

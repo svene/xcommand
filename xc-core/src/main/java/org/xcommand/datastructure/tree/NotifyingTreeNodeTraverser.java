@@ -51,6 +51,6 @@ public class NotifyingTreeNodeTraverser implements ICommand
 
 	private final INotifier enterNodeNotifier = new BasicNotifier();
 	private final INotifier exitNodeNotifier = new BasicNotifier();
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 }

@@ -43,7 +43,7 @@ public class TextToStringExtractor implements ICommand
 
 		}
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 	ITextCV textCV = dbp.newBeanForInterface(ITextCV.class);

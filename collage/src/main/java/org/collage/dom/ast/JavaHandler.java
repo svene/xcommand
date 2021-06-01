@@ -15,7 +15,7 @@ public class JavaHandler implements ICommand
 		Java java = (Java) node.getDomainObject();
 		javaCV.setJava(java);
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 }

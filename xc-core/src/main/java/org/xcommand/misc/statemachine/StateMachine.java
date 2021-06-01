@@ -22,6 +22,6 @@ public class StateMachine implements ICommand
 		stateCV.getState().execute();
 	}
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
 }

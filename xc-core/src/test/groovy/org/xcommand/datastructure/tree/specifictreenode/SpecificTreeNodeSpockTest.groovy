@@ -16,7 +16,7 @@ import org.xcommand.datastructure.tree.TreeNodeCommandFactory
 
 class SpecificTreeNodeSpockTest extends Specification {
 
-	IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	ITreeNodeCV treeNodeCV = (ITreeNodeCV) dbp.newBeanForInterface(ITreeNodeCV.class);
 	NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser()
 	int counter

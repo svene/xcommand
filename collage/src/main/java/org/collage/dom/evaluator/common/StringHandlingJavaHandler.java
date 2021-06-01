@@ -21,6 +21,6 @@ public class StringHandlingJavaHandler extends StringHandlingHandler
 	{
 		return javaCV.getJava().getValue();
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 }

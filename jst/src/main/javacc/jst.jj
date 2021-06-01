@@ -48,8 +48,8 @@ public class JSTParser
 	private INotifier javaVarNotifier = new BasicNotifier();
 	private INotifier javaVarEndNotifier = new BasicNotifier();
 
-	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
-	private IParserCV parserCV = (IParserCV) dbp.newBeanForInterface(IParserCV.class);
+	private IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+	private IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 
 	private boolean inCommentState = false;
 

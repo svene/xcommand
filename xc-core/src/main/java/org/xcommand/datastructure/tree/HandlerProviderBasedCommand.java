@@ -39,7 +39,7 @@ class HandlerProviderBasedCommand implements ICommand
 
 	private final IHandlerKeyProvider handlerKeyProvider;
 	private final IHandlerProvider handlerProvider;
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 
 }

@@ -14,6 +14,6 @@ public class CsmAppendJavaCodeCommand implements ICommand
 		String value = parserCV.getValue();
 		sb.append(value);
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadBasedDynabeanProvider(new ClassAndMethodKeyProvider());
+	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }
