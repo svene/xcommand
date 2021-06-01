@@ -13,8 +13,6 @@ import java.util.HashMap;
 public class JaninoObjectCreator
 {
 
-// --- Initialization ---
-
 	public JaninoObjectCreator(Map aJavaSourceMap)
 	{
 		javaSourceResourceFinder = new XCMapResourceFinder(aJavaSourceMap);
@@ -55,19 +53,17 @@ public class JaninoObjectCreator
 		}
 	}
 
-// --- Implementation ---
-
-	private final Map javaClassMap = new HashMap()
+	private final Map<String, byte[]> javaClassMap = new HashMap<String, byte[]>()
 	{
 		@Override
-		public Object get(Object key)
+		public byte[] get(Object key)
 		{
 			System.out.println("JaninoObjectCreator.get()");
 			return super.get(key);
 		}
 
 		@Override
-		public Object put(Object key, Object value)
+		public byte[] put(String key, byte[] value)
 		{
 			System.out.println("JaninoObjectCreator.put()");
 			return super.put(key, value);

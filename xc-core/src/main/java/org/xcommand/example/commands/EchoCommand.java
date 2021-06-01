@@ -1,16 +1,23 @@
 package org.xcommand.example.commands;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.ICommand;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
+
+import java.lang.invoke.MethodHandles;
 
 public class EchoCommand implements ICommand
 {
+	private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+	public EchoCommand(IEchoCV echoCV) {
+		this.echoCV = echoCV;
+	}
+
 	@Override
 	public void execute()
 	{
-		System.out.println(echoCV.getMessage());
+		LOGGER.info(echoCV.getMessage());
 	}
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
+	private final IEchoCV echoCV;
 }

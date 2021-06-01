@@ -13,10 +13,10 @@ import java.io.ByteArrayInputStream;
  */
 public class XCMapResourceFinder extends ResourceFinder
 {
-	private final Map map;
+	private final Map<String, byte[]> map;
 	private long lastModified = 0L;
 
-	public XCMapResourceFinder(Map map)
+	public XCMapResourceFinder(Map<String, byte[]> map)
 	{
 		this.map = map;
 	}
@@ -31,7 +31,7 @@ public class XCMapResourceFinder extends ResourceFinder
 	{
 		int p = resourceName.indexOf(".java");
 		String s = resourceName.substring(0, p);
-		byte[] ba = (byte[]) map.get(s);
+		byte[] ba = map.get(s);
 		if (ba == null) {
 			return null;
 		}
