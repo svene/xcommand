@@ -1,4 +1,4 @@
-package org.xcommand.datastructure.tree;
+package org.xcommand.datastructure.handlerprovider;
 
 /**
  * Provider of keys for the lookup handlers. The key is determined

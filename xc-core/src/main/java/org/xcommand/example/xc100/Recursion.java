@@ -23,15 +23,16 @@ public class Recursion
 		new Recursion().execute(ctx);
 	}
 
-	private void execute(Map aCtx)
+	private void execute(Map<String, Object> aCtx)
 	{
 		String name = (String) aCtx.get("name");
 		String level = (String) aCtx.get("level");
 		System.out.println("before call: name=" + name + ", level=" + level);
 		if (level.length() < 5)
 		{
-			Map ctx = new InheritableMap(aCtx);
+			Map<String, Object> ctx = new InheritableMap<>(aCtx);
 			level += "#";
+			ctx.put("name", ctx.get("name") + String.valueOf(level.length()));
 			ctx.put("level", level);
 			execute(ctx);
 		}

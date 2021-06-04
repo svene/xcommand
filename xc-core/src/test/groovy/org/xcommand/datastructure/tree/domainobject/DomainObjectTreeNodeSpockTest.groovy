@@ -11,7 +11,7 @@ import org.xcommand.datastructure.tree.domainobject.TestDataProvider.RootDomainO
 import org.xcommand.datastructure.tree.domainobject.TestDataProvider.OneDomainObject
 import org.xcommand.datastructure.tree.domainobject.TestDataProvider.AnotherDomainObject
 
-import org.xcommand.datastructure.tree.MapBasedHandlerProvider
+import org.xcommand.datastructure.handlerprovider.MapBasedHandlerProvider
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory
 
 class DomainObjectTreeNodeSpockTest extends Specification {

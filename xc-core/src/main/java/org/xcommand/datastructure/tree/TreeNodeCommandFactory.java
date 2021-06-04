@@ -1,6 +1,8 @@
 package org.xcommand.datastructure.tree;
 
 import org.xcommand.core.ICommand;
+import org.xcommand.datastructure.handlerprovider.IHandlerKeyProvider;
+import org.xcommand.datastructure.handlerprovider.IHandlerProvider;
 import org.xcommand.util.ClassAdapter;
 import org.xcommand.util.NestableObjectAdapter;
 

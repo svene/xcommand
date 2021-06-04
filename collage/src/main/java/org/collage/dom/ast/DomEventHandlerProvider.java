@@ -1,6 +1,6 @@
 package org.collage.dom.ast;
 
-import org.xcommand.datastructure.tree.MapBasedHandlerProvider;
+import org.xcommand.datastructure.handlerprovider.MapBasedHandlerProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 

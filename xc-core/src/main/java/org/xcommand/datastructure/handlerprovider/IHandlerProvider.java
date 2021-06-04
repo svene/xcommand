@@ -1,4 +1,4 @@
-package org.xcommand.datastructure.tree;
+package org.xcommand.datastructure.handlerprovider;
 
 import org.xcommand.core.ICommand;
 

@@ -11,7 +11,7 @@ import org.xcommand.datastructure.tree.specifictreenode.TestDataProvider.TreeNod
 import org.xcommand.datastructure.tree.specifictreenode.TestDataProvider.TreeNode1
 import org.xcommand.datastructure.tree.specifictreenode.TestDataProvider.RootTreeNode
 
-import org.xcommand.datastructure.tree.MapBasedHandlerProvider
+import org.xcommand.datastructure.handlerprovider.MapBasedHandlerProvider
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory
 
 class SpecificTreeNodeSpockTest extends Specification {
