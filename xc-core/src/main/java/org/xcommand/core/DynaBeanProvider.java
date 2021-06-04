@@ -1,6 +1,6 @@
 package org.xcommand.core;
 
-import java.lang.reflect.Proxy;
+import org.xcommand.proxy.Proxies;
 
 public class DynaBeanProvider
 {
@@ -9,15 +9,15 @@ public class DynaBeanProvider
 	}
 
 	public static IDynaBeanProvider newThreadClassMethodInstance() {
-		return newDynabeanProvider(BeanAccessors.newThreadClassMethodInstance());
+		return newThreadBasedDynabeanProvider(DynaBeanKeyProviders::classAndMethodKeyProvider);
 	}
 
-	public static IDynaBeanProvider newThreadBasedDynabeanProvider(IDynaBeanKeyProvider aDynaBeanKeyProvider)
+	static IDynaBeanProvider newThreadBasedDynabeanProvider(IDynaBeanKeyProvider aDynaBeanKeyProvider)
 	{
 		return newDynabeanProvider(BeanAccessors.newBeanAccessor(TCP::getContext, aDynaBeanKeyProvider));
 	}
 
-	public static IDynaBeanProvider newDynabeanProvider(IBeanAccessor aBeanAccessor)
+	static IDynaBeanProvider newDynabeanProvider(IBeanAccessor aBeanAccessor)
 	{
 		return new BasicDynaBeanProvider(new DynaBeanInvocationHandler(aBeanAccessor));
 	}
@@ -34,15 +34,7 @@ public class DynaBeanProvider
 		@Override
 		public <T> T newBeanForInterface(Class<T> aInterface)
 		{
-			@SuppressWarnings("unchecked")
-			T result = (T) newBeanFromInterfaces(new Class[]{aInterface});
-			return result;
-		}
-
-		@Override
-		public Object newBeanFromInterfaces(Class<?>[] aInterfaces)
-		{
-			return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), aInterfaces, dynaBeanInvocationHandler);
+			return Proxies.newProxy(aInterface, dynaBeanInvocationHandler);
 		}
 
 		private final DynaBeanInvocationHandler dynaBeanInvocationHandler;
