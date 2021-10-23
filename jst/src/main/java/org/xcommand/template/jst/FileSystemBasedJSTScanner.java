@@ -9,6 +9,7 @@ import org.xcommand.template.jst.parser.JSTParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -93,7 +94,7 @@ public class FileSystemBasedJSTScanner implements ICommand
 						System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
 						File rf = new File(genSourceDir + "/" + className + ".java");
 						rf.createNewFile();
-						FileUtils.writeStringToFile(rf, cme.fme.content);
+						FileUtils.writeStringToFile(rf, cme.fme.content, StandardCharsets.UTF_8);
 					}
 
 				}

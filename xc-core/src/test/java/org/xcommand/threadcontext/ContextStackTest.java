@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,10 +28,10 @@ public class ContextStackTest
 		assertEquals(v1, tIn2OutCV.getOutput());
 
 		// Save current context:
-		Map savedCtx = TCP.getContext();
+		var savedCtx = TCP.getContext();
 
 		// Create new context and push it on stack:
-		Map ctx = new HashMap();
+		var ctx = new HashMap<String, Object>();
 		TCP.pushContext(ctx);
 		// Verify that pushed context is current one:
 		assertSame(ctx, TCP.getContext());
@@ -63,7 +62,7 @@ public class ContextStackTest
 		assertEquals(v1, tIn2OutCV.getOutput());
 
 		// Save current context:
-		Map savedCtx = TCP.getContext();
+		var savedCtx = TCP.getContext();
 
 		TCP.pushNewInheritableContext();
 		assertEquals(v1, tIn2OutCV.getOutput());

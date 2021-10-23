@@ -16,6 +16,7 @@ public interface IDomNodeCreationHandlerCV
 	public void setProduceJavaSource(Boolean aProduceJavaSource);
 	public void setCreateTextNodeRequestNotifier(INotifier aNotifier);
 	/** @deprecated */
+	@Deprecated
 	public void setDomNodeCreationHandler(ICommand aDomNodeCreationHandler);
 	public void setCreateVariableNodeRequestNotifier(INotifier aNotifier);
 	public void setCreateJavaNodeRequestNotifier(INotifier aNotifier);

@@ -1,7 +1,10 @@
+plugins {
+	id("java-library")
+}
 project.ext {
 	VERSION_JAVACC = '7.0.10'
 	DEP_JANINO = 'org.codehaus.janino:janino:3.1.4'
-	DEP_JAVASSIST = 'jboss:javassist:3.8.0.GA'
+	DEP_JAVASSIST = 'org.javassist:javassist:3.28.0-GA'
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
 
 	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.8'
@@ -10,7 +13,7 @@ project.ext {
 }
 
 allprojects {
-	apply plugin: 'java'
+//	apply plugin: 'java'
 	apply plugin: 'groovy'
 
 	repositories {
@@ -27,8 +30,14 @@ allprojects {
 		testImplementation "org.mockito:mockito-junit-jupiter:3.10.0"
 	}
 
-	sourceCompatibility = 1.8
-	targetCompatibility = 1.8
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(17)
+		}
+	}
+	tasks.withType(JavaCompile) {
+		options.deprecation = true
+	}
 
 	task ('copyToLib', type: Copy) {
 		into('build/_artifacts')

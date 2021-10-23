@@ -14,7 +14,7 @@ import java.util.HashMap;
  * of the webapp.
  * But clearly this is an open design issue of this class which needs to be resolved. 
  */
-public class AC extends HashMap
+public class AC extends HashMap<String, Object>
 {
 
 // --- Initialization ---

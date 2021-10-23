@@ -9,6 +9,7 @@ import java.io.FilenameFilter;
 /**
  * @deprecated 
  */
+@Deprecated
 public class JavaTemplateDirectoryIteratorProvider
 {
 	public Iterator newIterator(String aSrcDir)

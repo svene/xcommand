@@ -1,8 +1,8 @@
 dependencies {
 	implementation project(':xc-core')
 
-	implementation "commons-io:commons-io:2.9.0"
-	implementation "javax.servlet:javax.servlet-api:3.0.1"
+	implementation 'commons-io:commons-io:2.11.0'
+	implementation 'javax.servlet:javax.servlet-api:3.0.1'
 	implementation DEP_JAVACC
 	implementation DEP_JANINO
 }

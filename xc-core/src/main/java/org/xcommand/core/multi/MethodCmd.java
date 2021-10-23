@@ -12,7 +12,7 @@ public class MethodCmd implements ICommand
 	{
 		try
 		{
-			multiCommandObject = aClass.newInstance();
+			multiCommandObject = aClass.getDeclaredConstructor().newInstance();
 		}
 		catch (Exception e)
 		{

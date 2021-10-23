@@ -8,6 +8,7 @@ import org.xcommand.core.TCP;
 import java.io.*;
 
 /** @deprecated replaced by JavaCC file 'jst.jj' */
+@Deprecated
 public class TemplateToSourceGenerator implements ICommand
 {
 

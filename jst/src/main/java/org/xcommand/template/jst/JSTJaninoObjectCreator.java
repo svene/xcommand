@@ -68,7 +68,7 @@ public class JSTJaninoObjectCreator
 		Class clazz = getClass(aClassname);
 		try
 		{
-			return clazz.newInstance();
+			return clazz.getDeclaredConstructor().newInstance();
 		}
 		catch (Exception e)
 		{

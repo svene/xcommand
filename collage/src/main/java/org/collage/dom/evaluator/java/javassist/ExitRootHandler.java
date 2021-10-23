@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 class ExitRootHandler implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		CtClass cc = null;
@@ -32,23 +33,23 @@ class ExitRootHandler implements ICommand
 			cc.addInterface(ccXcommand);
 
 			// Add method 'appendVar()':
-			TCP.pushContext(new HashMap());
+			TCP.pushContext(new HashMap<>());
 			addMethod(cc, "org/collage/dom/evaluator/java/javassist/appendvar.txt");
 			TCP.popContext();
 
 			// Add method 'execute()':
 			StringBuffer sb = (StringBuffer) TCP.getContext().get("methodbody");
 //System.out.println("**methodbody\n" + sb.toString());
-			TCP.pushContext(new HashMap());
+			TCP.pushContext(new HashMap<>());
 			TCP.getContext().put("execute_method_body", sb.toString());
 			addMethod(cc, "org/collage/dom/evaluator/java/javassist/execute_method.txt");
 			TCP.popContext();
 
-			Class clazz = cc.toClass();
+			var clazz = cc.toClass();
 			TCP.getContext().put("clazz", clazz);
 
 			// Create instance and put it on context:
-			Object obj = clazz.newInstance();
+			Object obj = clazz.getDeclaredConstructor().newInstance();
 			javaTemplateCmdCV.setTemplateComand((ICommand) obj);
 		}
 		catch (Exception e)

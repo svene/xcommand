@@ -21,7 +21,7 @@ public class JSTParserTester
 
 	@BeforeEach
 	public void initializeContext() {
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		jstParserCV.setGeneratedJavaCode(new StringBuffer());
 	}
 
@@ -70,7 +70,7 @@ public class JSTParserTester
 
 	private JSTParser newJSTParser(InputStream aIs)
 	{
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		jstParserCV.setInputStream(aIs);
 		JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
 		TCP.popContext();
