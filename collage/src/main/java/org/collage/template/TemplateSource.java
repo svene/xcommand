@@ -31,7 +31,7 @@ public class TemplateSource
 		return inputStream;
 	}
 
-	public Map getContext()
+	public Map<String, Object> getContext()
 	{
 		return TCP.getContext();
 	}

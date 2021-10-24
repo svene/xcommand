@@ -24,15 +24,7 @@ public class FileSystemBasedJSTScanner implements ICommand
 	public void execute()
 	{
 		CachingFilesSystemScanner cfssc = new CachingFilesSystemScanner();
-		FilenameFilter javaFilenameFilter = new FilenameFilter()
-		{
-			public boolean accept(File aFile, String aString)
-			{
-				return aString.endsWith(".java");
-			}
-		};
-
-		fileSystemScannerCV.setFilenameFilter(javaFilenameFilter);
+		fileSystemScannerCV.setFilenameFilter(FileNameFilters.javaFilenameFilter);
 		cfssc.getChangedFilesNotifier().registerObserver(new FileFoundHandler());
 
 		cfssc.execute();
@@ -54,29 +46,25 @@ public class FileSystemBasedJSTScanner implements ICommand
 
 		public void execute()
 		{
-			Map changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
+			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
 
-			Iterator it = changedFiles.entrySet().iterator();
-			while (it.hasNext())
-			{
-				Map.Entry me = (Map.Entry) it.next();
-				String absolutePath = (String) me.getKey();
-				FileMapEntry fme = (FileMapEntry) me.getValue();
+			for (Map.Entry<String, FileMapEntry> me : changedFiles.entrySet()) {
+				String absolutePath = me.getKey();
+				FileMapEntry fme = me.getValue();
 
 				System.out.println("recompiling file: " + absolutePath);
 				ClassMapEntry cme = new ClassMapEntry();
 				cme.fme = fme;
 				String className = getClassnameFromFilename(fme.rootDir, absolutePath);
 				cme.className = className;
-				Map classMap = jstScannerCV.getClassMap();
+				var classMap = jstScannerCV.getClassMap();
 				classMap.put(className, cme);
 
 				File file = cme.fme.file;
 
 				// Invoke TemplateToSourceGenerator:
-				try
-				{
-					TCP.pushContext(new HashMap());
+				try {
+					TCP.pushContext(new HashMap<>());
 					FileInputStream is = new FileInputStream(file);
 					jstParserCV.setInputStream(is);
 					JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
@@ -87,8 +75,7 @@ public class FileSystemBasedJSTScanner implements ICommand
 					cme.fme.content = jstParserCV.getGeneratedJavaCode().toString();
 
 					// Write source code as file to disk:
-					if (genSourceDir != null)
-					{
+					if (genSourceDir != null) {
 						String dirName = genSourceDir + "/";
 						File dir = new File(genSourceDir);
 						System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
@@ -97,9 +84,7 @@ public class FileSystemBasedJSTScanner implements ICommand
 						FileUtils.writeStringToFile(rf, cme.fme.content, StandardCharsets.UTF_8);
 					}
 
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
 

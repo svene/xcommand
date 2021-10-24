@@ -1,7 +1,5 @@
 package org.xcommand.template.jst;
 
-
-import java.io.File;
 import java.io.FilenameFilter;
 
 /**
@@ -21,13 +19,9 @@ public class FileNameFilters {
 	 * you could pass in '.java' or just 'java' and both would produce the same result.
 	 */
 	public static FilenameFilter newExtensionFilenameFilter(final String aExtension) {
-		return new FilenameFilter()
-		{
-			@Override
-			public boolean accept(File aFile, String aString)
-			{
-				return aString.endsWith(aExtension);
-			}
-		};
+		return (aFile, aString) -> aString.endsWith(aExtension);
 	}
+
+	public static FilenameFilter javaFilenameFilter = (aFile, aString) -> aString.endsWith(".java");
+	public static FilenameFilter acceptAllFilenamesFilter = (aFile, aString) -> true;
 }

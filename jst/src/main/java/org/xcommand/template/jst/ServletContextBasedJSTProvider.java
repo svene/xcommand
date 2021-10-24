@@ -16,38 +16,37 @@ public class ServletContextBasedJSTProvider implements IJSTProvider
 	{
 		ServletContext sc = webCV.getServletContext();
 
-		Set set = sc.getResourcePaths("/");
-		Iterator it = set.iterator();
-		while (it.hasNext())
-		{
-			Object o = it.next();
+		Set<String> set = sc.getResourcePaths("/");
+		for (Object o : set) {
 			System.out.println("o.class=" + o.getClass().getName() + ", value=" + o);
 		}
 	}
 
-	public ClassMapEntry getClassMapEntry(Map aCtx, String aClassname)
+	@Override
+	public ClassMapEntry getClassMapEntry(Map<String, Object> aCtx, String aClassname)
 	{
 		return null;
 	}
 
 
-	public void setSrcDirs(List aSrcDirs)
+	public void setSrcDirs(List<String> aSrcDirs)
 	{
 		srcDirs = aSrcDirs;
 	}
 
-	public Map getClassMap()
+	public Map<String, ClassMapEntry> getClassMap()
 	{
 		return classMap;
 	}
 
+	@Override
 	public INotifier getChangeNotifier()
 	{
 		return changeNotifier;
 	}
 
-	private List srcDirs;
-	private final Map classMap = new HashMap();
+	private List<String> srcDirs;
+	private final Map<String, ClassMapEntry> classMap = new HashMap<>();
 	private final INotifier changeNotifier = new BasicNotifier();
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);

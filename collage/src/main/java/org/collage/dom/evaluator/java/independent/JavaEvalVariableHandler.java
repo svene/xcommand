@@ -17,7 +17,7 @@ public class JavaEvalVariableHandler implements ICommand
 		try
 		{
 			InputStream is = ResourceUtil.newInputStreamFromResourceLocation("org/collage/dom/evaluator/java/javassist/javassist_var.txt");
-			TCP.pushContext(new HashMap());
+			TCP.pushContext(new HashMap<>());
 			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 
 			templateCommand = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
@@ -35,7 +35,7 @@ public class JavaEvalVariableHandler implements ICommand
 	public void execute()
 	{
 		String vn = stringHandlerCV.getString();
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("varName", vn);
 		templateCommand.execute();
 		String ss = stringHandlerCV.getString();

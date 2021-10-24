@@ -8,11 +8,7 @@ public class BasicNotifier extends AbstractBasicNotifier
 	@Override
 	public void execute()
 	{
-
-		for (Object o : observers) {
-			ICommand observer = (ICommand) o;
-			observer.execute();
-		}
+		observers.forEach(ICommand::execute);
 	}
 
 }

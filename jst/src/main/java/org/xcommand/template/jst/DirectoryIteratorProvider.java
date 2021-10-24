@@ -17,18 +17,10 @@ public class DirectoryIteratorProvider
 	@SuppressWarnings("unchecked")
 	public Iterator<File> newIterator(String aSrcDir)
 	{
-		return DirectoryIterator.traverseDirectories(new File[]{new File(aSrcDir)}, dirnameFilter, filenameFilter);
+		return DirectoryIterator.traverseDirectories(
+			new File[]{new File(aSrcDir)}, FileNameFilters.acceptAllFilenamesFilter, filenameFilter
+		);
 	}
-
-	private final FilenameFilter dirnameFilter = new FilenameFilter()
-	{
-		@Override
-		public boolean accept(File aFile, String aString)
-		{
-			// Accept all directory names:
-			return true;
-		}
-	};
 
 	private final FilenameFilter filenameFilter;
 }

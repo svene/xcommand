@@ -12,9 +12,9 @@ public class MainRoutines
 	}
 
 	/** New `java.util.Map' from `String[] aArgs'*/
-	public static Map newNameValueMapFromArgs(String[] aArgs)
+	public static Map<String, String> newNameValueMapFromArgs(String[] aArgs)
 	{
-		Map result = new HashMap();
+		Map<String, String> result = new HashMap<>();
 		for (String s : aArgs) {
 			int p = s.indexOf('=');
 			if (p == -1) {
@@ -32,9 +32,9 @@ public class MainRoutines
 	/** Stringvalue for `aName' or if not found `aDefault'
 	 * Note: `aCtx' is supposed to be the `Map' form of a `String[] aArgs' of a main routine
 	 */
-	public static String getConfigString(Map aCtx, String aName, String aDefault)
+	public static String getConfigString(Map<String, String> aCtx, String aName, String aDefault)
 	{
-		String s = (String) aCtx.get(aName);
+		String s = aCtx.get(aName);
 		return (s != null) ? s : aDefault;
 	}
 

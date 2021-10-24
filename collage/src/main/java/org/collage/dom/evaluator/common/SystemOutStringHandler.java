@@ -1,14 +1,12 @@
 package org.collage.dom.evaluator.common;
 
-import org.collage.dom.evaluator.common.IStringHandler;
-
 import java.util.Map;
 
 public class SystemOutStringHandler implements IStringHandler
 {
 
 	@Override
-	public void handleString(Map aCtx, String aString)
+	public void handleString(Map<String, Object> aCtx, String aString)
 	{
 		System.out.println(aString);
 	}

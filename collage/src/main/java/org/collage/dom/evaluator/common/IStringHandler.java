@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface IStringHandler
 {
-	public void handleString(Map aCtx, String aString);
+	public void handleString(Map<String, Object> aCtx, String aString);
 }

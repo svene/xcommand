@@ -37,11 +37,9 @@ public class TCP
 		return threadMapHolder.get();
 	}
 
-	private static final ThreadLocal<Deque<Map<String, Object>>> threadMapHolder = new ThreadLocal<Deque<Map<String, Object>>>()
-	{
+	private static final ThreadLocal<Deque<Map<String, Object>>> threadMapHolder = new ThreadLocal<>() {
 		@Override
-		protected synchronized Deque<Map<String, Object>> initialValue()
-		{
+		protected synchronized Deque<Map<String, Object>> initialValue() {
 			Deque<Map<String, Object>> stack = new ArrayDeque<>();
 			stack.push(new InheritableMap<>(AC.getInstance()));
 			return stack;

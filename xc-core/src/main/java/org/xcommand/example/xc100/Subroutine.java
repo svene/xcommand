@@ -16,15 +16,15 @@ public class Subroutine
 {
 	public static void main(String[] args)
 	{
-		Map<String, Object> ctx = new HashMap<>();
+		Map<String, String> ctx = new HashMap<>();
 		ctx.put("name", "Sven");
 		new Subroutine().execute(ctx);
 	}
 
-	private void execute(Map<String, Object> aCtx)
+	private void execute(Map<String, String> aCtx)
 	{
-		String name = (String) aCtx.get("name");
-		Map<String, Object> ctx = new InheritableMap<>(aCtx);
+		String name = aCtx.get("name");
+		Map<String, String> ctx = new InheritableMap<>(aCtx);
 		ctx.put("tmpString", "hi there");
 		subExecute(ctx);
 		System.out.println("after subExecute():");
@@ -32,10 +32,10 @@ public class Subroutine
 		System.out.println("tmpString = " + aCtx.get("tmpString"));
 	}
 
-	private void subExecute(Map aCtx)
+	private void subExecute(Map<String, String> aCtx)
 	{
-		String name = (String) aCtx.get("name");
-		String tmpString = (String) aCtx.get("tmpString");
+		String name = aCtx.get("name");
+		String tmpString = aCtx.get("tmpString");
 		System.out.println("subExecute(): name = " + name);
 		System.out.println("subExecute(): tmpString = " + tmpString);		
 	}

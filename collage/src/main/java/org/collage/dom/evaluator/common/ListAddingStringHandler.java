@@ -10,7 +10,7 @@ import java.util.Map;
 public class ListAddingStringHandler implements IStringHandler
 {
 
-	public void handleString(Map aCtx, String aString)
+	public void handleString(Map<String, Object> aCtx, String aString)
 	{
 		List<String> lst = messageCommandCV.getList();
 		lst.add(aString);

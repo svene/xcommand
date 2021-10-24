@@ -5,5 +5,5 @@ import java.util.Map;
 @FunctionalInterface
 public interface IContextProvider
 {
-	Map getContext();
+	Map<String, Object> getContext();
 }

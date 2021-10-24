@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class RegExpDispatcherCmd implements ICommand
 {
 
-	public void setCommands(Map aCommands)
+	public void setCommands(Map<String, ICommand> aCommands)
 	{
 		commands = aCommands;
 	}

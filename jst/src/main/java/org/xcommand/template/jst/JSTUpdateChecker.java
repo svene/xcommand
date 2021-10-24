@@ -17,7 +17,7 @@ public class JSTUpdateChecker extends TimerTask
 	public void run()
 	{
 		System.out.println("JSTUpdateChecker.run(): " + new Date());
-		Map classMap = jstScannerCV.getClassMap();
+		var classMap = jstScannerCV.getClassMap();
 		if (classMap == null) {
 			throw new IllegalStateException("classMap == null");
 		}
@@ -30,7 +30,7 @@ public class JSTUpdateChecker extends TimerTask
 
 // --- Setting ---
 
-	public void setSrcDirs(List aSrcDirs)
+	public void setSrcDirs(List<String> aSrcDirs)
 	{
 		srcDirs = aSrcDirs;
 	}
@@ -44,13 +44,14 @@ public class JSTUpdateChecker extends TimerTask
 
 	private class ChangedHandler implements ICommand
 	{
+		@Override
 		public void execute()
 		{
 			janinoObjectCreator.initialize();
 		}
 	}
 
-	private List srcDirs;
+	private List<String> srcDirs;
 	private JSTJaninoObjectCreator janinoObjectCreator;
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);

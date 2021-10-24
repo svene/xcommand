@@ -19,12 +19,12 @@ public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider
 
 	public void init()
 	{
-		commandMap = new HashMap();
-		Class clazz;
+		commandMap = new HashMap<>();
+		Class<?> clazz;
 		clazz = targetObject.getClass();
 		Method[] methods = clazz.getDeclaredMethods();
 		for (Method m : methods) {
-			Class[] classes = m.getParameterTypes();
+			Class<?>[] classes = m.getParameterTypes();
 			if (classes.length != 1) {
 				continue;
 			}

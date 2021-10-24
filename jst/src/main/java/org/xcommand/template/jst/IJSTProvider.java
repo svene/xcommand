@@ -6,8 +6,8 @@ import java.util.Map;
 
 public interface IJSTProvider
 {
-	public ClassMapEntry getClassMapEntry(Map aCtx, String aClassname);
-	public Map getClassMap();
+	ClassMapEntry getClassMapEntry(Map<String, Object> aCtx, String aClassname);
+	Map<String, ClassMapEntry> getClassMap();
 
-	public INotifier getChangeNotifier();
+	INotifier getChangeNotifier();
 }

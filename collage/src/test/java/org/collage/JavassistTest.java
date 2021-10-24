@@ -17,7 +17,7 @@ public class JavassistTest
 	@BeforeEach
 	public void initializeContext()
 	{
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("firstname", "Uli");
 	}
 

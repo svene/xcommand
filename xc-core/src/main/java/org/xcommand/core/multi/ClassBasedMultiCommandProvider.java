@@ -7,7 +7,7 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider
 {
 // --- Initialization ---
 
-	public ClassBasedMultiCommandProvider(Class aClazz)
+	public ClassBasedMultiCommandProvider(Class<?> aClazz)
 	{
 		setTargetClass(aClazz);
 	}
@@ -19,7 +19,7 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider
 	{
 		Method[] methods = targetClass.getDeclaredMethods();
 		for (Method m : methods) {
-			Class[] classes = m.getParameterTypes();
+			Class<?>[] classes = m.getParameterTypes();
 			if (classes.length != 1) {
 				continue;
 			}
@@ -35,20 +35,20 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider
 
 // --- Access ---
 
-	public Class getTargetClass()
+	public Class<?> getTargetClass()
 	{
 		return targetClass;
 	}
 
 // --- Setting ---
 
-	public void setTargetClass(Class aTargetClass)
+	public void setTargetClass(Class<?> aTargetClass)
 	{
 		targetClass = aTargetClass;
 	}
 
 // --- Implementation ---
 
-	private Class targetClass;
+	private Class<?> targetClass;
 
 }

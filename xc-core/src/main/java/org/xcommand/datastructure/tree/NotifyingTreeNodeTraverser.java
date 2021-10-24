@@ -34,9 +34,7 @@ public class NotifyingTreeNodeTraverser implements ICommand
 		treeNodeCV.setTreeNode(aNode);
 		treeNodeCV.setDomainObject(aNode.getDomainObject());
 		enterNodeNotifier.execute();
-		for (ITreeNode node : aNode.getChildren()) {
-			traverse(node);
-		}
+		aNode.getChildren().forEach(this::traverse);
 		treeNodeCV.setTreeNode(aNode);
 		treeNodeCV.setDomainObject(aNode.getDomainObject());
 		exitNodeNotifier.execute();

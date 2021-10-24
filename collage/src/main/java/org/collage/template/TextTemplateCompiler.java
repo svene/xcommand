@@ -29,7 +29,7 @@ public class TextTemplateCompiler
 	public TemplateCommand newTemplateCommand(TemplateSource aTemplateSource)
 	{
 		// Compile template:
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 

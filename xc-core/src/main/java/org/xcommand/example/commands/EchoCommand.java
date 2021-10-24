@@ -6,18 +6,11 @@ import org.xcommand.core.ICommand;
 
 import java.lang.invoke.MethodHandles;
 
-public class EchoCommand implements ICommand
-{
+public record EchoCommand(IEchoCV echoCV) implements ICommand {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	public EchoCommand(IEchoCV echoCV) {
-		this.echoCV = echoCV;
-	}
-
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		LOGGER.info(echoCV.getMessage());
 	}
-	private final IEchoCV echoCV;
 }

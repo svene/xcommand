@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface IFileSystemScannerCV
 {
-	public File getFile();
-	public FilenameFilter getFilenameFilter();
-	public String getRootDir();
-	public List getRootDirs();
-	public void setFile(File aFile);
-	public void setFilenameFilter(FilenameFilter aFilenameFilter);
-	public void setRootDir(String aRootDir);
-	public void setRootDirs(List aRootDirs);
+	File getFile();
+	FilenameFilter getFilenameFilter();
+	String getRootDir();
+	List<String> getRootDirs();
+	void setFile(File aFile);
+	void setFilenameFilter(FilenameFilter aFilenameFilter);
+	void setRootDir(String aRootDir);
+	void setRootDirs(List<String> aRootDirs);
 }

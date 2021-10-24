@@ -1,28 +1,29 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.core.*;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class CachingFilesSystemScanner implements ICommand
 {
+	@Override
 	public void execute()
 	{
-		List rootDirs = fileSystemScannerCV.getRootDirs();
+		var rootDirs = fileSystemScannerCV.getRootDirs();
 
 		FileSystemScanner fssc = new FileSystemScanner();
 		fssc.setRootDirs(rootDirs);
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundHandler());
-		Map changedFiles = new HashMap();
+		var changedFiles = new HashMap<String, FileMapEntry>();
 		cachingFilesSystemScannerCV.setChangedFiles(changedFiles);
 		if (cachingFilesSystemScannerCV.getCurrentFiles() == null)
 		{
-			cachingFilesSystemScannerCV.setCurrentFiles(new HashMap());
+			cachingFilesSystemScannerCV.setCurrentFiles(new HashMap<>());
 		}
 		fssc.execute();
 		if (changedFiles.size() > 0)
@@ -41,14 +42,19 @@ public class CachingFilesSystemScanner implements ICommand
 	private class FileFoundHandler implements ICommand
 	{
 
+		@Override
 		public void execute()
 		{
 			File file = fileSystemScannerCV.getFile();
 			String key = file.getAbsolutePath();
-			Map currentFiles = cachingFilesSystemScannerCV.getCurrentFiles();
-			Map changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
-			if (!currentFiles.containsKey(key))
-			{
+			var currentFiles = cachingFilesSystemScannerCV.getCurrentFiles();
+			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
+			if (currentFiles.containsKey(key)) {
+				FileMapEntry fme = currentFiles.get(key);
+				if (fme.file.lastModified() > fme.lastmodified) {//reload file
+					changedFiles.put(key, fme);
+				}
+			} else {
 				System.out.println("new file found: " + key);
 				FileMapEntry fme = new FileMapEntry();
 				fme.file = file;
@@ -57,14 +63,6 @@ public class CachingFilesSystemScanner implements ICommand
 				fme.rootDir = fileSystemScannerCV.getRootDir();
 				currentFiles.put(key, fme);
 				changedFiles.put(key, fme);
-			}
-			else
-			{
-				FileMapEntry fme = (FileMapEntry) currentFiles.get(key);
-				if (fme.file.lastModified() > fme.lastmodified)
-				{//reload file
-					changedFiles.put(key, fme);
-				}
 			}
 		}
 	}

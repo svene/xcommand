@@ -41,7 +41,7 @@ public class MainSM
 		stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 		domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 	}
 	public void tearDown() {
 		TCP.popContext();
@@ -83,7 +83,7 @@ public class MainSM
 		ITreeNode rootNode = treeNodeCV.getTreeNode();
 
 		// Use new context to produce javaTemplateCommand:
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		stringHandlerCV.setString("dummy");
 		treeNodeCV.setTreeNode(rootNode);
 		new JavassistTraverser().execute();
@@ -91,7 +91,7 @@ public class MainSM
 		TCP.popContext();
 
 		// Evaluate template with a binding (firstname=Sven):
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("firstname", "Sven");
 		StringWriter sw = new StringWriter();
 		TCP.getContext().put("writer", sw); // todo: is there a CV for this?
@@ -104,7 +104,7 @@ public class MainSM
 	 * AST available after execution via 'treeNodeCV.getTreeNode()'
 	 */
 	private void createASTforTemplateString(String aTemplateString, Boolean aProduceJavaCode) {
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		domNodeCreationHandlerCV.setProduceJavaSource(aProduceJavaCode);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 		parserCV.setInputStream(new ByteArrayInputStream(aTemplateString.getBytes()));

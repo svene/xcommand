@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface IXCommand
 {
-	void execute(Map aCtx);
+	void execute(Map<String, Object> aCtx);
 }

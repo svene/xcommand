@@ -39,9 +39,7 @@ public class ListCommand implements ICommand
 	@Override
 	public void execute()
 	{
-		for (ICommand command : commands) {
-			command.execute();
-		}
+		commands.forEach(ICommand::execute);
 	}
 
 // --- Implementation ---

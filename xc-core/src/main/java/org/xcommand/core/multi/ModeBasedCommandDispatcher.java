@@ -22,14 +22,14 @@ public class ModeBasedCommandDispatcher implements ICommand
 
 // --- Access ---
 
-	public Map getModeCommandMap()
+	public Map<String, ICommand> getModeCommandMap()
 	{
 		return modeCommandMap;
 	}
 
 // --- Setting ---
 
-	public void setModeCommandMap(Map aModeCommandMap)
+	public void setModeCommandMap(Map<String, ICommand> aModeCommandMap)
 	{
 		modeCommandMap = aModeCommandMap;
 	}
@@ -56,6 +56,6 @@ public class ModeBasedCommandDispatcher implements ICommand
 
 // --- Implementation ---
 
-	private Map modeCommandMap = new HashMap();
+	private Map<String, ICommand> modeCommandMap = new HashMap<>();
 	private String modeKey = ModeContextView.KEY_MODE;
 }

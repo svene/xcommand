@@ -11,7 +11,7 @@ import java.util.Enumeration;
  *  via the `java.util.Map' interface. 
  */
 
-public class ServletContextMapAdapter implements Map
+public class ServletContextMapAdapter implements Map<String, Object>
 {
 
 // --- Initialization ---
@@ -47,10 +47,10 @@ public class ServletContextMapAdapter implements Map
 	@Override
 	public boolean containsValue(Object value)
 	{
-		Enumeration enumeration = servletContext.getAttributeNames();
+		var enumeration = servletContext.getAttributeNames();
 		while (enumeration.hasMoreElements())
 		{
-			String name = (String) enumeration.nextElement();
+			String name = enumeration.nextElement();
 			if (value.equals(servletContext.getAttribute(name)))
 			{
 				return true;
@@ -68,11 +68,8 @@ public class ServletContextMapAdapter implements Map
 		return servletContext.getAttribute((String) key);
 	}
 
-	/**
-	 * `key' must be of type String
-	 */
 	@Override
-	public Object put(Object key, Object value)
+	public Object put(String key, Object value)
 	{
 		servletContext.setAttribute((String) key, value);
 		return value;
@@ -100,19 +97,19 @@ public class ServletContextMapAdapter implements Map
 	}
 
 	@Override
-	public Set keySet()
+	public Set<String> keySet()
 	{
 		return null;
 	}
 
 	@Override
-	public Collection values()
+	public Collection<Object> values()
 	{
 		return null;
 	}
 
 	@Override
-	public Set entrySet()
+	public Set<Map.Entry<String, Object>> entrySet()
 	{
 		return null;
 	}
@@ -122,7 +119,7 @@ public class ServletContextMapAdapter implements Map
 	private int _size()
 	{
 		int result = 0;
-		Enumeration enumeration = servletContext.getAttributeNames();
+		var enumeration = servletContext.getAttributeNames();
 		while (enumeration.hasMoreElements())
 		{
 			result++;

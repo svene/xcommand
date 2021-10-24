@@ -22,7 +22,7 @@ public class JavassistTemplateCompiler
 	public ICommand newTemplateCommand(TemplateSource aTemplateSource)
 	{
 		// Compile template:
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
 //!!		ctx.putAll(aTemplateSource.getContext());
 		new DefaultDomNodeCreationHandlerInitializer().execute();

@@ -24,20 +24,15 @@ public class DynaBeanProvider
 
 // --- Implementation ---
 
-	private static class BasicDynaBeanProvider implements IDynaBeanProvider
-	{
-		private BasicDynaBeanProvider(DynaBeanInvocationHandler dynaBeanInvocationHandler)
-		{
-			this.dynaBeanInvocationHandler = dynaBeanInvocationHandler;
-		}
+	private record BasicDynaBeanProvider(
+		DynaBeanInvocationHandler dynaBeanInvocationHandler
+	) implements IDynaBeanProvider {
 
 		@Override
-		public <T> T newBeanForInterface(Class<T> aInterface)
-		{
+		public <T> T newBeanForInterface(Class<T> aInterface) {
 			return Proxies.newProxy(aInterface, dynaBeanInvocationHandler);
 		}
 
-		private final DynaBeanInvocationHandler dynaBeanInvocationHandler;
 	}
 
 }

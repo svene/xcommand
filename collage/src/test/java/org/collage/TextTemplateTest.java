@@ -24,7 +24,7 @@ public class TextTemplateTest
 	@BeforeEach
 	public void initializeContext()
 	{
-		TCP.pushContext(new HashMap());
+		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("firstname", "Uli");
 
 		stringWriter = new StringWriter();

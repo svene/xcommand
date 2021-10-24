@@ -17,14 +17,14 @@ public abstract class ContextView
 
 // --- Access ---
 
-	public static ContextView getContextView(Class aClass)
+	public static ContextView getContextView(Class<?> aClass)
 	{
 		return (ContextView) TCP.getContext().get(aClass.getName());
 	}
 
 // --- Element change ---
 
-	public static void removeContextView(Class aClass)
+	public static void removeContextView(Class<?> aClass)
 	{
 		TCP.getContext().remove(aClass.getName());
 	}

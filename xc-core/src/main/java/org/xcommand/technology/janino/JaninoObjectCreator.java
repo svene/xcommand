@@ -13,13 +13,13 @@ import java.util.HashMap;
 public class JaninoObjectCreator
 {
 
-	public JaninoObjectCreator(Map aJavaSourceMap)
+	public JaninoObjectCreator(Map<String, byte[]> aJavaSourceMap)
 	{
 		javaSourceResourceFinder = new XCMapResourceFinder(aJavaSourceMap);
 		javaClassResourceFinder = new MapResourceFinder(javaClassMap);
 	}
 
-	public Class getClass(String aClassname)
+	public Class<?> getClass(String aClassname)
 	{
 		ClassLoader parentClassLoader = getClass().getClassLoader();
 //		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, encoding, DebuggingInformation.ALL);
@@ -28,7 +28,7 @@ public class JaninoObjectCreator
 		ClassLoader cl = new CachingJavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, StandardCharsets.UTF_8.name(),
 			javaClassResourceFinder, classFileCacheResourceCreator);
 	 	String dotClassName = aClassname.replace('/', '.');
-		Class clazz;
+		Class<?> clazz;
 		try
 		{
 			clazz = cl.loadClass(dotClassName);
@@ -42,7 +42,7 @@ public class JaninoObjectCreator
 	}
 	public Object getObject(String aClassname)
 	{
-		Class clazz = getClass(aClassname);
+		Class<?> clazz = getClass(aClassname);
 		try
 		{
 			return clazz.getDeclaredConstructor().newInstance();
@@ -53,18 +53,15 @@ public class JaninoObjectCreator
 		}
 	}
 
-	private final Map<String, byte[]> javaClassMap = new HashMap<String, byte[]>()
-	{
+	private final Map<String, byte[]> javaClassMap = new HashMap<>() {
 		@Override
-		public byte[] get(Object key)
-		{
+		public byte[] get(Object key) {
 			System.out.println("JaninoObjectCreator.get()");
 			return super.get(key);
 		}
 
 		@Override
-		public byte[] put(String key, byte[] value)
-		{
+		public byte[] put(String key, byte[] value) {
 			System.out.println("JaninoObjectCreator.put()");
 			return super.put(key, value);
 		}

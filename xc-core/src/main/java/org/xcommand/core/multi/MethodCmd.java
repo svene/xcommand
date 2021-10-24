@@ -8,7 +8,7 @@ public class MethodCmd implements ICommand
 {
 // --- Initialization ---
 
-	public MethodCmd(Class aClass)
+	public MethodCmd(Class<?> aClass)
 	{
 		try
 		{
@@ -20,9 +20,9 @@ public class MethodCmd implements ICommand
 		}
 	}
 
-	public MethodCmd(Object aMultiCommandObject)
+	public MethodCmd(Object multiCommandObject)
 	{
-		multiCommandObject = aMultiCommandObject;
+		this.multiCommandObject = multiCommandObject;
 	}
 
 // --- Setting ---

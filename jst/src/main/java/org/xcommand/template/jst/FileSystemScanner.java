@@ -18,7 +18,7 @@ public class FileSystemScanner implements ICommand
 	public void execute()
 	{
 		// Loop over all configured source directories,
-		for (String rootDir : rootDirs) {
+		rootDirs.forEach(rootDir -> {
 			fileSystemScannerCV.setRootDir(rootDir);
 			FilenameFilter fnf = fileSystemScannerCV.getFilenameFilter();
 			Iterator<File> it = new DirectoryIteratorProvider(fnf).newIterator(rootDir);
@@ -27,8 +27,7 @@ public class FileSystemScanner implements ICommand
 				fileSystemScannerCV.setFile(file);
 				fileFoundNotifier.execute();
 			}
-
-		}
+		});
 	}
 
 // --- Access ---

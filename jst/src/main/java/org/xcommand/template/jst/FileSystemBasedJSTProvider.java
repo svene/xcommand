@@ -10,13 +10,14 @@ import java.util.Map;
 public class FileSystemBasedJSTProvider implements IJSTProvider
 {
 
+	@Override
 	public ClassMapEntry getClassMapEntry(Map aCtx, String aClassname)
 	{
-		ClassMapEntry cme = (ClassMapEntry) classMap.get(aClassname);
+		ClassMapEntry cme = classMap.get(aClassname);
 		return cme;
 	}
 
-	public Map getClassMap()
+	public Map<String, ClassMapEntry> getClassMap()
 	{
 		return null;
 	}
@@ -26,6 +27,7 @@ public class FileSystemBasedJSTProvider implements IJSTProvider
 		genSourceDir = aGenSourceDir;
 	}
 
+	@Override
 	public INotifier getChangeNotifier()
 	{
 		return changeNotifier;
@@ -34,7 +36,7 @@ public class FileSystemBasedJSTProvider implements IJSTProvider
 // --- Implementation ---
 
 	private List srcDirs;
-	private final Map classMap = new HashMap();
+	private final Map<String, ClassMapEntry> classMap = new HashMap<>();
 	private final INotifier changeNotifier = new BasicNotifier();
 	private String genSourceDir;
 }

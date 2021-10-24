@@ -22,7 +22,7 @@ public class CachingTextTemplateCompiler
 	}
 
 // --- Implementation ---
-	private static final Map<String, ICommand> templateCache = new HashMap<String, ICommand>();
+	private static final Map<String, ICommand> templateCache = new HashMap<>();
 	private static final TextTemplateCompiler textTemplateCompiler = new TextTemplateCompiler();
 
 }

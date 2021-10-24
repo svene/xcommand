@@ -18,7 +18,7 @@ public class JSTSourceLoader
 		return srcDir;
 	}
 
-	public Map getClassMap()
+	public Map<String, byte[]> getClassMap()
 	{
 		return classMap;
 	}
@@ -53,7 +53,7 @@ public class JSTSourceLoader
 			String s = jstParserCV.getGeneratedJavaCode().toString();
 //		System.out.println(s);
 
-			classMap = new HashMap();
+			classMap = new HashMap<>();
 			System.out.println("aClassname = " + aClassname);
 			classMap.put(aClassname, s.getBytes());
 		}
@@ -68,7 +68,7 @@ public class JSTSourceLoader
 // --- Implementation ---
 
 	private String srcDir;
-	private Map classMap = new HashMap();
+	private Map<String, byte[]> classMap = new HashMap<>();
 
 	private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath)
 	{

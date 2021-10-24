@@ -19,23 +19,19 @@ public class JSTJaninoObjectCreator
 	{
 		// Put source of template into `janinoClassMap' so that Janino can work with it:
 		janinoClassMap.clear();
-		Map classMap = jstScannerCV.getClassMap();
-		Iterator it = classMap.entrySet().iterator();
-		while (it.hasNext())
-		{
-			Map.Entry me = (Map.Entry) it.next();
-			ClassMapEntry cme = (ClassMapEntry) me.getValue();
-			janinoClassMap.put(me.getKey(), cme.fme.content.getBytes());
+		var classMap = jstScannerCV.getClassMap();
+		classMap.forEach((key, cme) -> {
+			janinoClassMap.put(key, cme.fme.content.getBytes());
 			cme.fme.lastmodified = cme.fme.file.lastModified();
-		}
+		});
 		mrf = new XCMapResourceFinder(janinoClassMap);
 	}
 
-	public Class getClass(String aClassname)
+	public Class<?> getClass(String aClassname)
 	{
 		// Make sure classes are loaded:
-		Map classMap = jstScannerCV.getClassMap();
-		ClassMapEntry cme = (ClassMapEntry) classMap.get(aClassname);
+		var classMap = jstScannerCV.getClassMap();
+		ClassMapEntry cme = classMap.get(aClassname);
 		if (cme != null)
 		{
 			System.out.println("cme for '" + aClassname + "' found");
@@ -52,7 +48,7 @@ public class JSTJaninoObjectCreator
 	 	String dotClassName = aClassname.replace('/', '.');
 		try
 		{
-			Class clazz = cl.loadClass(dotClassName);
+			var clazz = cl.loadClass(dotClassName);
 			cme.clazz = clazz;
 			cme.lastloaded = new Date().getTime();
 			return clazz;
@@ -65,7 +61,7 @@ public class JSTJaninoObjectCreator
 	}
 	public Object newObject(String aClassname)
 	{
-		Class clazz = getClass(aClassname);
+		var clazz = getClass(aClassname);
 		try
 		{
 			return clazz.getDeclaredConstructor().newInstance();
@@ -82,7 +78,7 @@ public class JSTJaninoObjectCreator
 	}
 // --- Implementation ---
 
-	private final Map janinoClassMap = new HashMap();
+	private final Map<String, byte[]> janinoClassMap = new HashMap<>();
 	XCMapResourceFinder mrf;
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class WritingStringHandler implements IStringHandler
 {
 
-	public void handleString(Map aCtx, String aString)
+	public void handleString(Map<String, Object> aCtx, String aString)
 	{
 		Writer writer = evaluationCV.getWriter();
 		try

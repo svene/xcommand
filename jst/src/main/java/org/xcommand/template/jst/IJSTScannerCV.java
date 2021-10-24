@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface IJSTScannerCV
 {
-	public Map getClassMap();
-	public void setClassMap(Map aClassMap);
+	Map<String, ClassMapEntry> getClassMap();
+	void setClassMap(Map<String, ClassMapEntry> aClassMap);
 }

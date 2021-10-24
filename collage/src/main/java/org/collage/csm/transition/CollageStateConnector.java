@@ -23,9 +23,8 @@ public class CollageStateConnector
 		// Attach commands to `t' to be executed when `t' is executed:
 		if (aExecuteCommands != null)
 		{
-			for (int i = 0, n = aExecuteCommands.length; i < n; i++)
-			{
-				t.getExecuteNotifier().registerObserver(aExecuteCommands[i]);
+			for (ICommand aExecuteCommand : aExecuteCommands) {
+				t.getExecuteNotifier().registerObserver(aExecuteCommand);
 			}
 		}
 
