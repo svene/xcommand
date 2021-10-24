@@ -1,6 +1,9 @@
 package org.xcommand.core;
 
 public class DynaBeanKeyProviders {
+	private DynaBeanKeyProviders() {
+	}
+
 	public static String classAndMethodKeyProvider(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs) {
 		return aMethodInfo.methodClassName + "." + aMethodInfo.property;
 	}

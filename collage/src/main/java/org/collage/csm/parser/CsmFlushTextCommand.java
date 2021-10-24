@@ -11,6 +11,7 @@ import org.xcommand.template.parser.IParserCV;
  */
 public class CsmFlushTextCommand implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		// Get String from Stringbuffer:

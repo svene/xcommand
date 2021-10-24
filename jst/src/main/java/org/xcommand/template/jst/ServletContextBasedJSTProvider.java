@@ -34,6 +34,7 @@ public class ServletContextBasedJSTProvider implements IJSTProvider
 		srcDirs = aSrcDirs;
 	}
 
+	@Override
 	public Map<String, ClassMapEntry> getClassMap()
 	{
 		return classMap;

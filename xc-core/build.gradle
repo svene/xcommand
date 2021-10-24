@@ -3,6 +3,7 @@ dependencies {
 	implementation 'org.springframework:spring-core:5.3.7'
 	implementation 'org.springframework:spring-web:5.3.7'
 	implementation DEP_JANINO
+	implementation DEP_COMMONS_IO
 	testImplementation 'org.springframework:spring-test:5.3.7'
 	testImplementation DEP_GROOVY
 	testImplementation platform(DEP_SPOCK_BOM)

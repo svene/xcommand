@@ -1,5 +1,6 @@
 package org.xcommand.web.jarresource;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Date;
 
 /**
@@ -80,25 +80,11 @@ public class JarResourceServlet extends HttpServlet
 			}
 			System.out.println("mimeType: " + mimeType);
 			response.setContentType(mimeType);
-
-			writeInputStreamToOutputStream(is, os);
+			IOUtils.copy(is, os);
 		}
 		else
 		{
 			System.out.println("JarResourceServlet.doGet(): no resource found");
-		}
-	}
-
-	/**
-	 * Read all content form `a_is' and write it to `a_os'.
-	 */
-	private static void writeInputStreamToOutputStream(InputStream a_is, OutputStream a_os) throws IOException
-	{
-		byte[] buffer = new byte[4096];
-		int bytes_read;
-		while ((bytes_read = a_is.read(buffer)) != -1)
-		{
-			a_os.write(buffer, 0, bytes_read);
 		}
 	}
 
@@ -109,6 +95,7 @@ public class JarResourceServlet extends HttpServlet
 
 		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 	private final IJarResourceProviderCV jarResourceProviderCV = dbp.newBeanForInterface(

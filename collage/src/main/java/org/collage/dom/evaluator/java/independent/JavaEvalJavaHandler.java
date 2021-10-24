@@ -6,6 +6,7 @@ import org.xcommand.core.*;
 
 public class JavaEvalJavaHandler implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		Java java = javaCV.getJava();

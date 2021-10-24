@@ -10,7 +10,7 @@ import java.util.Map;
 public class MapBasedHandlerProvider implements IHandlerProvider
 {
 
-	private Map<Object, ? extends ICommand> handlerMap;
+	private final Map<Object, ? extends ICommand> handlerMap;
 
 	public MapBasedHandlerProvider(Map<Object, ? extends ICommand> handlerMap) {
 		this.handlerMap = handlerMap;

@@ -14,7 +14,6 @@ import org.xcommand.core.*;
 import java.io.StringWriter;
 import java.util.HashMap;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TextTemplateTest

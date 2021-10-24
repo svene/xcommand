@@ -16,6 +16,7 @@ public class StringHandlingJavaHandler extends StringHandlingHandler
 
 // --- Implementation ---
 
+	@Override
 	protected String getOriginalText()
 	{
 		return javaCV.getJava().getValue();

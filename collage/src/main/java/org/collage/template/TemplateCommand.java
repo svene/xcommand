@@ -48,6 +48,7 @@ public abstract class TemplateCommand implements ICommand
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 		// If `writer' is available output will be written to it. Otherwise

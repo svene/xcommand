@@ -18,6 +18,7 @@ public class ParserModeConditionTester extends ConditionObserver
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 		String mode = parserModeCV.getMode();

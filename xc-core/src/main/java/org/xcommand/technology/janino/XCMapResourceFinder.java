@@ -38,15 +38,18 @@ public class XCMapResourceFinder extends ResourceFinder
 
 		return new Resource()
 		{
+			@Override
 			public InputStream open() {
 				return new ByteArrayInputStream(ba);
 			}
 
+			@Override
 			public String getFileName()
 			{
 				return s;
 			}
 
+			@Override
 			public long lastModified()
 			{
 				return lastModified;

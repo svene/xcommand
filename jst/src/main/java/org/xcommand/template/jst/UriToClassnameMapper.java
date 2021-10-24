@@ -2,6 +2,7 @@ package org.xcommand.template.jst;
 
 public class UriToClassnameMapper implements IUriToClassnameMapper
 {
+	@Override
 	public String getClassnameForUri(String aURI)
 	{
 		if (aURI == null) {

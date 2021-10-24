@@ -5,6 +5,7 @@ import org.xcommand.core.TCP;
 
 class EnterRootHandler implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		StringBuffer methodBody = new StringBuffer(1024);

@@ -21,6 +21,7 @@ public class FileSystemBasedJSTScanner implements ICommand
 	 * require:
 	 *   FileSystemScannerCV.getRootDirs(aCtx);
 	 */
+	@Override
 	public void execute()
 	{
 		CachingFilesSystemScanner cfssc = new CachingFilesSystemScanner();
@@ -44,6 +45,7 @@ public class FileSystemBasedJSTScanner implements ICommand
 	private class FileFoundHandler implements ICommand
 	{
 
+		@Override
 		public void execute()
 		{
 			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();

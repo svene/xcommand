@@ -17,6 +17,7 @@ public class FileSystemBasedJSTProvider implements IJSTProvider
 		return cme;
 	}
 
+	@Override
 	public Map<String, ClassMapEntry> getClassMap()
 	{
 		return null;

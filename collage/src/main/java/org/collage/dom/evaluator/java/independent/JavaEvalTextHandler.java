@@ -5,6 +5,7 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 
 public class JavaEvalTextHandler implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		// TODO: improve this:

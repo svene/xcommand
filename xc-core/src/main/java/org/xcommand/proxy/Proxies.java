@@ -5,6 +5,9 @@ import java.lang.reflect.Proxy;
 import java.util.Objects;
 
 public class Proxies {
+	private Proxies() {
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <T> T newProxy(Class<? super T> interfaze, InvocationHandler handler) {
 		Objects.requireNonNull(interfaze);

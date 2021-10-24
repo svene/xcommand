@@ -8,6 +8,7 @@ import org.xcommand.template.parser.IParserCV;
 
 public class DefaultJSTParserProvider implements IJSTParserProvider
 {
+	@Override
 	public JSTParser newJSTParser()
 	{
 		String encoding = jstParserCV.getEncoding();
@@ -27,6 +28,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 
 	private final ICommand javaVariableObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("javavariable found: " + ParserCV.getValue(aCtx));
@@ -40,6 +42,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		};
 	private final ICommand javaTextObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("javaText found: " + ParserCV.getValue(aCtx));
@@ -49,6 +52,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		};
 	private final ICommand commentStartObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("commentStart found");
@@ -58,6 +62,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		};
 	private final ICommand commentEndObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("commentEnd found");
@@ -67,6 +72,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		};
 	private final ICommand commentTextObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("commentText found: " + ParserCV.getValue(aCtx));
@@ -81,6 +87,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		};
 	private final ICommand eolObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("eol found");
@@ -90,6 +97,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		};
 	private final ICommand eolInCommentObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("comment eol found");
@@ -99,6 +107,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 		};
 	private final ICommand eolInJavaObserver = new ICommand()
 		{
+			@Override
 			public void execute()
 			{
 //				System.out.println("java eol found");

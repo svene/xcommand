@@ -13,6 +13,7 @@ import java.io.Writer;
 
 public class JavaToStringExtractor implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		Java java = javaCV.getJava();

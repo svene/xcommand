@@ -14,6 +14,7 @@ public class JSTUpdateChecker extends TimerTask
 	{
 		System.out.println("JSTUpdateChecker.instance initializer()");
 	}
+	@Override
 	public void run()
 	{
 		System.out.println("JSTUpdateChecker.run(): " + new Date());

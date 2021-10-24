@@ -1,10 +1,10 @@
 package org.xcommand.web;
 
 import javax.servlet.ServletContext;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-import java.util.Collection;
-import java.util.Enumeration;
 
 /** Adapter from a `ServletContext' to a `java.util.Map'.
  *  Instances of this class thus provide the possibility to access a servletcontext's attributes
@@ -71,7 +71,7 @@ public class ServletContextMapAdapter implements Map<String, Object>
 	@Override
 	public Object put(String key, Object value)
 	{
-		servletContext.setAttribute((String) key, value);
+		servletContext.setAttribute(key, value);
 		return value;
 	}
 
@@ -99,19 +99,19 @@ public class ServletContextMapAdapter implements Map<String, Object>
 	@Override
 	public Set<String> keySet()
 	{
-		return null;
+		return Collections.emptySet();
 	}
 
 	@Override
 	public Collection<Object> values()
 	{
-		return null;
+		return Collections.emptyList();
 	}
 
 	@Override
 	public Set<Map.Entry<String, Object>> entrySet()
 	{
-		return null;
+		return Collections.emptySet();
 	}
 
 // --- Implementation ---

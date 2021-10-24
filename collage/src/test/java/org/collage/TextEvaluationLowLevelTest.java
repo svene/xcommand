@@ -22,13 +22,13 @@ public class TextEvaluationLowLevelTest
 
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 
-		TC.IStringMockHook textMockHook;
-		TC.IStringMockHook variableMockHook;
-		TC.IStringMockHook javaMockHook;
+		var textMockHook = Mockito.mock(TC.IStringMockHook.class);
+		var variableMockHook = Mockito.mock(TC.IStringMockHook.class);
+		var javaMockHook = Mockito.mock(TC.IStringMockHook.class);
 
-		hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
-		hp.getVariableNotifier().registerObserver(new TC.VariableValueMockHookCommand(variableMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
-		hp.getJavaNotifier().registerObserver(new TC.JavaMockHookCommand(javaMockHook = Mockito.mock(TC.IStringMockHook.class), treeNodeCV));
+		hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook, treeNodeCV));
+		hp.getVariableNotifier().registerObserver(new TC.VariableValueMockHookCommand(variableMockHook, treeNodeCV));
+		hp.getJavaNotifier().registerObserver(new TC.JavaMockHookCommand(javaMockHook, treeNodeCV));
 
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		//TODO: think about this:

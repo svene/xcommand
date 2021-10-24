@@ -23,10 +23,7 @@ public class InheritableMap<K, V> extends DecoratingMap<K, V>
 	@Override
 	public V get(Object aKey)
 	{
-		if (map.containsKey(aKey)) {
-			return map.get(aKey);
-		}
-		return super.get(aKey);
+		return map.containsKey(aKey) ? map.get(aKey) : super.get(aKey);
 	}
 
 // --- Setting ---

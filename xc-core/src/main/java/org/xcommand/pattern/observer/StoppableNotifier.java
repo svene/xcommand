@@ -25,8 +25,7 @@ public class StoppableNotifier extends AbstractBasicNotifier
 
 		for (int i = 0, n = observers.size(); !stopNotifying && i < n; i++)
 		{
-			ICommand observer = (ICommand) observers.get(i);
-			observer.execute();
+			observers.get(i).execute();
 		}
 		if (!stopNotifying)
 		{

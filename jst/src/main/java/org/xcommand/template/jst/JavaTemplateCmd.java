@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public class JavaTemplateCmd implements ICommand
 {
 
+	@Override
 	public void execute()
 	{
 		try

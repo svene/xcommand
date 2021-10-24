@@ -12,6 +12,7 @@ import java.io.*;
 public class TemplateToSourceGenerator implements ICommand
 {
 
+	@Override
 	public void execute()
 	{
 		InputStream is = (InputStream) TCP.getContext().get("inputstream");

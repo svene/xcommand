@@ -16,6 +16,7 @@ public abstract class StringHandlingHandler implements ICommand
 
 // --- Processing ---
 
+	@Override
 	public void execute()
 	{
 		String originalText = getOriginalText();

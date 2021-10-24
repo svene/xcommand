@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class TextToStringExtractor implements ICommand
 {
+	@Override
 	public void execute()
 	{
 		if (stringHandlerCV.getString() == null && evaluationCV.getWriter() == null) {

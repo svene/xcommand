@@ -10,7 +10,7 @@ public class DecoratingMap<K, V> implements Map<K, V>
 	}
 
 	public DecoratingMap(Map<K, V> aMap) {
-		Objects.nonNull(aMap);
+		Objects.requireNonNull(aMap);
 		decoratedMap = aMap;
 	}
 
@@ -92,7 +92,7 @@ public class DecoratingMap<K, V> implements Map<K, V>
 
 // --- Implementation ---
 
-	protected transient Map<K, V> decoratedMap;
+	protected final transient Map<K, V> decoratedMap;
 
 
 }
