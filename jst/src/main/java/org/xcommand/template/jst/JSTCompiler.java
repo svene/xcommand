@@ -5,31 +5,23 @@ import org.xcommand.technology.janino.JaninoObjectCreator;
 public class JSTCompiler
 {
 
-// --- Access ---
-
-	public JSTSourceLoader getJstSourceLoader()
+	public JSTJavaResourceLoader getJstJavaResourceLoader()
 	{
-		return jstSourceLoader;
+		return jstJavaResourceLoader;
 	}
 
-// --- Setting ---
-
-	public void setJstSourceLoader(JSTSourceLoader aJstSourceLoader)
+	public void setJstJavaResourceLoader(JSTJavaResourceLoader jstJavaResourceLoader)
 	{
-		jstSourceLoader = aJstSourceLoader;
+		this.jstJavaResourceLoader = jstJavaResourceLoader;
 	}
-
-// --- Processing ---
 
 	public Object getObject(String aClassname)
 	{
 		// Compile parsed JST source, instatiate object and execute it:
-		jstSourceLoader.loadClass(aClassname);	
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
+		jstJavaResourceLoader.load(aClassname);
+		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
 		return janino.getObject(aClassname);
 	}
 
-// --- Implementation ---
-
-	private JSTSourceLoader jstSourceLoader;
+	private JSTJavaResourceLoader jstJavaResourceLoader;
 }

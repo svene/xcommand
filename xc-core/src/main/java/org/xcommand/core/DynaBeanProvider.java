@@ -1,6 +1,6 @@
 package org.xcommand.core;
 
-import org.xcommand.proxy.Proxies;
+import eu.javaspecialists.books.dynamicproxies.Proxies;
 
 public class DynaBeanProvider
 {
@@ -24,13 +24,11 @@ public class DynaBeanProvider
 
 // --- Implementation ---
 
-	private record BasicDynaBeanProvider(
-		DynaBeanInvocationHandler dynaBeanInvocationHandler
-	) implements IDynaBeanProvider {
+	private record BasicDynaBeanProvider(DynaBeanInvocationHandler dynaBeanInvocationHandler) implements IDynaBeanProvider {
 
 		@Override
 		public <T> T newBeanForInterface(Class<T> aInterface) {
-			return Proxies.newProxy(aInterface, dynaBeanInvocationHandler);
+			return Proxies.castProxy(aInterface, dynaBeanInvocationHandler);
 		}
 
 	}

@@ -1,6 +1,0 @@
-dependencies {
-	implementation project(':xc-core')
-	implementation project(':jst')
-}
-
-

@@ -22,6 +22,10 @@ task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
 
 compileJava.dependsOn(jcc)
 
+test {
+	systemProperty 'eu.javaspecialists.books.dynamicproxies.util.MethodTurboBooster.disabled', 'true'
+}
+
 task listJars {
 	doLast {
 		configurations.compile.each { File file ->

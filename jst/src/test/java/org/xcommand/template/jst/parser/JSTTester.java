@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 import org.xcommand.technology.janino.JaninoObjectCreator;
-import org.xcommand.template.jst.JSTSourceLoader;
+import org.xcommand.template.jst.JSTJavaResourceLoader;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 
@@ -18,13 +19,11 @@ public class JSTTester
 	public void test1() {
 		// Load and parse JST source:
 		TCP.pushContext(new HashMap<>());
-		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
-		jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
-		jstSourceLoader.loadClass("T1");
+		JSTJavaResourceLoader jstJavaResourceLoader = new JSTJavaResourceLoader();
+		jstJavaResourceLoader.load("T1.java");
 
-
-		// Compile parsed JST source, instatiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
+		// Compile parsed JST source, instantiate object and execute it:
+		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
 		Object obj = janino.getObject("T1");
 		ICommand cmd = (ICommand) obj;
 
@@ -35,16 +34,15 @@ public class JSTTester
 	}
 
 	@Test
-	public void test4() {
+	public void test4() throws IOException {
 		// Load and parse JST source:
 		TCP.pushContext(new HashMap<>());
-		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
-		jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
-		jstSourceLoader.loadClass("T4");
+		JSTJavaResourceLoader jstJavaResourceLoader = new JSTJavaResourceLoader();
+		jstJavaResourceLoader.load("T4.java");
 
 
-		// Compile parsed JST source, instatiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
+		// Compile parsed JST source, instantiate object and execute it:
+		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
 		Object obj = janino.getObject("T4");
 		ICommand cmd = (ICommand) obj;
 
@@ -59,13 +57,11 @@ public class JSTTester
 	public void test2() {
 		// Load and parse JST source:
 		TCP.pushContext(new HashMap<>());
-		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
-		jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
-		jstSourceLoader.loadClass("T2");
+		JSTJavaResourceLoader jstJavaResourceLoader = new JSTJavaResourceLoader();
+		jstJavaResourceLoader.load("T2.java");
 
-
-		// Compile parsed JST source, instatiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
+		// Compile parsed JST source, instantiate object and execute it:
+		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
 		Object obj = janino.getObject("T2");
 		ICommand cmd = (ICommand) obj;
 
