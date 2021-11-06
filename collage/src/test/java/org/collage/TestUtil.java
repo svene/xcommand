@@ -1,6 +1,5 @@
 package org.collage;
 
-import org.apache.commons.io.IOUtils;
 import org.xcommand.util.ResourceUtil;
 
 import java.io.ByteArrayOutputStream;
@@ -14,7 +13,7 @@ public class TestUtil {
 	{
 		InputStream fis = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		IOUtils.copy(fis, bos);
+		fis.transferTo(bos);
 		return bos.toString();
 	}
 

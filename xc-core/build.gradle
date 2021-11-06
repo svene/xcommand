@@ -3,7 +3,6 @@ dependencies {
 	implementation 'org.springframework:spring-core:5.3.7'
 	implementation 'org.springframework:spring-web:5.3.7'
 	implementation DEP_JANINO
-	implementation DEP_COMMONS_IO
 	implementation 'eu.javaspecialists.books.dynamicproxies:core:2.0.0'
 	testImplementation 'org.springframework:spring-test:5.3.7'
 	testImplementation DEP_GROOVY

@@ -1,17 +1,18 @@
 package org.xcommand.template.jst;
 
-import org.apache.commons.io.FileUtils;
-import org.xcommand.core.*;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.template.jst.parser.JSTParser;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class FileSystemBasedJSTScanner implements ICommand
@@ -64,7 +65,6 @@ public class FileSystemBasedJSTScanner implements ICommand
 
 				File file = cme.fme.file;
 
-				// Invoke TemplateToSourceGenerator:
 				try {
 					TCP.pushContext(new HashMap<>());
 					FileInputStream is = new FileInputStream(file);
@@ -78,12 +78,9 @@ public class FileSystemBasedJSTScanner implements ICommand
 
 					// Write source code as file to disk:
 					if (genSourceDir != null) {
-						String dirName = genSourceDir + "/";
 						File dir = new File(genSourceDir);
 						System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
-						File rf = new File(genSourceDir + "/" + className + ".java");
-						rf.createNewFile();
-						FileUtils.writeStringToFile(rf, cme.fme.content, StandardCharsets.UTF_8);
+						Files.writeString(Paths.get("%s/%s.java".formatted(genSourceDir, className)), cme.fme.content);
 					}
 
 				} catch (Exception e) {

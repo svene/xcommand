@@ -2,7 +2,6 @@ dependencies {
 	implementation project(':xc-core')
 	implementation DEP_JAVASSIST
 	implementation DEP_JAVACC
-	implementation DEP_COMMONS_IO
 	testImplementation DEP_GROOVY
 	testImplementation platform(DEP_SPOCK_BOM)
 	testImplementation DEP_SPOCK_CORE

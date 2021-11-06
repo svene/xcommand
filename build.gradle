@@ -3,11 +3,9 @@ plugins {
 }
 project.ext {
 	VERSION_JAVACC = '7.0.10'
-	DEP_JANINO = 'org.codehaus.janino:janino:3.1.4'
+	DEP_JANINO = 'org.codehaus.janino:janino:3.1.6'
 	DEP_JAVASSIST = 'org.javassist:javassist:3.28.0-GA'
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
-	DEP_COMMONS_IO = 'commons-io:commons-io:2.11.0'
-
 
 	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.8'
 	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.0-groovy-3.0'

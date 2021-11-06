@@ -1,6 +1,5 @@
 package org.xcommand.web.jarresource;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
@@ -80,7 +79,7 @@ public class JarResourceServlet extends HttpServlet
 			}
 			System.out.println("mimeType: " + mimeType);
 			response.setContentType(mimeType);
-			IOUtils.copy(is, os);
+			is.transferTo(os);
 		}
 		else
 		{
