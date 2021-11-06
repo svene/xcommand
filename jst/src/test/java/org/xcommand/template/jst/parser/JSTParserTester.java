@@ -3,6 +3,7 @@ package org.xcommand.template.jst.parser;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.AfterEach;
@@ -33,9 +34,7 @@ public class JSTParserTester
 	@Test
 	public void test1() throws Exception
 	{
-		JSTParser parser = newJSTParser(new ByteArrayInputStream("hi there!".getBytes()));
-
-		jstParserCV.setGeneratedJavaCode(new StringBuffer());
+		JSTParser parser = newJSTParser(inputStreamFromString("hi there!"));
 		parser.Start();
 		assertEquals("hi there!", jstParserCV.getGeneratedJavaCode().toString());
 	}
@@ -43,29 +42,35 @@ public class JSTParserTester
 	@Test
 	public void test2() throws Exception
 	{
-		JSTParser parser = newJSTParser(new ByteArrayInputStream("hi there! /*#some comment#*/".getBytes()));
+		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#some comment#*/"));
 		parser.Start();
-
 		assertEquals("hi there! $s(\"some comment\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
 	public void test3() throws Exception
 	{
-		JSTParser parser = newJSTParser(new ByteArrayInputStream("hi there! /*#af $jv{somename} jj#*/".getBytes()));
+		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#af $jv{somename} jj#*/"));
 		parser.Start();
-
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
-	public void test4() throws Exception
+	public void testMultiline() throws Exception
 	{
-		JSTParser parser = newJSTParser(new FileInputStream("testdata/T1.txt"));
+		String input = """
+			hi there! /*#af $jv{somename} jj#*/
+			how are you?
+			""";
+		JSTParser parser = newJSTParser(inputStreamFromString(input));
 		parser.Start();
 
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");\nhow are you?\n",
 			jstParserCV.getGeneratedJavaCode().toString());
+	}
+
+	private InputStream inputStreamFromString(String input) {
+		return new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private JSTParser newJSTParser(InputStream aIs)

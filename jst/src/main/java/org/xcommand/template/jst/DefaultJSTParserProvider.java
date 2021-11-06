@@ -6,6 +6,8 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.template.jst.parser.JSTParser;
 import org.xcommand.template.parser.IParserCV;
 
+import java.nio.charset.StandardCharsets;
+
 public class DefaultJSTParserProvider implements IJSTParserProvider
 {
 	@Override
@@ -13,7 +15,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider
 	{
 		String encoding = jstParserCV.getEncoding();
 		if (encoding == null) {
-			encoding = "UTF-8";
+			encoding = StandardCharsets.UTF_8.name();
 		}
 		JSTParser parser = new JSTParser(jstParserCV.getInputStream(), encoding);
 		parser.getJavaVarNotifier().registerObserver(javaVariableObserver);
