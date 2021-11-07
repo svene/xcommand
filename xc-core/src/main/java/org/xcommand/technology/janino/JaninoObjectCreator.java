@@ -25,8 +25,13 @@ public class JaninoObjectCreator
 //		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, encoding, DebuggingInformation.ALL);
 		//TODO: implement caching loader:
 		ResourceCreator classFileCacheResourceCreator = new MapResourceCreator(javaClassMap);
-		ClassLoader cl = new CachingJavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, StandardCharsets.UTF_8.name(),
-			javaClassResourceFinder, classFileCacheResourceCreator);
+		ClassLoader cl = new CachingJavaSourceClassLoader(
+			parentClassLoader,
+			javaSourceResourceFinder,
+			StandardCharsets.UTF_8.name(),
+			javaClassResourceFinder,
+			classFileCacheResourceCreator
+		);
 	 	String dotClassName = aClassname.replace('/', '.');
 		Class<?> clazz;
 		try

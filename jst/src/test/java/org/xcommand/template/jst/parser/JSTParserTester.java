@@ -1,21 +1,24 @@
 package org.xcommand.template.jst.parser;
 
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.xcommand.template.jst.DefaultJSTParserProvider;
-import org.xcommand.template.jst.IJSTParserCV;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mockito;
+import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.stream.Stream;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class JSTParserTester
 {
@@ -23,7 +26,6 @@ public class JSTParserTester
 	@BeforeEach
 	public void initializeContext() {
 		TCP.pushContext(new HashMap<>());
-		jstParserCV.setGeneratedJavaCode(new StringBuffer());
 	}
 
 	@AfterEach
@@ -31,58 +33,52 @@ public class JSTParserTester
 		TCP.popContext();
 	}
 
-	@Test
-	public void test1() throws Exception
+	private static Stream<Arguments> testCommentStartHandler() {
+		return Stream.of(
+			Arguments.of("hi there!", 0),
+			Arguments.of("hi /*#there!", 1),
+			Arguments.of("""
+		hi /*#there!
+		sdf#*/
+		""", 1)
+		);
+	}
+	@ParameterizedTest
+	@MethodSource
+	public void testCommentStartHandler(String input, int expected) throws Exception
 	{
-		JSTParser parser = newJSTParser(inputStreamFromString("hi there!"));
+		JSTParser parser = new JSTParser(inputStreamFromString(input));
+		ICommand commentStartHandler = Mockito.mock(ICommand.class);
+		parser.getCommentStartNotifier().registerObserver(commentStartHandler);
 		parser.Start();
-		assertEquals("hi there!", jstParserCV.getGeneratedJavaCode().toString());
+		verify(commentStartHandler, times(expected)).execute();
 	}
 
-	@Test
-	public void test2() throws Exception
+	private static Stream<Arguments> testEolInCommentHandler() throws FileNotFoundException {
+		return Stream.of(
+			Arguments.of(new FileInputStream("../jst-testdata/src/main/java/T1.java"), 3),
+			Arguments.of(inputStreamFromString("""
+		hi /*#there!
+		blabla
+		sdf#*/
+		"""), 2)
+		);
+	}
+	@ParameterizedTest
+	@MethodSource
+	public void testEolInCommentHandler(InputStream is, int expected) throws Exception
 	{
-		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#some comment#*/"));
+		JSTParser parser = new JSTParser(is);
+		ICommand handler = Mockito.mock(ICommand.class);
+		parser.getEolInCommentNotifier().registerObserver(handler);
 		parser.Start();
-		assertEquals("hi there! $s(\"some comment\");", jstParserCV.getGeneratedJavaCode().toString());
+		verify(handler, times(expected)).execute();
 	}
 
-	@Test
-	public void test3() throws Exception
-	{
-		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#af $jv{somename} jj#*/"));
-		parser.Start();
-		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");", jstParserCV.getGeneratedJavaCode().toString());
-	}
+	// TODO: add tests for other callbacks
 
-	@Test
-	public void testMultiline() throws Exception
-	{
-		String input = """
-			hi there! /*#af $jv{somename} jj#*/
-			how are you?
-			""";
-		JSTParser parser = newJSTParser(inputStreamFromString(input));
-		parser.Start();
-
-		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");\nhow are you?\n",
-			jstParserCV.getGeneratedJavaCode().toString());
-	}
-
-	private InputStream inputStreamFromString(String input) {
+	private static InputStream inputStreamFromString(String input) {
 		return new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
 	}
 
-	private JSTParser newJSTParser(InputStream aIs)
-	{
-		TCP.pushContext(new HashMap<>());
-		jstParserCV.setInputStream(aIs);
-		JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
-		TCP.popContext();
-
-		return parser;
-	}
-
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }
