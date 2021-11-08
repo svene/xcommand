@@ -10,7 +10,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class MapAdaptionTest {
 
-	public static class InheritableMapAdapter<K, V> {
+	private static class InheritableMapAdapter<K, V> {
 		private final Map<K, V> adaptee;
 		private final Map<K, V> ownMap = new HashMap<>();
 

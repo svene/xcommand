@@ -2,7 +2,7 @@ package org.xcommand.example.xc100;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xcommand.core.InheritableMap;
+import org.xcommand.core.Factory;
 
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class Recursion
 		LOGGER.info("before call : name={}, level={}", name, level);
 		if (level.length() < 5)
 		{
-			Map<String, Object> ctx = new InheritableMap<>(aCtx);
+			Map<String, Object> ctx = Factory.newInheritableMap(aCtx);
 			level += "#";
 			ctx.put("name", ctx.get("name") + String.valueOf(level.length()));
 			ctx.put("level", level);
