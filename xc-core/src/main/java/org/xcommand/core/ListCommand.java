@@ -1,7 +1,6 @@
 package org.xcommand.core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ public class ListCommand implements ICommand
 	}
 
 	public ListCommand(ICommand... aCommands) {
-		this(Arrays.asList(aCommands));
+		this(List.of(aCommands));
 	}
 
 	public ListCommand(List<? extends ICommand> aCommands) {

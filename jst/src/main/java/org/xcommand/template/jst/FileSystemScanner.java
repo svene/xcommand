@@ -1,14 +1,13 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class FileSystemScanner implements ICommand
 // --- Setting ---
 
 	public void setRootDirs(String... aRootDirs) {
-		setRootDirs(Arrays.asList(aRootDirs));
+		setRootDirs(List.of(aRootDirs));
 	}
 
 	public void setRootDirs(List<String> aRootDirs)

@@ -11,12 +11,12 @@ public class DomEventHandlerProvider extends MapBasedHandlerProvider
 {
 
 	private static Map<Object, INotifier> handlerMap() {
-		Map<Object, INotifier> map = new HashMap<>();
-		map.put(RootNode.class, new BasicNotifier());
-		map.put(Text.class, new BasicNotifier());
-		map.put(Variable.class, new BasicNotifier());
-		map.put(Java.class, new BasicNotifier());
-		return map;
+		return Map.of(
+			RootNode.class, new BasicNotifier(),
+			Text.class, new BasicNotifier(),
+			Variable.class, new BasicNotifier(),
+			Java.class, new BasicNotifier()
+		);
 	}
 
 	public DomEventHandlerProvider()
