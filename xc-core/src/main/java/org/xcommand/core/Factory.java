@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Factory {
 
-	private static class InheritableMapAdapter<K, V> {
+	public static class InheritableMapAdapter<K, V> {
 		private final Map<K, V> parentMap;
 		private final Map<K, V> childMap = new HashMap<>();
 

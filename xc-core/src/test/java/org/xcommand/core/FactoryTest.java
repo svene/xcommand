@@ -24,5 +24,6 @@ class FactoryTest {
 		assertThat(m.get("key")).isEqualTo("Parent");
 		m.put("key", "Sven");
 		assertThat(m.get("key")).isEqualTo("Sven");
+		assertThat(parentMap.get("key")).isEqualTo("Parent");
 	}
 }

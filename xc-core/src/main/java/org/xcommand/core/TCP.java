@@ -23,7 +23,7 @@ public class TCP
 	}
 	public static void pushNewInheritableContext()
 	{
-		getStack().push(new InheritableMap<>(getContext()));
+		getStack().push(Factory.newInheritableMap(getContext()));
 	}
 	public static void popContext()
 	{
@@ -41,7 +41,7 @@ public class TCP
 		@Override
 		protected synchronized Deque<Map<String, Object>> initialValue() {
 			Deque<Map<String, Object>> stack = new ArrayDeque<>();
-			stack.push(new InheritableMap<>(AC.getInstance()));
+			stack.push(Factory.newInheritableMap(AC.getInstance()));
 			return stack;
 		}
 	};

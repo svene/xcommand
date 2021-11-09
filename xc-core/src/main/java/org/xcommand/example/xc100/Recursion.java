@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * This example demonstrates how the xcommand pattern can be used for recursive calls.
- * For each recursive call a new InheritableMap is created so that a new 'argument stack entry'
+ * For each recursive call a new inheritable Map is created so that a new 'argument stack entry'
  * is created holding the arguments ('level' in this example).
  * Thus all the previous variables are left untouched (as you can see from the variable 'name').
  */
