@@ -1,20 +1,23 @@
 package org.xcommand.core;
 
+import java.util.Map;
+import java.util.function.Supplier;
+
 public record ContextProviderBasedBeanAccessor(
-	IContextProvider contextProvider,
+	Supplier<Map<String, Object>> contextSupplier,
 	IDynaBeanKeyProvider dynaBeanKeyProvider
 ) implements IBeanAccessor {
 
 	@Override
 	public void set(Object targetObj, MethodInfo methodInfo, Object[] args) {
 		String key = dynaBeanKeyProvider.getKey(targetObj, methodInfo, args);
-		contextProvider.getContext().put(key, args.length == 1 ? args[0] : args);
+		contextSupplier.get().put(key, args.length == 1 ? args[0] : args);
 	}
 
 	@Override
 	public Object get(Object targetObj, MethodInfo methodInfo, Object[] args) {
 		String key = dynaBeanKeyProvider.getKey(targetObj, methodInfo, args);
-		return contextProvider.getContext().get(key);
+		return contextSupplier.get().get(key);
 	}
 
 }
