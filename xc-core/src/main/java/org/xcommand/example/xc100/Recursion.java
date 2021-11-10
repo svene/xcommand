@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.xcommand.core.Factory;
 
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This example demonstrates how the xcommand pattern can be used for recursive calls.
@@ -18,6 +17,7 @@ public class Recursion
 {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	private List<String> list = new ArrayList<>();
 
 	public static void main(String[] args)
 	{
@@ -25,14 +25,19 @@ public class Recursion
 		String level = "";
 		ctx.put("name", "Sven");
 		ctx.put("level", level);
-		new Recursion().execute(ctx);
+		new Recursion().run(ctx);
 	}
 
+	private void run(Map<String, Object> aCtx) {
+		execute(aCtx);
+		list.forEach(LOGGER::info);
+	}
 	private void execute(Map<String, Object> aCtx)
 	{
 		String name = (String) aCtx.get("name");
 		String level = (String) aCtx.get("level");
-		LOGGER.info("before call : name={}, level={}", name, level);
+		list.add("before call : name=%s, level=%s".formatted(name, level));
+
 		if (level.length() < 5)
 		{
 			Map<String, Object> ctx = Factory.newInheritableMap(aCtx);
@@ -41,7 +46,7 @@ public class Recursion
 			ctx.put("level", level);
 			execute(ctx);
 		}
-		LOGGER.info("after call  : name={}, level={}", name, level);
+		list.add("after call  : name=%s, level=%s".formatted(name, level));
 	}
 
 }
