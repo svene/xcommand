@@ -7,7 +7,7 @@ import java.beans.PropertyDescriptor
 
 public class DynaBeanProviderSpockTest extends Specification
 {
-	IDynaBeanProvider dbpM = DynaBeanProvider.newThreadBasedDynabeanProvider(DynaBeanKeyProviders::methodKeyProvider)
+	IDynaBeanProvider dbpM = DynaBeanProvider.newThreadMethodInstance()
 
 	// TODO: instead of TCP use a normal object as storage (does this need reflection then?: java.beans.Introspector)
 	def setup() {
@@ -20,7 +20,7 @@ public class DynaBeanProviderSpockTest extends Specification
 
 	def "verify that class-and-method based DynaBeanProvider (CM-DBP) produces new instances for each call"() {
 		given:
-			IDynaBeanProvider dbp = newCM_DBP()
+			IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance()
 		expect:
 			dbp.newBeanForInterface(IPerson)
 			!dbp.newBeanForInterface(IPerson).is(dbp.newBeanForInterface(IPerson))
@@ -43,7 +43,7 @@ public class DynaBeanProviderSpockTest extends Specification
 	def "verify that object-identity based DynaBeanProvider (OID-DBP) produces new instances for each call and that getters/setters work"()
 	{
 		given:
-			IDynaBeanProvider dbp = newOID_DBP()
+			IDynaBeanProvider dbp = DynaBeanProvider.newThreadObjectIdentityInstance()
 		when:
 			IPerson person = dbp.newBeanForInterface(IPerson)
 		then:
@@ -65,7 +65,7 @@ public class DynaBeanProviderSpockTest extends Specification
 	def "verify that method based DynaBeanProvider (M-DBP) produces new instances for each call and that getters/setters work"()
 	{
 		given:
-			IDynaBeanProvider dbp = newM_DBP()
+			IDynaBeanProvider dbp = DynaBeanProvider.newThreadMethodInstance()
 		when:
 			IPerson person = dbp.newBeanForInterface(IPerson)
 		then:
@@ -88,7 +88,7 @@ public class DynaBeanProviderSpockTest extends Specification
 	def "verify that two view instances point to the same virtual object if CM-DBP is used"()
 	{
 		given:
-			IDynaBeanProvider dbp = newCM_DBP()
+			IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance()
 			// Create first view instance (person1):
 			IPerson person1 = dbp.newBeanForInterface(IPerson.class)
 			// Create second view instance (person2):
@@ -120,7 +120,7 @@ public class DynaBeanProviderSpockTest extends Specification
 	def "verify that two view instances point to distinct virtual objects if OID-DBP is used"()
 	{
 		given:
-			IDynaBeanProvider dbp = newOID_DBP()
+			IDynaBeanProvider dbp = DynaBeanProvider.newThreadObjectIdentityInstance()
 			IPerson person1 = dbp.newBeanForInterface(IPerson.class)
 			IPerson person2 = dbp.newBeanForInterface(IPerson.class)
 		when:
@@ -142,7 +142,7 @@ public class DynaBeanProviderSpockTest extends Specification
 	def "verify that two view instances point to the same virtual object if M-DBP is used even if used interfaces are not the same"()
 	{
 		given:
-			IDynaBeanProvider dbp = newM_DBP()
+			IDynaBeanProvider dbp = DynaBeanProvider.newThreadMethodInstance()
 			IPerson pv1 = dbp.newBeanForInterface(IPerson.class)
 			IPersonNamesView pv2 = dbp.newBeanForInterface(IPersonNamesView.class)
 		when:
@@ -184,7 +184,7 @@ public class DynaBeanProviderSpockTest extends Specification
 		given:
 			IPerson p = new Person();
 			BeanHoldingBeanAccessor ba = new BeanHoldingBeanAccessor(p)
-			IDynaBeanProvider dbp = DynaBeanProvider.newDynabeanProvider(ba)
+			IDynaBeanProvider dbp = DynaBeanProvider.newDynaBeanProvider(DynaBeanProvider.newDynaBeanInvocationHandler(ba))
 			IPerson pv = dbp.newBeanForInterface(IPerson.class)
 		expect:
 			!pv.getFirstName()
@@ -204,18 +204,6 @@ public class DynaBeanProviderSpockTest extends Specification
 			"Ehrke" == pv.getLastName()
 			// Check modification on 'p':
 			"Ehrke" == p.getLastName()
-	}
-
-	private static IDynaBeanProvider newCM_DBP() {
-		return DynaBeanProvider.newThreadClassMethodInstance()
-	}
-
-	private static IDynaBeanProvider newOID_DBP() {
-		return DynaBeanProvider.newThreadBasedDynabeanProvider(DynaBeanKeyProviders::objectIdentityKeyProvider)
-	}
-
-	private static IDynaBeanProvider newM_DBP() {
-		return DynaBeanProvider.newThreadBasedDynabeanProvider(DynaBeanKeyProviders::methodKeyProvider)
 	}
 
 }

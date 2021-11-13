@@ -4,11 +4,18 @@ dependencies {
 	implementation 'org.springframework:spring-web:5.3.7'
 	implementation DEP_JANINO
 	implementation 'eu.javaspecialists.books.dynamicproxies:core:2.0.0'
+	implementation "io.vavr:vavr:0.10.4"
+
 	testImplementation 'org.springframework:spring-test:5.3.7'
 	testImplementation DEP_GROOVY
 	testImplementation platform(DEP_SPOCK_BOM)
 	testImplementation DEP_SPOCK_CORE
 	testImplementation 'cglib:cglib:2.2'
+
+	compileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	annotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	testCompileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	testAnnotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
 }
 
 

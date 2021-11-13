@@ -8,6 +8,7 @@ project.ext {
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
 
 	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.8'
+	DEP_LOMBOK_VERSION = '1.18.22'
 	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.0-groovy-3.0'
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 }
