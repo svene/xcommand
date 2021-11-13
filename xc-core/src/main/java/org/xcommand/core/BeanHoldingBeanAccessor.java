@@ -1,37 +1,18 @@
 package org.xcommand.core;
 
-public class BeanHoldingBeanAccessor implements IBeanAccessor
-{
-	public BeanHoldingBeanAccessor(Object aObj)
-	{
-		obj = aObj;
-	}
+import org.jooq.lambda.Sneaky;
 
+public record BeanHoldingBeanAccessor(Object obj) implements IBeanAccessor
+{
 	@Override
 	public void set(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs)
 	{
-		try
-		{
-			aMethodInfo.method.invoke(obj, aArgs);
-		}
-		catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+		Sneaky.runnable(() -> aMethodInfo.method.invoke(obj, aArgs)).run();
 	}
 
 	@Override
 	public Object get(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs)
 	{
-		try
-		{
-			return aMethodInfo.method.invoke(obj, aArgs);
-		}
-		catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+		return Sneaky.supplier(() -> aMethodInfo.method.invoke(obj, aArgs)).get();
 	}
-
-	private final Object obj;
 }

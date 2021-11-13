@@ -5,6 +5,7 @@ dependencies {
 	implementation DEP_JANINO
 	implementation 'eu.javaspecialists.books.dynamicproxies:core:2.0.0'
 	implementation "io.vavr:vavr:0.10.4"
+	implementation 'org.jooq:jool:0.9.14'
 
 	testImplementation 'org.springframework:spring-test:5.3.7'
 	testImplementation DEP_GROOVY
