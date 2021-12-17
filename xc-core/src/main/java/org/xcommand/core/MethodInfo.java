@@ -4,8 +4,7 @@ import java.lang.reflect.Method;
 
 class MethodInfo
 {
-	MethodInfo(Method aMethod)
-	{
+	MethodInfo(Method aMethod) {
 		method = aMethod;
 		isSetter = aMethod.getName().startsWith("set");
 		property = aMethod.getName().substring(3);

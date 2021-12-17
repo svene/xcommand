@@ -3,6 +3,7 @@ package org.collage;
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.template.TemplateCompiler;
+import org.jooq.lambda.Sneaky;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNode;
@@ -15,22 +16,10 @@ public class TestHelper
 
 	public TestHelper()
 	{
-		try
-		{
-			rootNode = compileTemplate();
-		}
-		catch (RuntimeException e) {
-			throw e;
-		}
-		catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+		Sneaky.runnable(() -> rootNode = compileTemplate()).run();
 	}
 
 	ITreeNode rootNode;
-
-// --- Implementation ---
 
 	private ITreeNode compileTemplate() {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);

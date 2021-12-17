@@ -169,14 +169,16 @@ public class DynaBeanProviderSpockTest extends Specification
 
 	def "demonstrate Spring BeanWrapper"()
 	{
-		DelegatingPerson p1 = new DelegatingPerson(dbpM.newBeanForInterface(IPerson.class))
-		BeanWrapper bw = new BeanWrapperImpl(p1)
-		PropertyDescriptor[] descriptors = bw.getPropertyDescriptors()
-		4 == descriptors.length
-		"birthDate" == descriptors[0].getName()
-		"class" == descriptors[1].getName()
-		"firstName" == descriptors[2].getName()
-		"lastName" == descriptors[3].getName()
+		given:
+			DelegatingPerson p1 = new DelegatingPerson(dbpM.newBeanForInterface(IPerson.class))
+			BeanWrapper bw = new BeanWrapperImpl(p1)
+			PropertyDescriptor[] descriptors = bw.getPropertyDescriptors()
+		expect:
+			4 == descriptors.length
+			"birthDate" == descriptors[0].getName()
+			"class" == descriptors[1].getName()
+			"firstName" == descriptors[2].getName()
+			"lastName" == descriptors[3].getName()
 	}
 
 	def "verify that object-backed bean provider works"()

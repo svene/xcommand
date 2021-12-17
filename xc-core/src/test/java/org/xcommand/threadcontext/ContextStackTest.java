@@ -64,7 +64,7 @@ public class ContextStackTest
 		// Save current context:
 		var savedCtx = TCP.getContext();
 
-		TCP.pushNewInheritableContext();
+		TCP.pushContext(TCP.newInheritableContext());
 		assertEquals(v1, tIn2OutCV.getOutput());
 
 		// Set a value on the current context:

@@ -5,6 +5,7 @@ dependencies {
 	testImplementation DEP_GROOVY
 	testImplementation platform(DEP_SPOCK_BOM)
 	testImplementation DEP_SPOCK_CORE
+	implementation DEP_JOOL
 }
 
 sourceSets {

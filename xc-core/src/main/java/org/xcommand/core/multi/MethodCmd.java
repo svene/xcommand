@@ -1,23 +1,16 @@
 package org.xcommand.core.multi;
 
+import org.jooq.lambda.Sneaky;
 import org.xcommand.core.ICommand;
 
 import java.lang.reflect.Method;
 
 public class MethodCmd implements ICommand
 {
-// --- Initialization ---
 
 	public MethodCmd(Class<?> aClass)
 	{
-		try
-		{
-			multiCommandObject = aClass.getDeclaredConstructor().newInstance();
-		}
-		catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+		Sneaky.runnable(() -> multiCommandObject = aClass.getDeclaredConstructor().newInstance()).run();
 	}
 
 	public MethodCmd(Object multiCommandObject)
@@ -25,29 +18,16 @@ public class MethodCmd implements ICommand
 		this.multiCommandObject = multiCommandObject;
 	}
 
-// --- Setting ---
-
 	public void setMethod(Method aMethod)
 	{
 		method = aMethod;
 	}
 
-// --- Processing ---
-
 	@Override
 	public void execute()
 	{
-		try
-		{
-			method.invoke(multiCommandObject, (Object[])null);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		Sneaky.runnable(() -> method.invoke(multiCommandObject, (Object[])null)).run();
 	}
-
-// --- Implementation ---
 
 	Method method;
 	Object multiCommandObject;

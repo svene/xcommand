@@ -24,7 +24,7 @@ public class WebCVInitializationFilter implements Filter
 		throws IOException, ServletException
 	{
 		// Populate XC Context with webapp-related information (request, response):
-		TCP.pushNewInheritableContext();
+		TCP.pushContext(TCP.newInheritableContext());
 		webCV.setRequest((HttpServletRequest) aRequest);
 		webCV.setResponse((HttpServletResponse) aResponse);
 		System.out.println("WebCVInitializationFilter.doFilter()");

@@ -11,6 +11,8 @@ project.ext {
 	DEP_LOMBOK_VERSION = '1.18.22'
 	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.0-groovy-3.0'
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
+	DEP_JOOL = 'org.jooq:jool:0.9.14'
+
 }
 
 allprojects {

@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public class TCP
 {
-	private TCP()
-	{
+	private TCP() {
 	}
+
 	public static Map<String, Object> getContext()
 	{
 		return getStack().peek();
@@ -21,10 +21,11 @@ public class TCP
 	{
 		getStack().push(aCtx);
 	}
-	public static void pushNewInheritableContext()
-	{
-		getStack().push(Factory.newInheritableMap(getContext()));
+
+	public static Map<String, Object> newInheritableContext() {
+		return Factory.newInheritableMap(getContext());
 	}
+
 	public static void popContext()
 	{
 		getStack().pop();
