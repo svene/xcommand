@@ -55,7 +55,7 @@ public class DynaBeanProvider
 		};
 	}
 
-	private static IBeanAccessor newBeanAccessor(DynaBeanOptions options) {
+	public static IBeanAccessor newBeanAccessor(DynaBeanOptions options) {
 		return BeanAccessors.newBeanAccessor(options.getContextProvider(), options.getDynaBeanKeyProvider());
 	}
 
