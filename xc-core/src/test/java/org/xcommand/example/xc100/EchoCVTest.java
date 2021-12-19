@@ -28,11 +28,7 @@ public class EchoCVTest {
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.ClassAndMethodKeyProvider)
 			.build();
 
-		IDynaBeanProvider dbp = DynaBeanProvider.newDynaBeanProvider(
-			DynaBeanProvider.newDynaBeanInvocationHandler(
-				DynaBeanProvider.newBeanAccessor(dynaBeanOptions)
-			)
-		);
+		IDynaBeanProvider dbp = DynaBeanProvider.fromOptions(dynaBeanOptions);
 
 		IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 

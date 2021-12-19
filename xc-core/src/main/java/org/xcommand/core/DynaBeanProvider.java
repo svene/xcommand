@@ -26,15 +26,13 @@ public class DynaBeanProvider
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.ObjectIdentityKeyProvider)
 			.build();
 
-	private static IDynaBeanProvider ThreadClassMethodDynaBeanProvider = newDynaBeanProvider(
-		newDynaBeanInvocationHandler(newBeanAccessor(ThreadClassMethodOptions))
-	);
-	private static IDynaBeanProvider ThreadMethodDynaBeanProvider = newDynaBeanProvider(
-		newDynaBeanInvocationHandler(newBeanAccessor(ThreadMethodOptions))
-	);
-	private static IDynaBeanProvider ThreadObjectIdentityDynaBeanProvider = newDynaBeanProvider(
-		newDynaBeanInvocationHandler(newBeanAccessor(ThreadObjectIdentityOptions))
-	);
+	private static IDynaBeanProvider ThreadClassMethodDynaBeanProvider = fromOptions(ThreadClassMethodOptions);
+	private static IDynaBeanProvider ThreadMethodDynaBeanProvider = fromOptions(ThreadMethodOptions);
+	private static IDynaBeanProvider ThreadObjectIdentityDynaBeanProvider = fromOptions(ThreadObjectIdentityOptions);
+
+	public static IDynaBeanProvider fromOptions(DynaBeanOptions options) {
+		return newDynaBeanProvider(newDynaBeanInvocationHandler(newBeanAccessor(options)));
+	}
 
 	public static IDynaBeanProvider newThreadClassMethodInstance() {
 		return ThreadClassMethodDynaBeanProvider;
