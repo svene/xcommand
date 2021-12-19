@@ -37,8 +37,8 @@ public class EchoCVTest {
 		IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 
 		echoCV.setMessage(message);
-		assertThat(ctx.size()).isEqualTo(1);
-		assertThat(ctx).isEqualTo(Map.of("org.xcommand.example.commands.IEchoCV.Message", message));
 		assertThat(echoCV.getMessage()).isEqualTo(message);
+
+		assertThat(ctx).isEqualTo(Map.of("org.xcommand.example.commands.IEchoCV.Message", message));
 	}
 }
