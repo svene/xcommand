@@ -15,4 +15,8 @@ class MethodInfo
 	final boolean isSetter;
 	final String methodClassName;
 	final String property;
+
+	public String propertyPath() {
+		return methodClassName + "." + property;
+	}
 }

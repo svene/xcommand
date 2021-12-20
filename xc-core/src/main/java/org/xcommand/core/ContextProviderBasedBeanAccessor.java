@@ -9,14 +9,15 @@ public record ContextProviderBasedBeanAccessor(
 ) implements IBeanAccessor {
 
 	@Override
-	public void set(Object targetObj, MethodInfo methodInfo, Object[] args) {
-		String key = dynaBeanKeyProvider.getKey(targetObj, methodInfo, args);
+	public void set(InvocationHandlerContext ihc) {
+		String key = dynaBeanKeyProvider.getKey(ihc);
+		Object[] args = ihc.args();
 		contextSupplier.get().put(key, args.length == 1 ? args[0] : args);
 	}
 
 	@Override
-	public Object get(Object targetObj, MethodInfo methodInfo, Object[] args) {
-		String key = dynaBeanKeyProvider.getKey(targetObj, methodInfo, args);
+	public Object get(InvocationHandlerContext ihc) {
+		String key = dynaBeanKeyProvider.getKey(ihc);
 		return contextSupplier.get().get(key);
 	}
 

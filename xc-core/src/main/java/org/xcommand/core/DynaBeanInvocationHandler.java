@@ -12,14 +12,16 @@ public class DynaBeanInvocationHandler implements InvocationHandler
 	}
 
 	@Override
-	public Object invoke(Object aProxy, Method aMethod, Object[] aArgs) {
-		MethodInfo mi = methodInfoMap.computeIfAbsent(aMethod, (key) -> new MethodInfo(aMethod));
+	public Object invoke(Object proxy, Method method, Object[] args) {
+		MethodInfo mi = methodInfoMap.computeIfAbsent(method, (key) -> new MethodInfo(method));
+
+		var ihc = new InvocationHandlerContext(proxy, mi, args);
 		if (mi.isSetter)
 		{
-			beanAccessor.set(aProxy, mi, aArgs);
+			beanAccessor.set(ihc);
 			return null;
 		} else {
-			return beanAccessor.get(aProxy, mi, aArgs);
+			return beanAccessor.get(ihc);
 		}
 	}
 	private final IBeanAccessor beanAccessor;

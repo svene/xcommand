@@ -5,14 +5,18 @@ import org.jooq.lambda.Sneaky;
 public record BeanHoldingBeanAccessor(Object obj) implements IBeanAccessor
 {
 	@Override
-	public void set(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs)
+	public void set(InvocationHandlerContext ihc)
 	{
-		Sneaky.runnable(() -> aMethodInfo.method.invoke(obj, aArgs)).run();
+		Sneaky.runnable(
+			() -> ihc.methodInfo().method.invoke(obj, ihc.args())
+		).run();
 	}
 
 	@Override
-	public Object get(Object aTargetObj, MethodInfo aMethodInfo, Object[] aArgs)
+	public Object get(InvocationHandlerContext ihc)
 	{
-		return Sneaky.supplier(() -> aMethodInfo.method.invoke(obj, aArgs)).get();
+		return Sneaky.supplier(
+			() -> ihc.methodInfo().method.invoke(obj, ihc.args())
+		).get();
 	}
 }

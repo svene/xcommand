@@ -34,7 +34,6 @@ public class EchoCVTest {
 
 		echoCV.setMessage(message);
 		assertThat(echoCV.getMessage()).isEqualTo(message);
-
 		assertThat(ctx).isEqualTo(Map.of("org.xcommand.example.commands.IEchoCV.Message", message));
 	}
 }
