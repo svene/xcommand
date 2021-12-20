@@ -5,13 +5,13 @@ public class DynaBeanKeyProviders {
 	}
 
 	public static IDynaBeanKeyProvider ClassAndMethodKeyProvider =
-		(InvocationHandlerContext ihc) -> ihc.methodInfo().propertyPath();
+		(InvocationContext ihc) -> ihc.methodInfo().propertyPath();
 
 	public static IDynaBeanKeyProvider MethodKeyProvider =
-		(InvocationHandlerContext ihc) -> ihc.methodInfo().property;
+		(InvocationContext ihc) -> ihc.methodInfo().property;
 
 	public static IDynaBeanKeyProvider ObjectIdentityKeyProvider =
-		(InvocationHandlerContext ihc) ->
+		(InvocationContext ihc) ->
 			System.identityHashCode(ihc.proxy()) + ihc.methodInfo().property;
 
 }

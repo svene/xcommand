@@ -57,10 +57,8 @@ public class DynaBeanProvider
 		return BeanAccessors.newBeanAccessor(options.getContextProvider(), options.getDynaBeanKeyProvider());
 	}
 
-
 	public static InvocationHandler newDynaBeanInvocationHandler(IBeanAccessor beanAccessor) {
-		return new DynaBeanInvocationHandler(beanAccessor);
+		return new DynaBeanInvocationHandler(new BeanAccessorInvocationContextHandler(beanAccessor));
 	}
-
 
 }
