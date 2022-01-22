@@ -1,13 +1,13 @@
 dependencies {
 	implementation DEP_SERVLET_API
-	implementation 'org.springframework:spring-core:5.3.14'
-	implementation 'org.springframework:spring-web:5.3.14'
+	implementation 'org.springframework:spring-core:5.3.15'
+	implementation 'org.springframework:spring-websocket:5.3.15'
 	implementation DEP_JANINO
 	implementation 'eu.javaspecialists.books.dynamicproxies:core:2.0.0'
 	implementation "io.vavr:vavr:0.10.4"
 	implementation DEP_JOOL
 
-	testImplementation 'org.springframework:spring-test:5.3.14'
+	testImplementation 'org.springframework:spring-test:5.3.15'
 	testImplementation DEP_GROOVY
 	testImplementation platform(DEP_SPOCK_BOM)
 	testImplementation DEP_SPOCK_CORE
