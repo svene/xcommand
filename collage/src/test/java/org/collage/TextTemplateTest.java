@@ -14,6 +14,7 @@ import org.xcommand.core.*;
 import java.io.StringWriter;
 import java.util.HashMap;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TextTemplateTest
@@ -71,28 +72,24 @@ public class TextTemplateTest
 		assertEquals("hallo Sven.\nWie gehts?\n", stringWriter.toString());
 	}
 
+	private String createTemplate(String in) {
+		new TextTemplateCompiler().newTemplateCommandFromString(in).execute();
+		return stringHandlerCV.getString();
+	}
+
 	/**
 	 * Demonstrate recursive template resolution
 	 */
 	@Test
 	public void testRecursiveInlining() {
 		TCP.getContext().put("name", "${firstname} ${lastname}");
-		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${name}. Wie gehts?");
-		tc.execute();
-		String s = stringHandlerCV.getString();
-		assertEquals("hallo ${firstname} ${lastname}. Wie gehts?", s);
+		assertThat(createTemplate("hallo ${name}. Wie gehts?"))
+			.isEqualTo("hallo ${firstname} ${lastname}. Wie gehts?");
 
-		tc = new TextTemplateCompiler().newTemplateCommandFromString(s);
-		tc.execute();
-		s = stringHandlerCV.getString();
-		assertEquals("hallo Uli ${lastname}. Wie gehts?", s);
+		assertThat(createTemplate("hallo ${firstname} ${lastname}. Wie gehts?")).isEqualTo("hallo Uli ${lastname}. Wie gehts?");
+		assertThat(createTemplate("hallo Uli ${lastname}. Wie gehts?")).isEqualTo("hallo Uli ${lastname}. Wie gehts?");
 
-		tc = new TextTemplateCompiler().newTemplateCommandFromString(s);
-		tc.execute();
-		s = stringHandlerCV.getString();
-		assertEquals("hallo Uli ${lastname}. Wie gehts?", s);
-
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(s);
+		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString("hallo Uli ${lastname}. Wie gehts?");
 		TCP.getContext().put("firstname", "Uli");
 		TCP.getContext().put("lastname", "Ehrke");
 		TemplateCV.setWriter(stringWriter);

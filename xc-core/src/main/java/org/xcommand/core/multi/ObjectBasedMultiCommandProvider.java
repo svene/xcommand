@@ -20,8 +20,7 @@ public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider
 	public void init()
 	{
 		commandMap = new HashMap<>();
-		Class<?> clazz;
-		clazz = targetObject.getClass();
+		Class<?> clazz = targetObject.getClass();
 		Method[] methods = clazz.getDeclaredMethods();
 		for (Method m : methods) {
 			Class<?>[] classes = m.getParameterTypes();
@@ -31,8 +30,7 @@ public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider
 			if (!classes[0].isAssignableFrom(Map.class)) {
 				continue;
 			}
-			MethodCmd mc;
-			mc = new MethodCmd(targetObject);
+			MethodCmd mc = new MethodCmd(targetObject);
 			mc.setMethod(m);
 			commandMap.put(m.getName(), mc);
 		}

@@ -16,10 +16,9 @@ public class JavaNodeCreationHandler implements ICommand
 	{
 		String s = domNodeCreationHandlerCV.getValue();
 		trace("got JAVA CODE: '" + s + "'");
-		ITreeNode node = new TreeNode();
 		Java java = new Java();
 		java.setValue(s);
-		node.setDomainObject(java);
+		ITreeNode node = new TreeNode(java);
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 

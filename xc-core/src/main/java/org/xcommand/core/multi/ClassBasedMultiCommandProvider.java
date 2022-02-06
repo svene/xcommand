@@ -26,8 +26,7 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider
 			if (!classes[0].isAssignableFrom(Map.class)) {
 				continue;
 			}
-			MethodCmd mc;
-			mc = new MethodCmd(targetClass);
+			MethodCmd mc = new MethodCmd(targetClass);
 			mc.setMethod(m);
 			commandMap.put(m.getName(), mc);
 		}

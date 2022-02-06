@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.xcommand.core.*;
-import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
@@ -71,7 +70,6 @@ public class DomDumperLowLevelTest
 		IStringHandler sh = Mockito.mock(IStringHandler.class);
 		StringHandlerCommand shCmd = new StringHandlerCommand(sh);
 		// Setup:
-		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 
 		hp.getTextNotifier().registerObserver(new ListCommand(new DomObjToTextTransformer(), new TextToStringExtractor(), shCmd));
@@ -82,6 +80,7 @@ public class DomDumperLowLevelTest
 		hp.getJavaNotifier().registerObserver(new ListCommand(new DomObjToJavaTransformer(), new JavaToStringExtractor(), shCmd));
 
 		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
 		// Setup dynamic data:

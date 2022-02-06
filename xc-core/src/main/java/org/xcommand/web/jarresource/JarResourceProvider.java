@@ -11,6 +11,7 @@ import org.xcommand.web.IWebCV;
 
 import javax.servlet.ServletContext;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Objects providing access to resources in jar files.
@@ -38,8 +39,7 @@ public class JarResourceProvider implements ICommand
 			jarResourceProviderCV.setResource(resource);
 			long lm = f.lastModified();
 			jarResourceProviderCV.setLastModified(lm);
-		}
-		catch (Exception e)
+		} catch (IOException | RuntimeException e)
 		{
 			//e.printStackTrace();
 			String msg = e.getMessage();

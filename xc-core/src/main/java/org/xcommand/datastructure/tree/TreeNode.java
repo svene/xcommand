@@ -10,6 +10,9 @@ import java.util.ArrayList;
  */
 public class TreeNode implements ITreeNode
 {
+	public TreeNode(Object domainObject) {
+		this.domainObject = domainObject;
+	}
 
 	@Override
 	public boolean hasChildren()
@@ -29,16 +32,6 @@ public class TreeNode implements ITreeNode
 		return domainObject == null ? this : domainObject;
 	}
 
-// --- Setting ---
-
-	@Override
-	public void setDomainObject(Object aDomainObject)
-	{
-		domainObject = aDomainObject;
-	}
-
-// --- Implementation ---
-
 	private final List<ITreeNode> children = new ArrayList<>();
-	private Object domainObject;
+	private final Object domainObject;
 }

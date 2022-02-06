@@ -32,17 +32,15 @@ public class JaninoObjectCreator
 			javaClassResourceFinder,
 			classFileCacheResourceCreator
 		);
-	 	String dotClassName = aClassname.replace('/', '.');
-		Class<?> clazz;
 		try
 		{
-			clazz = cl.loadClass(dotClassName);
+			String dotClassName = aClassname.replace('/', '.');
+			return cl.loadClass(dotClassName);
 		}
 		catch (ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
 		}
-		return clazz;
 
 	}
 	public Object getObject(String aClassname)

@@ -9,6 +9,4 @@ public interface ITreeNode
 	List<ITreeNode> getChildren();
 
 	Object getDomainObject();
-
-	void setDomainObject(Object aDomainObject);
 }

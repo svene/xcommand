@@ -18,10 +18,9 @@ public class VariableNodeCreationHandler implements ICommand
 	{
 		String s = domNodeCreationHandlerCV.getValue();
 		trace("got VARIABLE: '" + s + "'");
-		TreeNode node = new TreeNode();
 		Variable v = new Variable();
 		v.setVariableName(s);
-		node.setDomainObject(v);
+		TreeNode node = new TreeNode(v);
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 

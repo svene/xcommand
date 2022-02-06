@@ -10,25 +10,25 @@ public class DynaBeanProvider
 	private DynaBeanProvider() {
 	}
 
-	private static DynaBeanOptions ThreadClassMethodOptions =
+	private static final DynaBeanOptions ThreadClassMethodOptions =
 		DynaBeanOptions.builder()
 			.contextProvider(TCP::getContext)
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.ClassAndMethodKeyProvider)
 			.build();
-	private static DynaBeanOptions ThreadMethodOptions =
+	private static final DynaBeanOptions ThreadMethodOptions =
 		DynaBeanOptions.builder()
 			.contextProvider(TCP::getContext)
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.MethodKeyProvider)
 			.build();
-	private static DynaBeanOptions ThreadObjectIdentityOptions =
+	private static final DynaBeanOptions ThreadObjectIdentityOptions =
 		DynaBeanOptions.builder()
 			.contextProvider(TCP::getContext)
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.ObjectIdentityKeyProvider)
 			.build();
 
-	private static IDynaBeanProvider ThreadClassMethodDynaBeanProvider = fromOptions(ThreadClassMethodOptions);
-	private static IDynaBeanProvider ThreadMethodDynaBeanProvider = fromOptions(ThreadMethodOptions);
-	private static IDynaBeanProvider ThreadObjectIdentityDynaBeanProvider = fromOptions(ThreadObjectIdentityOptions);
+	private static final IDynaBeanProvider ThreadClassMethodDynaBeanProvider = fromOptions(ThreadClassMethodOptions);
+	private static final IDynaBeanProvider ThreadMethodDynaBeanProvider = fromOptions(ThreadMethodOptions);
+	private static final IDynaBeanProvider ThreadObjectIdentityDynaBeanProvider = fromOptions(ThreadObjectIdentityOptions);
 
 	public static IDynaBeanProvider fromOptions(DynaBeanOptions options) {
 		return newDynaBeanProvider(newDynaBeanInvocationHandler(newBeanAccessor(options)));

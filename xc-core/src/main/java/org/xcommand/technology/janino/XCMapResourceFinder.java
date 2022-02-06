@@ -14,7 +14,7 @@ import java.io.ByteArrayInputStream;
 public class XCMapResourceFinder extends ResourceFinder
 {
 	private final Map<String, byte[]> map;
-	private long lastModified = 0L;
+	private long lastModified;
 
 	public XCMapResourceFinder(Map<String, byte[]> map)
 	{

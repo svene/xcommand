@@ -9,18 +9,18 @@ import org.xcommand.core.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CachingTextTemplateCompilerSample
+class CachingTextTemplateCompilerTest
 {
 
 	private static final int RUNS = 10000;
 
 	@BeforeEach
-	public void initializeContext() {
+	void initializeContext() {
 		TCP.getContext().put("firstname", "Uli");
 	}
 
 	@Test
-	public void exerciseTextTemplateCompiler()
+	void exerciseTextTemplateCompiler()
 	{
 		for (int i = 0; i < RUNS; i++)
 		{
@@ -31,7 +31,7 @@ public class CachingTextTemplateCompilerSample
 
 	/** Much faster than previous routine */
 	@Test
-	public void exerciseCachingTextTemplateCompiler()
+	void exerciseCachingTextTemplateCompiler()
 	{
 		// On first template request `CachingTextTemplateCompiler' will compile unknown template:
 		new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();
@@ -47,5 +47,5 @@ public class CachingTextTemplateCompilerSample
 		}
 	}
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+	private final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

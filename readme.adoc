@@ -1,0 +1,20 @@
+= Concept
+
+TBD
+
+== quick notes
+
+
+.Typed Access to context
+[source,java]
+----
+// Instead of:
+TCP.getContext().put("node", new TreeNode());
+TreeNode node = TCP.getContext().put("node");
+
+// Use:
+treeNodeCV.setTreeNode(new TreeNode());
+TreeNode node = treeNodeCV.getTreeNode();
+----
+
+

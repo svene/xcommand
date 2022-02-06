@@ -38,26 +38,22 @@ public class TestDataProvider
 	private final ITreeNode root2;
 
 	{
-		TreeBuilder tb = new TreeBuilder();
 
 		// Setup element structure to test:
-		root1 = new TreeNode();
-		root1.setDomainObject(new RootDomainObject());
-
-		TreeNode te1 = new TreeNode();
-		te1.setDomainObject(new OneDomainObject());
+		root1 = new TreeNode(new RootDomainObject());
+		TreeNode te1 = new TreeNode(new OneDomainObject());
+		TreeBuilder tb = new TreeBuilder();
 		tb.addChild(root1, te1);
 
-		TreeNode te2 = new TreeNode();
-		te2.setDomainObject(new AnotherDomainObject());
+		TreeNode te2 = new TreeNode(new AnotherDomainObject());
 		tb.addChild(te1, te2);
 
-		root2 = new TreeNode(); root2.setDomainObject(new RootDomainObject());
-		te1 = new TreeNode(); te1.setDomainObject(new OneDomainObject());
-		tb.addChild(root2, te1);
+		root2 = new TreeNode(new RootDomainObject());
+		TreeNode te3 = new TreeNode(new OneDomainObject());
+		tb.addChild(root2, te3);
 
-		te2 = new TreeNode(); te2.setDomainObject(new AnotherDomainObject());
-		tb.addChild(root2, te2);
+		TreeNode te4 = new TreeNode(new AnotherDomainObject());
+		tb.addChild(root2, te4);
 	}
 
 	public static class OneDomainObject {}

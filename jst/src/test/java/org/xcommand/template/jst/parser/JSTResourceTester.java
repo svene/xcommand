@@ -6,7 +6,6 @@ import org.xcommand.core.TCP;
 import org.xcommand.technology.janino.JaninoObjectCreator;
 import org.xcommand.template.jst.JSTJavaResourceLoader;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 
@@ -34,7 +33,7 @@ public class JSTResourceTester
 	}
 
 	@Test
-	public void test4() throws IOException {
+	public void test4() {
 		// Load and parse JST source:
 		TCP.pushContext(new HashMap<>());
 		JSTJavaResourceLoader jstJavaResourceLoader = new JSTJavaResourceLoader();

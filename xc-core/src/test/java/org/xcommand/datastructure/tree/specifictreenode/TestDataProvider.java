@@ -32,9 +32,21 @@ public class TestDataProvider
 		return root2.getChildren().get(1);
 	}
 
-	public static class RootTreeNode extends TreeNode {}
-	public static class TreeNode2 extends TreeNode {}
-	public static class TreeNode1 extends TreeNode {}
+	public static class RootTreeNode extends TreeNode {
+		public RootTreeNode(Object domainObject) {
+			super(domainObject);
+		}
+	}
+	public static class TreeNode2 extends TreeNode {
+		public TreeNode2(Object domainObject) {
+			super(domainObject);
+		}
+	}
+	public static class TreeNode1 extends TreeNode {
+		public TreeNode1(Object domainObject) {
+			super(domainObject);
+		}
+	}
 
 // --- Implementation ---
 
@@ -49,23 +61,17 @@ public class TestDataProvider
 		  root2/te2
 		
 		 */
-		TreeBuilder tb = new TreeBuilder();
 
 		// Setup element structure to test:
-		root1 = new RootTreeNode();
-
-		TreeNode1 te1 = new TreeNode1();
+		root1 = new RootTreeNode(null);
+		TreeNode1 te1 = new TreeNode1(null);
+		TreeBuilder tb = new TreeBuilder();
 		tb.addChild(root1, te1);
+		tb.addChild(te1, new TreeNode2(null));
 
-		TreeNode2 te2 = new TreeNode2();
-		tb.addChild(te1, te2);
-
-		root2 = new RootTreeNode();
-		te1 = new TreeNode1();
-		tb.addChild(root2, te1);
-
-		te2 = new TreeNode2();
-		tb.addChild(root2, te2);
+		root2 = new RootTreeNode(null);
+		tb.addChild(root2, new TreeNode1(null));
+		tb.addChild(root2, new TreeNode2(null));
 	}
 
 }

@@ -37,7 +37,7 @@ public class StoppableNotifier extends AbstractBasicNotifier
 
 // --- Implementation ---
 
-	private boolean stopNotifying = false;
+	private boolean stopNotifying;
 	private final ICommand stopCommand = () -> stopNotifying = true;
 	private final INotifier noStopRequestedNotifier = new BasicNotifier();
 }

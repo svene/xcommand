@@ -29,11 +29,10 @@ public class JarResourceServlet extends HttpServlet
 	@Override
 	protected long getLastModified(HttpServletRequest request)
 	{
-		JarResourceProvider jrp = new JarResourceProvider();
 		webCV.setServletContext(getServletContext());
 		String resName = getResourceNameFromRequest(request);
 		jarResourceProviderCV.setResourceName(resName);
-		jrp.execute();
+		new JarResourceProvider().execute();
 		showLastModifiedDate();
 		return jarResourceProviderCV.getLastModified();
 	}
@@ -48,14 +47,8 @@ public class JarResourceServlet extends HttpServlet
 
 		String prefix = contextPath + request.getServletPath() + "/";
 		System.out.println("prefix: " + prefix);
-		String resName;
 		int i1 = requestURI.indexOf(prefix);
-		if (i1 == -1) {
-			resName = request.getParameter("resource");
-		} else {
-			resName = requestURI.substring(i1 + prefix.length());
-		}
-		return resName;
+		return i1 == -1 ? request.getParameter("resource") : requestURI.substring(i1 + prefix.length());
 	}
 
 	@Override

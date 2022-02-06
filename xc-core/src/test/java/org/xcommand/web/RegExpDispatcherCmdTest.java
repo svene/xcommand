@@ -22,10 +22,10 @@ class RegExpDispatcherCmdTest {
 		ICommand cmd1 = () -> inoutCV.setOutput("cmd1");
 		ICommand cmd2 = () -> inoutCV.setOutput("cmd2");
 
-		RegExpDispatcherCmd cmd = new RegExpDispatcherCmd();
 		Map<String, ICommand> commands = new HashMap<>();
 		commands.put(".*p1$", cmd1);
 		commands.put(".*p2$", cmd2);
+		RegExpDispatcherCmd cmd = new RegExpDispatcherCmd();
 		cmd.setCommands(commands);
 
 		MockHttpServletRequest request = new MockHttpServletRequest();

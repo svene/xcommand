@@ -46,15 +46,13 @@ public class ModeBasedCommandDispatcher implements ICommand
 			ICommand command = getModeCommandMap().get(mode);
 			command.execute();
 		}
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
 			System.out.println("mode: " + ModeContextView.getMode());
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
-
-// --- Implementation ---
 
 	private Map<String, ICommand> modeCommandMap = new HashMap<>();
 	private String modeKey = ModeContextView.KEY_MODE;

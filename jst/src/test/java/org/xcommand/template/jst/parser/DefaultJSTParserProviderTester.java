@@ -31,32 +31,28 @@ public class DefaultJSTParserProviderTester
 	}
 
 	@Test
-	public void test1() throws Exception
-	{
+	public void test1() throws ParseException {
 		JSTParser parser = newJSTParser(inputStreamFromString("hi there!"));
 		parser.Start();
 		assertEquals("hi there!", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
-	public void test2() throws Exception
-	{
+	public void test2() throws ParseException {
 		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#some comment#*/"));
 		parser.Start();
 		assertEquals("hi there! $s(\"some comment\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
-	public void test3() throws Exception
-	{
+	public void test3() throws ParseException {
 		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#af $jv{somename} jj#*/"));
 		parser.Start();
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
-	public void testMultiline() throws Exception
-	{
+	public void testMultiline() throws ParseException {
 		String input = """
 			hi there! /*#af $jv{somename} jj#*/
 			how are you?

@@ -9,8 +9,7 @@ public class TestUtil {
 	private TestUtil() {
 	}
 
-	public static String fileContent(String aFilename) throws Exception
-	{
+	public static String fileContent(String aFilename) throws java.io.IOException {
 		InputStream fis = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
 		return new String(fis.readAllBytes(), StandardCharsets.UTF_8);
 	}

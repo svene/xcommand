@@ -14,8 +14,8 @@ public class RecursionTest {
 	void example1() {
 		list = new ArrayList<>();
 		Map<String, Object> ctx = new HashMap<>();
-		String level = "";
 		ctx.put("name", "Sven");
+		String level = "";
 		ctx.put("level", level);
 		execute(ctx);
 		assertThat(list).isEqualTo(Arrays.asList(

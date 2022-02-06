@@ -16,10 +16,9 @@ public class TextNodeCreationHandler implements ICommand
 	{
 		String s = domNodeCreationHandlerCV.getValue();
 		trace("got TEXT: '" + s + "'");
-		ITreeNode node = new TreeNode();
 		Text text = new Text();
 		text.setValue(s);
-		node.setDomainObject(text);
+		ITreeNode node = new TreeNode(text);
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
