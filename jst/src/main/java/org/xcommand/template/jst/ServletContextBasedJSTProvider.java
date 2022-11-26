@@ -6,7 +6,7 @@ import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.web.IWebCV;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.util.*;
 
 public class ServletContextBasedJSTProvider implements IJSTProvider

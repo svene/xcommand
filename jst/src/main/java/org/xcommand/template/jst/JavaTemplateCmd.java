@@ -3,7 +3,7 @@ package org.xcommand.template.jst;
 import org.xcommand.core.*;
 import org.xcommand.web.IWebCV;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class JavaTemplateCmd implements ICommand
 {

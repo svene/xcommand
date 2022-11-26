@@ -9,7 +9,7 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.web.IWebCV;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 
