@@ -9,9 +9,9 @@ project.ext {
 	DEP_JAVASSIST = 'org.javassist:javassist:3.29.2-GA'
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
 
-	DEP_GROOVY = 'org.codehaus.groovy:groovy:3.0.13'
+	DEP_GROOVY = 'org.apache.groovy:groovy:4.0.6'
 	DEP_LOMBOK_VERSION = '1.18.24'
-	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.0-groovy-3.0'
+	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.3-groovy-4.0'
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 	DEP_JOOL = 'org.jooq:jool:0.9.14'
 }
