@@ -13,6 +13,7 @@ import org.xcommand.core.*;
 import org.xcommand.util.ResourceUtil;
 
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ class ExitRootHandler implements ICommand
 			String className = getClassName();
 
 			CtClass ccXcommand = pool.get("org.xcommand.core.ICommand");
-			cc = pool.makeClass(className);
+			cc = pool.makeClass(getClass().getPackage().getName() + "." + className);
 			cc.addInterface(ccXcommand);
 
 			// Add method 'appendVar()':
@@ -45,7 +46,7 @@ class ExitRootHandler implements ICommand
 			addMethod(cc, "org/collage/dom/evaluator/java/javassist/execute_method.txt");
 			TCP.popContext();
 
-			var clazz = cc.toClass();
+			var clazz = cc.toClass(MethodHandles.lookup());
 			TCP.getContext().put("clazz", clazz);
 
 			// Create instance and put it on context:

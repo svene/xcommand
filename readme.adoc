@@ -10,7 +10,11 @@ TBD
 ----
 // Instead of:
 TCP.getContext().put("node", new TreeNode());
-TreeNode node = TCP.getContext().put("node");
+TreeNode node = TCP.getContext().get("node");
+
+// or:
+TCP.getContext().put(NODE, new TreeNode());
+TreeNode node = TCP.getContext().get(NODE);
 
 // Use:
 treeNodeCV.setTreeNode(new TreeNode());
