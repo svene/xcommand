@@ -8,10 +8,10 @@ public class DynaBeanKeyProviders {
 		(InvocationContext ihc) -> ihc.methodInfo().propertyPath();
 
 	public static final IDynaBeanKeyProvider MethodKeyProvider =
-		(InvocationContext ihc) -> ihc.methodInfo().property;
+		(InvocationContext ihc) -> ihc.methodInfo().property();
 
 	public static final IDynaBeanKeyProvider ObjectIdentityKeyProvider =
 		(InvocationContext ihc) ->
-			System.identityHashCode(ihc.proxy()) + ihc.methodInfo().property;
+			System.identityHashCode(ihc.proxy()) + ihc.methodInfo().property();
 
 }

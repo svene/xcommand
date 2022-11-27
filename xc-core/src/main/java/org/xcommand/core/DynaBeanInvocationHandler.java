@@ -11,7 +11,7 @@ public class DynaBeanInvocationHandler implements InvocationHandler {
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) {
-		MethodInfo mi = methodInfoMap.computeIfAbsent(method, (key) -> new MethodInfo(method));
+		MethodInfo mi = methodInfoMap.computeIfAbsent(method, (key) -> MethodInfo.from(method));
 		return invocationContextHandler.invoke(new InvocationContext(proxy, mi, args));
 	}
 
