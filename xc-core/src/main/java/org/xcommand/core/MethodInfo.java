@@ -10,8 +10,8 @@ record MethodInfo(Method method, boolean isSetter, String methodClassName, Strin
 		return new MethodInfo(
 			method,
 			method.getName().startsWith("set"),
-			method.getName().substring(3),
-			method.getDeclaringClass().getName()
+			method.getDeclaringClass().getName(),
+			method.getName().substring(3)
 		);
 	}
 }
