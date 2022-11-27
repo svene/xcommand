@@ -8,27 +8,23 @@ import java.util.ArrayList;
  * functionality it contains the property 'DomainObject' which makes it possible
  * to attach DomainObjects to the TreeNode.
  */
-public class TreeNode implements ITreeNode
-{
+public class TreeNode implements ITreeNode {
 	public TreeNode(Object domainObject) {
 		this.domainObject = domainObject;
 	}
 
 	@Override
-	public boolean hasChildren()
-	{
+	public boolean hasChildren() {
 		return children.size() > 0;
 	}
 
 	@Override
-	public List<ITreeNode> getChildren()
-	{
+	public List<ITreeNode> getChildren() {
 		return children;
 	}
 
 	@Override
-	public Object getDomainObject()
-	{
+	public Object getDomainObject() {
 		return domainObject == null ? this : domainObject;
 	}
 

@@ -7,8 +7,7 @@ import java.util.Map;
 /**
  * `IHandlerProvider' using a 'java.util.Map' to lookup a handler
  */
-public class MapBasedHandlerProvider implements IHandlerProvider
-{
+public class MapBasedHandlerProvider implements IHandlerProvider {
 
 	private final Map<Object, ? extends ICommand> handlerMap;
 
@@ -17,8 +16,7 @@ public class MapBasedHandlerProvider implements IHandlerProvider
 	}
 
 	@Override
-	public ICommand getHandler(Object aObj)
-	{
+	public ICommand getHandler(Object aObj) {
 		return handlerMap.get(aObj);
 	}
 

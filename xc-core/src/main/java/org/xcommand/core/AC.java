@@ -17,23 +17,12 @@ import java.util.HashMap;
 public class AC extends HashMap<String, Object>
 {
 
-// --- Initialization ---
-
-	/**
-	 * Private constructor to prevent instantiation from outside
-	 */
-	private AC()
-	{
+	private AC() {
 	}
 
-// --- Access ---
-
-	public static AC getInstance()
-	{
+	public static AC getInstance() {
 		return instance;
 	}
-
-// --- Implementation ---
 
 	private static final AC instance = new AC();
 }

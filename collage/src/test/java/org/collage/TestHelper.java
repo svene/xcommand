@@ -11,11 +11,9 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.template.parser.IParserCV;
 import org.xcommand.util.ResourceUtil;
 
-public class TestHelper
-{
+public class TestHelper {
 
-	public TestHelper()
-	{
+	public TestHelper() {
 		Sneaky.runnable(() -> rootNode = compileTemplate()).run();
 	}
 
@@ -24,7 +22,7 @@ public class TestHelper
 	private ITreeNode compileTemplate() {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
-		
+
 		parserCV.setInputStream(ResourceUtil.newInputStreamFromResourceLocation("in.txt"));
 		new TemplateCompiler().execute();
 		return treeNodeCV.getTreeNode();

@@ -11,8 +11,7 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 
-public class TextEvaluationLowLevelTest
-{
+public class TextEvaluationLowLevelTest {
 
 	@Test
 	public void test1() {

@@ -12,9 +12,10 @@ import java.util.HashMap;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JSTTester
-{
-	/** Test JSTLoader and JaninoObjectCreator */
+public class JSTTester {
+	/**
+	 * Test JSTLoader and JaninoObjectCreator
+	 */
 	@Test
 	public void test1() {
 		String currentWorkingDir = System.getProperty("user.dir");

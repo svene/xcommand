@@ -20,8 +20,7 @@ import java.util.stream.Stream;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class JSTParserTester
-{
+public class JSTParserTester {
 
 	@BeforeEach
 	public void initializeContext() {
@@ -38,11 +37,12 @@ public class JSTParserTester
 			Arguments.of("hi there!", 0),
 			Arguments.of("hi /*#there!", 1),
 			Arguments.of("""
-		hi /*#there!
-		sdf#*/
-		""", 1)
+				hi /*#there!
+				sdf#*/
+				""", 1)
 		);
 	}
+
 	@ParameterizedTest
 	@MethodSource
 	public void testCommentStartHandler(String input, int expected) throws ParseException {
@@ -57,12 +57,13 @@ public class JSTParserTester
 		return Stream.of(
 			Arguments.of(new FileInputStream("../jst-testdata/src/main/java/T1.java"), 3),
 			Arguments.of(inputStreamFromString("""
-		hi /*#there!
-		blabla
-		sdf#*/
-		"""), 2)
+				hi /*#there!
+				blabla
+				sdf#*/
+				"""), 2)
 		);
 	}
+
 	@ParameterizedTest
 	@MethodSource
 	public void testEolInCommentHandler(InputStream is, int expected) throws ParseException {

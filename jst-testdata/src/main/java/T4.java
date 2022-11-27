@@ -2,11 +2,9 @@ import org.xcommand.template.jst.IJSTRoutines;
 import org.xcommand.template.jst.DefaultJSTRoutines;
 import org.xcommand.core.ICommand;
 
-public class T4 implements ICommand
-{
+public class T4 implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		String localString = "Bart";
 /*#
 	<h1>Hallo Du da! Ich bin $jv{localString}. Und Du?</h1>
@@ -14,12 +12,11 @@ public class T4 implements ICommand
 #*/
 	}
 
-	protected void $s(String aString)
-	{
+	protected void $s(String aString) {
 		jstr.$s(aString);
 	}
-	protected void $v(String aName)
-	{
+
+	protected void $v(String aName) {
 		jstr.$v(aName);
 	}
 

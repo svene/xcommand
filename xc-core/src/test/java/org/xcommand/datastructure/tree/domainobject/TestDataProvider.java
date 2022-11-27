@@ -4,30 +4,28 @@ import org.xcommand.datastructure.tree.TreeNode;
 import org.xcommand.datastructure.tree.TreeBuilder;
 import org.xcommand.datastructure.tree.ITreeNode;
 
-public class TestDataProvider
-{
+public class TestDataProvider {
 
-// --- Access ---
-
-	public ITreeNode getRoot1()
-	{
+	public ITreeNode getRoot1() {
 		return root1;
 	}
 
 	public ITreeNode getRoot1Child() {
 		return root1.getChildren().get(0);
 	}
+
 	public ITreeNode getRoot1ChildChild() {
 		return getRoot1Child().getChildren().get(0);
 	}
 
-	public ITreeNode getRoot2()
-	{
+	public ITreeNode getRoot2() {
 		return root2;
 	}
+
 	public ITreeNode getRoot2Child1() {
 		return root2.getChildren().get(0);
 	}
+
 	public ITreeNode getRoot2Child2() {
 		return root2.getChildren().get(1);
 	}
@@ -56,7 +54,12 @@ public class TestDataProvider
 		tb.addChild(root2, te4);
 	}
 
-	public static class OneDomainObject {}
-	public static class AnotherDomainObject {}
-	public static class RootDomainObject {}
+	public static class OneDomainObject {
+	}
+
+	public static class AnotherDomainObject {
+	}
+
+	public static class RootDomainObject {
+	}
 }

@@ -9,8 +9,7 @@ import org.xcommand.core.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CachingTextTemplateCompilerTest
-{
+class CachingTextTemplateCompilerTest {
 
 	private static final int RUNS = 10000;
 
@@ -20,32 +19,31 @@ class CachingTextTemplateCompilerTest
 	}
 
 	@Test
-	void exerciseTextTemplateCompiler()
-	{
-		for (int i = 0; i < RUNS; i++)
-		{
+	void exerciseTextTemplateCompiler() {
+		for (int i = 0; i < RUNS; i++) {
 			new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}. Wie gehts?").execute();
 			assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
 		}
 	}
 
-	/** Much faster than previous routine */
+	/**
+	 * Much faster than previous routine
+	 */
 	@Test
-	void exerciseCachingTextTemplateCompiler()
-	{
+	void exerciseCachingTextTemplateCompiler() {
 		// On first template request `CachingTextTemplateCompiler' will compile unknown template:
 		new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();
 		String s = stringHandlerCV.getString();
 		assertEquals("hallo Uli. Wie gehts?", s);
 
 		// For further template request `CachingTextTemplateCompiler' should find template in cache:
-		for (int i = 0; i < RUNS; i++)
-		{
+		for (int i = 0; i < RUNS; i++) {
 			new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();
 			s = stringHandlerCV.getString();
 			assertEquals("hallo Uli. Wie gehts?", s);
 		}
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

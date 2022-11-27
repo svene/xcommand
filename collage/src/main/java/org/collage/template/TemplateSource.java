@@ -6,44 +6,31 @@ import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
 
-public class TemplateSource
-{
+public class TemplateSource {
 
-// --- Initialization ---
-
-	public TemplateSource(InputStream aTemplateStream)
-	{
+	public TemplateSource(InputStream aTemplateStream) {
 		if (aTemplateStream == null) {
 			throw new RuntimeException("aTemplateStream == null");
 		}
 
 		inputStream = aTemplateStream;
 	}
-	public TemplateSource(String aTemplateText)
-	{
+
+	public TemplateSource(String aTemplateText) {
 		this(new ByteArrayInputStream(aTemplateText.getBytes()));
 	}
 
-// --- Access ---
-
-	public InputStream getInputStream()
-	{
+	public InputStream getInputStream() {
 		return inputStream;
 	}
 
-	public Map<String, Object> getContext()
-	{
+	public Map<String, Object> getContext() {
 		return TCP.getContext();
 	}
 
-// --- Setting ---
-
-	public void setInputStream(InputStream aInputStream)
-	{
+	public void setInputStream(InputStream aInputStream) {
 		inputStream = aInputStream;
 	}
-
-// --- Implementation ---
 
 	private InputStream inputStream;
 }

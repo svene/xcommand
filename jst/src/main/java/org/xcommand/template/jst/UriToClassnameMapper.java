@@ -1,10 +1,8 @@
 package org.xcommand.template.jst;
 
-public class UriToClassnameMapper implements IUriToClassnameMapper
-{
+public class UriToClassnameMapper implements IUriToClassnameMapper {
 	@Override
-	public String getClassnameForUri(String aURI)
-	{
+	public String getClassnameForUri(String aURI) {
 		if (aURI == null) {
 			throw new IllegalArgumentException("aURI == null");
 		}
@@ -12,12 +10,9 @@ public class UriToClassnameMapper implements IUriToClassnameMapper
 			throw new IllegalArgumentException("aURI.length() == 0");
 		}
 		int idx = aURI.indexOf(ENDING);
-		if (idx == -1)
-		{
+		if (idx == -1) {
 			throw new IllegalArgumentException("URI (" + aURI + ") does not end  with '" + ENDING + "'");
-		}
-		else
-		{
+		} else {
 			int start = aURI.startsWith("/") ? 1 : 0;
 			String result = aURI.substring(start, idx);
 			result = result.replace('/', '.');

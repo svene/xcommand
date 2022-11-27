@@ -9,8 +9,6 @@ import java.util.Map;
 public class ModeBasedCommandDispatcher implements ICommand
 {
 
-// --- Initialization ---
-
 	public ModeBasedCommandDispatcher()
 	{
 	}
@@ -20,21 +18,15 @@ public class ModeBasedCommandDispatcher implements ICommand
 		modeKey = aModeKey;
 	}
 
-// --- Access ---
-
 	public Map<String, ICommand> getModeCommandMap()
 	{
 		return modeCommandMap;
 	}
 
-// --- Setting ---
-
 	public void setModeCommandMap(Map<String, ICommand> aModeCommandMap)
 	{
 		modeCommandMap = aModeCommandMap;
 	}
-
-// --- Processing ---
 
 	@Override
 	public void execute()

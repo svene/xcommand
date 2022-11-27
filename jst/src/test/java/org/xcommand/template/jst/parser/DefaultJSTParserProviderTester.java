@@ -16,8 +16,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DefaultJSTParserProviderTester
-{
+public class DefaultJSTParserProviderTester {
 
 	@BeforeEach
 	public void initializeContext() {
@@ -68,8 +67,7 @@ public class DefaultJSTParserProviderTester
 		return new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
 	}
 
-	private JSTParser newJSTParser(InputStream aIs)
-	{
+	private JSTParser newJSTParser(InputStream aIs) {
 		TCP.pushContext(new HashMap<>());
 		jstParserCV.setInputStream(aIs);
 		JSTParser parser = new DefaultJSTParserProvider().newJSTParser();

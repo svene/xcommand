@@ -11,24 +11,20 @@ import java.io.ByteArrayInputStream;
  * Janino-ResourceFinder implementation providing the base for in-memory Java compilation.
  * See {@ link http://www.janino.net/ } for details.
  */
-public class XCMapResourceFinder extends ResourceFinder
-{
+public class XCMapResourceFinder extends ResourceFinder {
 	private final Map<String, byte[]> map;
 	private long lastModified;
 
-	public XCMapResourceFinder(Map<String, byte[]> map)
-	{
+	public XCMapResourceFinder(Map<String, byte[]> map) {
 		this.map = map;
 	}
 
-	public void setLastModified(long lastModified)
-	{
+	public void setLastModified(long lastModified) {
 		this.lastModified = lastModified;
 	}
 
 	@Override
-	public final Resource findResource(String resourceName)
-	{
+	public final Resource findResource(String resourceName) {
 		int p = resourceName.indexOf(".java");
 		String s = resourceName.substring(0, p);
 		byte[] ba = map.get(s);
@@ -36,22 +32,19 @@ public class XCMapResourceFinder extends ResourceFinder
 			return null;
 		}
 
-		return new Resource()
-		{
+		return new Resource() {
 			@Override
 			public InputStream open() {
 				return new ByteArrayInputStream(ba);
 			}
 
 			@Override
-			public String getFileName()
-			{
+			public String getFileName() {
 				return s;
 			}
 
 			@Override
-			public long lastModified()
-			{
+			public long lastModified() {
 				return lastModified;
 			}
 		};

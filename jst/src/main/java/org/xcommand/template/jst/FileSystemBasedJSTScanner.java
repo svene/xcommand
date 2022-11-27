@@ -15,16 +15,14 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FileSystemBasedJSTScanner implements ICommand
-{
+public class FileSystemBasedJSTScanner implements ICommand {
 
 	/**
 	 * require:
-	 *   FileSystemScannerCV.getRootDirs(aCtx);
+	 * FileSystemScannerCV.getRootDirs(aCtx);
 	 */
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		CachingFilesSystemScanner cfssc = new CachingFilesSystemScanner();
 		fileSystemScannerCV.setFilenameFilter(FileNameFilters.javaFilenameFilter);
 		cfssc.getChangedFilesNotifier().registerObserver(new FileFoundHandler());
@@ -32,23 +30,18 @@ public class FileSystemBasedJSTScanner implements ICommand
 		cfssc.execute();
 	}
 
-	public void setGenSourceDir(String aGenSourceDir)
-	{
+	public void setGenSourceDir(String aGenSourceDir) {
 		genSourceDir = aGenSourceDir;
 	}
-	public INotifier getChangeNotifier()
-	{
+
+	public INotifier getChangeNotifier() {
 		return changeNotifier;
 	}
 
-// --- Implementation ---
-
-	private class FileFoundHandler implements ICommand
-	{
+	private class FileFoundHandler implements ICommand {
 
 		@Override
-		public void execute()
-		{
+		public void execute() {
 			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
 
 			for (Map.Entry<String, FileMapEntry> me : changedFiles.entrySet()) {
@@ -90,11 +83,10 @@ public class FileSystemBasedJSTScanner implements ICommand
 			}
 			changeNotifier.execute();
 		}
-		private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath)
-		{
+
+		private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath) {
 			int idx = aAbsolutePath.indexOf(aSrcDir);
-			if (idx == -1)
-			{
+			if (idx == -1) {
 				throw new RuntimeException("cannot find source path '" + aSrcDir + "' in path of file '" + aAbsolutePath + "'");
 			}
 

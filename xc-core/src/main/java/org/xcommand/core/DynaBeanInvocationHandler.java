@@ -4,10 +4,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DynaBeanInvocationHandler implements InvocationHandler
-{
-	public DynaBeanInvocationHandler(InvocationContextHandler invocationContextHandler)
-	{
+public class DynaBeanInvocationHandler implements InvocationHandler {
+	public DynaBeanInvocationHandler(InvocationContextHandler invocationContextHandler) {
 		this.invocationContextHandler = invocationContextHandler;
 	}
 

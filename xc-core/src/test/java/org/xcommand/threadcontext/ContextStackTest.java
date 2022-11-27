@@ -8,12 +8,10 @@ import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ContextStackTest
-{
+public class ContextStackTest {
 
 	@Test
-	public void testTIn2OutCommand()
-	{
+	public void testTIn2OutCommand() {
 		String v1 = "v1";
 		tIn2OutCV.setInput(v1);
 		new TIn2OutCommand().execute();
@@ -21,8 +19,7 @@ public class ContextStackTest
 	}
 
 	@Test
-	public void testContextStack()
-	{
+	public void testContextStack() {
 		String v1 = "v1";
 		tIn2OutCV.setOutput(v1);
 		assertEquals(v1, tIn2OutCV.getOutput());
@@ -55,8 +52,7 @@ public class ContextStackTest
 	}
 
 	@Test
-	public void testInheritableContextStack()
-	{
+	public void testInheritableContextStack() {
 		String v1 = "v1";
 		tIn2OutCV.setOutput(v1);
 		assertEquals(v1, tIn2OutCV.getOutput());
@@ -82,7 +78,8 @@ public class ContextStackTest
 		assertEquals(v1, tIn2OutCV.getOutput());
 	}
 
-	@Test public void verifyThatEachThreadHasItsOwnContext() throws Exception {
+	@Test
+	public void verifyThatEachThreadHasItsOwnContext() throws Exception {
 		ICommand cmd = new TIn2OutCommand();
 		Runnable r1 = () -> {
 			tIn2OutCV.setInput("runnable 1");

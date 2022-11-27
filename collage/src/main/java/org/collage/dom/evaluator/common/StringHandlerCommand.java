@@ -4,18 +4,15 @@ import org.xcommand.core.*;
 
 /**
  * ICommand wrapping an IStringHandler.
- * It reads the string from `StringHandlerCV.getString(aCtx)' for the `IStringHandler' 
+ * It reads the string from `StringHandlerCV.getString(aCtx)' for the `IStringHandler'
  */
-public class StringHandlerCommand implements ICommand
-{
-	public StringHandlerCommand(IStringHandler aStringHandler)
-	{
+public class StringHandlerCommand implements ICommand {
+	public StringHandlerCommand(IStringHandler aStringHandler) {
 		stringHandler = aStringHandler;
 	}
 
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		String s = stringHandlerCV.getString();
 		stringHandler.handleString(TCP.getContext(), s);
 	}

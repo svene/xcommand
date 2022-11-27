@@ -5,16 +5,15 @@ import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.template.parser.IParserCV;
 
-public class CsmAppendTextCommand implements ICommand
-{
+public class CsmAppendTextCommand implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		StringBuffer sb = parserCV.getStringBuffer();
 		String value = parserCV.getValue();
 //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 		sb.append(value);
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 }

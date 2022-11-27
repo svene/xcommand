@@ -6,11 +6,9 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.AbstractBasicNotifier;
 import org.xcommand.pattern.observer.BasicNotifier;
 
-public class DefaultDomNodeCreationHandlerInitializer implements ICommand
-{
+public class DefaultDomNodeCreationHandlerInitializer implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		AbstractBasicNotifier notifier = new BasicNotifier();
 		notifier.registerObserver(new TextNodeCreationHandler());
 		domNodeCreationHandlerCV.setCreateTextNodeRequestNotifier(notifier);
@@ -27,6 +25,7 @@ public class DefaultDomNodeCreationHandlerInitializer implements ICommand
 		notifier.registerObserver(new RootNodeCreationHandler());
 		domNodeCreationHandlerCV.setCreateRootNodeRequestNotifier(notifier);
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);

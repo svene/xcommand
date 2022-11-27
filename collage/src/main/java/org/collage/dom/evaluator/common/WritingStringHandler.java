@@ -8,22 +8,18 @@ import java.util.Map;
 import java.io.Writer;
 import java.io.IOException;
 
-public class WritingStringHandler implements IStringHandler
-{
+public class WritingStringHandler implements IStringHandler {
 
 	@Override
-	public void handleString(Map<String, Object> aCtx, String aString)
-	{
+	public void handleString(Map<String, Object> aCtx, String aString) {
 		Writer writer = evaluationCV.getWriter();
-		try
-		{
+		try {
 			writer.write(aString);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 }

@@ -19,6 +19,7 @@ public class ProxiesAdaptTest {
 					public String toString() {
 						return patchString;
 					}
+
 					public int length() {
 						return 42;
 					}
@@ -43,6 +44,7 @@ public class ProxiesAdaptTest {
 					public String toString() {
 						return patchString;
 					}
+
 					@Override
 					public int length() {
 						return 42;

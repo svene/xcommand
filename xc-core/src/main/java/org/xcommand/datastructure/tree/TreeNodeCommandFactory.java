@@ -6,18 +6,15 @@ import org.xcommand.datastructure.handlerprovider.IHandlerProvider;
 import org.xcommand.util.ClassAdapter;
 import org.xcommand.util.NestableObjectAdapter;
 
-public class TreeNodeCommandFactory
-{
+public class TreeNodeCommandFactory {
 	private TreeNodeCommandFactory() {
 	}
 
-	public static ICommand newTreeNodeKeyedCommand(IHandlerProvider aHandlerProvider)
-	{
+	public static ICommand newTreeNodeKeyedCommand(IHandlerProvider aHandlerProvider) {
 		return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeAdapter(null));
 	}
 
-	public static ICommand newTreeNodeDomainObjectKeyedCommand(IHandlerProvider aHandlerProvider)
-	{
+	public static ICommand newTreeNodeDomainObjectKeyedCommand(IHandlerProvider aHandlerProvider) {
 		return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeDomainObjectAdapter(null));
 	}
 

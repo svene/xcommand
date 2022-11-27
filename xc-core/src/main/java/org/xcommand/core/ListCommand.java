@@ -6,8 +6,7 @@ import java.util.List;
 /**
  * Command executing commands stored in a list
  */
-public class ListCommand implements ICommand
-{
+public class ListCommand implements ICommand {
 	public ListCommand() {
 	}
 
@@ -19,29 +18,18 @@ public class ListCommand implements ICommand
 		commands = aCommands;
 	}
 
-// --- Access ---
-
-	public List<? extends ICommand> getCommands()
-	{
+	public List<? extends ICommand> getCommands() {
 		return commands;
 	}
 
-// --- Setting ---
-
-	public void setCommands(List<? extends ICommand> aCommands)
-	{
+	public void setCommands(List<? extends ICommand> aCommands) {
 		commands = aCommands;
 	}
 
-// --- Processing ---
-
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		commands.forEach(ICommand::execute);
 	}
-
-// --- Implementation ---
 
 	private List<? extends ICommand> commands = new ArrayList<>();
 }

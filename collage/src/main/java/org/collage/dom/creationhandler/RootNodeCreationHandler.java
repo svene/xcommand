@@ -9,25 +9,21 @@ import org.xcommand.template.parser.IParserCV;
 
 import java.io.PrintStream;
 
-public class RootNodeCreationHandler implements ICommand
-{
+public class RootNodeCreationHandler implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		trace("started");
 		treeNodeCV.setTreeNode(new RootNode());
 	}
 
-// --- Implementation ---
-
-	private void trace(String aString)
-	{
+	private void trace(String aString) {
 		PrintStream ps = parserCV.getTraceStream();
 		if (ps == null) {
 			return;
 		}
 		ps.println("### " + aString);
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);

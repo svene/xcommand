@@ -6,13 +6,12 @@ import org.xcommand.core.IDynaBeanProvider;
 
 import java.util.HashMap;
 
-public class JSTInitializer implements ICommand
-{
+public class JSTInitializer implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		jstScannerCV.setClassMap(new HashMap<>());
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
 }

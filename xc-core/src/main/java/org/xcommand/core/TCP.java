@@ -7,18 +7,15 @@ import java.util.Map;
 /**
  * ThreadContext Provider
  */
-public class TCP
-{
+public class TCP {
 	private TCP() {
 	}
 
-	public static Map<String, Object> getContext()
-	{
+	public static Map<String, Object> getContext() {
 		return getStack().peek();
 	}
 
-	public static void pushContext(Map<String, Object> aCtx)
-	{
+	public static void pushContext(Map<String, Object> aCtx) {
 		getStack().push(aCtx);
 	}
 
@@ -26,15 +23,11 @@ public class TCP
 		return Factory.newInheritableMap(getContext());
 	}
 
-	public static void popContext()
-	{
+	public static void popContext() {
 		getStack().pop();
 	}
 
-// --- Implementation ---
-
-	private static Deque<Map<String, Object>> getStack()
-	{
+	private static Deque<Map<String, Object>> getStack() {
 		return threadMapHolder.get();
 	}
 

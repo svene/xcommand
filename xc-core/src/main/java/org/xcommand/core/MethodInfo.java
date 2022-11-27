@@ -2,8 +2,7 @@ package org.xcommand.core;
 
 import java.lang.reflect.Method;
 
-class MethodInfo
-{
+class MethodInfo {
 	MethodInfo(Method aMethod) {
 		method = aMethod;
 		isSetter = aMethod.getName().startsWith("set");

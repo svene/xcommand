@@ -6,21 +6,14 @@ import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.collage.parser.IParserModeCV;
 
-public class ParserModeConditionTester extends ConditionObserver
-{
+public class ParserModeConditionTester extends ConditionObserver {
 
-// --- Initialization ---
-
-	public ParserModeConditionTester(String aParserMode)
-	{
+	public ParserModeConditionTester(String aParserMode) {
 		parserMode = aParserMode;
 	}
 
-// --- Processing ---
-
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		String mode = parserModeCV.getMode();
 		ICommand notifier = mode.equals(parserMode) ? getTrueNotifier() : getFalseNotifier();
 		notifier.execute();

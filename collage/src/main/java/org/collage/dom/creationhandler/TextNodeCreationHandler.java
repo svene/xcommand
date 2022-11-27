@@ -9,11 +9,9 @@ import org.xcommand.template.parser.IParserCV;
 
 import java.io.PrintStream;
 
-public class TextNodeCreationHandler implements ICommand
-{
+public class TextNodeCreationHandler implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		String s = domNodeCreationHandlerCV.getValue();
 		trace("got TEXT: '" + s + "'");
 		Text text = new Text();
@@ -22,10 +20,7 @@ public class TextNodeCreationHandler implements ICommand
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
-// --- Implementation ---
-
-	private void trace(String aString)
-	{
+	private void trace(String aString) {
 		PrintStream ps = parserCV.getTraceStream();
 		if (ps == null) {
 			return;

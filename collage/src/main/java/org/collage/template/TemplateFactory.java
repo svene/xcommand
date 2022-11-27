@@ -5,13 +5,11 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
-public class TemplateFactory
-{
+public class TemplateFactory {
 	private TemplateFactory() {
 	}
 
-	public static ICommand newRecursiveTemplateInstance(TemplateSource aTemplateSource) throws Exception
-	{
+	public static ICommand newRecursiveTemplateInstance(TemplateSource aTemplateSource) throws Exception {
 		String sOld = "";
 
 		ICommand cmd = new TextTemplateCompiler().newTemplateCommand(aTemplateSource);
@@ -19,8 +17,7 @@ public class TemplateFactory
 		cmd.execute();
 		String s = stringHandlerCV.getString();
 
-		while (!sOld.equals(s))
-		{
+		while (!sOld.equals(s)) {
 			sOld = s;
 
 			cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(s));
@@ -31,6 +28,7 @@ public class TemplateFactory
 
 		return cmd;
 	}
+
 	private static final IDynaBeanProvider dbp =
 		DynaBeanProvider.newThreadClassMethodInstance();
 	private static final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);

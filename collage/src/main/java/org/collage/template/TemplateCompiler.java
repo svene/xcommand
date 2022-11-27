@@ -11,14 +11,10 @@ import org.xcommand.template.parser.IParserCV;
 
 import java.io.InputStream;
 
-public class TemplateCompiler implements ICommand
-{
-
-// --- Processing ---
+public class TemplateCompiler implements ICommand {
 
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		InputStream is = parserCV.getInputStream();
 		if (is == null) {
 			throw new RuntimeException("is == null");
@@ -27,15 +23,13 @@ public class TemplateCompiler implements ICommand
 		TemplateParser parser = new CollageTemplateParserBuilder().newTemplateParser(is, sm);
 
 		stateCV.setState(new CollageStateMachineBuilder().newCollageStateNet());
-		try
-		{
+		try {
 			parser.Start();
-		}
-		catch (ParseException e)
-		{
+		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);

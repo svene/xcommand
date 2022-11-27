@@ -11,12 +11,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Date;
 
-public class JSTJaninoObjectCreator
-{
-// --- Initialization ---
+public class JSTJaninoObjectCreator {
 
-	public void initialize()
-	{
+	public void initialize() {
 		// Put source of template into `janinoClassMap' so that Janino can work with it:
 		janinoClassMap.clear();
 		var classMap = jstScannerCV.getClassMap();
@@ -27,16 +24,13 @@ public class JSTJaninoObjectCreator
 		mrf = new XCMapResourceFinder(janinoClassMap);
 	}
 
-	public Class<?> getClass(String aClassname)
-	{
+	public Class<?> getClass(String aClassname) {
 		// Make sure classes are loaded:
 		var classMap = jstScannerCV.getClassMap();
 		ClassMapEntry cme = classMap.get(aClassname);
-		if (cme != null)
-		{
+		if (cme != null) {
 			System.out.println("cme for '" + aClassname + "' found");
-			if (cme.lastloaded > cme.fme.lastmodified)
-			{
+			if (cme.lastloaded > cme.fme.lastmodified) {
 				System.out.println("loaded class still valid.");
 				return cme.clazz;
 			}
@@ -45,38 +39,30 @@ public class JSTJaninoObjectCreator
 		ClassLoader parentClassLoader = getClass().getClassLoader();
 		System.out.println("loading class '" + aClassname + "'");
 		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, mrf, StandardCharsets.UTF_8.name());
-	 	String dotClassName = aClassname.replace('/', '.');
-		try
-		{
+		String dotClassName = aClassname.replace('/', '.');
+		try {
 			var clazz = cl.loadClass(dotClassName);
 			cme.clazz = clazz;
 			cme.lastloaded = new Date().getTime();
 			return clazz;
-		}
-		catch (ClassNotFoundException e)
-		{
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 
 	}
-	public Object newObject(String aClassname)
-	{
+
+	public Object newObject(String aClassname) {
 		var clazz = getClass(aClassname);
-		try
-		{
+		try {
 			return clazz.getDeclaredConstructor().newInstance();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public void setJstProvider(IJSTProvider aJstProvider)
-	{
+	public void setJstProvider(IJSTProvider aJstProvider) {
 		aJstProvider.getChangeNotifier().registerObserver(this::initialize);
 	}
-// --- Implementation ---
 
 	private final Map<String, byte[]> janinoClassMap = new HashMap<>();
 	XCMapResourceFinder mrf;

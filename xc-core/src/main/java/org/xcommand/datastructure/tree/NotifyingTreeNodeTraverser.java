@@ -9,28 +9,23 @@ import org.xcommand.pattern.observer.INotifier;
 /**
  * TreeNodeTraverser sending out notifications while traversing the tree
  */
-public class NotifyingTreeNodeTraverser implements ICommand
-{
+public class NotifyingTreeNodeTraverser implements ICommand {
 
-	public INotifier getEnterNodeNotifier()
-	{
+	public INotifier getEnterNodeNotifier() {
 		return enterNodeNotifier;
 	}
 
-	public INotifier getExitNodeNotifier()
-	{
+	public INotifier getExitNodeNotifier() {
 		return exitNodeNotifier;
 	}
 
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		ITreeNode node = treeNodeCV.getTreeNode();
 		traverse(node);
 	}
 
-	private void traverse(ITreeNode aNode)
-	{
+	private void traverse(ITreeNode aNode) {
 		treeNodeCV.setTreeNode(aNode);
 		treeNodeCV.setDomainObject(aNode.getDomainObject());
 		enterNodeNotifier.execute();

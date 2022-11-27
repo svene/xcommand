@@ -12,68 +12,47 @@ import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import java.io.StringWriter;
 import java.io.Writer;
 
-public abstract class TemplateCommand implements ICommand
-{
+public abstract class TemplateCommand implements ICommand {
 
-// --- Initialization ---
-
-	protected TemplateCommand(ITreeNode aRootNode)
-	{
+	protected TemplateCommand(ITreeNode aRootNode) {
 		rootNode = aRootNode;
 	}
 
-// --- Access ---
-
-	public Writer getWriter()
-	{
+	public Writer getWriter() {
 		return writer;
 	}
 
-	protected NotifyingTreeNodeTraverser getNotifyingTreeNodeTraverser()
-	{
+	protected NotifyingTreeNodeTraverser getNotifyingTreeNodeTraverser() {
 		return notifyingTreeNodeTraverser;
 	}
 
-// --- Setting ---
-
-	public void setWriter(Writer aWriter)
-	{
+	public void setWriter(Writer aWriter) {
 		writer = aWriter;
 	}
 
-	protected void setNotifyingTreeNodeTraverser(NotifyingTreeNodeTraverser aNotifyingTreeNodeTraverser)
-	{
+	protected void setNotifyingTreeNodeTraverser(NotifyingTreeNodeTraverser aNotifyingTreeNodeTraverser) {
 		notifyingTreeNodeTraverser = aNotifyingTreeNodeTraverser;
 	}
 
-// --- Processing ---
-
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		// If `writer' is available output will be written to it. Otherwise
 		// it will be written to a String, which is available via `StringHandlerCV.getString(aCtx)'
 		boolean noWriter = getWriter() == null;
 		StringWriter sw = null;
-		if (noWriter)
-		{
+		if (noWriter) {
 			sw = new StringWriter(1024);
 			evaluationCV.setWriter(sw);
-		}
-		else
-		{
+		} else {
 			evaluationCV.setWriter(getWriter());
 		}
 		treeNodeCV.setTreeNode(rootNode);
 		getNotifyingTreeNodeTraverser().execute();
-		if (noWriter)
-		{
+		if (noWriter) {
 			stringHandlerCV.setString(sw.toString());
 		}
 	}
 
-
-// --- Implementation ---
 
 	private Writer writer;
 	protected ITreeNode rootNode;

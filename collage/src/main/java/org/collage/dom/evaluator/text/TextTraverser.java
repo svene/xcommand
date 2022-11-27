@@ -6,10 +6,8 @@ import org.xcommand.core.ICommand;
 import org.collage.dom.ast.DomEventHandlerProvider;
 import org.collage.dom.evaluator.common.WriterFlusher;
 
-public class TextTraverser extends NotifyingTreeNodeTraverser
-{
-	public TextTraverser()
-	{
+public class TextTraverser extends NotifyingTreeNodeTraverser {
+	public TextTraverser() {
 		// Setup:
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 		TextHandlerProvider thp = new TextHandlerProvider();

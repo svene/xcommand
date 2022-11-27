@@ -1,23 +1,14 @@
 package org.collage.dom.ast;
 
-public class Java
-{
+public class Java {
 
-// --- Access ---
-
-	public String getValue()
-	{
+	public String getValue() {
 		return value;
 	}
 
-// --- Setting ---
-
-	public void setValue(String aValue)
-	{
+	public void setValue(String aValue) {
 		value = aValue;
 	}
-
-// --- Implementation ---
 
 	private String value;
 }

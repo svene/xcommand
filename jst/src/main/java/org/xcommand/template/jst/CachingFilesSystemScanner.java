@@ -9,11 +9,9 @@ import org.xcommand.pattern.observer.INotifier;
 import java.io.File;
 import java.util.HashMap;
 
-public class CachingFilesSystemScanner implements ICommand
-{
+public class CachingFilesSystemScanner implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		var rootDirs = fileSystemScannerCV.getRootDirs();
 
 		FileSystemScanner fssc = new FileSystemScanner();
@@ -21,30 +19,23 @@ public class CachingFilesSystemScanner implements ICommand
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundHandler());
 		var changedFiles = new HashMap<String, FileMapEntry>();
 		cachingFilesSystemScannerCV.setChangedFiles(changedFiles);
-		if (cachingFilesSystemScannerCV.getCurrentFiles() == null)
-		{
+		if (cachingFilesSystemScannerCV.getCurrentFiles() == null) {
 			cachingFilesSystemScannerCV.setCurrentFiles(new HashMap<>());
 		}
 		fssc.execute();
-		if (changedFiles.size() > 0)
-		{
+		if (changedFiles.size() > 0) {
 			changedFilesNotifier.execute();
 		}
 	}
 
-	public INotifier getChangedFilesNotifier()
-	{
+	public INotifier getChangedFilesNotifier() {
 		return changedFilesNotifier;
 	}
 
-// --- Implementation ---
-
-	private class FileFoundHandler implements ICommand
-	{
+	private class FileFoundHandler implements ICommand {
 
 		@Override
-		public void execute()
-		{
+		public void execute() {
 			File file = fileSystemScannerCV.getFile();
 			String key = file.getAbsolutePath();
 			var currentFiles = cachingFilesSystemScannerCV.getCurrentFiles();

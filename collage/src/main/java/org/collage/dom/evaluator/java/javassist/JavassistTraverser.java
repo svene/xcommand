@@ -5,10 +5,8 @@ import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 import org.xcommand.core.ICommand;
 import org.collage.dom.ast.DomEventHandlerProvider;
 
-public class JavassistTraverser extends NotifyingTreeNodeTraverser
-{
-	public JavassistTraverser()
-	{
+public class JavassistTraverser extends NotifyingTreeNodeTraverser {
+	public JavassistTraverser() {
 		// Setup:
 		DomEventHandlerProvider hp = new DomEventHandlerProvider();
 		JavassistHandlerProvider jhp = new JavassistHandlerProvider();

@@ -3,20 +3,15 @@ package org.xcommand.core.multi;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider
-{
-// --- Initialization ---
-
-	public ClassBasedMultiCommandProvider(Class<?> aClazz)
-	{
+public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider {
+	public ClassBasedMultiCommandProvider(Class<?> aClazz) {
 		setTargetClass(aClazz);
 	}
-	public ClassBasedMultiCommandProvider()
-	{
+
+	public ClassBasedMultiCommandProvider() {
 	}
 
-	public void init()
-	{
+	public void init() {
 		Method[] methods = targetClass.getDeclaredMethods();
 		for (Method m : methods) {
 			Class<?>[] classes = m.getParameterTypes();
@@ -32,21 +27,13 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider
 		}
 	}
 
-// --- Access ---
-
-	public Class<?> getTargetClass()
-	{
+	public Class<?> getTargetClass() {
 		return targetClass;
 	}
 
-// --- Setting ---
-
-	public void setTargetClass(Class<?> aTargetClass)
-	{
+	public void setTargetClass(Class<?> aTargetClass) {
 		targetClass = aTargetClass;
 	}
-
-// --- Implementation ---
 
 	private Class<?> targetClass;
 

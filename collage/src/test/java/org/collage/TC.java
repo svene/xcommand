@@ -11,6 +11,7 @@ public class TC {
 	abstract static class AbstractMockHookCommand implements ICommand {
 		protected final IStringMockHook stringMockHook;
 		protected final ITreeNodeCV treeNodeCV;
+
 		AbstractMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			stringMockHook = aStringMockHook;
 			treeNodeCV = aTreeNodeCV;
@@ -21,6 +22,7 @@ public class TC {
 		TextMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
+
 		@Override
 		public void execute() {
 			Text text = (Text) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
@@ -32,16 +34,19 @@ public class TC {
 		VariableMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
+
 		@Override
 		public void execute() {
 			Variable v = (Variable) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
 			stringMockHook.hookRoutineForMockVerification(v.getVariableName());
 		}
 	}
+
 	static class VariableValueMockHookCommand extends AbstractMockHookCommand {
 		VariableValueMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
+
 		@Override
 		public void execute() {
 			Variable v = (Variable) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.
@@ -53,6 +58,7 @@ public class TC {
 		JavaMockHookCommand(IStringMockHook aStringMockHook, ITreeNodeCV aTreeNodeCV) {
 			super(aStringMockHook, aTreeNodeCV);
 		}
+
 		@Override
 		public void execute() {
 			Java java = (Java) treeNodeCV.getTreeNode().getDomainObject(); // in case of ClassCastException the test fails which is what we want.

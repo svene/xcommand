@@ -3,11 +3,9 @@ package org.collage.dom.evaluator.java.independent;
 import org.xcommand.core.*;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 
-public class JavaEvalTextHandler implements ICommand
-{
+public class JavaEvalTextHandler implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		// TODO: improve this:
 		StringBuffer methodBody = (StringBuffer) TCP.getContext().get("methodbody");
 		String s = stringHandlerCV.getString();
@@ -15,10 +13,10 @@ public class JavaEvalTextHandler implements ICommand
 		methodBody.append(ss);
 	}
 
-	private String decodedString(String aString)
-	{
+	private String decodedString(String aString) {
 		return aString.replace("#", "\"");
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 }

@@ -7,21 +7,17 @@ import org.xcommand.core.IDynaBeanProvider;
 
 import java.io.Writer;
 
-public class WriterFlusher implements ICommand
-{
+public class WriterFlusher implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		Writer w = evaluationCV.getWriter();
-		try
-		{
+		try {
 			w.flush();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);
 }

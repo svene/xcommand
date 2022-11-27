@@ -11,24 +11,19 @@ import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JSTJavaResourceLoader
-{
+public class JSTJavaResourceLoader {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	public Map<String, byte[]> getClassMap()
-	{
+	public Map<String, byte[]> getClassMap() {
 		return classMap;
 	}
-
-// --- Processing ---
 
 	/**
 	 * Load source of template for `aClassname' specified in full qualified
 	 * java package notation (as 'java.lang.String')
 	 */
-	public void load(String resourceName)
-	{
+	public void load(String resourceName) {
 		LOGGER.info("resourceName: " + resourceName);
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
@@ -36,8 +31,7 @@ public class JSTJavaResourceLoader
 			throw new RuntimeException("resource '%s' not found".formatted(resourceName));
 		}
 
-		try
-		{
+		try {
 			jstParserCV.setInputStream(is);
 			JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
 			jstParserCV.setGeneratedJavaCode(new StringBuffer());
@@ -46,16 +40,11 @@ public class JSTJavaResourceLoader
 
 			classMap = new HashMap<>();
 			classMap.put(resourceName.replace(".java", ""), s.getBytes());
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
 	}
-
-
-// --- Implementation ---
 
 	private Map<String, byte[]> classMap = new HashMap<>();
 

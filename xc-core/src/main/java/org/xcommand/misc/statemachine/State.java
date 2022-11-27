@@ -4,70 +4,49 @@ import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.pattern.observer.StoppableNotifier;
 
-public class State implements IState
-{
-
-// --- Initialization ---
-
-	public State()
-	{
+public class State implements IState {
+	public State() {
 		this(null);
 	}
 
-	public State(String aName)
-	{
+	public State(String aName) {
 		name = aName;
 	}
 
-// --- Access ---
-
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
 	@Override
-	public INotifier getExitStateNotifier()
-	{
+	public INotifier getExitStateNotifier() {
 		return exitStateNotifier;
 	}
 
 	@Override
-	public INotifier getExecuteStateNotifier()
-	{
+	public INotifier getExecuteStateNotifier() {
 		return executeStateNotifier;
 	}
 
 	@Override
-	public INotifier getEnterStateNotifier()
-	{
+	public INotifier getEnterStateNotifier() {
 		return enterStateNotifier;
 	}
 
 	@Override
-	public StoppableNotifier getExecuteNotifier()
-	{
+	public StoppableNotifier getExecuteNotifier() {
 		return executeNotifier;
 	}
 
-// --- Setting ---
-
 	@Override
-	public void setName(String aName)
-	{
+	public void setName(String aName) {
 		name = aName;
 	}
 
-// --- Processing ---
-
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		getExecuteNotifier().execute();
 	}
-
-// --- Implementation ---
 
 	private String name;
 

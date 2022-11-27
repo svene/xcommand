@@ -6,17 +6,14 @@ import java.util.Iterator;
 import java.io.File;
 import java.io.FilenameFilter;
 
-public class DirectoryIteratorProvider
-{
+public class DirectoryIteratorProvider {
 
-	public DirectoryIteratorProvider(FilenameFilter aFilenameFilter)
-	{
+	public DirectoryIteratorProvider(FilenameFilter aFilenameFilter) {
 		filenameFilter = aFilenameFilter;
 	}
 
 	@SuppressWarnings("unchecked")
-	public Iterator<File> newIterator(String aSrcDir)
-	{
+	public Iterator<File> newIterator(String aSrcDir) {
 		return DirectoryIterator.traverseDirectories(
 			new File[]{new File(aSrcDir)}, FileNameFilters.acceptAllFilenamesFilter, filenameFilter
 		);

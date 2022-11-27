@@ -7,15 +7,14 @@ import org.xcommand.misc.IMessageCommandCV;
 import java.util.List;
 import java.util.Map;
 
-public class ListAddingStringHandler implements IStringHandler
-{
+public class ListAddingStringHandler implements IStringHandler {
 
 	@Override
-	public void handleString(Map<String, Object> aCtx, String aString)
-	{
+	public void handleString(Map<String, Object> aCtx, String aString) {
 		List<String> lst = messageCommandCV.getList();
 		lst.add(aString);
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IMessageCommandCV messageCommandCV = dbp.newBeanForInterface(IMessageCommandCV.class);
 }

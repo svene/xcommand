@@ -21,8 +21,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MainSM
-{
+public class MainSM {
 
 	private IParserCV parserCV;
 	private ITreeNodeCV treeNodeCV;
@@ -43,13 +42,13 @@ public class MainSM
 
 		TCP.pushContext(new HashMap<>());
 	}
+
 	public void tearDown() {
 		TCP.popContext();
 	}
 
 	@Test
-	public void testTemplateCompiler()
-	{
+	public void testTemplateCompiler() {
 		assertNull(treeNodeCV.getTreeNode());
 
 		// Compile template:
@@ -60,8 +59,7 @@ public class MainSM
 	}
 
 	@Test
-	public void testTemplateEvaluation()
-	{
+	public void testTemplateEvaluation() {
 		// Compile template:
 		createASTforTemplateString("hallo ${firstname}.\nWie gehts?\n", Boolean.FALSE);
 
@@ -74,8 +72,7 @@ public class MainSM
 	}
 
 	@Test
-	public void testTemplateWithJavaEvaluation()
-	{
+	public void testTemplateWithJavaEvaluation() {
 		// Compile template:
 		createASTforTemplateString("hallo <?java int i = 1;?> ${firstname}.\nWie gehts?\n", Boolean.TRUE);
 

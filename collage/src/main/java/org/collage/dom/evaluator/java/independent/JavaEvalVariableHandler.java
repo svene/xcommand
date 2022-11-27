@@ -10,31 +10,24 @@ import org.xcommand.util.ResourceUtil;
 import java.io.InputStream;
 import java.util.HashMap;
 
-public class JavaEvalVariableHandler implements ICommand
-{
-	public JavaEvalVariableHandler()
-	{
-		try
-		{
+public class JavaEvalVariableHandler implements ICommand {
+	public JavaEvalVariableHandler() {
+		try {
 			InputStream is = ResourceUtil.newInputStreamFromResourceLocation("org/collage/dom/evaluator/java/javassist/javassist_var.txt");
 			TCP.pushContext(new HashMap<>());
 			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 
 			templateCommand = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
 			TCP.popContext();
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			throw e;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		String vn = stringHandlerCV.getString();
 		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("varName", vn);

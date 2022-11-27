@@ -9,11 +9,9 @@ import org.xcommand.template.parser.IParserCV;
 
 import java.io.PrintStream;
 
-public class JavaNodeCreationHandler implements ICommand
-{
+public class JavaNodeCreationHandler implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		String s = domNodeCreationHandlerCV.getValue();
 		trace("got JAVA CODE: '" + s + "'");
 		Java java = new Java();
@@ -22,16 +20,14 @@ public class JavaNodeCreationHandler implements ICommand
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
-// --- Implementation ---
-
-	private void trace(String aString)
-	{
+	private void trace(String aString) {
 		PrintStream ps = parserCV.getTraceStream();
 		if (ps == null) {
 			return;
 		}
 		ps.println("### " + aString);
 	}
+
 	private final TreeBuilder tb = new TreeBuilder();
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);

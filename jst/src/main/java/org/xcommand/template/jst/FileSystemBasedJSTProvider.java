@@ -7,34 +7,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FileSystemBasedJSTProvider implements IJSTProvider
-{
+public class FileSystemBasedJSTProvider implements IJSTProvider {
 
 	@Override
-	public ClassMapEntry getClassMapEntry(Map aCtx, String aClassname)
-	{
+	public ClassMapEntry getClassMapEntry(Map aCtx, String aClassname) {
 		ClassMapEntry cme = classMap.get(aClassname);
 		return cme;
 	}
 
 	@Override
-	public Map<String, ClassMapEntry> getClassMap()
-	{
+	public Map<String, ClassMapEntry> getClassMap() {
 		return null;
 	}
 
-	public void setGenSourceDir(String aGenSourceDir)
-	{
+	public void setGenSourceDir(String aGenSourceDir) {
 		genSourceDir = aGenSourceDir;
 	}
 
 	@Override
-	public INotifier getChangeNotifier()
-	{
+	public INotifier getChangeNotifier() {
 		return changeNotifier;
 	}
-
-// --- Implementation ---
 
 	private List srcDirs;
 	private final Map<String, ClassMapEntry> classMap = new HashMap<>();

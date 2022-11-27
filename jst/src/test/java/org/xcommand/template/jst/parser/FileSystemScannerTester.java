@@ -9,8 +9,7 @@ import org.xcommand.template.jst.FileNameFilters;
 import org.xcommand.template.jst.FileSystemScanner;
 import org.xcommand.template.jst.IFileSystemScannerCV;
 
-public class FileSystemScannerTester
-{
+public class FileSystemScannerTester {
 	@Test
 	public void test1() {
 		FileSystemScanner scanner = new FileSystemScanner();
@@ -27,8 +26,7 @@ public class FileSystemScannerTester
 		Mockito.verify(smh).hookRoutineForMockVerification("src/main/java/org/xcommand/template/jst/JSTCompiler.java");
 	}
 
-	private class FileFoundHandler implements ICommand
-	{
+	private class FileFoundHandler implements ICommand {
 		private final TC.IStringMockHook stringMockHook;
 
 		private FileFoundHandler(TC.IStringMockHook aStringMockHook) {
@@ -36,14 +34,11 @@ public class FileSystemScannerTester
 		}
 
 		@Override
-		public void execute()
-		{
+		public void execute() {
 			String s = fileSystemScannerCV.getFile().getPath().replaceAll("\\\\", "/");
 			stringMockHook.hookRoutineForMockVerification(s);
 		}
 	}
-
-// --- Implementation ---
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	final IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);

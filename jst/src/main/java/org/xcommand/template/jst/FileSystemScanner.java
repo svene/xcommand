@@ -11,11 +11,9 @@ import java.io.FilenameFilter;
 import java.util.Iterator;
 import java.util.List;
 
-public class FileSystemScanner implements ICommand
-{
+public class FileSystemScanner implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		// Loop over all configured source directories,
 		rootDirs.forEach(rootDir -> {
 			fileSystemScannerCV.setRootDir(rootDir);
@@ -29,30 +27,21 @@ public class FileSystemScanner implements ICommand
 		});
 	}
 
-// --- Access ---
-
-	public List<String> getRootDirs()
-	{
+	public List<String> getRootDirs() {
 		return rootDirs;
 	}
 
-	public INotifier getFileFoundNotifier()
-	{
+	public INotifier getFileFoundNotifier() {
 		return fileFoundNotifier;
 	}
-
-// --- Setting ---
 
 	public void setRootDirs(String... aRootDirs) {
 		setRootDirs(List.of(aRootDirs));
 	}
 
-	public void setRootDirs(List<String> aRootDirs)
-	{
+	public void setRootDirs(List<String> aRootDirs) {
 		rootDirs = aRootDirs;
 	}
-
-// --- Implementation ---
 
 	private List<String> rootDirs;
 	private final INotifier fileFoundNotifier = new BasicNotifier();

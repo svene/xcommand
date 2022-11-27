@@ -6,27 +6,23 @@ import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.io.IOException;
 
-public class DefaultJSTRoutines implements IJSTRoutines
-{
-	public void ensureExistenceOfWriter()
-	{
+public class DefaultJSTRoutines implements IJSTRoutines {
+	public void ensureExistenceOfWriter() {
 		Writer writer = (Writer) TCP.getContext().get("writer");
-		if (writer == null)
-		{
+		if (writer == null) {
 			writer = new OutputStreamWriter(System.out);
 			TCP.getContext().put("writer", writer);
 		}
 	}
-	public void $s(String aString)
-	{
+
+	public void $s(String aString) {
 		if (aString == null) {
 			throw new IllegalArgumentException("aString == null");
 		}
 		writeToWriter(aString);
 	}
 
-	public void $v(String aName)
-	{
+	public void $v(String aName) {
 		if (aName == null) {
 			throw new IllegalArgumentException("aName == null");
 		}
@@ -36,15 +32,12 @@ public class DefaultJSTRoutines implements IJSTRoutines
 		}
 		writeToWriter(value);
 	}
-	private void writeToWriter(String aString)
-	{
+
+	private void writeToWriter(String aString) {
 		Writer writer = (Writer) TCP.getContext().get("writer");
-		try
-		{
+		try {
 			writer.write(aString);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

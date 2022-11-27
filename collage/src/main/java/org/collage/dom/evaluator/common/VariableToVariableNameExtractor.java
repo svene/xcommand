@@ -7,16 +7,15 @@ import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
 /**
- * Read VariableName for Variable on aCtx and put it on aCtx via `StringHandlerCV.setString' 
+ * Read VariableName for Variable on aCtx and put it on aCtx via `StringHandlerCV.setString'
  */
-public class VariableToVariableNameExtractor implements ICommand
-{
+public class VariableToVariableNameExtractor implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		Variable v = variableCV.getVariable();
 		stringHandlerCV.setString(v.getVariableName());
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IVariableCV variableCV = dbp.newBeanForInterface(IVariableCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);

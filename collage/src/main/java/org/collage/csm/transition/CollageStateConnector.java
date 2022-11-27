@@ -5,11 +5,9 @@ import org.xcommand.core.ICommand;
 import org.xcommand.misc.statemachine.IState;
 import org.xcommand.misc.statemachine.Transition;
 
-public class CollageStateConnector
-{
+public class CollageStateConnector {
 	public void connect(IState aFromState, IState aToState, String aParserMode,
-		ICommand[] aExecuteCommands)
-	{
+						ICommand[] aExecuteCommands) {
 		Transition t = new Transition();
 		t.setName(aFromState.getName() + "->" + aToState.getName());
 		ContextViews.get().defaultStateTransitionBinder.bind(aFromState, t, aToState);
@@ -21,8 +19,7 @@ public class CollageStateConnector
 		aFromState.getExecuteNotifier().registerObserver(pmct);
 
 		// Attach commands to `t' to be executed when `t' is executed:
-		if (aExecuteCommands != null)
-		{
+		if (aExecuteCommands != null) {
 			for (ICommand aExecuteCommand : aExecuteCommands) {
 				t.getExecuteNotifier().registerObserver(aExecuteCommand);
 			}

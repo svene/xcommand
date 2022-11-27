@@ -14,20 +14,17 @@ import org.xcommand.util.ResourceUtil;
 import java.io.InputStream;
 import java.util.HashMap;
 
-public class TextTemplateCompiler
-{
+public class TextTemplateCompiler {
 
-	public TemplateCommand newTemplateCommandFromString(String aString)
-	{
+	public TemplateCommand newTemplateCommandFromString(String aString) {
 		return newTemplateCommand(new TemplateSource(aString));
 	}
-	public TemplateCommand newTemplateCommandFromResourceName(String aResourceName)
-	{
+
+	public TemplateCommand newTemplateCommandFromResourceName(String aResourceName) {
 		return newTemplateCommand(new TemplateSource(ResourceUtil.newInputStreamFromResourceLocation(aResourceName)));
 	}
 
-	public TemplateCommand newTemplateCommand(TemplateSource aTemplateSource)
-	{
+	public TemplateCommand newTemplateCommand(TemplateSource aTemplateSource) {
 		// Compile template:
 		TCP.pushContext(new HashMap<>());
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
@@ -45,17 +42,14 @@ public class TextTemplateCompiler
 		return tplCmd;
 	}
 
-// --- Implementation ---
+	private class TextTemplateEvaluationCommand extends TemplateCommand {
 
-	private class TextTemplateEvaluationCommand extends TemplateCommand
-	{
-
-		private TextTemplateEvaluationCommand(ITreeNode aRootNode)
-		{
+		private TextTemplateEvaluationCommand(ITreeNode aRootNode) {
 			super(aRootNode);
 			setNotifyingTreeNodeTraverser(new TextTraverser());
 		}
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
 	ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);

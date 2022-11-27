@@ -11,9 +11,10 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JSTResourceTester
-{
-	/** Test JSTLoader and JaninoObjectCreator */
+public class JSTResourceTester {
+	/**
+	 * Test JSTLoader and JaninoObjectCreator
+	 */
 	@Test
 	public void test1() {
 		// Load and parse JST source:

@@ -9,6 +9,7 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -20,15 +21,13 @@ import java.util.Date;
  * from the browser will cause the servlet to search the resource with this URI in the classpath and when found returns it.
  * It guesses it's mime type by using 'ServletContext.getMimeType()'. It also implements 'getLastModified()' which returns
  * the timestamp of the jar file containing the resource to support HTTP caching.
- *
- * Implementation note: uses JarResourceProvider 
+ * <p>
+ * Implementation note: uses JarResourceProvider
  */
-public class JarResourceServlet extends HttpServlet
-{
+public class JarResourceServlet extends HttpServlet {
 
 	@Override
-	protected long getLastModified(HttpServletRequest request)
-	{
+	protected long getLastModified(HttpServletRequest request) {
 		webCV.setServletContext(getServletContext());
 		String resName = getResourceNameFromRequest(request);
 		jarResourceProviderCV.setResourceName(resName);
@@ -37,8 +36,7 @@ public class JarResourceServlet extends HttpServlet
 		return jarResourceProviderCV.getLastModified();
 	}
 
-	private String getResourceNameFromRequest(HttpServletRequest request)
-	{
+	private String getResourceNameFromRequest(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		System.out.println("request.getRequestURI(): " + requestURI);
@@ -52,20 +50,16 @@ public class JarResourceServlet extends HttpServlet
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
-	{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("JarResourceServlet.doGet(): serving content");
 		String resName = jarResourceProviderCV.getResourceName();
-		if (resName != null)
-		{
+		if (resName != null) {
 			Resource resource = jarResourceProviderCV.getResource();
 			InputStream is = resource.getInputStream();
 			ServletOutputStream os = response.getOutputStream();
 			String mimeType = getServletContext().getMimeType(request.getRequestURI());
-			if (mimeType == null || mimeType.length() == 0)
-			{
-				if (resName.endsWith(".swf"))
-				{
+			if (mimeType == null || mimeType.length() == 0) {
+				if (resName.endsWith(".swf")) {
 					System.out.println("Setting mimetype to: 'application/x-shockwave-flash'");
 					mimeType = "application/x-shockwave-flash";
 				}
@@ -73,15 +67,12 @@ public class JarResourceServlet extends HttpServlet
 			System.out.println("mimeType: " + mimeType);
 			response.setContentType(mimeType);
 			is.transferTo(os);
-		}
-		else
-		{
+		} else {
 			System.out.println("JarResourceServlet.doGet(): no resource found");
 		}
 	}
 
-	private void showLastModifiedDate()
-	{
+	private void showLastModifiedDate() {
 		Resource resource = jarResourceProviderCV.getResource();
 		long l = jarResourceProviderCV.getLastModified();
 

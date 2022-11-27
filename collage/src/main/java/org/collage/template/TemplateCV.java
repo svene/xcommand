@@ -4,23 +4,20 @@ import org.xcommand.core.TCP;
 
 import java.io.Writer;
 
-/** Context View with UserFriendly property 'writer' (see also comment in 'ITemplateCV') */
-public class TemplateCV
-{
+/**
+ * Context View with UserFriendly property 'writer' (see also comment in 'ITemplateCV')
+ */
+public class TemplateCV {
 	private TemplateCV() {
 	}
 
-// --- Access ---
-
-	public static Writer getWriter()
-	{
+	public static Writer getWriter() {
 		return (Writer) TCP.getContext().get(KEY_UF_WRITER);
 	}
 
-	public static void setWriter(Writer aWriter)
-	{
+	public static void setWriter(Writer aWriter) {
 		TCP.getContext().put(KEY_UF_WRITER, aWriter);
-	}	
+	}
 
 	private static final String NS = "org.collage.template.TemplateCV.";
 	/* UF : user friendly */

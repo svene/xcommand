@@ -5,14 +5,11 @@ import org.xcommand.web.IWebCV;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public class JavaTemplateCmd implements ICommand
-{
+public class JavaTemplateCmd implements ICommand {
 
 	@Override
-	public void execute()
-	{
-		try
-		{
+	public void execute() {
+		try {
 			TCP.getContext().put("writer", webCV.getResponse().getWriter());
 
 			// Find classname for current request-URI:
@@ -34,19 +31,16 @@ public class JavaTemplateCmd implements ICommand
 
 			// Execute command:
 			cmd.execute();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
-	public void setJaninoObjectCreator2(JSTJaninoObjectCreator aJSTJaninoObjectCreator)
-	{
+
+	public void setJaninoObjectCreator2(JSTJaninoObjectCreator aJSTJaninoObjectCreator) {
 		jstJaninoObjectCreator = aJSTJaninoObjectCreator;
 	}
 
-	public void setUriToClassnameMapper(IUriToClassnameMapper aUriToClassnameMapper)
-	{
+	public void setUriToClassnameMapper(IUriToClassnameMapper aUriToClassnameMapper) {
 		uriToClassnameMapper = aUriToClassnameMapper;
 	}
 

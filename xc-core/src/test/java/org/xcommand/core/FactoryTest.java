@@ -16,6 +16,7 @@ class FactoryTest {
 		m.put("key", "Sven");
 		assertThat(m.get("key")).isEqualTo("Sven");
 	}
+
 	@Test
 	void populatedParent() {
 		var parentMap = new HashMap<String, Object>();

@@ -7,13 +7,13 @@ import org.xcommand.core.IDynaBeanProvider;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 /**
  * Filter responsible for initializing the XC Context with webapp-related information (request, response, servletContext)
  */
-public class WebCVInitializationFilter implements Filter
-{
+public class WebCVInitializationFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) {
 		servletContext = filterConfig.getServletContext();
@@ -21,8 +21,7 @@ public class WebCVInitializationFilter implements Filter
 
 	@Override
 	public void doFilter(ServletRequest aRequest, ServletResponse aResponse, FilterChain aFilterChain)
-		throws IOException, ServletException
-	{
+		throws IOException, ServletException {
 		// Populate XC Context with webapp-related information (request, response):
 		TCP.pushContext(TCP.newInheritableContext());
 		webCV.setRequest((HttpServletRequest) aRequest);
@@ -33,8 +32,7 @@ public class WebCVInitializationFilter implements Filter
 	}
 
 	@Override
-	public void destroy()
-	{
+	public void destroy() {
 
 	}
 

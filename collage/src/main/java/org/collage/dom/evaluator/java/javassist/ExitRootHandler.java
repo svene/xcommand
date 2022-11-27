@@ -18,14 +18,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
-class ExitRootHandler implements ICommand
-{
+class ExitRootHandler implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		CtClass cc = null;
-		try
-		{
+		try {
 			ClassPool pool = ClassPool.getDefault();
 			String className = getClassName();
 
@@ -52,19 +49,15 @@ class ExitRootHandler implements ICommand
 			// Create instance and put it on context:
 			Object obj = clazz.getDeclaredConstructor().newInstance();
 			javaTemplateCmdCV.setTemplateComand((ICommand) obj);
-		}
-		catch (Exception e)
-		{
-			if (cc != null)
-			{
+		} catch (Exception e) {
+			if (cc != null) {
 				System.err.println("class source:\n" + cc);
 			}
 			throw new RuntimeException(e);
 		}
 	}
 
-	private void addMethod(CtClass aCtClass, String aFilename) throws Exception
-	{
+	private void addMethod(CtClass aCtClass, String aFilename) throws Exception {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		InputStream is = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
 
@@ -77,8 +70,7 @@ class ExitRootHandler implements ICommand
 		aCtClass.addMethod(ctm);
 	}
 
-	private String getClassName()
-	{
+	private String getClassName() {
 		Calendar cal = new GregorianCalendar();
 		String s = "";
 		s += "_" + cal.get(Calendar.YEAR);
@@ -91,6 +83,7 @@ class ExitRootHandler implements ICommand
 		String className = "JavassistTemplate" + s;
 		return className;
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);

@@ -13,36 +13,30 @@ import java.io.IOException;
 /**
  * Read value of Text via TextCV.getText() and put it on aCtx via `StringHandlerCV.setString'
  */
-public class TextToStringExtractor implements ICommand
-{
+public class TextToStringExtractor implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		if (stringHandlerCV.getString() == null && evaluationCV.getWriter() == null) {
 			throw new IllegalStateException("StringHandlerCV.getString(aCtx) == null && EvaluationCV.getWriter(aCtx) == null");
 		}
 		Text text = textCV.getText();
-		if (stringHandlerCV.getString() != null)
-		{
+		if (stringHandlerCV.getString() != null) {
 			String s = text.getValue();
 			stringHandlerCV.setString(s);
 		}
 		Writer writer = evaluationCV.getWriter();
-		if (writer != null)
-		{
-			try
-			{
+		if (writer != null) {
+			try {
 				String s = text.getValue();
 //				writer.write(text.getStream()); // not existing yet!
 				writer.write(s);
-			}
-			catch (IOException e)
-			{
+			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 
 		}
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IEvaluationCV evaluationCV = dbp.newBeanForInterface(IEvaluationCV.class);

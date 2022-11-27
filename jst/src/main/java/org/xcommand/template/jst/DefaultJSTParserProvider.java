@@ -8,11 +8,9 @@ import org.xcommand.template.parser.IParserCV;
 
 import java.nio.charset.StandardCharsets;
 
-public class DefaultJSTParserProvider implements IJSTParserProvider
-{
+public class DefaultJSTParserProvider implements IJSTParserProvider {
 	@Override
-	public JSTParser newJSTParser()
-	{
+	public JSTParser newJSTParser() {
 		String encoding = jstParserCV.getEncoding();
 		if (encoding == null) {
 			encoding = StandardCharsets.UTF_8.name();

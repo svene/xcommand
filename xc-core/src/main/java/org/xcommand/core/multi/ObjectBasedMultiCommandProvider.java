@@ -4,21 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.lang.reflect.Method;
 
-public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider
-{
-// --- Initialization ---
-
-	public ObjectBasedMultiCommandProvider()
-	{
+public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider {
+	public ObjectBasedMultiCommandProvider() {
 	}
 
-	public ObjectBasedMultiCommandProvider(Object aTargetObject)
-	{
+	public ObjectBasedMultiCommandProvider(Object aTargetObject) {
 		setTargetObject(aTargetObject);
 	}
 
-	public void init()
-	{
+	public void init() {
 		commandMap = new HashMap<>();
 		Class<?> clazz = targetObject.getClass();
 		Method[] methods = clazz.getDeclaredMethods();
@@ -36,15 +30,10 @@ public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider
 		}
 	}
 
-// --- Setting ---
 
-
-	public void setTargetObject(Object aTargetObject)
-	{
+	public void setTargetObject(Object aTargetObject) {
 		targetObject = aTargetObject;
 	}
-
-// --- Implementation ---
 
 	private Object targetObject;
 

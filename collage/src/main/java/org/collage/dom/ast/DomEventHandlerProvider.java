@@ -7,8 +7,7 @@ import org.xcommand.pattern.observer.INotifier;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DomEventHandlerProvider extends MapBasedHandlerProvider
-{
+public class DomEventHandlerProvider extends MapBasedHandlerProvider {
 
 	private static Map<Object, INotifier> handlerMap() {
 		return Map.of(
@@ -19,28 +18,23 @@ public class DomEventHandlerProvider extends MapBasedHandlerProvider
 		);
 	}
 
-	public DomEventHandlerProvider()
-	{
+	public DomEventHandlerProvider() {
 		super(handlerMap());
 	}
 
-	public INotifier getRootNotifier()
-	{
+	public INotifier getRootNotifier() {
 		return (INotifier) getHandler(RootNode.class);
 	}
 
-	public INotifier getTextNotifier()
-	{
+	public INotifier getTextNotifier() {
 		return (INotifier) getHandler(Text.class);
 	}
 
-	public INotifier getVariableNotifier()
-	{
+	public INotifier getVariableNotifier() {
 		return (INotifier) getHandler(Variable.class);
 	}
 
-	public INotifier getJavaNotifier()
-	{
+	public INotifier getJavaNotifier() {
 		return (INotifier) getHandler(Java.class);
 	}
 

@@ -9,11 +9,9 @@ import org.xcommand.template.parser.IParserCV;
 /**
  * Commands flushing buffered text and creating associated Text-DOM-Node
  */
-public class CsmFlushTextCommand implements ICommand
-{
+public class CsmFlushTextCommand implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		// Get String from Stringbuffer:
 		StringBuffer sb = parserCV.getStringBuffer();
 		String s = sb.toString();
@@ -22,6 +20,7 @@ public class CsmFlushTextCommand implements ICommand
 		domNodeCreationHandlerCV.setValue(s);
 		domNodeCreationHandlerCV.getCreateTextNodeRequestNotifier().execute();
 	}
+
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);

@@ -1,8 +1,8 @@
 package org.collage.parser;
 
-public interface IParserModeCV
-{
+public interface IParserModeCV {
 	public String getMode();
+
 	public void setMode(String aMode);
 
 	public static final String NS = "org.collage.parser.";

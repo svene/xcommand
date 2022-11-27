@@ -4,21 +4,14 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
-public abstract class StringHandlingHandler implements ICommand
-{
+public abstract class StringHandlingHandler implements ICommand {
 
-// --- Initialization ---
-
-	public StringHandlingHandler(StringHandlerCommand aStringHandlerCommand)
-	{
+	public StringHandlingHandler(StringHandlerCommand aStringHandlerCommand) {
 		stringHandlerCommand = aStringHandlerCommand;
 	}
 
-// --- Processing ---
-
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		String originalText = getOriginalText();
 		String s = decoratedString(originalText);
 		stringHandlerCV.setString(s);
@@ -30,12 +23,9 @@ public abstract class StringHandlingHandler implements ICommand
 		shc.execute();
 	}
 
-// --- Implementation ---
-
 	protected abstract String getOriginalText();
 
-	protected String decoratedString(String aString)
-	{
+	protected String decoratedString(String aString) {
 		return aString;
 	}
 

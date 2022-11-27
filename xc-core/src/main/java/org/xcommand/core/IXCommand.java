@@ -2,7 +2,6 @@ package org.xcommand.core;
 
 import java.util.Map;
 
-public interface IXCommand
-{
+public interface IXCommand {
 	void execute(Map<String, Object> aCtx);
 }

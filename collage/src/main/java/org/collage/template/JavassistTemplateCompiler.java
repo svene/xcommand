@@ -11,16 +11,13 @@ import org.xcommand.template.parser.IParserCV;
 import java.io.InputStream;
 import java.util.HashMap;
 
-public class JavassistTemplateCompiler
-{
+public class JavassistTemplateCompiler {
 
-	public ICommand newTemplateCommandFromString(String aString)
-	{
+	public ICommand newTemplateCommandFromString(String aString) {
 		return newTemplateCommand(new TemplateSource(aString));
 	}
 
-	public ICommand newTemplateCommand(TemplateSource aTemplateSource)
-	{
+	public ICommand newTemplateCommand(TemplateSource aTemplateSource) {
 		// Compile template:
 		TCP.pushContext(new HashMap<>());
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
@@ -40,8 +37,7 @@ public class JavassistTemplateCompiler
 		return tplCmd;
 	}
 
-	public ICommand newTemplateCommandFromStream(InputStream aInputStream)
-	{
+	public ICommand newTemplateCommandFromStream(InputStream aInputStream) {
 		return newTemplateCommand(new TemplateSource(aInputStream));
 	}
 

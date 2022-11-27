@@ -10,17 +10,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
 
-public class JaninoObjectCreator
-{
+public class JaninoObjectCreator {
 
-	public JaninoObjectCreator(Map<String, byte[]> aJavaSourceMap)
-	{
+	public JaninoObjectCreator(Map<String, byte[]> aJavaSourceMap) {
 		javaSourceResourceFinder = new XCMapResourceFinder(aJavaSourceMap);
 		javaClassResourceFinder = new MapResourceFinder(javaClassMap);
 	}
 
-	public Class<?> getClass(String aClassname)
-	{
+	public Class<?> getClass(String aClassname) {
 		ClassLoader parentClassLoader = getClass().getClassLoader();
 //		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, javaSourceResourceFinder, encoding, DebuggingInformation.ALL);
 		//TODO: implement caching loader:
@@ -32,26 +29,20 @@ public class JaninoObjectCreator
 			javaClassResourceFinder,
 			classFileCacheResourceCreator
 		);
-		try
-		{
+		try {
 			String dotClassName = aClassname.replace('/', '.');
 			return cl.loadClass(dotClassName);
-		}
-		catch (ClassNotFoundException e)
-		{
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 
 	}
-	public Object getObject(String aClassname)
-	{
+
+	public Object getObject(String aClassname) {
 		Class<?> clazz = getClass(aClassname);
-		try
-		{
+		try {
 			return clazz.getDeclaredConstructor().newInstance();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

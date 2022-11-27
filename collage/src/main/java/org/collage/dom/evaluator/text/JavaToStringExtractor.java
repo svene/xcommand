@@ -11,30 +11,23 @@ import org.xcommand.core.IDynaBeanProvider;
 import java.io.IOException;
 import java.io.Writer;
 
-public class JavaToStringExtractor implements ICommand
-{
+public class JavaToStringExtractor implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		Java java = javaCV.getJava();
 		String s = "<?java" + java.getValue() + "?>";
-		if (stringHandlerCV.getString() != null)
-		{
+		if (stringHandlerCV.getString() != null) {
 			stringHandlerCV.setString(s);
 		}
 		Writer writer = evaluationCV.getWriter();
-		if (writer != null)
-		{
-			try
-			{
+		if (writer != null) {
+			try {
 				writer.write("<?java");
 //			writer.write(java.getStream()); // not existing yet!
 				writer.write(java.getValue());
 				writer.write("?>");
 
-			}
-			catch (IOException e)
-			{
+			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 		}

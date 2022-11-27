@@ -4,8 +4,7 @@ import eu.javaspecialists.books.dynamicproxies.Proxies;
 
 import java.lang.reflect.InvocationHandler;
 
-public class DynaBeanProvider
-{
+public class DynaBeanProvider {
 
 	private DynaBeanProvider() {
 	}
@@ -37,9 +36,11 @@ public class DynaBeanProvider
 	public static IDynaBeanProvider newThreadClassMethodInstance() {
 		return ThreadClassMethodDynaBeanProvider;
 	}
+
 	public static IDynaBeanProvider newThreadMethodInstance() {
 		return ThreadMethodDynaBeanProvider;
 	}
+
 	public static IDynaBeanProvider newThreadObjectIdentityInstance() {
 		return ThreadObjectIdentityDynaBeanProvider;
 	}

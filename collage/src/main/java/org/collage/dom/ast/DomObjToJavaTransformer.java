@@ -6,11 +6,9 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNode;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 
-public class DomObjToJavaTransformer implements ICommand
-{
+public class DomObjToJavaTransformer implements ICommand {
 	@Override
-	public void execute()
-	{
+	public void execute() {
 		ITreeNode node = treeNodeCV.getTreeNode();
 		Java java = (Java) node.getDomainObject();
 		javaCV.setJava(java);

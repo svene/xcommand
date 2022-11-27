@@ -17,6 +17,7 @@ public class MapAdaptionTest {
 		public InheritableMapAdapter(Map<K, V> adaptee) {
 			this.adaptee = adaptee;
 		}
+
 		public V put(K key, V value) {
 			return ownMap.put(key, value);
 		}
@@ -33,6 +34,7 @@ public class MapAdaptionTest {
 		m.put("key", "Sven");
 		assertThat(m.get("key")).isEqualTo("Sven");
 	}
+
 	@Test
 	void populatedParent() {
 		var adaptee = new HashMap<String, Object>();

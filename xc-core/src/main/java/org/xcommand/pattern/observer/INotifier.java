@@ -2,8 +2,7 @@ package org.xcommand.pattern.observer;
 
 import org.xcommand.core.ICommand;
 
-public interface INotifier extends ICommand
-{
+public interface INotifier extends ICommand {
 	/**
 	 * Register observer `aObserver' as listener to changes of thus subject.
 	 */

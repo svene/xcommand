@@ -5,10 +5,8 @@ import org.xcommand.core.ICommand;
 
 import java.io.InputStream;
 
-public class CollageTemplateParserBuilder
-{
-	public TemplateParser newTemplateParser(InputStream aInputStream, ICommand aCmd)
-	{
+public class CollageTemplateParserBuilder {
+	public TemplateParser newTemplateParser(InputStream aInputStream, ICommand aCmd) {
 		if (aInputStream == null) {
 			throw new RuntimeException("aInputStream == null");
 		}

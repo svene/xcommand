@@ -11,9 +11,9 @@ public class FileNameFilters {
 
 	/**
 	 * FilenameFilter for all files with an extension of 'aExtension'
-	 *
+	 * <p>
 	 * Usage example to return all java files: newExtensionFilenameFilter(".java")
-	 *
+	 * <p>
 	 * Implementation note:
 	 * it is just checked if the filename ends with 'aExtension'. Therefore
 	 * you could pass in '.java' or just 'java' and both would produce the same result.

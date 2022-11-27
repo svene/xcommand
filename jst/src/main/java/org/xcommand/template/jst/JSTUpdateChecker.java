@@ -9,14 +9,13 @@ import java.util.Map;
 import java.util.TimerTask;
 import java.util.Date;
 
-public class JSTUpdateChecker extends TimerTask
-{
+public class JSTUpdateChecker extends TimerTask {
 	{
 		System.out.println("JSTUpdateChecker.instance initializer()");
 	}
+
 	@Override
-	public void run()
-	{
+	public void run() {
 		System.out.println("JSTUpdateChecker.run(): " + new Date());
 		var classMap = jstScannerCV.getClassMap();
 		if (classMap == null) {
@@ -29,25 +28,17 @@ public class JSTUpdateChecker extends TimerTask
 		jstScanner.execute();
 	}
 
-// --- Setting ---
-
-	public void setSrcDirs(List<String> aSrcDirs)
-	{
+	public void setSrcDirs(List<String> aSrcDirs) {
 		srcDirs = aSrcDirs;
 	}
 
-	public void setJaninoObjectCreator(JSTJaninoObjectCreator aJaninoObjectCreator)
-	{
+	public void setJaninoObjectCreator(JSTJaninoObjectCreator aJaninoObjectCreator) {
 		janinoObjectCreator = aJaninoObjectCreator;
 	}
 
-// --- Implementation ---
-
-	private class ChangedHandler implements ICommand
-	{
+	private class ChangedHandler implements ICommand {
 		@Override
-		public void execute()
-		{
+		public void execute() {
 			janinoObjectCreator.initialize();
 		}
 	}

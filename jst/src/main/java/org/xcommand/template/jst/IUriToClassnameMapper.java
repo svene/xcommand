@@ -1,6 +1,5 @@
 package org.xcommand.template.jst;
 
-public interface IUriToClassnameMapper
-{
+public interface IUriToClassnameMapper {
 	String getClassnameForUri(String aURI);
 }

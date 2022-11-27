@@ -17,13 +17,11 @@ import java.util.HashMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TextTemplateTest
-{
+public class TextTemplateTest {
 	StringWriter stringWriter;
 
 	@BeforeEach
-	public void initializeContext()
-	{
+	public void initializeContext() {
 		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("firstname", "Uli");
 
@@ -31,21 +29,18 @@ public class TextTemplateTest
 	}
 
 	@AfterEach
-	public void tearDownContext()
-	{
+	public void tearDownContext() {
 		TCP.popContext();
 	}
 
 	@Test
-	public void test1()
-	{
+	public void test1() {
 		new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n").execute();
 		assertEquals("hallo Uli.\nWie gehts?\n", stringHandlerCV.getString());
 	}
 
 	@Test
-	public void test2()
-	{
+	public void test2() {
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
 		tc.setWriter(stringWriter);
 		tc.execute();
@@ -61,8 +56,7 @@ public class TextTemplateTest
 	}
 
 	@Test
-	public void test5()
-	{
+	public void test5() {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
 

@@ -15,12 +15,10 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 
-public class DomDumperLowLevelTest
-{
+public class DomDumperLowLevelTest {
 
 	@Test
-	public void testWithHandlersUsingLowlevelObserverRegistration()
-	{
+	public void testWithHandlersUsingLowlevelObserverRegistration() {
 		// Setup:
 		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
@@ -55,8 +53,7 @@ public class DomDumperLowLevelTest
 	}
 
 	@Test
-	public void testWithHandlersAndSystemOut()
-	{
+	public void testWithHandlersAndSystemOut() {
 		// TODO: think about what we really want to test here. The difference to previous test is that here
 		// we use classes like 'DomObjToTextTransformer', 'TextToStringExtractor', etc.
 		// but those could be tested standalone if necessary at all.

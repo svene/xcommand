@@ -1,7 +1,6 @@
 package org.xcommand.template.jst;
 
-public class ClassMapEntry
-{
+public class ClassMapEntry {
 	public FileMapEntry fme;
 	public String className;
 	public Class clazz;

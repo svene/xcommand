@@ -7,8 +7,7 @@ public record BeanAccessorInvocationContextHandler(IBeanAccessor beanAccessor) i
 
 	@Override
 	public Object invoke(InvocationContext ihc) {
-		if (ihc.methodInfo().isSetter)
-		{
+		if (ihc.methodInfo().isSetter) {
 			beanAccessor.set(ihc);
 			return null;
 		} else {

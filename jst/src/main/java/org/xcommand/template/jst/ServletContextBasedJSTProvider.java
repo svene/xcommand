@@ -7,13 +7,12 @@ import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.web.IWebCV;
 
 import jakarta.servlet.ServletContext;
+
 import java.util.*;
 
-public class ServletContextBasedJSTProvider implements IJSTProvider
-{
+public class ServletContextBasedJSTProvider implements IJSTProvider {
 
-	public void initialize()
-	{
+	public void initialize() {
 		ServletContext sc = webCV.getServletContext();
 
 		Set<String> set = sc.getResourcePaths("/");
@@ -23,26 +22,22 @@ public class ServletContextBasedJSTProvider implements IJSTProvider
 	}
 
 	@Override
-	public ClassMapEntry getClassMapEntry(Map<String, Object> aCtx, String aClassname)
-	{
+	public ClassMapEntry getClassMapEntry(Map<String, Object> aCtx, String aClassname) {
 		return null;
 	}
 
 
-	public void setSrcDirs(List<String> aSrcDirs)
-	{
+	public void setSrcDirs(List<String> aSrcDirs) {
 		srcDirs = aSrcDirs;
 	}
 
 	@Override
-	public Map<String, ClassMapEntry> getClassMap()
-	{
+	public Map<String, ClassMapEntry> getClassMap() {
 		return classMap;
 	}
 
 	@Override
-	public INotifier getChangeNotifier()
-	{
+	public INotifier getChangeNotifier() {
 		return changeNotifier;
 	}
 

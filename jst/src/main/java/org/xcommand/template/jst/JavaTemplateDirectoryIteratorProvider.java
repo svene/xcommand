@@ -6,13 +6,11 @@ import java.io.File;
 import java.util.Iterator;
 
 /**
- * @deprecated 
+ * @deprecated
  */
 @Deprecated
-public class JavaTemplateDirectoryIteratorProvider
-{
-	public Iterator<File> newIterator(String aSrcDir)
-	{
+public class JavaTemplateDirectoryIteratorProvider {
+	public Iterator<File> newIterator(String aSrcDir) {
 		return DirectoryIterator.traverseDirectories(
 			new File[]{new File(aSrcDir)}, FileNameFilters.acceptAllFilenamesFilter, FileNameFilters.javaFilenameFilter
 		);
