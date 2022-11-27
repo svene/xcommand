@@ -32,7 +32,7 @@ public class JavassistTemplateCompiler {
 		stringHandlerCV.setString("");
 		new JavassistTraverser().execute();
 		// Return dynamically (by javassist) created template command (ICommand)
-		ICommand tplCmd = javaTemplateCmdCV.getTemplateComand();
+		var tplCmd = javaTemplateCmdCV.getTemplateComand();
 		TCP.popContext();
 		return tplCmd;
 	}

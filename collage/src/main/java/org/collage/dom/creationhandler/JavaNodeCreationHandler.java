@@ -12,16 +12,16 @@ import java.io.PrintStream;
 public class JavaNodeCreationHandler implements ICommand {
 	@Override
 	public void execute() {
-		String s = domNodeCreationHandlerCV.getValue();
+		var s = domNodeCreationHandlerCV.getValue();
 		trace("got JAVA CODE: '" + s + "'");
-		Java java = new Java();
+		var java = new Java();
 		java.setValue(s);
-		ITreeNode node = new TreeNode(java);
+		var node = new TreeNode(java);
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
 	private void trace(String aString) {
-		PrintStream ps = parserCV.getTraceStream();
+		var ps = parserCV.getTraceStream();
 		if (ps == null) {
 			return;
 		}

@@ -12,16 +12,16 @@ import java.io.PrintStream;
 public class TextNodeCreationHandler implements ICommand {
 	@Override
 	public void execute() {
-		String s = domNodeCreationHandlerCV.getValue();
+		var s = domNodeCreationHandlerCV.getValue();
 		trace("got TEXT: '" + s + "'");
-		Text text = new Text();
+		var text = new Text();
 		text.setValue(s);
-		ITreeNode node = new TreeNode(text);
+		var node = new TreeNode(text);
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
 	private void trace(String aString) {
-		PrintStream ps = parserCV.getTraceStream();
+		var ps = parserCV.getTraceStream();
 		if (ps == null) {
 			return;
 		}

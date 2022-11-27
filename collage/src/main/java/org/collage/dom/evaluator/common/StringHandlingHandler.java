@@ -12,11 +12,11 @@ public abstract class StringHandlingHandler implements ICommand {
 
 	@Override
 	public void execute() {
-		String originalText = getOriginalText();
-		String s = decoratedString(originalText);
+		var originalText = getOriginalText();
+		var s = decoratedString(originalText);
 		stringHandlerCV.setString(s);
 
-		ICommand shc = stringHandlerCV.getStringHandlerCommand();
+		var shc = stringHandlerCV.getStringHandlerCommand();
 		if (shc == null) {
 			shc = stringHandlerCommand;
 		}

@@ -9,8 +9,8 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 public class TextHandler implements ICommand {
 	@Override
 	public void execute() {
-		ITreeNode node = treeNodeCV.getTreeNode();
-		Text text = (Text) node.getDomainObject();
+		var node = treeNodeCV.getTreeNode();
+		var text = (Text) node.getDomainObject();
 		textCV.setText(text);
 	}
 

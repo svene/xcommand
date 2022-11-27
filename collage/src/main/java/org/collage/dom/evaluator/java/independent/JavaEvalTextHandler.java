@@ -7,9 +7,9 @@ public class JavaEvalTextHandler implements ICommand {
 	@Override
 	public void execute() {
 		// TODO: improve this:
-		StringBuffer methodBody = (StringBuffer) TCP.getContext().get("methodbody");
-		String s = stringHandlerCV.getString();
-		String ss = decodedString("\t_writer.write(#") + s + decodedString("#);\n");
+		var methodBody = (StringBuffer) TCP.getContext().get("methodbody");
+		var s = stringHandlerCV.getString();
+		var ss = decodedString("\t_writer.write(#") + s + decodedString("#);\n");
 		methodBody.append(ss);
 	}
 

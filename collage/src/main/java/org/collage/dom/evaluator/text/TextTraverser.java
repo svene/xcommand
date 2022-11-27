@@ -9,10 +9,10 @@ import org.collage.dom.evaluator.common.WriterFlusher;
 public class TextTraverser extends NotifyingTreeNodeTraverser {
 	public TextTraverser() {
 		// Setup:
-		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-		TextHandlerProvider thp = new TextHandlerProvider();
+		var hp = new DomEventHandlerProvider();
+		var thp = new TextHandlerProvider();
 
-		ICommand cmd = thp.newTextObserver();
+		var cmd = thp.newTextObserver();
 		hp.getTextNotifier().registerObserver(cmd);
 
 		cmd = thp.newVariableObserver();

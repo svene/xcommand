@@ -7,12 +7,12 @@ import org.xcommand.core.*;
 public class JavaEvalJavaHandler implements ICommand {
 	@Override
 	public void execute() {
-		Java java = javaCV.getJava();
-		String s = java.getValue();
+		var java = javaCV.getJava();
+		var s = java.getValue();
 
-		StringBuffer methodBody = (StringBuffer) TCP.getContext().get("methodbody");
+		var methodBody = (StringBuffer) TCP.getContext().get("methodbody");
 //		System.out.println("*** javacode: '" + s + "'");
-		String ss = "\t" + s + "\n";
+		var ss = "\t" + s + "\n";
 		methodBody.append(ss);
 	}
 

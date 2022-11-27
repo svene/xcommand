@@ -11,7 +11,7 @@ public class ListAddingStringHandler implements IStringHandler {
 
 	@Override
 	public void handleString(Map<String, Object> aCtx, String aString) {
-		List<String> lst = messageCommandCV.getList();
+		var lst = messageCommandCV.getList();
 		lst.add(aString);
 	}
 

@@ -8,7 +8,7 @@ import java.util.Map;
 public class CachingTextTemplateCompiler {
 	public ICommand getTemplateCommand(String aStringTemplate) {
 		synchronized (templateCache) {
-			ICommand cmd = templateCache.get(aStringTemplate);
+			var cmd = templateCache.get(aStringTemplate);
 			if (cmd == null) {
 				cmd = textTemplateCompiler.newTemplateCommandFromString(aStringTemplate);
 				templateCache.put(aStringTemplate, cmd);

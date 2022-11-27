@@ -17,7 +17,7 @@ public class RootNodeCreationHandler implements ICommand {
 	}
 
 	private void trace(String aString) {
-		PrintStream ps = parserCV.getTraceStream();
+		var ps = parserCV.getTraceStream();
 		if (ps == null) {
 			return;
 		}

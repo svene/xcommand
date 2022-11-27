@@ -11,9 +11,9 @@ public class VariableNameToValueTransformer implements ICommand {
 	@Override
 	public void execute() {
 
-		String variableName = stringHandlerCV.getString();
+		var variableName = stringHandlerCV.getString();
 		String result;
-		Object obj = TCP.getContext().get(variableName);
+		var obj = TCP.getContext().get(variableName);
 		if (obj != null) {
 			result = obj.toString();
 		} else {

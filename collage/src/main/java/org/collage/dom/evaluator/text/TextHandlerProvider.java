@@ -11,14 +11,14 @@ import org.xcommand.pattern.observer.BasicNotifier;
 
 public class TextHandlerProvider {
 	public ICommand newTextObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new DomObjToTextTransformer());
 		result.registerObserver(new TextToStringExtractor());
 		return result;
 	}
 
 	public ICommand newVariableObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new DomObjToVariableTransformer());
 		result.registerObserver(new VariableToVariableNameExtractor());
 		result.registerObserver(new VariableNameToValueTransformer());
@@ -26,7 +26,7 @@ public class TextHandlerProvider {
 	}
 
 	public ICommand newJavaObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new DomObjToJavaTransformer());
 		result.registerObserver(new JavaToStringExtractor());
 		return result;

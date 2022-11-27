@@ -17,16 +17,16 @@ public class CollageStateMachineBuilder {
 
 	public IState newCollageStateNet() {
 		// Setup states:
-		IState startState = newStartState();
-		IState textState = new State("text");
-		IState javaCodeState = new State("java_code");
-		IState variableTextState = new State("variable_text");
-		IState endState = new State("End");
-		IState javaEolChk = new State("java_eol_chk");
+		var startState = newStartState();
+		var textState = new State("text");
+		var javaCodeState = new State("java_code");
+		var variableTextState = new State("variable_text");
+		var endState = new State("End");
+		var javaEolChk = new State("java_eol_chk");
 
 		// --- Setup transitions --- :
 		// --- Start->*:
-		IState state = startState;
+		var state = startState;
 		// Start->Text:
 		connectStartToText(state, textState);
 
@@ -97,7 +97,7 @@ public class CollageStateMachineBuilder {
 	}
 
 	private IState newStartState() {
-		IState state = new State("Start");
+		var state = new State("Start");
 		state.getExitStateNotifier().registerObserver(new RootNodeCreationHandler());
 		return state;
 	}

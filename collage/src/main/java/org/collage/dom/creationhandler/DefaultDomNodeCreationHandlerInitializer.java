@@ -9,7 +9,7 @@ import org.xcommand.pattern.observer.BasicNotifier;
 public class DefaultDomNodeCreationHandlerInitializer implements ICommand {
 	@Override
 	public void execute() {
-		AbstractBasicNotifier notifier = new BasicNotifier();
+		var notifier = new BasicNotifier();
 		notifier.registerObserver(new TextNodeCreationHandler());
 		domNodeCreationHandlerCV.setCreateTextNodeRequestNotifier(notifier);
 

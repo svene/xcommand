@@ -8,8 +8,8 @@ import org.collage.dom.ast.DomEventHandlerProvider;
 public class JavassistTraverser extends NotifyingTreeNodeTraverser {
 	public JavassistTraverser() {
 		// Setup:
-		DomEventHandlerProvider hp = new DomEventHandlerProvider();
-		JavassistHandlerProvider jhp = new JavassistHandlerProvider();
+		var hp = new DomEventHandlerProvider();
+		var jhp = new JavassistHandlerProvider();
 		hp.getRootNotifier().registerObserver(jhp.newEnterRootObserver());
 		hp.getTextNotifier().registerObserver(jhp.newTextObserver());
 		hp.getVariableNotifier().registerObserver(jhp.newVariableObserver());
@@ -17,7 +17,7 @@ public class JavassistTraverser extends NotifyingTreeNodeTraverser {
 
 
 		// TODO: think about this:
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+		var cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		getEnterNodeNotifier().registerObserver(cmd);
 
 		// RootNode-exit:

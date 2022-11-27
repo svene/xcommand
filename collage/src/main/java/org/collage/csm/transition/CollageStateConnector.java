@@ -5,14 +5,16 @@ import org.xcommand.core.ICommand;
 import org.xcommand.misc.statemachine.IState;
 import org.xcommand.misc.statemachine.Transition;
 
+import java.util.Arrays;
+
 public class CollageStateConnector {
 	public void connect(IState aFromState, IState aToState, String aParserMode,
 						ICommand[] aExecuteCommands) {
-		Transition t = new Transition();
+		var t = new Transition();
 		t.setName(aFromState.getName() + "->" + aToState.getName());
 		ContextViews.get().defaultStateTransitionBinder.bind(aFromState, t, aToState);
 		// Setup entry condition for transition:
-		ParserModeConditionTester pmct = new ParserModeConditionTester(aParserMode);
+		var pmct = new ParserModeConditionTester(aParserMode);
 		// Attach transition to entry condition tester:
 		pmct.getTrueNotifier().registerObserver(t);
 		// Attach entry condition tester to aFromState:
@@ -20,9 +22,7 @@ public class CollageStateConnector {
 
 		// Attach commands to `t' to be executed when `t' is executed:
 		if (aExecuteCommands != null) {
-			for (ICommand aExecuteCommand : aExecuteCommands) {
-				t.getExecuteNotifier().registerObserver(aExecuteCommand);
-			}
+			Arrays.stream(aExecuteCommands).forEach(it -> t.getExecuteNotifier().registerObserver(it));
 		}
 
 	}

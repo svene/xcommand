@@ -14,16 +14,16 @@ import java.io.PrintStream;
 public class VariableNodeCreationHandler implements ICommand {
 	@Override
 	public void execute() {
-		String s = domNodeCreationHandlerCV.getValue();
+		var s = domNodeCreationHandlerCV.getValue();
 		trace("got VARIABLE: '" + s + "'");
-		Variable v = new Variable();
+		var v = new Variable();
 		v.setVariableName(s);
-		TreeNode node = new TreeNode(v);
+		var node = new TreeNode(v);
 		tb.addChild(treeNodeCV.getTreeNode(), node);
 	}
 
 	private void trace(String aString) {
-		PrintStream ps = parserCV.getTraceStream();
+		var ps = parserCV.getTraceStream();
 		if (ps == null) {
 			return;
 		}

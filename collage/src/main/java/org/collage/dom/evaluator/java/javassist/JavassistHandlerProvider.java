@@ -14,19 +14,19 @@ import org.xcommand.pattern.observer.BasicNotifier;
 
 public class JavassistHandlerProvider {
 	public ICommand newEnterRootObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new EnterRootHandler());
 		return result;
 	}
 
 	public ICommand newExitRootObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new ExitRootHandler());
 		return result;
 	}
 
 	public ICommand newTextObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new DomObjToTextTransformer());
 		result.registerObserver(new TextToStringExtractor());
 		result.registerObserver(new JavaEvalTextHandler());
@@ -34,7 +34,7 @@ public class JavassistHandlerProvider {
 	}
 
 	public ICommand newVariableObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new DomObjToVariableTransformer());
 		result.registerObserver(new VariableToVariableNameExtractor());
 		result.registerObserver(new JavaEvalVariableHandler());
@@ -42,7 +42,7 @@ public class JavassistHandlerProvider {
 	}
 
 	public ICommand newJavaObserver() {
-		AbstractBasicNotifier result = new BasicNotifier();
+		var result = new BasicNotifier();
 		result.registerObserver(new DomObjToJavaTransformer());
 		result.registerObserver(new JavaEvalJavaHandler());
 		return result;

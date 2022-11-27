@@ -14,12 +14,12 @@ import java.io.Writer;
 public class JavaToStringExtractor implements ICommand {
 	@Override
 	public void execute() {
-		Java java = javaCV.getJava();
-		String s = "<?java" + java.getValue() + "?>";
+		var java = javaCV.getJava();
+		var s = "<?java" + java.getValue() + "?>";
 		if (stringHandlerCV.getString() != null) {
 			stringHandlerCV.setString(s);
 		}
-		Writer writer = evaluationCV.getWriter();
+		var writer = evaluationCV.getWriter();
 		if (writer != null) {
 			try {
 				writer.write("<?java");

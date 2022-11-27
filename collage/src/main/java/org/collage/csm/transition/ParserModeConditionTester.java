@@ -14,8 +14,7 @@ public class ParserModeConditionTester extends ConditionObserver {
 
 	@Override
 	public void execute() {
-		String mode = parserModeCV.getMode();
-		ICommand notifier = mode.equals(parserMode) ? getTrueNotifier() : getFalseNotifier();
+		var notifier = parserModeCV.getMode().equals(parserMode) ? getTrueNotifier() : getFalseNotifier();
 		notifier.execute();
 	}
 

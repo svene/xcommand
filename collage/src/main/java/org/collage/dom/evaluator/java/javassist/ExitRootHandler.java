@@ -23,10 +23,10 @@ class ExitRootHandler implements ICommand {
 	public void execute() {
 		CtClass cc = null;
 		try {
-			ClassPool pool = ClassPool.getDefault();
+			var pool = ClassPool.getDefault();
 			String className = getClassName();
 
-			CtClass ccXcommand = pool.get("org.xcommand.core.ICommand");
+			var ccXcommand = pool.get("org.xcommand.core.ICommand");
 			cc = pool.makeClass(getClass().getPackage().getName() + "." + className);
 			cc.addInterface(ccXcommand);
 
@@ -36,7 +36,7 @@ class ExitRootHandler implements ICommand {
 			TCP.popContext();
 
 			// Add method 'execute()':
-			StringBuffer sb = (StringBuffer) TCP.getContext().get("methodbody");
+			var sb = (StringBuffer) TCP.getContext().get("methodbody");
 //System.out.println("**methodbody\n" + sb.toString());
 			TCP.pushContext(new HashMap<>());
 			TCP.getContext().put("execute_method_body", sb.toString());
@@ -47,7 +47,7 @@ class ExitRootHandler implements ICommand {
 			TCP.getContext().put("clazz", clazz);
 
 			// Create instance and put it on context:
-			Object obj = clazz.getDeclaredConstructor().newInstance();
+			var obj = clazz.getDeclaredConstructor().newInstance();
 			javaTemplateCmdCV.setTemplateComand((ICommand) obj);
 		} catch (Exception e) {
 			if (cc != null) {
@@ -59,20 +59,20 @@ class ExitRootHandler implements ICommand {
 
 	private void addMethod(CtClass aCtClass, String aFilename) throws Exception {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		InputStream is = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
+		var is = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
 
-		ICommand cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
+		var cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
 		cmd.execute();
-		String s = stringHandlerCV.getString();
+		var s = stringHandlerCV.getString();
 		is.close();
 //		System.out.println("methodstring: " + s);
-		CtMethod ctm = CtNewMethod.make(s, aCtClass);
+		var ctm = CtNewMethod.make(s, aCtClass);
 		aCtClass.addMethod(ctm);
 	}
 
 	private String getClassName() {
-		Calendar cal = new GregorianCalendar();
-		String s = "";
+		var cal = new GregorianCalendar();
+		var s = "";
 		s += "_" + cal.get(Calendar.YEAR);
 		s += "-" + cal.get(Calendar.MONTH);
 		s += "-" + cal.get(Calendar.DAY_OF_MONTH);
@@ -80,7 +80,7 @@ class ExitRootHandler implements ICommand {
 		s += "-" + cal.get(Calendar.MINUTE);
 		s += "-" + cal.get(Calendar.SECOND);
 		s += "-" + cal.get(Calendar.MILLISECOND);
-		String className = "JavassistTemplate" + s;
+		var className = "JavassistTemplate" + s;
 		return className;
 	}
 

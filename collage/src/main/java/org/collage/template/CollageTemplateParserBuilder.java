@@ -10,7 +10,7 @@ public class CollageTemplateParserBuilder {
 		if (aInputStream == null) {
 			throw new RuntimeException("aInputStream == null");
 		}
-		TemplateParser parser = new TemplateParser(aInputStream, "UTF-8");
+		var parser = new TemplateParser(aInputStream, "UTF-8");
 
 //		parser.getStartNotifier().registerObserver(new ICommand()
 //		{

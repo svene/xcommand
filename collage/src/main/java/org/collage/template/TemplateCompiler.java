@@ -15,12 +15,12 @@ public class TemplateCompiler implements ICommand {
 
 	@Override
 	public void execute() {
-		InputStream is = parserCV.getInputStream();
+		var is = parserCV.getInputStream();
 		if (is == null) {
 			throw new RuntimeException("is == null");
 		}
-		StateMachine sm = new StateMachine();
-		TemplateParser parser = new CollageTemplateParserBuilder().newTemplateParser(is, sm);
+		var sm = new StateMachine();
+		var parser = new CollageTemplateParserBuilder().newTemplateParser(is, sm);
 
 		stateCV.setState(new CollageStateMachineBuilder().newCollageStateNet());
 		try {

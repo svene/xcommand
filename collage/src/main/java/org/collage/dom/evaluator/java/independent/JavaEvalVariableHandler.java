@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class JavaEvalVariableHandler implements ICommand {
 	public JavaEvalVariableHandler() {
 		try {
-			InputStream is = ResourceUtil.newInputStreamFromResourceLocation("org/collage/dom/evaluator/java/javassist/javassist_var.txt");
+			var is = ResourceUtil.newInputStreamFromResourceLocation("org/collage/dom/evaluator/java/javassist/javassist_var.txt");
 			TCP.pushContext(new HashMap<>());
 			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 
@@ -28,14 +28,14 @@ public class JavaEvalVariableHandler implements ICommand {
 
 	@Override
 	public void execute() {
-		String vn = stringHandlerCV.getString();
+		var vn = stringHandlerCV.getString();
 		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("varName", vn);
 		templateCommand.execute();
-		String ss = stringHandlerCV.getString();
+		var ss = stringHandlerCV.getString();
 		TCP.popContext();
 
-		StringBuffer methodBody = (StringBuffer) TCP.getContext().get("methodbody");
+		var methodBody = (StringBuffer) TCP.getContext().get("methodbody");
 		methodBody.append(ss);
 	}
 

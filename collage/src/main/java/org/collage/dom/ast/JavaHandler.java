@@ -9,8 +9,8 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 public class JavaHandler implements ICommand {
 	@Override
 	public void execute() {
-		ITreeNode node = treeNodeCV.getTreeNode();
-		Java java = (Java) node.getDomainObject();
+		var node = treeNodeCV.getTreeNode();
+		var java = (Java) node.getDomainObject();
 		javaCV.setJava(java);
 	}
 

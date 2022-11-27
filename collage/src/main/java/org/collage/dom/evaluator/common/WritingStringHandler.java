@@ -12,7 +12,7 @@ public class WritingStringHandler implements IStringHandler {
 
 	@Override
 	public void handleString(Map<String, Object> aCtx, String aString) {
-		Writer writer = evaluationCV.getWriter();
+		var writer = evaluationCV.getWriter();
 		try {
 			writer.write(aString);
 		} catch (IOException e) {

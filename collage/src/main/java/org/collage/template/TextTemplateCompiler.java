@@ -30,7 +30,7 @@ public class TextTemplateCompiler {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
 		new DefaultDomNodeCreationHandlerInitializer().execute();
 
-		InputStream is = aTemplateSource.getInputStream();
+		var is = aTemplateSource.getInputStream();
 		if (is == null) {
 			throw new RuntimeException("is == null");
 		}
