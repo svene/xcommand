@@ -32,7 +32,7 @@ public class MainSM {
 
 	@BeforeEach
 	public void setUp() {
-		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+		var dbp = DynaBeanProvider.newThreadClassMethodInstance();
 		parserCV = dbp.newBeanForInterface(IParserCV.class);
 		treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 		javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
@@ -52,7 +52,11 @@ public class MainSM {
 		assertNull(treeNodeCV.getTreeNode());
 
 		// Compile template:
-		createASTforTemplateString("hallo ${firstname}.\nWie gehts?\n", Boolean.FALSE);
+		createASTforTemplateString(
+			"""
+				hallo ${firstname}.
+				Wie gehts?
+				""", Boolean.FALSE);
 		// Now the root node of the AST for the compiled template string is available via 'treeNodeCV.getTreeNode()'
 		assertNotNull(treeNodeCV.getTreeNode());
 

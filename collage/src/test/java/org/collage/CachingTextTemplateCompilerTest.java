@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CachingTextTemplateCompilerTest {
@@ -20,10 +22,10 @@ class CachingTextTemplateCompilerTest {
 
 	@Test
 	void exerciseTextTemplateCompiler() {
-		for (int i = 0; i < RUNS; i++) {
+		IntStream.range(0, RUNS).forEach(it -> {
 			new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}. Wie gehts?").execute();
 			assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
-		}
+		});
 	}
 
 	/**
@@ -33,15 +35,13 @@ class CachingTextTemplateCompilerTest {
 	void exerciseCachingTextTemplateCompiler() {
 		// On first template request `CachingTextTemplateCompiler' will compile unknown template:
 		new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();
-		String s = stringHandlerCV.getString();
-		assertEquals("hallo Uli. Wie gehts?", s);
+		assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
 
 		// For further template request `CachingTextTemplateCompiler' should find template in cache:
-		for (int i = 0; i < RUNS; i++) {
+		IntStream.range(0, RUNS).forEach(it -> {
 			new CachingTextTemplateCompiler().getTemplateCommand("hallo ${firstname}. Wie gehts?").execute();
-			s = stringHandlerCV.getString();
-			assertEquals("hallo Uli. Wie gehts?", s);
-		}
+			assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
+		});
 	}
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

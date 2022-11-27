@@ -20,19 +20,19 @@ public class DomDumperLowLevelTest {
 	@Test
 	public void testWithHandlersUsingLowlevelObserverRegistration() {
 		// Setup:
-		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
-		DomEventHandlerProvider hp = new DomEventHandlerProvider();
+		var dbp = DynaBeanProvider.newThreadClassMethodInstance();
+		var treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+		var hp = new DomEventHandlerProvider();
 
-		TC.IStringMockHook textMockHook = Mockito.mock(TC.IStringMockHook.class);
-		TC.IStringMockHook variableMockHook = Mockito.mock(TC.IStringMockHook.class);
-		TC.IStringMockHook javaMockHook = Mockito.mock(TC.IStringMockHook.class);
+		var textMockHook = Mockito.mock(TC.IStringMockHook.class);
+		var variableMockHook = Mockito.mock(TC.IStringMockHook.class);
+		var javaMockHook = Mockito.mock(TC.IStringMockHook.class);
 
 		hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook, treeNodeCV));
 		hp.getVariableNotifier().registerObserver(new TC.VariableMockHookCommand(variableMockHook, treeNodeCV));
 		hp.getJavaNotifier().registerObserver(new TC.JavaMockHookCommand(javaMockHook, treeNodeCV));
 
-		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
+		var tt = new NotifyingTreeNodeTraverser();
 		tt.getEnterNodeNotifier().registerObserver(TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp));
 		treeNodeCV.setTreeNode(new TestHelper().rootNode);
 
@@ -44,7 +44,7 @@ public class DomDumperLowLevelTest {
 		Mockito.verify(variableMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
 		Mockito.verify(javaMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
 
-		InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
+		var inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
 		inOrder.verify(textMockHook).hookRoutineForMockVerification("Hallo ");
 		inOrder.verify(variableMockHook).hookRoutineForMockVerification("firstname");
 		inOrder.verify(textMockHook).hookRoutineForMockVerification("! Willkommen bei uns.\n");
@@ -59,15 +59,15 @@ public class DomDumperLowLevelTest {
 		// but those could be tested standalone if necessary at all.
 
 		// Setup:
-		IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-		ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
-		IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+		var dbp = DynaBeanProvider.newThreadClassMethodInstance();
+		var treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+		var stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 		stringHandlerCV.setString("dummy");
 
-		IStringHandler sh = Mockito.mock(IStringHandler.class);
-		StringHandlerCommand shCmd = new StringHandlerCommand(sh);
+		var sh = Mockito.mock(IStringHandler.class);
+		var shCmd = new StringHandlerCommand(sh);
 		// Setup:
-		DomEventHandlerProvider hp = new DomEventHandlerProvider();
+		var hp = new DomEventHandlerProvider();
 
 		hp.getTextNotifier().registerObserver(new ListCommand(new DomObjToTextTransformer(), new TextToStringExtractor(), shCmd));
 
@@ -76,7 +76,7 @@ public class DomDumperLowLevelTest {
 
 		hp.getJavaNotifier().registerObserver(new ListCommand(new DomObjToJavaTransformer(), new JavaToStringExtractor(), shCmd));
 
-		ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+		var cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
 		NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
 		tt.getEnterNodeNotifier().registerObserver(cmd);
 
@@ -89,7 +89,7 @@ public class DomDumperLowLevelTest {
 
 		// Verification:
 		Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.any(), Mockito.any());
-		InOrder inOrder = Mockito.inOrder(sh);
+		var inOrder = Mockito.inOrder(sh);
 		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Hallo "));
 		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Uli"));
 		inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("! Willkommen bei uns.\n"));

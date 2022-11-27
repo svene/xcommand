@@ -41,7 +41,7 @@ public class TextTemplateTest {
 
 	@Test
 	public void test2() {
-		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
+		var tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
 		tc.setWriter(stringWriter);
 		tc.execute();
 		assertEquals("hallo Uli.\nWie gehts?\n", stringWriter.toString());
@@ -49,7 +49,7 @@ public class TextTemplateTest {
 
 	@Test
 	public void verfiyProperFunctionIfInputComesFromFile() {
-		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromResourceName("in.txt");
+		var tc = new TextTemplateCompiler().newTemplateCommandFromResourceName("in.txt");
 		tc.setWriter(stringWriter);
 		tc.execute();
 		assertEquals("Hallo Uli! Willkommen bei uns.\n<?java int i = 1 ?>d\n", stringWriter.toString());
@@ -58,7 +58,7 @@ public class TextTemplateTest {
 	@Test
 	public void test5() {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		TemplateCommand tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
+		var tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
 
 		TCP.getContext().put("firstname", "Sven");
 		tc.setWriter(stringWriter);
@@ -83,7 +83,7 @@ public class TextTemplateTest {
 		assertThat(createTemplate("hallo ${firstname} ${lastname}. Wie gehts?")).isEqualTo("hallo Uli ${lastname}. Wie gehts?");
 		assertThat(createTemplate("hallo Uli ${lastname}. Wie gehts?")).isEqualTo("hallo Uli ${lastname}. Wie gehts?");
 
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString("hallo Uli ${lastname}. Wie gehts?");
+		var cmd = new JavassistTemplateCompiler().newTemplateCommandFromString("hallo Uli ${lastname}. Wie gehts?");
 		TCP.getContext().put("firstname", "Uli");
 		TCP.getContext().put("lastname", "Ehrke");
 		TemplateCV.setWriter(stringWriter);

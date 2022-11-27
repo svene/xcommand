@@ -21,4 +21,6 @@ treeNodeCV.setTreeNode(new TreeNode());
 TreeNode node = treeNodeCV.getTreeNode();
 ----
 
+=== Links
 
+- https://opencredo.com/blogs/dynamic-proxies-java-part-2/
