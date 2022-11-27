@@ -8,6 +8,8 @@ import org.xcommand.misc.statemachine.IState;
 import org.xcommand.misc.statemachine.State;
 import org.xcommand.core.ICommand;
 
+import java.util.List;
+
 /**
  * TODO: rename to CollaeStateNetBuilder
  */
@@ -102,12 +104,12 @@ public class CollageStateMachineBuilder {
 
 	private void connectStartToText(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_TEXT,
-			new ICommand[]{new CsmStartTextCommand(), new CsmAppendTextCommand()});
+			new ICommand[]{CsmCommands.startTextCommand, CsmCommands.appendTextCommand});
 	}
 
 	private void connectStartToJavaCode(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_JAVA_START_MODE,
-			new ICommand[]{new CsmStartJavaCommand()});
+			new ICommand[]{CsmCommands.startJavaCommand});
 	}
 
 	private void connectStartToVariableText(IState aFromState, IState aToState) {
@@ -120,37 +122,37 @@ public class CollageStateMachineBuilder {
 
 	private void connectTextToTextTransition(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_TEXT,
-			new ICommand[]{new CsmAppendTextCommand()});
+			new ICommand[]{CsmCommands.appendTextCommand});
 	}
 
 	private void connectTextToTextIfEol(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_EOL,
-			new ICommand[]{new CsmAppendEolCommand()});
+			new ICommand[]{CsmCommands.appendEolCommand});
 	}
 
 	private void connectTextToJavaCode(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_JAVA_START_MODE,
-			new ICommand[]{new CsmFlushTextCommand(), new CsmStartJavaCommand()});
+			new ICommand[]{CsmCommands.flushTextCommand, CsmCommands.startJavaCommand});
 	}
 
 	private void connectTextToVariableText(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_VAR_START_MODE,
-			new ICommand[]{new CsmFlushTextCommand()});
+			new ICommand[]{CsmCommands.flushTextCommand});
 	}
 
 	private void connectTextToEnd(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_EOF,
-			new ICommand[]{new CsmFlushTextCommand()});
+			new ICommand[]{CsmCommands.flushTextCommand});
 	}
 
 	private void connectJavaCodeToJavaCode(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_JAVA_CODE_MODE,
-			new ICommand[]{new CsmAppendJavaCodeCommand()});
+			new ICommand[]{CsmCommands.appendJavaCodeCommand});
 	}
 
 	private void connectJavaCodeToJavaEolChk(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_JAVA_END_MODE,
-			new ICommand[]{new CsmFlushJavaCommand()});
+			new ICommand[]{CsmCommands.flushJavaCommand});
 	}
 
 	private void connectJavaCodeToEnd(IState aFromState, IState aToState) {
@@ -159,12 +161,12 @@ public class CollageStateMachineBuilder {
 
 	private void connectVariableTextToVariableText(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_VAR_NAME_MODE,
-			new ICommand[]{new CsmCreateVariableDomNodeCommand()});
+			new ICommand[]{CsmCommands.createVariableDomNodeCommand});
 	}
 
 	private void connectVariableTextToText(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_VAR_END_MODE,
-			new ICommand[]{new CsmStartTextCommand()});
+			new ICommand[]{CsmCommands.startTextCommand});
 	}
 
 	private void connectVariableTextToEnd(IState aFromState, IState aToState) {
@@ -173,11 +175,11 @@ public class CollageStateMachineBuilder {
 
 	private void connectJavaEolChkToTextIfEol(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_EOL,
-			new ICommand[]{new CsmStartTextCommand()});
+			new ICommand[]{CsmCommands.startTextCommand});
 	}
 
 	private void connectJavaEolChkToTextIfText(IState aFromState, IState aToState) {
 		new CollageStateConnector().connect(aFromState, aToState, IParserModeCV.KEY_TEXT,
-			new ICommand[]{new CsmStartTextCommand(), new CsmAppendTextCommand()});
+			new ICommand[]{CsmCommands.startTextCommand, CsmCommands.appendTextCommand});
 	}
 }
