@@ -10,17 +10,25 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class JSTJaninoObjectCreator {
 
 	public void initialize() {
 		// Put source of template into `janinoClassMap' so that Janino can work with it:
-		janinoClassMap.clear();
+		Map<String, byte[]> newJaninoClassMap = new HashMap<>();
 		var classMap = jstScannerCV.getClassMap();
+		Map<String, ClassMapEntry> newClassMap = new HashMap<>();
 		classMap.forEach((key, cme) -> {
-			janinoClassMap.put(key, cme.fme.content.getBytes());
-			cme.fme.lastmodified = cme.fme.file.lastModified();
+			newJaninoClassMap.put(key, cme.fme.content.getBytes());
+			var newFme = cme.fme.toBuilder()
+				.lastmodified(cme.fme.file.lastModified())
+				.build();
+			var newCme = cme.toBuilder().fme(newFme).build();
+			newClassMap.put(key, newCme);
 		});
+		jstScannerCV.setClassMap(newClassMap);
+		janinoClassMap = newJaninoClassMap;
 		mrf = new XCMapResourceFinder(janinoClassMap);
 	}
 
@@ -42,8 +50,8 @@ public class JSTJaninoObjectCreator {
 		var dotClassName = aClassname.replace('/', '.');
 		try {
 			var clazz = cl.loadClass(dotClassName);
-			cme.clazz = clazz;
-			cme.lastloaded = new Date().getTime();
+			var newCme = cme.toBuilder().clazz(clazz).lastloaded(new Date().getTime()).build();
+			classMap.put(aClassname, newCme);
 			return clazz;
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
@@ -64,7 +72,7 @@ public class JSTJaninoObjectCreator {
 		aJstProvider.getChangeNotifier().registerObserver(this::initialize);
 	}
 
-	private final Map<String, byte[]> janinoClassMap = new HashMap<>();
+	private Map<String, byte[]> janinoClassMap = new HashMap<>();
 	XCMapResourceFinder mrf;
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);

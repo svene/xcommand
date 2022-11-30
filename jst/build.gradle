@@ -4,6 +4,11 @@ dependencies {
 	implementation DEP_SERVLET_API
 	implementation DEP_JAVACC
 	implementation DEP_JANINO
+
+	annotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	compileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	testCompileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	testAnnotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
 }
 
 sourceSets {

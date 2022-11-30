@@ -49,14 +49,15 @@ public class FileSystemBasedJSTScanner implements ICommand {
 				var fme = me.getValue();
 
 				System.out.println("recompiling file: " + absolutePath);
-				var cme = new ClassMapEntry();
-				cme.fme = fme;
-				var className = getClassnameFromFilename(fme.rootDir, absolutePath);
-				cme.className = className;
+				var className = getClassnameFromFilename(fme.getRootDir(), absolutePath);
+				var cme = ClassMapEntry.builder()
+					.fme(fme)
+					.className(className)
+					.build();
 				var classMap = jstScannerCV.getClassMap();
 				classMap.put(className, cme);
 
-				var file = cme.fme.file;
+				var file = cme.fme.getFile();
 
 				try {
 					TCP.pushContext(new HashMap<>());
@@ -67,7 +68,11 @@ public class FileSystemBasedJSTScanner implements ICommand {
 
 					jstParserCV.setGeneratedJavaCode(new StringBuffer());
 					parser.Start();
-					cme.fme.content = jstParserCV.getGeneratedJavaCode().toString();
+					var newFme = cme.fme.toBuilder().content(
+						jstParserCV.getGeneratedJavaCode().toString()
+					).build();
+					var newCme = cme.toBuilder().fme(newFme).build();
+					classMap.put(className, newCme);
 
 					// Write source code as file to disk:
 					if (genSourceDir != null) {

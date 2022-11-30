@@ -47,11 +47,12 @@ public class CachingFilesSystemScanner implements ICommand {
 				}
 			} else {
 				System.out.println("new file found: " + key);
-				var fme = new FileMapEntry();
-				fme.file = file;
-				fme.key = key;
-				fme.lastmodified = file.lastModified();
-				fme.rootDir = fileSystemScannerCV.getRootDir();
+				var fme = FileMapEntry.builder()
+					.file(file)
+					.key(key)
+					.lastmodified(file.lastModified())
+					.rootDir(fileSystemScannerCV.getRootDir())
+					.build();
 				currentFiles.put(key, fme);
 				changedFiles.put(key, fme);
 			}
