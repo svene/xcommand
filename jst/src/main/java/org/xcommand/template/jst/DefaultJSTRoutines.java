@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class DefaultJSTRoutines implements IJSTRoutines {
 	public void ensureExistenceOfWriter() {
-		Writer writer = (Writer) TCP.getContext().get("writer");
+		var writer = (Writer) TCP.getContext().get("writer");
 		if (writer == null) {
 			writer = new OutputStreamWriter(System.out);
 			TCP.getContext().put("writer", writer);
@@ -26,7 +26,7 @@ public class DefaultJSTRoutines implements IJSTRoutines {
 		if (aName == null) {
 			throw new IllegalArgumentException("aName == null");
 		}
-		String value = (String) TCP.getContext().get(aName);
+		var value = (String) TCP.getContext().get(aName);
 		if (value == null) {
 			throw new IllegalArgumentException("unknown property '" + aName + "'");
 		}
@@ -34,7 +34,7 @@ public class DefaultJSTRoutines implements IJSTRoutines {
 	}
 
 	private void writeToWriter(String aString) {
-		Writer writer = (Writer) TCP.getContext().get("writer");
+		var writer = (Writer) TCP.getContext().get("writer");
 		try {
 			writer.write(aString);
 		} catch (IOException e) {

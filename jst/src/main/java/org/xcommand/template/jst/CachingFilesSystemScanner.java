@@ -14,7 +14,7 @@ public class CachingFilesSystemScanner implements ICommand {
 	public void execute() {
 		var rootDirs = fileSystemScannerCV.getRootDirs();
 
-		FileSystemScanner fssc = new FileSystemScanner();
+		var fssc = new FileSystemScanner();
 		fssc.setRootDirs(rootDirs);
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundHandler());
 		var changedFiles = new HashMap<String, FileMapEntry>();
@@ -36,18 +36,18 @@ public class CachingFilesSystemScanner implements ICommand {
 
 		@Override
 		public void execute() {
-			File file = fileSystemScannerCV.getFile();
-			String key = file.getAbsolutePath();
+			var file = fileSystemScannerCV.getFile();
+			var key = file.getAbsolutePath();
 			var currentFiles = cachingFilesSystemScannerCV.getCurrentFiles();
 			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
 			if (currentFiles.containsKey(key)) {
-				FileMapEntry fme = currentFiles.get(key);
+				var fme = currentFiles.get(key);
 				if (fme.file.lastModified() > fme.lastmodified) {//reload file
 					changedFiles.put(key, fme);
 				}
 			} else {
 				System.out.println("new file found: " + key);
-				FileMapEntry fme = new FileMapEntry();
+				var fme = new FileMapEntry();
 				fme.file = file;
 				fme.key = key;
 				fme.lastmodified = file.lastModified();

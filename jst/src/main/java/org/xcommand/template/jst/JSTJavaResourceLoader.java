@@ -26,17 +26,17 @@ public class JSTJavaResourceLoader {
 	public void load(String resourceName) {
 		LOGGER.info("resourceName: " + resourceName);
 
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
+		var is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
 		if (is == null) {
 			throw new RuntimeException("resource '%s' not found".formatted(resourceName));
 		}
 
 		try {
 			jstParserCV.setInputStream(is);
-			JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
+			var parser = new DefaultJSTParserProvider().newJSTParser();
 			jstParserCV.setGeneratedJavaCode(new StringBuffer());
 			parser.Start();
-			String s = jstParserCV.getGeneratedJavaCode().toString();
+			var s = jstParserCV.getGeneratedJavaCode().toString();
 
 			classMap = new HashMap<>();
 			classMap.put(resourceName.replace(".java", ""), s.getBytes());

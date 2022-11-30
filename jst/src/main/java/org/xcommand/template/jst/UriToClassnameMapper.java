@@ -9,12 +9,12 @@ public class UriToClassnameMapper implements IUriToClassnameMapper {
 		if (aURI.length() == 0) {
 			throw new IllegalArgumentException("aURI.length() == 0");
 		}
-		int idx = aURI.indexOf(ENDING);
+		var idx = aURI.indexOf(ENDING);
 		if (idx == -1) {
 			throw new IllegalArgumentException("URI (" + aURI + ") does not end  with '" + ENDING + "'");
 		} else {
-			int start = aURI.startsWith("/") ? 1 : 0;
-			String result = aURI.substring(start, idx);
+			var start = aURI.startsWith("/") ? 1 : 0;
+			var result = aURI.substring(start, idx);
 			result = result.replace('/', '.');
 			return result;
 		}

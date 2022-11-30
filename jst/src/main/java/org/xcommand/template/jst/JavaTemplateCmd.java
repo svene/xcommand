@@ -13,21 +13,21 @@ public class JavaTemplateCmd implements ICommand {
 			TCP.getContext().put("writer", webCV.getResponse().getWriter());
 
 			// Find classname for current request-URI:
-			HttpServletRequest request = webCV.getRequest();
-			String contextPath = request.getContextPath();
+			var request = webCV.getRequest();
+			var contextPath = request.getContextPath();
 			System.out.println("contextPath = " + contextPath);
-			String uri = request.getRequestURI();
-			int idx = uri.indexOf(contextPath);
+			var uri = request.getRequestURI();
+			var idx = uri.indexOf(contextPath);
 			if (idx == -1) {
 				System.out.println(contextPath + " not found in request uri: " + uri);
 			}
 			uri = uri.substring(idx + contextPath.length() + 1);
 			System.out.println("uri = " + uri);
-			String className = uriToClassnameMapper.getClassnameForUri(uri);
+			var className = uriToClassnameMapper.getClassnameForUri(uri);
 
 			// Get object for classname:
 			className = className.replace('.', '/');
-			ICommand cmd = (ICommand) jstJaninoObjectCreator.newObject(className);
+			var cmd = (ICommand) jstJaninoObjectCreator.newObject(className);
 
 			// Execute command:
 			cmd.execute();

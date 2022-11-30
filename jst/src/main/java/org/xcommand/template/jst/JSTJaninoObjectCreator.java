@@ -27,7 +27,7 @@ public class JSTJaninoObjectCreator {
 	public Class<?> getClass(String aClassname) {
 		// Make sure classes are loaded:
 		var classMap = jstScannerCV.getClassMap();
-		ClassMapEntry cme = classMap.get(aClassname);
+		var cme = classMap.get(aClassname);
 		if (cme != null) {
 			System.out.println("cme for '" + aClassname + "' found");
 			if (cme.lastloaded > cme.fme.lastmodified) {
@@ -36,10 +36,10 @@ public class JSTJaninoObjectCreator {
 			}
 		}
 		// Load class via Janino:
-		ClassLoader parentClassLoader = getClass().getClassLoader();
+		var parentClassLoader = getClass().getClassLoader();
 		System.out.println("loading class '" + aClassname + "'");
 		ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, mrf, StandardCharsets.UTF_8.name());
-		String dotClassName = aClassname.replace('/', '.');
+		var dotClassName = aClassname.replace('/', '.');
 		try {
 			var clazz = cl.loadClass(dotClassName);
 			cme.clazz = clazz;

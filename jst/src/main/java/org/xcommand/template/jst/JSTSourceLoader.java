@@ -29,16 +29,16 @@ public class JSTSourceLoader {
 	public void loadJavaFile(String aClassname) {
 		try {
 //			TCP.pushContext(new HashMap());
-			String filename = srcDir + "/" + aClassname.replaceAll("\\.", "/") + ".java";
+			var filename = srcDir + "/" + aClassname.replaceAll("\\.", "/") + ".java";
 			System.out.println("filename = " + filename);
-			FileInputStream is = new FileInputStream(filename);
+			var is = new FileInputStream(filename);
 //			String ss = new String(is.readAllBytes());
 			jstParserCV.setInputStream(is);
-			JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
+			var parser = new DefaultJSTParserProvider().newJSTParser();
 //		TCP.popContext();
 			jstParserCV.setGeneratedJavaCode(new StringBuffer());
 			parser.Start();
-			String s = jstParserCV.getGeneratedJavaCode().toString();
+			var s = jstParserCV.getGeneratedJavaCode().toString();
 //		System.out.println(s);
 
 			classMap = new HashMap<>();
@@ -56,12 +56,12 @@ public class JSTSourceLoader {
 	private Map<String, byte[]> classMap = new HashMap<>();
 
 	private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath) {
-		int idx = aAbsolutePath.indexOf(aSrcDir);
+		var idx = aAbsolutePath.indexOf(aSrcDir);
 		if (idx == -1) {
 			throw new RuntimeException("cannot find source path '" + aSrcDir + "' in path of file '" + aAbsolutePath + "'");
 		}
 
-		String className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
+		var className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
 		System.out.println("className = " + className);
 		return className;
 	}

@@ -13,9 +13,9 @@ import java.util.*;
 public class ServletContextBasedJSTProvider implements IJSTProvider {
 
 	public void initialize() {
-		ServletContext sc = webCV.getServletContext();
+		var sc = webCV.getServletContext();
 
-		Set<String> set = sc.getResourcePaths("/");
+		var set = sc.getResourcePaths("/");
 		for (Object o : set) {
 			System.out.println("o.class=" + o.getClass().getName() + ", value=" + o);
 		}

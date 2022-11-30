@@ -11,11 +11,11 @@ import java.nio.charset.StandardCharsets;
 public class DefaultJSTParserProvider implements IJSTParserProvider {
 	@Override
 	public JSTParser newJSTParser() {
-		String encoding = jstParserCV.getEncoding();
+		var encoding = jstParserCV.getEncoding();
 		if (encoding == null) {
 			encoding = StandardCharsets.UTF_8.name();
 		}
-		JSTParser parser = new JSTParser(jstParserCV.getInputStream(), encoding);
+		var parser = new JSTParser(jstParserCV.getInputStream(), encoding);
 		parser.getJavaVarNotifier().registerObserver(javaVariableObserver);
 		parser.getJavaTextNotifier().registerObserver(javaTextObserver);
 		parser.getCommentStartNotifier().registerObserver(commentStartObserver);
@@ -30,7 +30,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("javavariable found: " + ParserCV.getValue(aCtx));
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
+			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("\");");
 			code.append("$s(");
 			code.append(parserCV.getValue());
@@ -42,7 +42,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("javaText found: " + ParserCV.getValue(aCtx));
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
+			var code = jstParserCV.getGeneratedJavaCode();
 			code.append(parserCV.getValue());
 		}
 	};
@@ -50,7 +50,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("commentStart found");
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
+			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("$s(\"");
 		}
 	};
@@ -58,7 +58,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("commentEnd found");
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
+			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("\");");
 		}
 	};
@@ -66,8 +66,8 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("commentText found: " + ParserCV.getValue(aCtx));
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
-			String v = parserCV.getValue();
+			var code = jstParserCV.getGeneratedJavaCode();
+			var v = parserCV.getValue();
 			if ("\"".equals(v)) {
 				v = "\\\"";
 			}
@@ -78,7 +78,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("eol found");
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
+			var code = jstParserCV.getGeneratedJavaCode();
 			code.append('\n');
 		}
 	};
@@ -86,7 +86,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("comment eol found");
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
+			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("\\n");
 		}
 	};
@@ -94,7 +94,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 		@Override
 		public void execute() {
 //				System.out.println("java eol found");
-			StringBuffer code = jstParserCV.getGeneratedJavaCode();
+			var code = jstParserCV.getGeneratedJavaCode();
 			code.append('\n');
 		}
 	};

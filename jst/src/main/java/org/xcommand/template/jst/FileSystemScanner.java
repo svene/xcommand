@@ -17,10 +17,10 @@ public class FileSystemScanner implements ICommand {
 		// Loop over all configured source directories,
 		rootDirs.forEach(rootDir -> {
 			fileSystemScannerCV.setRootDir(rootDir);
-			FilenameFilter fnf = fileSystemScannerCV.getFilenameFilter();
-			Iterator<File> it = new DirectoryIteratorProvider(fnf).newIterator(rootDir);
+			var fnf = fileSystemScannerCV.getFilenameFilter();
+			var it = new DirectoryIteratorProvider(fnf).newIterator(rootDir);
 			while (it.hasNext()) {
-				File file = it.next();
+				var file = it.next();
 				fileSystemScannerCV.setFile(file);
 				fileFoundNotifier.execute();
 			}

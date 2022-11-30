@@ -23,7 +23,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
 	 */
 	@Override
 	public void execute() {
-		CachingFilesSystemScanner cfssc = new CachingFilesSystemScanner();
+		var cfssc = new CachingFilesSystemScanner();
 		fileSystemScannerCV.setFilenameFilter(FileNameFilters.javaFilenameFilter);
 		cfssc.getChangedFilesNotifier().registerObserver(new FileFoundHandler());
 
@@ -44,25 +44,25 @@ public class FileSystemBasedJSTScanner implements ICommand {
 		public void execute() {
 			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
 
-			for (Map.Entry<String, FileMapEntry> me : changedFiles.entrySet()) {
-				String absolutePath = me.getKey();
-				FileMapEntry fme = me.getValue();
+			for (var me : changedFiles.entrySet()) {
+				var absolutePath = me.getKey();
+				var fme = me.getValue();
 
 				System.out.println("recompiling file: " + absolutePath);
-				ClassMapEntry cme = new ClassMapEntry();
+				var cme = new ClassMapEntry();
 				cme.fme = fme;
-				String className = getClassnameFromFilename(fme.rootDir, absolutePath);
+				var className = getClassnameFromFilename(fme.rootDir, absolutePath);
 				cme.className = className;
 				var classMap = jstScannerCV.getClassMap();
 				classMap.put(className, cme);
 
-				File file = cme.fme.file;
+				var file = cme.fme.file;
 
 				try {
 					TCP.pushContext(new HashMap<>());
-					FileInputStream is = new FileInputStream(file);
+					var is = new FileInputStream(file);
 					jstParserCV.setInputStream(is);
-					JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
+					var parser = new DefaultJSTParserProvider().newJSTParser();
 					TCP.popContext();
 
 					jstParserCV.setGeneratedJavaCode(new StringBuffer());
@@ -71,7 +71,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
 
 					// Write source code as file to disk:
 					if (genSourceDir != null) {
-						File dir = new File(genSourceDir);
+						var dir = new File(genSourceDir);
 						System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
 						Files.writeString(Paths.get("%s/%s.java".formatted(genSourceDir, className)), cme.fme.content);
 					}
@@ -85,12 +85,12 @@ public class FileSystemBasedJSTScanner implements ICommand {
 		}
 
 		private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath) {
-			int idx = aAbsolutePath.indexOf(aSrcDir);
+			var idx = aAbsolutePath.indexOf(aSrcDir);
 			if (idx == -1) {
 				throw new RuntimeException("cannot find source path '" + aSrcDir + "' in path of file '" + aAbsolutePath + "'");
 			}
 
-			String className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
+			var className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
 			System.out.println("className = " + className);
 			return className;
 		}

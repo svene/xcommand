@@ -22,7 +22,7 @@ public class JSTUpdateChecker extends TimerTask {
 			throw new IllegalStateException("classMap == null");
 		}
 
-		FileSystemBasedJSTScanner jstScanner = new FileSystemBasedJSTScanner();
+		var jstScanner = new FileSystemBasedJSTScanner();
 		fileSystemScannerCV.setRootDirs(srcDirs);
 		jstScanner.getChangeNotifier().registerObserver(new ChangedHandler());
 		jstScanner.execute();

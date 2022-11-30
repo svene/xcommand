@@ -15,7 +15,7 @@ public class JSTCompiler {
 	public Object getObject(String aClassname) {
 		// Compile parsed JST source, instatiate object and execute it:
 		jstJavaResourceLoader.load(aClassname);
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
+		var janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
 		return janino.getObject(aClassname);
 	}
 
