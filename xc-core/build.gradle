@@ -5,7 +5,7 @@ dependencies {
 	implementation 'org.springframework:spring-websocket'
 	implementation DEP_JANINO
 	implementation 'eu.javaspecialists.books.dynamicproxies:core:2.0.0'
-	implementation "io.vavr:vavr:0.10.4"
+	implementation DEP_VAVR
 	implementation DEP_JOOL
 
 	testImplementation 'org.springframework:spring-test'

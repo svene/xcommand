@@ -6,6 +6,7 @@ dependencies {
 	testImplementation platform(DEP_SPOCK_BOM)
 	testImplementation DEP_SPOCK_CORE
 	implementation DEP_JOOL
+	implementation DEP_VAVR
 }
 
 sourceSets {

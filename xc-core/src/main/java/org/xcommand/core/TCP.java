@@ -2,7 +2,9 @@ package org.xcommand.core;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * ThreadContext Provider
@@ -15,6 +17,10 @@ public class TCP {
 		return getStack().peek();
 	}
 
+	public static void pushContext() {
+		TCP.pushContext(new HashMap<>());
+	}
+
 	public static void pushContext(Map<String, Object> aCtx) {
 		getStack().push(aCtx);
 	}
@@ -25,6 +31,20 @@ public class TCP {
 
 	public static void popContext() {
 		getStack().pop();
+	}
+
+	public static <R> R get(Supplier<R> callback) {
+		return new TCPQuery<>(callback::get).execute();
+	}
+
+	public static void execute(ICommand command) {
+		new TCPCommand(command).execute();
+	}
+
+	public static void run(Runnable callback) {
+		pushContext(new HashMap<>());
+		callback.run();
+		popContext();
 	}
 
 	private static Deque<Map<String, Object>> getStack() {

@@ -12,7 +12,7 @@ import org.xcommand.template.jst.IFileSystemScannerCV;
 public class FileSystemScannerTester {
 	@Test
 	public void test1() {
-		FileSystemScanner scanner = new FileSystemScanner();
+		var scanner = new FileSystemScanner();
 		scanner.setRootDirs("src/main/java", "src/test/java");
 
 		fileSystemScannerCV.setFilenameFilter(FileNameFilters.newExtensionFilenameFilter(".java"));
@@ -35,7 +35,7 @@ public class FileSystemScannerTester {
 
 		@Override
 		public void execute() {
-			String s = fileSystemScannerCV.getFile().getPath().replaceAll("\\\\", "/");
+			var s = fileSystemScannerCV.getFile().getPath().replaceAll("\\\\", "/");
 			stringMockHook.hookRoutineForMockVerification(s);
 		}
 	}

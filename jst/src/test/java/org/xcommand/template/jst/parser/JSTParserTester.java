@@ -46,8 +46,8 @@ public class JSTParserTester {
 	@ParameterizedTest
 	@MethodSource
 	public void testCommentStartHandler(String input, int expected) throws ParseException {
-		JSTParser parser = new JSTParser(inputStreamFromString(input));
-		ICommand commentStartHandler = Mockito.mock(ICommand.class);
+		var parser = new JSTParser(inputStreamFromString(input));
+		var commentStartHandler = Mockito.mock(ICommand.class);
 		parser.getCommentStartNotifier().registerObserver(commentStartHandler);
 		parser.Start();
 		verify(commentStartHandler, times(expected)).execute();
@@ -67,8 +67,8 @@ public class JSTParserTester {
 	@ParameterizedTest
 	@MethodSource
 	public void testEolInCommentHandler(InputStream is, int expected) throws ParseException {
-		JSTParser parser = new JSTParser(is);
-		ICommand handler = Mockito.mock(ICommand.class);
+		var parser = new JSTParser(is);
+		var handler = Mockito.mock(ICommand.class);
 		parser.getEolInCommentNotifier().registerObserver(handler);
 		parser.Start();
 		verify(handler, times(expected)).execute();

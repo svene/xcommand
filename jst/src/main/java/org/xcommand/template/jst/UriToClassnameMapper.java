@@ -1,11 +1,11 @@
 package org.xcommand.template.jst;
 
+import java.util.Objects;
+
 public class UriToClassnameMapper implements IUriToClassnameMapper {
 	@Override
 	public String getClassnameForUri(String aURI) {
-		if (aURI == null) {
-			throw new IllegalArgumentException("aURI == null");
-		}
+		Objects.requireNonNull(aURI, "aURI");
 		if (aURI.length() == 0) {
 			throw new IllegalArgumentException("aURI.length() == 0");
 		}

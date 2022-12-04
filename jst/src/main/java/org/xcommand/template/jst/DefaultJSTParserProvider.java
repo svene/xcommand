@@ -1,5 +1,6 @@
 package org.xcommand.template.jst;
 
+import lombok.extern.slf4j.Slf4j;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
@@ -8,6 +9,7 @@ import org.xcommand.template.parser.IParserCV;
 
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 public class DefaultJSTParserProvider implements IJSTParserProvider {
 	@Override
 	public JSTParser newJSTParser() {
@@ -29,7 +31,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand javaVariableObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("javavariable found: " + ParserCV.getValue(aCtx));
+			log.debug("javavariable found: " + parserCV.getValue());
 			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("\");");
 			code.append("$s(");
@@ -41,7 +43,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand javaTextObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("javaText found: " + ParserCV.getValue(aCtx));
+			log.debug("javaText found: " + parserCV.getValue());
 			var code = jstParserCV.getGeneratedJavaCode();
 			code.append(parserCV.getValue());
 		}
@@ -49,7 +51,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand commentStartObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("commentStart found");
+			log.debug("commentStart found");
 			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("$s(\"");
 		}
@@ -57,7 +59,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand commentEndObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("commentEnd found");
+			log.debug("commentEnd found");
 			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("\");");
 		}
@@ -65,7 +67,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand commentTextObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("commentText found: " + ParserCV.getValue(aCtx));
+			log.debug("commentText found: " + parserCV.getValue());
 			var code = jstParserCV.getGeneratedJavaCode();
 			var v = parserCV.getValue();
 			if ("\"".equals(v)) {
@@ -77,7 +79,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand eolObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("eol found");
+			log.debug("eol found");
 			var code = jstParserCV.getGeneratedJavaCode();
 			code.append('\n');
 		}
@@ -85,7 +87,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand eolInCommentObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("comment eol found");
+			log.debug("comment eol found");
 			var code = jstParserCV.getGeneratedJavaCode();
 			code.append("\\n");
 		}
@@ -93,7 +95,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 	private final ICommand eolInJavaObserver = new ICommand() {
 		@Override
 		public void execute() {
-//				System.out.println("java eol found");
+			log.debug("java eol found");
 			var code = jstParserCV.getGeneratedJavaCode();
 			code.append('\n');
 		}

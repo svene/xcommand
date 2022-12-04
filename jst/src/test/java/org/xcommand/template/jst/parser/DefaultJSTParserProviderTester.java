@@ -31,32 +31,32 @@ public class DefaultJSTParserProviderTester {
 
 	@Test
 	public void test1() throws ParseException {
-		JSTParser parser = newJSTParser(inputStreamFromString("hi there!"));
+		var parser = newJSTParser(inputStreamFromString("hi there!"));
 		parser.Start();
 		assertEquals("hi there!", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
 	public void test2() throws ParseException {
-		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#some comment#*/"));
+		var parser = newJSTParser(inputStreamFromString("hi there! /*#some comment#*/"));
 		parser.Start();
 		assertEquals("hi there! $s(\"some comment\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
 	public void test3() throws ParseException {
-		JSTParser parser = newJSTParser(inputStreamFromString("hi there! /*#af $jv{somename} jj#*/"));
+		var parser = newJSTParser(inputStreamFromString("hi there! /*#af $jv{somename} jj#*/"));
 		parser.Start();
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");", jstParserCV.getGeneratedJavaCode().toString());
 	}
 
 	@Test
 	public void testMultiline() throws ParseException {
-		String input = """
+		var input = """
 			hi there! /*#af $jv{somename} jj#*/
 			how are you?
 			""";
-		JSTParser parser = newJSTParser(inputStreamFromString(input));
+		var parser = newJSTParser(inputStreamFromString(input));
 		parser.Start();
 
 		assertEquals("hi there! $s(\"af \");$s(somename);$s(\" jj\");\nhow are you?\n",
@@ -68,12 +68,10 @@ public class DefaultJSTParserProviderTester {
 	}
 
 	private JSTParser newJSTParser(InputStream aIs) {
-		TCP.pushContext(new HashMap<>());
-		jstParserCV.setInputStream(aIs);
-		JSTParser parser = new DefaultJSTParserProvider().newJSTParser();
-		TCP.popContext();
-
-		return parser;
+		return TCP.get(() -> {
+			jstParserCV.setInputStream(aIs);
+			return new DefaultJSTParserProvider().newJSTParser();
+		});
 	}
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

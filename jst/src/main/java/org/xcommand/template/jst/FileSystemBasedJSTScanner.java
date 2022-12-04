@@ -6,14 +6,12 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.TCP;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
-import org.xcommand.template.jst.parser.JSTParser;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import org.jooq.lambda.Sneaky;
 
 public class FileSystemBasedJSTScanner implements ICommand {
 
@@ -59,30 +57,25 @@ public class FileSystemBasedJSTScanner implements ICommand {
 
 				var file = cme.fme.getFile();
 
-				try {
-					TCP.pushContext(new HashMap<>());
-					var is = new FileInputStream(file);
+				var parser = TCP.get(() -> {
+					var is = Sneaky.supplier(() -> new FileInputStream(file)).get();
 					jstParserCV.setInputStream(is);
-					var parser = new DefaultJSTParserProvider().newJSTParser();
-					TCP.popContext();
+					return new DefaultJSTParserProvider().newJSTParser();
+				});
 
-					jstParserCV.setGeneratedJavaCode(new StringBuffer());
-					parser.Start();
-					var newFme = cme.fme.toBuilder().content(
-						jstParserCV.getGeneratedJavaCode().toString()
-					).build();
-					var newCme = cme.toBuilder().fme(newFme).build();
-					classMap.put(className, newCme);
+				jstParserCV.setGeneratedJavaCode(new StringBuffer());
+				Sneaky.runnable(() -> parser.Start()).run();
+				var newFme = cme.fme.toBuilder().content(
+					jstParserCV.getGeneratedJavaCode().toString()
+				).build();
+				var newCme = cme.toBuilder().fme(newFme).build();
+				classMap.put(className, newCme);
 
-					// Write source code as file to disk:
-					if (genSourceDir != null) {
-						var dir = new File(genSourceDir);
-						System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
-						Files.writeString(Paths.get("%s/%s.java".formatted(genSourceDir, className)), cme.fme.content);
-					}
-
-				} catch (Exception e) {
-					throw new RuntimeException(e);
+				// Write source code as file to disk:
+				if (genSourceDir != null) {
+					var dir = new File(genSourceDir);
+					System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
+					Sneaky.runnable(() -> Files.writeString(Paths.get("%s/%s.java".formatted(genSourceDir, className)), cme.fme.content)).run();
 				}
 
 			}

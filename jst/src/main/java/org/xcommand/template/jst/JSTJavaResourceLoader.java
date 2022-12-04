@@ -1,19 +1,15 @@
 package org.xcommand.template.jst;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.jooq.lambda.Sneaky;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.template.jst.parser.JSTParser;
 
-import java.io.InputStream;
-import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class JSTJavaResourceLoader {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public Map<String, byte[]> getClassMap() {
 		return classMap;
@@ -24,26 +20,21 @@ public class JSTJavaResourceLoader {
 	 * java package notation (as 'java.lang.String')
 	 */
 	public void load(String resourceName) {
-		LOGGER.info("resourceName: " + resourceName);
+		log.info("resourceName: " + resourceName);
 
 		var is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
 		if (is == null) {
 			throw new RuntimeException("resource '%s' not found".formatted(resourceName));
 		}
 
-		try {
-			jstParserCV.setInputStream(is);
-			var parser = new DefaultJSTParserProvider().newJSTParser();
-			jstParserCV.setGeneratedJavaCode(new StringBuffer());
-			parser.Start();
-			var s = jstParserCV.getGeneratedJavaCode().toString();
+		jstParserCV.setInputStream(is);
+		var parser = new DefaultJSTParserProvider().newJSTParser();
+		jstParserCV.setGeneratedJavaCode(new StringBuffer());
+		Sneaky.runnable(parser::Start).run(); ;
+		var s = jstParserCV.getGeneratedJavaCode().toString();
 
-			classMap = new HashMap<>();
-			classMap.put(resourceName.replace(".java", ""), s.getBytes());
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
+		classMap = new HashMap<>();
+		classMap.put(resourceName.replace(".java", ""), s.getBytes());
 	}
 
 	private Map<String, byte[]> classMap = new HashMap<>();

@@ -14,6 +14,7 @@ project.ext {
 	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.3-groovy-4.0'
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 	DEP_JOOL = 'org.jooq:jool:0.9.14'
+	DEP_VAVR = 'io.vavr:vavr:0.10.4'
 }
 
 allprojects {

@@ -17,59 +17,67 @@ public class JSTResourceTester {
 	 */
 	@Test
 	public void test1() {
-		// Load and parse JST source:
-		TCP.pushContext(new HashMap<>());
-		JSTJavaResourceLoader jstJavaResourceLoader = new JSTJavaResourceLoader();
-		jstJavaResourceLoader.load("R1.java");
+		TCP.execute(() -> {
+			// Load and parse JST source:
+			var jstJavaResourceLoader = new JSTJavaResourceLoader();
+			jstJavaResourceLoader.load("R1.java");
 
-		// Compile parsed JST source, instantiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
-		Object obj = janino.getObject("R1");
-		ICommand cmd = (ICommand) obj;
+			// Compile parsed JST source, instantiate object and execute it:
+			var janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
+			var cmd = (ICommand) janino.getObject("R1");
 
-		StringWriter sw = new StringWriter();
-		TCP.getContext().put("writer", sw);
-		cmd.execute();
-		assertEquals("\n\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>\n\t<p>hallihallo</p>\n", sw.toString());
+			var sw = new StringWriter();
+			TCP.getContext().put("writer", sw);
+			cmd.execute();
+			assertEquals(
+				"\n" +
+				"\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>\n" +
+				"\t<p>hallihallo</p>\n", sw.toString());
+		});
 	}
 
 	@Test
 	public void test4() {
-		// Load and parse JST source:
-		TCP.pushContext(new HashMap<>());
-		JSTJavaResourceLoader jstJavaResourceLoader = new JSTJavaResourceLoader();
-		jstJavaResourceLoader.load("R4.java");
+		TCP.execute(() -> {
+			// Load and parse JST source:
+			var jstJavaResourceLoader = new JSTJavaResourceLoader();
+			jstJavaResourceLoader.load("R4.java");
 
+			// Compile parsed JST source, instantiate object and execute it:
+			var janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
+			var cmd = (ICommand) janino.getObject("R4");
 
-		// Compile parsed JST source, instantiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
-		Object obj = janino.getObject("R4");
-		ICommand cmd = (ICommand) obj;
-
-		StringWriter sw = new StringWriter();
-		TCP.getContext().put("writer", sw);
-		cmd.execute();
-		String bart = "\n\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>\n\t<p>hallihallo</p>\n";
-		assertEquals(bart, sw.toString());
+			var sw = new StringWriter();
+			TCP.getContext().put("writer", sw);
+			cmd.execute();
+			String bart = "\n" +
+			  "\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>\n" +
+			  "\t<p>hallihallo</p>\n";
+			assertEquals(bart, sw.toString());
+		});
 	}
 
 	@Test
 	public void test2() {
-		// Load and parse JST source:
-		TCP.pushContext(new HashMap<>());
-		JSTJavaResourceLoader jstJavaResourceLoader = new JSTJavaResourceLoader();
-		jstJavaResourceLoader.load("R2.java");
+		TCP.execute(() -> {
+			// Load and parse JST source:
+			var jstJavaResourceLoader = new JSTJavaResourceLoader();
+			jstJavaResourceLoader.load("R2.java");
 
-		// Compile parsed JST source, instantiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
-		Object obj = janino.getObject("R2");
-		ICommand cmd = (ICommand) obj;
+			// Compile parsed JST source, instantiate object and execute it:
+			var janino = new JaninoObjectCreator(jstJavaResourceLoader.getClassMap());
+			ICommand cmd = (ICommand) janino.getObject("R2");
 
-		StringWriter sw = new StringWriter();
-		TCP.getContext().put("writer", sw);
-		TCP.getContext().put("firstname", "Lisa");
-		cmd.execute();
-		assertEquals("\n\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>\n\t<p>hallihallo</p>\n", sw.toString());
+			var sw = new StringWriter();
+			TCP.getContext().put("writer", sw);
+			TCP.getContext().put("firstname", "Lisa");
+			cmd.execute();
+			assertEquals("\n" +
+				"\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>\n" +
+				"\t<p>hallihallo</p>\n",
+				sw.toString()
+			);
+		});
 	}
 
 }

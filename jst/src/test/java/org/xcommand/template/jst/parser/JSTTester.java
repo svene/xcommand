@@ -18,66 +18,75 @@ public class JSTTester {
 	 */
 	@Test
 	public void test1() {
-		String currentWorkingDir = System.getProperty("user.dir");
+		var currentWorkingDir = System.getProperty("user.dir");
 		assertThat(currentWorkingDir).endsWith("xcommand/jst");
-		// Load and parse JST source:
-		TCP.pushContext(new HashMap<>());
-		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
-		jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
-		jstSourceLoader.loadJavaFile("T1");
+		TCP.execute(() -> {
+			// Load and parse JST source:
+			TCP.pushContext(new HashMap<>());
+			var jstSourceLoader = new JSTSourceLoader();
+			jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
+			jstSourceLoader.loadJavaFile("T1");
 
+			// Compile parsed JST source, instatiate object and execute it:
+			var janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
+			var cmd = (ICommand) janino.getObject("T1");
 
-		// Compile parsed JST source, instatiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
-		Object obj = janino.getObject("T1");
-		ICommand cmd = (ICommand) obj;
-
-		StringWriter sw = new StringWriter();
-		TCP.getContext().put("writer", sw);
-		cmd.execute();
-		assertEquals("\n\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>\n\t<p>hallihallo</p>\n", sw.toString());
+			var sw = new StringWriter();
+			TCP.getContext().put("writer", sw);
+			cmd.execute();
+			assertEquals("\n" +
+			 "\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>\n" +
+			 "\t<p>hallihallo</p>\n", sw.toString()
+			);
+		});
 	}
 
 	@Test
 	public void test4() {
-		// Load and parse JST source:
-		TCP.pushContext(new HashMap<>());
-		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
-		jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
-		jstSourceLoader.loadJavaFile("T4");
+		TCP.execute(() -> {
+			// Load and parse JST source:
+			var jstSourceLoader = new JSTSourceLoader();
+			jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
+			jstSourceLoader.loadJavaFile("T4");
 
 
-		// Compile parsed JST source, instatiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
-		Object obj = janino.getObject("T4");
-		ICommand cmd = (ICommand) obj;
+			// Compile parsed JST source, instatiate object and execute it:
+			var janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
+			ICommand cmd = (ICommand) janino.getObject("T4");
 
-		StringWriter sw = new StringWriter();
-		TCP.getContext().put("writer", sw);
-		cmd.execute();
-		String bart = "\n\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>\n\t<p>hallihallo</p>\n";
-		assertEquals(bart, sw.toString());
+			var sw = new StringWriter();
+			TCP.getContext().put("writer", sw);
+			cmd.execute();
+			var bart = "\n" +
+			   "\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>\n" +
+			   "\t<p>hallihallo</p>\n";
+			assertEquals(bart, sw.toString());
+		});
 	}
 
 	@Test
 	public void test2() {
-		// Load and parse JST source:
-		TCP.pushContext(new HashMap<>());
-		JSTSourceLoader jstSourceLoader = new JSTSourceLoader();
-		jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
-		jstSourceLoader.loadJavaFile("T2");
+		TCP.execute(() -> {
+			// Load and parse JST source:
+			var jstSourceLoader = new JSTSourceLoader();
+			jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
+			jstSourceLoader.loadJavaFile("T2");
 
 
-		// Compile parsed JST source, instatiate object and execute it:
-		JaninoObjectCreator janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
-		Object obj = janino.getObject("T2");
-		ICommand cmd = (ICommand) obj;
+			// Compile parsed JST source, instatiate object and execute it:
+			var janino = new JaninoObjectCreator(jstSourceLoader.getClassMap());
+			ICommand cmd = (ICommand) janino.getObject("T2");
 
-		StringWriter sw = new StringWriter();
-		TCP.getContext().put("writer", sw);
-		TCP.getContext().put("firstname", "Lisa");
-		cmd.execute();
-		assertEquals("\n\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>\n\t<p>hallihallo</p>\n", sw.toString());
+			var sw = new StringWriter();
+			TCP.getContext().put("writer", sw);
+			TCP.getContext().put("firstname", "Lisa");
+			cmd.execute();
+			assertEquals("\n" +
+						 "\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>\n" +
+						 "\t<p>hallihallo</p>\n",
+				sw.toString()
+			);
+		});
 	}
 
 }

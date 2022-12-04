@@ -1,5 +1,6 @@
 package org.xcommand.template.jst;
 
+import org.jooq.lambda.Sneaky;
 import org.xcommand.technology.janino.XCMapResourceFinder;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
@@ -61,11 +62,7 @@ public class JSTJaninoObjectCreator {
 
 	public Object newObject(String aClassname) {
 		var clazz = getClass(aClassname);
-		try {
-			return clazz.getDeclaredConstructor().newInstance();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return Sneaky.supplier(() -> clazz.getDeclaredConstructor().newInstance()).get();
 	}
 
 	public void setJstProvider(IJSTProvider aJstProvider) {
