@@ -26,20 +26,20 @@ public class TextTemplateCompiler {
 
 	public TemplateCommand newTemplateCommand(TemplateSource aTemplateSource) {
 		// Compile template:
-		TCP.pushContext(new HashMap<>());
-		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		new DefaultDomNodeCreationHandlerInitializer().execute();
+		return TCP.get(() -> {
+			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
+			new DefaultDomNodeCreationHandlerInitializer().execute();
 
-		var is = aTemplateSource.getInputStream();
-		if (is == null) {
-			throw new RuntimeException("is == null");
-		}
-		parserCV.setInputStream(is);
-		new TemplateCompiler().execute();
-		ITreeNode rootNode = treeNodeCV.getTreeNode();
-		TemplateCommand tplCmd = new TextTemplateEvaluationCommand(rootNode);
-		TCP.popContext();
-		return tplCmd;
+			var is = aTemplateSource.getInputStream();
+			if (is == null) {
+				throw new RuntimeException("is == null");
+			}
+			parserCV.setInputStream(is);
+			new TemplateCompiler().execute();
+			ITreeNode rootNode = treeNodeCV.getTreeNode();
+			TemplateCommand tplCmd = new TextTemplateEvaluationCommand(rootNode);
+			return tplCmd;
+		});
 	}
 
 	private class TextTemplateEvaluationCommand extends TemplateCommand {

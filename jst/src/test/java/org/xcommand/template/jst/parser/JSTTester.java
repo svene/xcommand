@@ -22,7 +22,6 @@ public class JSTTester {
 		assertThat(currentWorkingDir).endsWith("xcommand/jst");
 		TCP.execute(() -> {
 			// Load and parse JST source:
-			TCP.pushContext(new HashMap<>());
 			var jstSourceLoader = new JSTSourceLoader();
 			jstSourceLoader.setSrcDir("../jst-testdata/src/main/java");
 			jstSourceLoader.loadJavaFile("T1");

@@ -7,10 +7,10 @@ dependencies {
 
 	annotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
 	compileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	testAnnotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
+	testCompileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
 	implementation DEP_JOOL
 	implementation DEP_VAVR
-	testCompileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	testAnnotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
 }
 
 sourceSets {

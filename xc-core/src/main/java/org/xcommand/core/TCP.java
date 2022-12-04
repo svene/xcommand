@@ -41,12 +41,6 @@ public class TCP {
 		new TCPCommand(command).execute();
 	}
 
-	public static void run(Runnable callback) {
-		pushContext(new HashMap<>());
-		callback.run();
-		popContext();
-	}
-
 	private static Deque<Map<String, Object>> getStack() {
 		return threadMapHolder.get();
 	}

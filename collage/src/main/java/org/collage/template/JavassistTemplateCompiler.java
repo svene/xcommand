@@ -19,22 +19,22 @@ public class JavassistTemplateCompiler {
 
 	public ICommand newTemplateCommand(TemplateSource aTemplateSource) {
 		// Compile template:
-		TCP.pushContext(new HashMap<>());
-		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
+		return TCP.get(() -> {
+			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.TRUE);
 //!!		ctx.putAll(aTemplateSource.getContext());
-		new DefaultDomNodeCreationHandlerInitializer().execute();
+			new DefaultDomNodeCreationHandlerInitializer().execute();
 
-		parserCV.setInputStream(aTemplateSource.getInputStream());
-		new TemplateCompiler().execute();
-		// Now we have the root node: `TreeNodeCV.getTreeNode(ctx)'
-		// Use String based text evaluation. Since this is only for template compilation and not template usage
-		// it is not performance/memory relevant and thus OK: 
-		stringHandlerCV.setString("");
-		new JavassistTraverser().execute();
-		// Return dynamically (by javassist) created template command (ICommand)
-		var tplCmd = javaTemplateCmdCV.getTemplateComand();
-		TCP.popContext();
-		return tplCmd;
+			parserCV.setInputStream(aTemplateSource.getInputStream());
+			new TemplateCompiler().execute();
+			// Now we have the root node: `TreeNodeCV.getTreeNode(ctx)'
+			// Use String based text evaluation. Since this is only for template compilation and not template usage
+			// it is not performance/memory relevant and thus OK:
+			stringHandlerCV.setString("");
+			new JavassistTraverser().execute();
+			// Return dynamically (by javassist) created template command (ICommand)
+			var tplCmd = javaTemplateCmdCV.getTemplateComand();
+			return tplCmd;
+		});
 	}
 
 	public ICommand newTemplateCommandFromStream(InputStream aInputStream) {

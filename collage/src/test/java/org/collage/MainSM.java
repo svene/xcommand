@@ -84,20 +84,21 @@ public class MainSM {
 		ITreeNode rootNode = treeNodeCV.getTreeNode();
 
 		// Use new context to produce javaTemplateCommand:
-		TCP.pushContext(new HashMap<>());
-		stringHandlerCV.setString("dummy");
-		treeNodeCV.setTreeNode(rootNode);
-		new JavassistTraverser().execute();
-		ICommand cmd = javaTemplateCmdCV.getTemplateComand();
-		TCP.popContext();
+		ICommand cmd = TCP.get(() -> {
+			stringHandlerCV.setString("dummy");
+			treeNodeCV.setTreeNode(rootNode);
+			new JavassistTraverser().execute();
+			return javaTemplateCmdCV.getTemplateComand();
+		});
 
 		// Evaluate template with a binding (firstname=Sven):
-		TCP.pushContext(new HashMap<>());
-		TCP.getContext().put("firstname", "Sven");
-		StringWriter sw = new StringWriter();
-		TCP.getContext().put("writer", sw); // todo: is there a CV for this?
-		cmd.execute();
-		TCP.popContext();
+		StringWriter sw = TCP.get(() -> {
+			TCP.getContext().put("firstname", "Sven");
+			StringWriter sw2 = new StringWriter();
+			TCP.getContext().put("writer", sw2); // todo: is there a CV for this?
+			cmd.execute();
+			return sw2;
+		});
 		assertEquals("hallo  Sven.\nWie gehts?\n", sw.toString());
 	}
 
@@ -105,15 +106,13 @@ public class MainSM {
 	 * AST available after execution via 'treeNodeCV.getTreeNode()'
 	 */
 	private void createASTforTemplateString(String aTemplateString, Boolean aProduceJavaCode) {
-		TCP.pushContext(new HashMap<>());
-		domNodeCreationHandlerCV.setProduceJavaSource(aProduceJavaCode);
-		new DefaultDomNodeCreationHandlerInitializer().execute();
-		parserCV.setInputStream(new ByteArrayInputStream(aTemplateString.getBytes()));
-		new TemplateCompiler().execute();
-
-		// Get produced treeNode so that temporary context can be removed:
-		ITreeNode treeNode = treeNodeCV.getTreeNode();
-		TCP.popContext();
+		ITreeNode treeNode = TCP.get(() -> {
+			domNodeCreationHandlerCV.setProduceJavaSource(aProduceJavaCode);
+			new DefaultDomNodeCreationHandlerInitializer().execute();
+			parserCV.setInputStream(new ByteArrayInputStream(aTemplateString.getBytes()));
+			new TemplateCompiler().execute();
+			return treeNodeCV.getTreeNode();
+		});
 		// Now put treeNode on original context:
 		treeNodeCV.setTreeNode(treeNode);
 	}

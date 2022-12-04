@@ -4,20 +4,24 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
+import lombok.extern.slf4j.Slf4j;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
+import org.jooq.lambda.Sneaky;
 import org.xcommand.core.*;
 import org.xcommand.util.ResourceUtil;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+@Slf4j
 class ExitRootHandler implements ICommand {
 	@Override
 	public void execute() {
@@ -37,7 +41,7 @@ class ExitRootHandler implements ICommand {
 
 			// Add method 'execute()':
 			var sb = (StringBuffer) TCP.getContext().get("methodbody");
-//System.out.println("**methodbody\n" + sb.toString());
+			log.debug("**methodbody\n" + sb.toString());
 			TCP.pushContext(new HashMap<>());
 			TCP.getContext().put("execute_method_body", sb.toString());
 			addMethod(cc, "org/collage/dom/evaluator/java/javassist/execute_method.txt");
@@ -57,17 +61,18 @@ class ExitRootHandler implements ICommand {
 		}
 	}
 
-	private void addMethod(CtClass aCtClass, String aFilename) throws Exception {
+	private void addMethod(CtClass aCtClass, String aFilename) throws java.io.IOException, javassist.CannotCompileException {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		var is = ResourceUtil.newInputStreamFromResourceLocation(aFilename);
+		try(var is = ResourceUtil.newInputStreamFromResourceLocation(aFilename)) {
+			var cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
+			cmd.execute();
+			var s = stringHandlerCV.getString();
+			is.close();
+			log.debug("methodstring: " + s);
+			var ctm = CtNewMethod.make(s, aCtClass);
+			aCtClass.addMethod(ctm);
+		}
 
-		var cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
-		cmd.execute();
-		var s = stringHandlerCV.getString();
-		is.close();
-//		System.out.println("methodstring: " + s);
-		var ctm = CtNewMethod.make(s, aCtClass);
-		aCtClass.addMethod(ctm);
 	}
 
 	private String getClassName() {
