@@ -6,9 +6,6 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.Iterator;
 import java.util.List;
 
 public class FileSystemScanner implements ICommand {
