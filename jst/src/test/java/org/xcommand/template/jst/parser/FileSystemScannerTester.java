@@ -8,16 +8,41 @@ import org.xcommand.template.jst.FileNameFilters;
 import org.xcommand.template.jst.FileSystemScanner;
 import org.xcommand.template.jst.IFileSystemScannerCV;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class FileSystemScannerTester {
+	private String nameOfFile(java.io.File f) {
+		return f.getPath().replaceAll("\\\\", "/");
+	}
+
 	@Test
-	public void test1() {
-		var scanner = new FileSystemScanner();
+	public void interactionTest() {
+		List<String> actual = new ArrayList<>();
+		var scanner = FileSystemScanner.newInstance(file -> actual.add(nameOfFile(file)));
+		scanner.setRootDirs("src/main/java", "src/test/java");
+		fileSystemScannerCV.setFilenameFilter(FileNameFilters.newExtensionFilenameFilter(".java"));
+		scanner.execute();
+		assertThat(actual.size()).isGreaterThan(3);
+		// Test for the following three files (although more will be found):
+		assertThat(actual).containsAll(Arrays.asList(
+			"src/main/java/org/xcommand/template/jst/IJSTParserProvider.java",
+			"src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java",
+			"src/main/java/org/xcommand/template/jst/JSTCompiler.java"
+		));
+	}
+
+	@Test
+	public void callThroughTest() {
+		var scanner = FileSystemScanner.newInstance();
 		scanner.setRootDirs("src/main/java", "src/test/java");
 
 		fileSystemScannerCV.setFilenameFilter(FileNameFilters.newExtensionFilenameFilter(".java"));
 		TC.IStringMockHook smh = Mockito.mock(TC.IStringMockHook.class);
 		scanner.getFileFoundNotifier().registerObserver(
-			() -> smh.hookRoutineForMockVerification(fileSystemScannerCV.getFile().getPath().replaceAll("\\\\", "/"))
+			() -> smh.hookRoutineForMockVerification(nameOfFile(fileSystemScannerCV.getFile()))
 		);
 		scanner.execute();
 

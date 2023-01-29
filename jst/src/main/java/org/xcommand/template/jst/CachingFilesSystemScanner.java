@@ -14,7 +14,7 @@ public class CachingFilesSystemScanner implements ICommand {
 	public void execute() {
 		var rootDirs = fileSystemScannerCV.getRootDirs();
 
-		var fssc = new FileSystemScanner();
+		var fssc = FileSystemScanner.newInstance();
 		fssc.setRootDirs(rootDirs);
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundHandler());
 		var changedFiles = new HashMap<String, FileMapEntry>();
