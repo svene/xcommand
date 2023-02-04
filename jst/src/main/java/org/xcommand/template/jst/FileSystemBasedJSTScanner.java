@@ -8,10 +8,11 @@ import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.jooq.lambda.Sneaky;
+import org.xcommand.util.FilesUnchecked;
 
 public class FileSystemBasedJSTScanner implements ICommand {
 
@@ -47,7 +48,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
 				var fme = me.getValue();
 
 				System.out.println("recompiling file: " + absolutePath);
-				var className = getClassnameFromFilename(fme.getRootDir(), absolutePath);
+				var className = getClassnameFromFilename(fme.getRootPath(), absolutePath);
 				var cme = ClassMapEntry.builder()
 					.fme(fme)
 					.className(className)
@@ -55,10 +56,9 @@ public class FileSystemBasedJSTScanner implements ICommand {
 				var classMap = jstScannerCV.getClassMap();
 				classMap.put(className, cme);
 
-				var file = cme.fme.getFile();
-
 				var parser = TCP.get(() -> {
-					var is = Sneaky.supplier(() -> new FileInputStream(file)).get();
+					var file = cme.fme.getPath();
+					var is = FilesUnchecked.newInputStream(file);
 					jstParserCV.setInputStream(is);
 					return new DefaultJSTParserProvider().newJSTParser();
 				});
@@ -82,13 +82,13 @@ public class FileSystemBasedJSTScanner implements ICommand {
 			changeNotifier.execute();
 		}
 
-		private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath) {
-			var idx = aAbsolutePath.indexOf(aSrcDir);
+		private String getClassnameFromFilename(Path aSrcDir, Path aAbsolutePath) {
+			var idx = aAbsolutePath.toString().indexOf(aSrcDir.toString());
 			if (idx == -1) {
 				throw new RuntimeException("cannot find source path '" + aSrcDir + "' in path of file '" + aAbsolutePath + "'");
 			}
 
-			var className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
+			var className = aAbsolutePath.toString().substring(idx + aSrcDir.toString().length() + 1, aAbsolutePath.toString().lastIndexOf("."));
 			System.out.println("className = " + className);
 			return className;
 		}

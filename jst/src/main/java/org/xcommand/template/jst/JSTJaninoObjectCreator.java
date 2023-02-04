@@ -5,6 +5,7 @@ import org.xcommand.technology.janino.XCMapResourceFinder;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.codehaus.janino.JavaSourceClassLoader;
+import org.xcommand.util.FilesUnchecked;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class JSTJaninoObjectCreator {
 		classMap.forEach((key, cme) -> {
 			newJaninoClassMap.put(key, cme.fme.content.getBytes());
 			var newFme = cme.fme.toBuilder()
-				.lastmodified(cme.fme.file.lastModified())
+				.lastmodified(FilesUnchecked.getLastModifiedTime(cme.fme.path))
 				.build();
 			var newCme = cme.toBuilder().fme(newFme).build();
 			newClassMap.put(key, newCme);

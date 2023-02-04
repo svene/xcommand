@@ -1,11 +1,12 @@
 package org.xcommand.template.jst;
 
+import java.nio.file.Path;
 import java.util.Map;
 
 public interface ICachingFilesSystemScannerCV {
-	Map<String, FileMapEntry> getChangedFiles();
+	Map<Path, FileMapEntry> getChangedFiles();
 
-	Map<String, FileMapEntry> getCurrentFiles();
+	Map<Path, FileMapEntry> getCurrentFiles();
 
 	void setChangedFiles(Map<String, FileMapEntry> aChangedFiles);
 

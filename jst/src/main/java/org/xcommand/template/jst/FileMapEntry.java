@@ -1,15 +1,16 @@
 package org.xcommand.template.jst;
 
-import java.io.File;
 import lombok.Builder;
 import lombok.Value;
+
+import java.nio.file.Path;
 
 @Builder(toBuilder = true)
 @Value
 public class FileMapEntry {
 	public String key;
-	public File file;
+	public Path path;
 	public long lastmodified;
 	public String content;
-	public String rootDir;
+	public Path rootPath;
 }

@@ -5,17 +5,17 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
+import org.xcommand.util.FilesUnchecked;
 
-import java.io.File;
 import java.util.HashMap;
 
 public class CachingFilesSystemScanner implements ICommand {
 	@Override
 	public void execute() {
-		var rootDirs = fileSystemScannerCV.getRootDirs();
+		var rootPaths = fileSystemScannerCV.getRootPath();
 
 		var fssc = FileSystemScanner.newInstance();
-		fssc.setRootDirs(rootDirs);
+		fssc.setRootPaths(rootPaths);
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundHandler());
 		var changedFiles = new HashMap<String, FileMapEntry>();
 		cachingFilesSystemScannerCV.setChangedFiles(changedFiles);
@@ -36,22 +36,22 @@ public class CachingFilesSystemScanner implements ICommand {
 
 		@Override
 		public void execute() {
-			var file = fileSystemScannerCV.getFile();
-			var key = file.getAbsolutePath();
+			var path = fileSystemScannerCV.getPath();
+			var key = path.toAbsolutePath();
 			var currentFiles = cachingFilesSystemScannerCV.getCurrentFiles();
 			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
 			if (currentFiles.containsKey(key)) {
 				var fme = currentFiles.get(key);
-				if (fme.file.lastModified() > fme.lastmodified) {//reload file
+				if (FilesUnchecked.getLastModifiedTime(fme.path) > fme.lastmodified) {//reload file
 					changedFiles.put(key, fme);
 				}
 			} else {
 				System.out.println("new file found: " + key);
 				var fme = FileMapEntry.builder()
-					.file(file)
-					.key(key)
-					.lastmodified(file.lastModified())
-					.rootDir(fileSystemScannerCV.getRootDir())
+					.path(path)
+					.key(key.toString())
+					.lastmodified(FilesUnchecked.getLastModifiedTime(path))
+					.rootPath(fileSystemScannerCV.getRootPath())
 					.build();
 				currentFiles.put(key, fme);
 				changedFiles.put(key, fme);

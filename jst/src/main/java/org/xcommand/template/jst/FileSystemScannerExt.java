@@ -1,7 +1,7 @@
 package org.xcommand.template.jst;
 
-import java.io.File;
+import java.nio.file.Path;
 
 public interface FileSystemScannerExt {
-	public void handleFile(File file);
+	public void handlePath(Path path);
 }

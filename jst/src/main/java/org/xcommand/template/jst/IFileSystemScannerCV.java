@@ -1,23 +1,21 @@
 package org.xcommand.template.jst;
 
-import java.io.File;
 import java.io.FilenameFilter;
+import java.nio.file.Path;
 import java.util.List;
 
 public interface IFileSystemScannerCV {
-	File getFile();
+	Path getPath();
+	void setPath(Path value);
+
+	Path getRootPath();
+	void setRootPath(Path value);
+
+	List<Path> getRootPaths();
+	void setRootPaths(List<Path> value);
 
 	FilenameFilter getFilenameFilter();
 
-	String getRootDir();
-
-	List<String> getRootDirs();
-
-	void setFile(File aFile);
-
 	void setFilenameFilter(FilenameFilter aFilenameFilter);
 
-	void setRootDir(String aRootDir);
-
-	void setRootDirs(List<String> aRootDirs);
 }

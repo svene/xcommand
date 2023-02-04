@@ -4,8 +4,8 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
+import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.TimerTask;
 import java.util.Date;
 
@@ -23,13 +23,13 @@ public class JSTUpdateChecker extends TimerTask {
 		}
 
 		var jstScanner = new FileSystemBasedJSTScanner();
-		fileSystemScannerCV.setRootDirs(srcDirs);
+		fileSystemScannerCV.setRootPaths(srcPaths);
 		jstScanner.getChangeNotifier().registerObserver(new ChangedHandler());
 		jstScanner.execute();
 	}
 
-	public void setSrcDirs(List<String> aSrcDirs) {
-		srcDirs = aSrcDirs;
+	public void setSrcPaths(List<Path> aSrcPaths) {
+		srcPaths = aSrcPaths;
 	}
 
 	public void setJaninoObjectCreator(JSTJaninoObjectCreator aJaninoObjectCreator) {
@@ -43,7 +43,7 @@ public class JSTUpdateChecker extends TimerTask {
 		}
 	}
 
-	private List<String> srcDirs;
+	private List<Path> srcPaths;
 	private JSTJaninoObjectCreator janinoObjectCreator;
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);

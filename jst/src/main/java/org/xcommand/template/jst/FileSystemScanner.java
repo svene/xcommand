@@ -5,8 +5,13 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
+import org.xcommand.util.FilesUnchecked;
 
-import java.io.File;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 public class FileSystemScanner implements ICommand, FileSystemScannerExt {
@@ -16,10 +21,11 @@ public class FileSystemScanner implements ICommand, FileSystemScannerExt {
 	}
 
 	private FileSystemScannerExt ext;
-	private List<String> rootDirs;
+	private List<Path> rootPaths;
 	private final INotifier fileFoundNotifier = new BasicNotifier();
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
+
 
 	public static FileSystemScanner newInstance() {
 		return new FileSystemScanner(null);
@@ -30,37 +36,40 @@ public class FileSystemScanner implements ICommand, FileSystemScannerExt {
 
 	@Override
 	public void execute() {
-		// Loop over all configured source directories,
-		rootDirs.forEach(rootDir -> {
-			fileSystemScannerCV.setRootDir(rootDir);
-			var fnf = fileSystemScannerCV.getFilenameFilter();
-			var it = new DirectoryIteratorProvider(fnf).newIterator(rootDir);
-			while (it.hasNext()) {
-				var file = it.next();
-				ext.handleFile(file);
-			}
+		rootPaths.forEach(rootPath -> {
+			fileSystemScannerCV.setRootPath(rootPath);
+			boolean ex = Files.exists(rootPath);
+			FilesUnchecked.walkFileTree(rootPath, new SimpleFileVisitor<>() {
+				@Override
+				public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
+					if (!Files.isDirectory(path)) {
+						ext.handlePath(path);
+					}
+					return FileVisitResult.CONTINUE;
+				}
+			});
 		});
 	}
 
-	public List<String> getRootDirs() {
-		return rootDirs;
+	public List<Path> getRootPaths() {
+		return rootPaths;
 	}
 
 	public INotifier getFileFoundNotifier() {
 		return fileFoundNotifier;
 	}
 
-	public void setRootDirs(String... aRootDirs) {
-		setRootDirs(List.of(aRootDirs));
+	public void setRootPaths(Path... aRootPaths) {
+		setRootPaths(List.of(aRootPaths));
 	}
 
-	public void setRootDirs(List<String> aRootDirs) {
-		rootDirs = aRootDirs;
+	public void setRootPaths(List<Path> aRootDirs) {
+		rootPaths = aRootDirs;
 	}
 
 	@Override
-	public void handleFile(File file) {
-		fileSystemScannerCV.setFile(file);
+	public void handlePath(Path path) {
+		fileSystemScannerCV.setPath(path);
 		fileFoundNotifier.execute();
 	}
 
