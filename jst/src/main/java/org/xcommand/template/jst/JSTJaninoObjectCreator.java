@@ -22,11 +22,11 @@ public class JSTJaninoObjectCreator {
 		var classMap = jstScannerCV.getClassMap();
 		Map<String, ClassMapEntry> newClassMap = new HashMap<>();
 		classMap.forEach((key, cme) -> {
-			newJaninoClassMap.put(key, cme.fme.content.getBytes());
-			var newFme = cme.fme.toBuilder()
-				.lastmodified(FilesUnchecked.getLastModifiedTime(cme.fme.path))
+			newJaninoClassMap.put(key, cme.fme().content.getBytes());
+			var newFme = cme.fme().toBuilder()
+				.lastmodified(FilesUnchecked.getLastModifiedTime(cme.fme().path))
 				.build();
-			var newCme = cme.toBuilder().fme(newFme).build();
+			var newCme = cme.with().fme(newFme).build();
 			newClassMap.put(key, newCme);
 		});
 		jstScannerCV.setClassMap(newClassMap);
@@ -40,9 +40,9 @@ public class JSTJaninoObjectCreator {
 		var cme = classMap.get(aClassname);
 		if (cme != null) {
 			System.out.println("cme for '" + aClassname + "' found");
-			if (cme.lastloaded > cme.fme.lastmodified) {
+			if (cme.lastloaded() > cme.fme().lastmodified) {
 				System.out.println("loaded class still valid.");
-				return cme.clazz;
+				return cme.clazz();
 			}
 		}
 		// Load class via Janino:
@@ -52,7 +52,7 @@ public class JSTJaninoObjectCreator {
 		var dotClassName = aClassname.replace('/', '.');
 		try {
 			var clazz = cl.loadClass(dotClassName);
-			var newCme = cme.toBuilder().clazz(clazz).lastloaded(new Date().getTime()).build();
+			var newCme = cme.with().clazz(clazz).lastloaded(new Date().getTime()).build();
 			classMap.put(aClassname, newCme);
 			return clazz;
 		} catch (ClassNotFoundException e) {

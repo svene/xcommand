@@ -49,7 +49,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
 
 				System.out.println("recompiling file: " + absolutePath);
 				var className = getClassnameFromFilename(fme.getRootPath(), absolutePath);
-				var cme = ClassMapEntry.builder()
+				var cme = ClassMapEntryBuilder.builder()
 					.fme(fme)
 					.className(className)
 					.build();
@@ -57,7 +57,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
 				classMap.put(className, cme);
 
 				var parser = TCP.get(() -> {
-					var file = cme.fme.getPath();
+					var file = cme.fme().getPath();
 					var is = FilesUnchecked.newInputStream(file);
 					jstParserCV.setInputStream(is);
 					return new DefaultJSTParserProvider().newJSTParser();
@@ -65,17 +65,17 @@ public class FileSystemBasedJSTScanner implements ICommand {
 
 				jstParserCV.setGeneratedJavaCode(new StringBuffer());
 				Sneaky.runnable(() -> parser.Start()).run();
-				var newFme = cme.fme.toBuilder().content(
+				var newFme = cme.fme().toBuilder().content(
 					jstParserCV.getGeneratedJavaCode().toString()
 				).build();
-				var newCme = cme.toBuilder().fme(newFme).build();
+				var newCme = cme.with().fme(newFme).build();
 				classMap.put(className, newCme);
 
 				// Write source code as file to disk:
 				if (genSourceDir != null) {
 					var dir = new File(genSourceDir);
 					System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
-					Sneaky.runnable(() -> Files.writeString(Paths.get("%s/%s.java".formatted(genSourceDir, className)), cme.fme.content)).run();
+					Sneaky.runnable(() -> Files.writeString(Paths.get("%s/%s.java".formatted(genSourceDir, className)), cme.fme().content)).run();
 				}
 
 			}

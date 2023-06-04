@@ -26,6 +26,9 @@ allprojects {
 	}
 
 	dependencies {
+		annotationProcessor 'io.soabase.record-builder:record-builder-processor:36'
+		compileOnly 'io.soabase.record-builder:record-builder-core:36'
+
 		implementation 'org.slf4j:slf4j-api:2.0.7'
 		implementation 'org.slf4j:slf4j-simple:2.0.7'
 		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'

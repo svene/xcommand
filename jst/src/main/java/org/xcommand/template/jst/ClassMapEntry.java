@@ -1,13 +1,11 @@
 package org.xcommand.template.jst;
 
-import lombok.Builder;
-import lombok.Value;
+import io.soabase.recordbuilder.core.RecordBuilder;
 
-@Builder(toBuilder = true)
-@Value
-public class ClassMapEntry {
-	public FileMapEntry fme;
-	public String className;
-	public Class clazz;
-	public long lastloaded;
-}
+@RecordBuilder
+public record ClassMapEntry(
+	FileMapEntry fme,
+	String className,
+	Class clazz,
+	long lastloaded
+) implements ClassMapEntryBuilder.With {}
