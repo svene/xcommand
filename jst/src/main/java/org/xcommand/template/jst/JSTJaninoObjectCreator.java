@@ -22,9 +22,9 @@ public class JSTJaninoObjectCreator {
 		var classMap = jstScannerCV.getClassMap();
 		Map<String, ClassMapEntry> newClassMap = new HashMap<>();
 		classMap.forEach((key, cme) -> {
-			newJaninoClassMap.put(key, cme.fme().content.getBytes());
-			var newFme = cme.fme().toBuilder()
-				.lastmodified(FilesUnchecked.getLastModifiedTime(cme.fme().path))
+			newJaninoClassMap.put(key, cme.fme().content().getBytes());
+			var newFme = cme.fme().with()
+				.lastmodified(FilesUnchecked.getLastModifiedTime(cme.fme().path()))
 				.build();
 			var newCme = cme.with().fme(newFme).build();
 			newClassMap.put(key, newCme);
@@ -40,7 +40,7 @@ public class JSTJaninoObjectCreator {
 		var cme = classMap.get(aClassname);
 		if (cme != null) {
 			System.out.println("cme for '" + aClassname + "' found");
-			if (cme.lastloaded() > cme.fme().lastmodified) {
+			if (cme.lastloaded() > cme.fme().lastmodified()) {
 				System.out.println("loaded class still valid.");
 				return cme.clazz();
 			}

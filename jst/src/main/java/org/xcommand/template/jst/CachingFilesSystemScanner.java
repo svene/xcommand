@@ -42,12 +42,12 @@ public class CachingFilesSystemScanner implements ICommand {
 			var changedFiles = cachingFilesSystemScannerCV.getChangedFiles();
 			if (currentFiles.containsKey(key)) {
 				var fme = currentFiles.get(key);
-				if (FilesUnchecked.getLastModifiedTime(fme.path) > fme.lastmodified) {//reload file
+				if (FilesUnchecked.getLastModifiedTime(fme.path()) > fme.lastmodified()) {//reload file
 					changedFiles.put(key, fme);
 				}
 			} else {
 				System.out.println("new file found: " + key);
-				var fme = FileMapEntry.builder()
+				var fme = FileMapEntryBuilder.builder()
 					.path(path)
 					.key(key.toString())
 					.lastmodified(FilesUnchecked.getLastModifiedTime(path))

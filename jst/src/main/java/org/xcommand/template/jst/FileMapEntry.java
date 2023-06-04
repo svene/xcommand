@@ -1,16 +1,14 @@
 package org.xcommand.template.jst;
 
-import lombok.Builder;
-import lombok.Value;
+import io.soabase.recordbuilder.core.RecordBuilder;
 
 import java.nio.file.Path;
 
-@Builder(toBuilder = true)
-@Value
-public class FileMapEntry {
-	public String key;
-	public Path path;
-	public long lastmodified;
-	public String content;
-	public Path rootPath;
-}
+@RecordBuilder
+public record FileMapEntry(
+	String key,
+	Path path,
+	long lastmodified,
+	String content,
+	Path rootPath
+) implements FileMapEntryBuilder.With {}
