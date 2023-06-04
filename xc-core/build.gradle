@@ -1,6 +1,6 @@
 dependencies {
 	implementation DEP_SERVLET_API
-	implementation(platform('org.springframework:spring-framework-bom:6.0.7'))
+	implementation(platform('org.springframework:spring-framework-bom:6.0.9'))
 	implementation 'org.springframework:spring-core'
 	implementation 'org.springframework:spring-websocket'
 	implementation DEP_JANINO
