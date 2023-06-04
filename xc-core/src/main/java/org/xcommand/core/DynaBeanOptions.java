@@ -1,14 +1,12 @@
 package org.xcommand.core;
 
-import lombok.Builder;
-import lombok.Value;
+import io.soabase.recordbuilder.core.RecordBuilder;
 
 import java.util.Map;
 import java.util.function.Supplier;
 
-@Builder(toBuilder = true)
-@Value
-public class DynaBeanOptions {
-	IDynaBeanKeyProvider dynaBeanKeyProvider;
-	Supplier<Map<String, Object>> contextProvider;
-}
+@RecordBuilder
+public record DynaBeanOptions(
+	IDynaBeanKeyProvider dynaBeanKeyProvider,
+	Supplier<Map<String, Object>> contextProvider
+) implements DynaBeanOptionsBuilder.With {}

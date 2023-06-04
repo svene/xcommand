@@ -10,17 +10,17 @@ public class DynaBeanProvider {
 	}
 
 	private static final DynaBeanOptions ThreadClassMethodOptions =
-		DynaBeanOptions.builder()
+		DynaBeanOptionsBuilder.builder()
 			.contextProvider(TCP::getContext)
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.ClassAndMethodKeyProvider)
 			.build();
 	private static final DynaBeanOptions ThreadMethodOptions =
-		DynaBeanOptions.builder()
+		DynaBeanOptionsBuilder.builder()
 			.contextProvider(TCP::getContext)
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.MethodKeyProvider)
 			.build();
 	private static final DynaBeanOptions ThreadObjectIdentityOptions =
-		DynaBeanOptions.builder()
+		DynaBeanOptionsBuilder.builder()
 			.contextProvider(TCP::getContext)
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.ObjectIdentityKeyProvider)
 			.build();
@@ -55,7 +55,7 @@ public class DynaBeanProvider {
 	}
 
 	public static IBeanAccessor newBeanAccessor(DynaBeanOptions options) {
-		return BeanAccessors.newBeanAccessor(options.getContextProvider(), options.getDynaBeanKeyProvider());
+		return BeanAccessors.newBeanAccessor(options.contextProvider(), options.dynaBeanKeyProvider());
 	}
 
 	public static InvocationHandler newDynaBeanInvocationHandler(IBeanAccessor beanAccessor) {

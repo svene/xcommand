@@ -23,7 +23,7 @@ public class EchoCVTest {
 		String message = "Hi! I am a xcommand example. And who are you?";
 		Map<String, Object> ctx = new HashMap<>();
 
-		DynaBeanOptions dynaBeanOptions = DynaBeanOptions.builder()
+		DynaBeanOptions dynaBeanOptions = DynaBeanOptionsBuilder.builder()
 			.contextProvider(() -> ctx)
 			.dynaBeanKeyProvider(DynaBeanKeyProviders.ClassAndMethodKeyProvider)
 			.build();
