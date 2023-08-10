@@ -2,20 +2,18 @@ package org.collage.dom.evaluator.java.javassist;
 
 import javassist.ClassPool;
 import javassist.CtClass;
-import javassist.CtMethod;
 import javassist.CtNewMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
-import org.jooq.lambda.Sneaky;
-import org.xcommand.core.*;
-import org.xcommand.util.ResourceUtil;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -36,7 +34,7 @@ class ExitRootHandler implements ICommand {
 
 			// Add method 'appendVar()':
 			TCP.pushContext(new HashMap<>());
-			addMethod(cc, "org/collage/dom/evaluator/java/javassist/appendvar.txt");
+			addMethod(cc, appendVar);
 			TCP.popContext();
 
 			// Add method 'execute()':
@@ -44,7 +42,7 @@ class ExitRootHandler implements ICommand {
 			log.debug("**methodbody\n" + sb.toString());
 			TCP.pushContext(new HashMap<>());
 			TCP.getContext().put("execute_method_body", sb.toString());
-			addMethod(cc, "org/collage/dom/evaluator/java/javassist/execute_method.txt");
+			addMethod(cc, executeMethod);
 			TCP.popContext();
 
 			var clazz = cc.toClass(MethodHandles.lookup());
@@ -61,17 +59,14 @@ class ExitRootHandler implements ICommand {
 		}
 	}
 
-	private void addMethod(CtClass aCtClass, String aFilename) throws java.io.IOException, javassist.CannotCompileException {
+	private void addMethod(CtClass aCtClass, String content) throws javassist.CannotCompileException {
 		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		try(var is = ResourceUtil.newInputStreamFromResourceLocation(aFilename)) {
-			var cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
-			cmd.execute();
-			var s = stringHandlerCV.getString();
-			is.close();
-			log.debug("methodstring: " + s);
-			var ctm = CtNewMethod.make(s, aCtClass);
-			aCtClass.addMethod(ctm);
-		}
+		var cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(content));
+		cmd.execute();
+		var s = stringHandlerCV.getString();
+		log.debug("methodstring: " + s);
+		var ctm = CtNewMethod.make(s, aCtClass);
+		aCtClass.addMethod(ctm);
 
 	}
 
@@ -93,4 +88,32 @@ class ExitRootHandler implements ICommand {
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 	IJavaTemplateCmdCV javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
+
+	private final String appendVar = """
+		private static final void appendVar(java.util.Map aCtx, String aVarName, java.io.Writer aWriter) {
+			Object obj = org.xcommand.core.TCP.getContext().get(aVarName);
+			if (obj != null)
+			{
+				aWriter.write(obj.toString());
+			}
+			else
+			{
+				aWriter.write("$\\{");
+				aWriter.write(aVarName);
+				aWriter.write("}");
+			}
+		}
+		""";
+
+	private final String executeMethod = """
+		public void execute()
+		{
+			java.io.Writer _writer = (java.io.Writer)org.xcommand.core.TCP.getContext().get("writer");
+			if (_writer == null) _writer = new java.io.PrintWriter(System.out);
+		
+			${execute_method_body}
+		
+			_writer.flush();
+		}
+		""";
 }

@@ -9,7 +9,6 @@ import org.xcommand.core.*;
 import org.xcommand.template.parser.IParserCV;
 
 import java.io.InputStream;
-import java.util.HashMap;
 
 public class JavassistTemplateCompiler {
 

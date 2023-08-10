@@ -1,9 +1,0 @@
-public void execute()
-{
-	java.io.Writer _writer = (java.io.Writer)org.xcommand.core.TCP.getContext().get("writer");
-	if (_writer == null) _writer = new java.io.PrintWriter(System.out);
-
-	${execute_method_body}
-
-	_writer.flush();
-}

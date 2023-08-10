@@ -27,7 +27,7 @@ public class JavassistTest {
 	}
 
 	/* Create a template command from a string, execute it and write output to System.out.
-	 * Note: by default the code in 'execute_method.txt' writes to System.out */
+	 * Note: by default the code in  {@link org.collage.dom.evaluator.java.javassist.ExitRootHandler.executeMethod} writes to System.out */
 	@Test
 	public void exerciseNewTemplateCommandFromStringUsingSystemOut() {
 		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(

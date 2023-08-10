@@ -5,14 +5,12 @@ import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
 import org.xcommand.core.*;
-import org.xcommand.util.ResourceUtil;
 
 public class JavaEvalVariableHandler implements ICommand {
 	public JavaEvalVariableHandler() {
 		templateCommand = TCP.get(() -> {
-			var is = ResourceUtil.newInputStreamFromResourceLocation("org/collage/dom/evaluator/java/javassist/javassist_var.txt");
 			domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-			return new TextTemplateCompiler().newTemplateCommand(new TemplateSource(is));
+			return new TextTemplateCompiler().newTemplateCommand(new TemplateSource(javassistVar));
 		});
 	}
 
@@ -34,4 +32,8 @@ public class JavaEvalVariableHandler implements ICommand {
 	IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
 		IDomNodeCreationHandlerCV.class);
 	IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+
+	private final String javassistVar = """
+		appendVar(org.xcommand.core.TCP.getContext(), "${varName}",  _writer);
+		""";
 }
