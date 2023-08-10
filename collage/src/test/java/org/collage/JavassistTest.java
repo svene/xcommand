@@ -1,5 +1,6 @@
 package org.collage;
 
+import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.template.JavassistTemplateCompiler;
 import org.collage.template.TemplateCV;
 import org.junit.jupiter.api.AfterEach;
@@ -10,13 +11,16 @@ import org.xcommand.core.TCP;
 import org.xcommand.util.ResourceUtil;
 
 import java.io.StringWriter;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JavassistTest {
+	JavassistTemplateCompiler javassistTemplateCompiler;
 	@BeforeEach
 	public void initializeContext() {
+		javassistTemplateCompiler = new JavassistTemplateCompiler(new JavassistTraverser());
 		TCP.pushContext(new HashMap<>());
 		TCP.getContext().put("firstname", "Uli");
 	}
@@ -30,7 +34,7 @@ public class JavassistTest {
 	 * Note: by default the code in  {@link org.collage.dom.evaluator.java.javassist.ExitRootHandler.executeMethod} writes to System.out */
 	@Test
 	public void exerciseNewTemplateCommandFromStringUsingSystemOut() {
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(
+		ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
 			"""
 				hallo ${firstname}.
 				Wie geht's?
@@ -43,7 +47,7 @@ public class JavassistTest {
 	/* Create a template command via TemplateSouce, execute it and write output to StringWriter (to be able to unittest result) */
 	@Test
 	public void testNewTemplateCommandFromString() {
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(
+		ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
 			"""
 				hallo ${firstname}.
 				Wie geht's?
@@ -65,7 +69,7 @@ public class JavassistTest {
 			hallo <?java int i = 1;?> ${firstname}.
 			Wie geht's?
 			""";
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(s);
+		ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(s);
 
 		TCP.getContext().put("firstname", "Sven");
 		StringWriter sw = new StringWriter();
@@ -80,7 +84,7 @@ public class JavassistTest {
 	@Test
 	public void testNewTemplateCommandFromStringWithEffectiveJava() {
 
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromString(
+		ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
 			"""
 				hallo
 				<?java for (int i = 0; i< 3; i++){ _writer.write(String.valueOf(i));?> ${firstname}.
@@ -105,7 +109,7 @@ public class JavassistTest {
 
 	@Test
 	public void testNewTemplateCommandFromFileWithEffectiveJava() {
-		ICommand cmd = new JavassistTemplateCompiler().newTemplateCommandFromStream(
+		ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromStream(
 			ResourceUtil.newInputStreamFromResourceLocation("java03_in.txt"));
 
 		StringWriter sw = new StringWriter();

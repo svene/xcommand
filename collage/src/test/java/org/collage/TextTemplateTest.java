@@ -2,6 +2,7 @@ package org.collage;
 
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.template.JavassistTemplateCompiler;
 import org.collage.template.TemplateCV;
 import org.collage.template.TextTemplateCompiler;
@@ -106,7 +107,7 @@ public class TextTemplateTest {
 		}
 		@Test
 		public void javassist_template() {
-			var cmd = new JavassistTemplateCompiler().newTemplateCommandFromString("hallo ${lastname}. Wie gehts?");
+			var cmd = new JavassistTemplateCompiler(new JavassistTraverser()).newTemplateCommandFromString("hallo ${lastname}. Wie gehts?");
 			TCP.getContext().put("firstname", FIRSTNAME);
 			TCP.getContext().put("lastname", LASTNAME);
 			TemplateCV.setWriter(stringWriter);

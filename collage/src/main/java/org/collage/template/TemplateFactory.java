@@ -1,6 +1,7 @@
 package org.collage.template;
 
 import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
@@ -24,7 +25,7 @@ public class TemplateFactory {
 			cmd.execute();
 			s = stringHandlerCV.getString();
 		}
-		cmd = new JavassistTemplateCompiler().newTemplateCommand(new TemplateSource(s));
+		cmd = new JavassistTemplateCompiler(new JavassistTraverser()).newTemplateCommand(new TemplateSource(s));
 
 		return cmd;
 	}

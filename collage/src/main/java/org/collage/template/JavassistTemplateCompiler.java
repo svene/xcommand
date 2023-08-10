@@ -2,15 +2,23 @@ package org.collage.template;
 
 import org.collage.dom.creationhandler.DefaultDomNodeCreationHandlerInitializer;
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
-import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
-import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
-import org.xcommand.core.*;
+import org.collage.dom.evaluator.java.independent.IJavaTemplateCmdCV;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.ICommand;
+import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 import org.xcommand.template.parser.IParserCV;
 
 import java.io.InputStream;
 
 public class JavassistTemplateCompiler {
+
+	private final ICommand traverser;
+
+	public JavassistTemplateCompiler(ICommand traverser) {
+		this.traverser = traverser;
+	}
 
 	public ICommand newTemplateCommandFromString(String aString) {
 		return newTemplateCommand(new TemplateSource(aString));
@@ -29,7 +37,7 @@ public class JavassistTemplateCompiler {
 			// Use String based text evaluation. Since this is only for template compilation and not template usage
 			// it is not performance/memory relevant and thus OK:
 			stringHandlerCV.setString("");
-			new JavassistTraverser().execute();
+			traverser.execute();
 			// Return dynamically (by javassist) created template command (ICommand)
 			var tplCmd = javaTemplateCmdCV.getTemplateComand();
 			return tplCmd;
