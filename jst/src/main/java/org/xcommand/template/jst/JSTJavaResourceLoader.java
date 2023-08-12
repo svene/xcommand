@@ -30,7 +30,7 @@ public class JSTJavaResourceLoader {
 		jstParserCV.setInputStream(is);
 		var parser = new DefaultJSTParserProvider().newJSTParser();
 		jstParserCV.setGeneratedJavaCode(new StringBuffer());
-		Sneaky.runnable(parser::Start).run(); ;
+		Sneaky.runnable(parser::Start).run();
 		var s = jstParserCV.getGeneratedJavaCode().toString();
 
 		classMap = new HashMap<>();

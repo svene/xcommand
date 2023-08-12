@@ -1,6 +1,6 @@
 package org.xcommand.core;
 
-public class DynaBeanKeyProviders {
+public final class DynaBeanKeyProviders {
 	private DynaBeanKeyProviders() {
 	}
 

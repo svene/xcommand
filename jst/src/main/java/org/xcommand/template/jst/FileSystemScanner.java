@@ -14,13 +14,13 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
-public class FileSystemScanner implements ICommand, FileSystemScannerExt {
+public final class FileSystemScanner implements ICommand, FileSystemScannerExt {
 
 	private FileSystemScanner(FileSystemScannerExt ext) {
 		this.ext = ext == null ? this : ext;
 	}
 
-	private FileSystemScannerExt ext;
+	private final FileSystemScannerExt ext;
 	private List<Path> rootPaths;
 	private final INotifier fileFoundNotifier = new BasicNotifier();
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

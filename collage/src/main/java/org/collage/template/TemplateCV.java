@@ -7,7 +7,7 @@ import java.io.Writer;
 /**
  * Context View with UserFriendly property 'writer' (see also comment in 'ITemplateCV')
  */
-public class TemplateCV {
+public final class TemplateCV {
 	private TemplateCV() {
 	}
 

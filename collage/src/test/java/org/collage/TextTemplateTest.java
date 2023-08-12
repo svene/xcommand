@@ -46,14 +46,14 @@ public class TextTemplateTest {
 		@Test
 		public void test1() {
 			String out = createTemplate("hallo ${firstname}.\nWie gehts?\n");
-			assertThat(out).isEqualTo("hallo %s.\nWie gehts?\n".formatted(FIRSTNAME));
+			assertThat(out).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
 		}
 		@Test
 		public void test2() {
 			var tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
 			tc.setWriter(stringWriter);
 			tc.execute();
-			assertThat(stringWriter.toString()).isEqualTo("hallo %s.\nWie gehts?\n".formatted(FIRSTNAME));
+			assertThat(stringWriter.toString()).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
 		}
 
 		@Test
@@ -61,7 +61,7 @@ public class TextTemplateTest {
 			var tc = new TextTemplateCompiler().newTemplateCommandFromResourceName("in.txt");
 			tc.setWriter(stringWriter);
 			tc.execute();
-			assertThat(stringWriter.toString()).isEqualTo("Hallo %s! Willkommen bei uns.\n<?java int i = 1 ?>d\n".formatted(FIRSTNAME));
+			assertThat(stringWriter.toString()).isEqualTo("Hallo %s! Willkommen bei uns.%n<?java int i = 1 ?>d%n".formatted(FIRSTNAME));
 		}
 
 		@Test
@@ -72,7 +72,7 @@ public class TextTemplateTest {
 			TCP.getContext().put("firstname", FIRSTNAME);
 			tc.setWriter(stringWriter);
 			tc.execute();
-			assertThat(stringWriter.toString()).isEqualTo("hallo %s.\nWie gehts?\n".formatted(FIRSTNAME));
+			assertThat(stringWriter.toString()).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
 		}
 
 	}

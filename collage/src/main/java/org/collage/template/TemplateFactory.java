@@ -6,7 +6,7 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
-public class TemplateFactory {
+public final class TemplateFactory {
 	private TemplateFactory() {
 	}
 

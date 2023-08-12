@@ -37,12 +37,11 @@ public class TextTemplateCompiler {
 			parserCV.setInputStream(is);
 			new TemplateCompiler().execute();
 			ITreeNode rootNode = treeNodeCV.getTreeNode();
-			TemplateCommand tplCmd = new TextTemplateEvaluationCommand(rootNode);
-			return tplCmd;
+			return new TextTemplateEvaluationCommand(rootNode);
 		});
 	}
 
-	private class TextTemplateEvaluationCommand extends TemplateCommand {
+	private final class TextTemplateEvaluationCommand extends TemplateCommand {
 
 		private TextTemplateEvaluationCommand(ITreeNode aRootNode) {
 			super(aRootNode);

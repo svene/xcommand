@@ -5,7 +5,7 @@ import org.xcommand.util.ResourceUtil;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-public class TestUtil {
+public final class TestUtil {
 	private TestUtil() {
 	}
 

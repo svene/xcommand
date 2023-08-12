@@ -6,7 +6,7 @@ import org.xcommand.datastructure.handlerprovider.IHandlerProvider;
 import org.xcommand.util.ClassAdapter;
 import org.xcommand.util.NestableObjectAdapter;
 
-public class TreeNodeCommandFactory {
+public final class TreeNodeCommandFactory {
 	private TreeNodeCommandFactory() {
 	}
 
@@ -19,7 +19,7 @@ public class TreeNodeCommandFactory {
 	}
 
 	private static ICommand newHandlerProviderBasedCommand(IHandlerProvider aHandlerProvider, NestableObjectAdapter aObjectAdapter) {
-		IHandlerKeyProvider handlerKeyProvider = (obj) -> new ClassAdapter(aObjectAdapter).adaptedObject(obj);
+		IHandlerKeyProvider handlerKeyProvider = new ClassAdapter(aObjectAdapter)::adaptedObject;
 		return new HandlerProviderBasedCommand(handlerKeyProvider, aHandlerProvider);
 	}
 

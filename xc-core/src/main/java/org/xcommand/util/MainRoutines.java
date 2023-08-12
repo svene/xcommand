@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * Helper routines in association with a main routine (`public static void main(String[] args)')
  */
-public class MainRoutines {
+public final class MainRoutines {
 	private MainRoutines() {
 	}
 

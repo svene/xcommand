@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 /**
  * ThreadContext Provider
  */
-public class TCP {
+public final class TCP {
 	private TCP() {
 	}
 

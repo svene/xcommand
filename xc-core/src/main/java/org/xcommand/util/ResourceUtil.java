@@ -2,7 +2,7 @@ package org.xcommand.util;
 
 import java.io.*;
 
-public class ResourceUtil {
+public final class ResourceUtil {
 	private ResourceUtil() {
 	}
 

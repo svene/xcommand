@@ -80,8 +80,7 @@ class ExitRootHandler implements ICommand {
 		s += "-" + cal.get(Calendar.MINUTE);
 		s += "-" + cal.get(Calendar.SECOND);
 		s += "-" + cal.get(Calendar.MILLISECOND);
-		var className = "JavassistTemplate" + s;
-		return className;
+		return "JavassistTemplate" + s;
 	}
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

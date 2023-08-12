@@ -4,7 +4,7 @@ import eu.javaspecialists.books.dynamicproxies.Proxies;
 
 import java.lang.reflect.InvocationHandler;
 
-public class DynaBeanProvider {
+public final class DynaBeanProvider {
 
 	private DynaBeanProvider() {
 	}

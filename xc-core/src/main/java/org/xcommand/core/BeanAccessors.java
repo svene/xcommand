@@ -3,7 +3,7 @@ package org.xcommand.core;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class BeanAccessors {
+public final class BeanAccessors {
 	private BeanAccessors() {
 	}
 

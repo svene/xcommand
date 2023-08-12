@@ -5,7 +5,7 @@ import java.io.FilenameFilter;
 /**
  * Factory for 'FilenameFilter's
  */
-public class FileNameFilters {
+public final class FileNameFilters {
 	private FileNameFilters() {
 	}
 
