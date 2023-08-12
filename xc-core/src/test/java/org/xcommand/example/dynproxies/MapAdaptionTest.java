@@ -32,7 +32,7 @@ public class MapAdaptionTest {
 		var adaptee = new HashMap<String, Object>();
 		Map<String, Object> m = Proxies.adapt(Map.class, adaptee, new InheritableMapAdapter<>(adaptee));
 		m.put("key", "Sven");
-		assertThat(m).containsEntry("key", "Sven");
+		assertThat(m.get("key")).isEqualTo("Sven");
 	}
 
 	@Test
@@ -40,8 +40,8 @@ public class MapAdaptionTest {
 		var adaptee = new HashMap<String, Object>();
 		adaptee.put("key", "Parent");
 		Map<String, Object> m = Proxies.adapt(Map.class, adaptee, new InheritableMapAdapter<>(adaptee));
-		assertThat(m).containsEntry("key", "Parent");
+		assertThat(m.get("key")).isEqualTo("Parent");
 		m.put("key", "Sven");
-		assertThat(m).containsEntry("key", "Sven");
+		assertThat(m.get("key")).isEqualTo("Sven");
 	}
 }

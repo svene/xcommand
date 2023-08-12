@@ -21,13 +21,13 @@ public class SubroutineTest {
 		Map<String, String> ctx = Factory.newInheritableMap(aCtx);
 		ctx.put("tmpString", "hi there");
 		subExecute(ctx);
-		assertThat(aCtx).containsEntry("name", "Sven");
+		assertThat(aCtx.get("name")).isEqualTo("Sven");
 		assertThat(aCtx.get("tmpString")).isNull();
 	}
 
 	private void subExecute(Map<String, String> aCtx)
 	{
-		assertThat(aCtx).containsEntry("name", "Sven");
-		assertThat(aCtx).containsEntry("tmpString", "hi there");
+		assertThat(aCtx.get("name")).isEqualTo("Sven");
+		assertThat(aCtx.get("tmpString")).isEqualTo("hi there");
 	}
 }
