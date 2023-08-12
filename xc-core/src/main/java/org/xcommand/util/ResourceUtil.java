@@ -9,7 +9,7 @@ public class ResourceUtil {
 	public static InputStream newInputStreamFromResourceLocation(String aResourceLocation) {
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aResourceLocation);
 		if (is == null) {
-			throw new RuntimeException(String.format("could not load resource '%s' via context classloader", aResourceLocation));
+			throw new RuntimeException("could not load resource '%s' via context classloader".formatted(aResourceLocation));
 		}
 		return is;
 	}
@@ -18,7 +18,7 @@ public class ResourceUtil {
 		File file = new File(aFileName);
 
 		if (!file.exists()) {
-			throw new RuntimeException(String.format("file not found: '%s' (workingdir: '%s')", aFileName, new File(".").getAbsolutePath()));
+			throw new RuntimeException("file not found: '%s' (workingdir: '%s')".formatted(aFileName, new File(".").getAbsolutePath()));
 		}
 		return new BufferedInputStream(new FileInputStream(file));
 	}

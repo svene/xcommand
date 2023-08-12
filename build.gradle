@@ -21,11 +21,12 @@ project.ext {
 dependencies {
 	rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.1.1"))
 	rewrite("org.openrewrite.recipe:rewrite-testing-frameworks")
+	rewrite("org.openrewrite.recipe:rewrite-migrate-java")
 }
 
 rewrite {
 	activeRecipe("org.openrewrite.java.RemoveUnusedImports")
-	activeRecipe("org.openrewrite.java.testing.assertj.Assertj")
+	activeRecipe("org.openrewrite.java.migrate.UpgradeToJava20")
 }
 
 allprojects {
