@@ -6,7 +6,7 @@ import org.xcommand.core.*;
 import java.util.HashMap;
 import java.util.concurrent.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ContextStackTest {
 
@@ -15,14 +15,14 @@ public class ContextStackTest {
 		String v1 = "v1";
 		tIn2OutCV.setInput(v1);
 		new TIn2OutCommand().execute();
-		assertEquals(v1, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v1);
 	}
 
 	@Test
 	public void testContextStack() {
 		String v1 = "v1";
 		tIn2OutCV.setOutput(v1);
-		assertEquals(v1, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v1);
 
 		// Save current context:
 		var savedCtx = TCP.getContext();
@@ -31,23 +31,23 @@ public class ContextStackTest {
 		var ctx = new HashMap<String, Object>();
 		TCP.pushContext(ctx);
 		// Verify that pushed context is current one:
-		assertSame(ctx, TCP.getContext());
+		assertThat(ctx).isSameAs(TCP.getContext());
 
 		// Set a value on the current context:
 		String v2 = "v2";
 		tIn2OutCV.setInput(v2);
 		// Verify that there is not output yet in the new context:
-		assertNull(tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isNull();
 		new TIn2OutCommand().execute();
 		// Verify that the value got set:
-		assertEquals(v2, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v2);
 
 		// Remove the new context from the stack:
 		TCP.popContext();
 		// Verify that saved context is current one:
-		assertSame(savedCtx, TCP.getContext());
+		assertThat(savedCtx).isSameAs(TCP.getContext());
 		// Verify that old value is returned and not 'v2':
-		assertEquals(v1, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v1);
 
 	}
 
@@ -55,27 +55,27 @@ public class ContextStackTest {
 	public void testInheritableContextStack() {
 		String v1 = "v1";
 		tIn2OutCV.setOutput(v1);
-		assertEquals(v1, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v1);
 
 		// Save current context:
 		var savedCtx = TCP.getContext();
 
 		TCP.pushContext(TCP.newInheritableContext());
-		assertEquals(v1, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v1);
 
 		// Set a value on the current context:
 		String v2 = "v2";
 		tIn2OutCV.setInput(v2);
 		// Verify that output is not null but the output of the inherited context:
-		assertEquals(v1, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v1);
 		new TIn2OutCommand().execute();
 		// Verify that execute put the output on the new context:
-		assertEquals(v2, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v2);
 
 		TCP.popContext();
-		assertSame(savedCtx, TCP.getContext());
+		assertThat(savedCtx).isSameAs(TCP.getContext());
 		// Verify that old value is returned and not 'v2':
-		assertEquals(v1, tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo(v1);
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class ContextStackTest {
 		Runnable r1 = () -> {
 			tIn2OutCV.setInput("runnable 1");
 			cmd.execute();
-			assertEquals("runnable 1", tIn2OutCV.getOutput());
+			assertThat(tIn2OutCV.getOutput()).isEqualTo("runnable 1");
 		};
 		tIn2OutCV.setInput("main thread");
 		cmd.execute();
@@ -96,7 +96,7 @@ public class ContextStackTest {
 		// Wait until 'es' is done:
 		future.get(3, TimeUnit.SECONDS);
 		es.shutdown();
-		assertEquals("main thread", tIn2OutCV.getOutput());
+		assertThat(tIn2OutCV.getOutput()).isEqualTo("main thread");
 	}
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

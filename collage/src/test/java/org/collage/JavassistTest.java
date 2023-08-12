@@ -14,7 +14,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class JavassistTest {
 	JavassistTemplateCompiler javassistTemplateCompiler;
@@ -57,10 +57,10 @@ public class JavassistTest {
 		StringWriter sw = new StringWriter();
 		TemplateCV.setWriter(sw);
 		cmd.execute();
-		assertEquals("""
+		assertThat(sw.toString()).isEqualTo("""
 			hallo Sven.
 			Wie geht's?
-			""", sw.toString());
+			""");
 	}
 
 	@Test
@@ -75,10 +75,10 @@ public class JavassistTest {
 		StringWriter sw = new StringWriter();
 		TemplateCV.setWriter(sw);
 		cmd.execute();
-		assertEquals("""
+		assertThat(sw.toString()).isEqualTo("""
 			hallo  Sven.
 			Wie geht's?
-			""", sw.toString());
+			""");
 	}
 
 	@Test
@@ -96,7 +96,7 @@ public class JavassistTest {
 		TemplateCV.setWriter(sw);
 		TCP.getContext().put("firstname", "Sven");
 		cmd.execute();
-		assertEquals("""
+		assertThat(sw.toString()).isEqualTo("""
 			hallo
 			0 Sven.
 			Wie geht's?
@@ -104,7 +104,7 @@ public class JavassistTest {
 			Wie geht's?
 			2 Sven.
 			Wie geht's?
-			""", sw.toString());
+			""");
 	}
 
 	@Test
@@ -117,7 +117,7 @@ public class JavassistTest {
 
 		TCP.getContext().put("firstname", "Sven");
 		cmd.execute();
-		assertEquals("""
+		assertThat(sw.toString()).isEqualTo("""
 					0: Hallo Sven. Wie gehts?
 					1: Hallo Sven. Wie gehts?
 					2: Hallo Sven. Wie gehts?
@@ -128,7 +128,7 @@ public class JavassistTest {
 					7: Hallo Sven. Wie gehts?
 					8: Hallo Sven. Wie gehts?
 					9: Hallo Sven. Wie gehts?
-					""", sw.toString());
+					""");
 	}
 
 

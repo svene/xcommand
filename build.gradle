@@ -25,7 +25,7 @@ dependencies {
 
 rewrite {
 	activeRecipe("org.openrewrite.java.RemoveUnusedImports")
-	activeRecipe("org.openrewrite.java.testing.hamcrest.MigrateHamcrestToAssertJ")
+	activeRecipe("org.openrewrite.java.testing.assertj.JUnitToAssertj")
 }
 
 allprojects {

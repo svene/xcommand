@@ -8,24 +8,20 @@ import org.junit.jupiter.api.Test;
 import org.xcommand.datastructure.tree.ITreeNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestHelperTest {
 
 	@Test
 	public void	verifyThatParsedFileCreateProperTreeStructure() {
 		ITreeNode p = new TestHelper().rootNode;
-		assertTrue(p instanceof RootNode);
-		{
-			assertEquals(5, p.getChildren().size());
+		assertThat(p instanceof RootNode).isTrue();
+		assertThat(p.getChildren()).hasSize(5);
 
-			verifyChildNode(p, 0, Text.class);
-			verifyChildNode(p, 1, Variable.class);
-			verifyChildNode(p, 2, Text.class);
-			verifyChildNode(p, 3, Java.class);
-			verifyChildNode(p, 4, Text.class);
-		}
+		verifyChildNode(p, 0, Text.class);
+		verifyChildNode(p, 1, Variable.class);
+		verifyChildNode(p, 2, Text.class);
+		verifyChildNode(p, 3, Java.class);
+		verifyChildNode(p, 4, Text.class);
 
 	}
 

@@ -19,7 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MainSM {
 
@@ -49,7 +49,7 @@ public class MainSM {
 
 	@Test
 	public void testTemplateCompiler() {
-		assertNull(treeNodeCV.getTreeNode());
+		assertThat(treeNodeCV.getTreeNode()).isNull();
 
 		// Compile template:
 		createASTforTemplateString(
@@ -58,7 +58,7 @@ public class MainSM {
 				Wie gehts?
 				""", Boolean.FALSE);
 		// Now the root node of the AST for the compiled template string is available via 'treeNodeCV.getTreeNode()'
-		assertNotNull(treeNodeCV.getTreeNode());
+		assertThat(treeNodeCV.getTreeNode()).isNotNull();
 
 	}
 
@@ -72,7 +72,7 @@ public class MainSM {
 		evaluationCV.setWriter(sw);
 		TCP.getContext().put("firstname", "Uli");
 		new TextTraverser().execute();
-		assertEquals("hallo Uli.\nWie gehts?\n", sw.toString());
+		assertThat(sw.toString()).isEqualTo("hallo Uli.\nWie gehts?\n");
 	}
 
 	@Test
@@ -99,7 +99,7 @@ public class MainSM {
 			cmd.execute();
 			return sw2;
 		});
-		assertEquals("hallo  Sven.\nWie gehts?\n", sw.toString());
+		assertThat(sw.toString()).isEqualTo("hallo  Sven.\nWie gehts?\n");
 	}
 
 	/**

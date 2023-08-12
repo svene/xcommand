@@ -10,7 +10,7 @@ import org.xcommand.threadcontext.ITIn2OutCV;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RegExpDispatcherCmdTest {
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
@@ -33,11 +33,11 @@ class RegExpDispatcherCmdTest {
 
 		request.setRequestURI("/bla/p1");
 		cmd.execute();
-		assertEquals("cmd1", inoutCV.getOutput());
+		assertThat(inoutCV.getOutput()).isEqualTo("cmd1");
 
 		request.setRequestURI("/bla/p2");
 		cmd.execute();
-		assertEquals("cmd2", inoutCV.getOutput());
+		assertThat(inoutCV.getOutput()).isEqualTo("cmd2");
 
 	}
 }
