@@ -8,7 +8,7 @@ import org.xcommand.example.commands.IEchoCV;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class EchoCVTest {
 	@Test

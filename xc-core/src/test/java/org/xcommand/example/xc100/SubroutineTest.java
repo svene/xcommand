@@ -6,7 +6,7 @@ import org.xcommand.core.Factory;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubroutineTest {
 
@@ -21,13 +21,13 @@ public class SubroutineTest {
 		Map<String, String> ctx = Factory.newInheritableMap(aCtx);
 		ctx.put("tmpString", "hi there");
 		subExecute(ctx);
-		assertThat(aCtx.get("name")).isEqualTo("Sven");
+		assertThat(aCtx).containsEntry("name", "Sven");
 		assertThat(aCtx.get("tmpString")).isNull();
 	}
 
 	private void subExecute(Map<String, String> aCtx)
 	{
-		assertThat(aCtx.get("name")).isEqualTo("Sven");
-		assertThat(aCtx.get("tmpString")).isEqualTo("hi there");
+		assertThat(aCtx).containsEntry("name", "Sven");
+		assertThat(aCtx).containsEntry("tmpString", "hi there");
 	}
 }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MapAdaptionTest {
 
@@ -32,7 +32,7 @@ public class MapAdaptionTest {
 		var adaptee = new HashMap<String, Object>();
 		Map<String, Object> m = Proxies.adapt(Map.class, adaptee, new InheritableMapAdapter<>(adaptee));
 		m.put("key", "Sven");
-		assertThat(m.get("key")).isEqualTo("Sven");
+		assertThat(m).containsEntry("key", "Sven");
 	}
 
 	@Test
@@ -40,8 +40,8 @@ public class MapAdaptionTest {
 		var adaptee = new HashMap<String, Object>();
 		adaptee.put("key", "Parent");
 		Map<String, Object> m = Proxies.adapt(Map.class, adaptee, new InheritableMapAdapter<>(adaptee));
-		assertThat(m.get("key")).isEqualTo("Parent");
+		assertThat(m).containsEntry("key", "Parent");
 		m.put("key", "Sven");
-		assertThat(m.get("key")).isEqualTo("Sven");
+		assertThat(m).containsEntry("key", "Sven");
 	}
 }

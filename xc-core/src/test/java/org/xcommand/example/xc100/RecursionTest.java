@@ -5,7 +5,7 @@ import org.xcommand.core.Factory;
 
 import java.util.*;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RecursionTest {
 	private List<String> list;
