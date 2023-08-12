@@ -3,7 +3,9 @@ package org.xcommand.api;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.example.commands.IEchoCV;
-import org.xcommand.misc.statemachine.*;
+import org.xcommand.misc.statemachine.DefaultStateTransitionBinder;
+import org.xcommand.misc.statemachine.IStateCV;
+import org.xcommand.misc.statemachine.IStateTransitionBinder;
 
 public class ContextViews {
 	private static final ContextViews instance = new ContextViews();
