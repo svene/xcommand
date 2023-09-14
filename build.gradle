@@ -1,7 +1,7 @@
 plugins {
 	id("java-library")
 	id "com.github.ben-manes.versions" version "0.47.0"
-	id 'org.openrewrite.rewrite' version '6.1.23'
+	id 'org.openrewrite.rewrite' version '6.3.6'
 }
 project.ext {
 	VERSION_JAVACC = '7.0.12'
@@ -19,7 +19,7 @@ project.ext {
 }
 
 dependencies {
-	rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.1.1"))
+	rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.3.0")) // https://mvnrepository.com/artifact/org.openrewrite.recipe/rewrite-recipe-bom
 	rewrite("org.openrewrite.recipe:rewrite-testing-frameworks")
 	rewrite("org.openrewrite.recipe:rewrite-static-analysis")
 }
@@ -41,14 +41,14 @@ allprojects {
 		annotationProcessor 'io.soabase.record-builder:record-builder-processor:37'
 		compileOnly 'io.soabase.record-builder:record-builder-core:37'
 
-		implementation 'org.slf4j:slf4j-api:2.0.7'
-		implementation 'org.slf4j:slf4j-simple:2.0.7'
+		implementation 'org.slf4j:slf4j-api:2.0.9'
+		implementation 'org.slf4j:slf4j-simple:2.0.9'
 		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
 		testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
 		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 		testImplementation 'org.assertj:assertj-core:3.24.2'
-		testImplementation "org.mockito:mockito-core:5.4.0"
-		testImplementation "org.mockito:mockito-junit-jupiter:5.4.0"
+		testImplementation "org.mockito:mockito-core:5.5.0"
+		testImplementation "org.mockito:mockito-junit-jupiter:5.5.0"
 
         testImplementation 'com.google.jimfs:jimfs:1.3.0'
 
