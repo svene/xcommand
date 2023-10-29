@@ -11,7 +11,7 @@ project.ext {
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
 
 	DEP_GROOVY = 'org.apache.groovy:groovy:4.0.13'
-	DEP_LOMBOK_VERSION = '1.18.28'
+	DEP_LOMBOK_VERSION = '1.18.30'
 	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.3-groovy-4.0'
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 	DEP_JOOL = 'org.jooq:jool:0.9.15'
@@ -56,7 +56,7 @@ allprojects {
 
 	java {
 		toolchain {
-			languageVersion = JavaLanguageVersion.of(20)
+			languageVersion = JavaLanguageVersion.of(21)
 		}
 	}
 	tasks.withType(JavaCompile) {
