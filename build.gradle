@@ -1,7 +1,7 @@
 plugins {
 	id("java-library")
 	id "com.github.ben-manes.versions" version "0.47.0"
-	id 'org.openrewrite.rewrite' version '6.3.6'
+	id 'org.openrewrite.rewrite' version '6.4.2'
 }
 project.ext {
 	VERSION_JAVACC = '7.0.12'
@@ -16,10 +16,16 @@ project.ext {
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 	DEP_JOOL = 'org.jooq:jool:0.9.15'
 	DEP_VAVR = 'io.vavr:vavr:0.10.4'
+	DEP_VERSION_SPRING_FW = '6.0.13'
+	DEP_VERSION_MOCKITO = '5.6.0'
+	DEP_VERSION_SLF4J = '2.0.9'
+	DEP_VERSION_JUNIT = '5.10.0'
+	DEP_VERSION_ASSERTJ = '3.24.2'
+	DEP_VERSION_JIMFS = '1.3.0'
 }
 
 dependencies {
-	rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.3.0")) // https://mvnrepository.com/artifact/org.openrewrite.recipe/rewrite-recipe-bom
+	rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.4.0")) // https://mvnrepository.com/artifact/org.openrewrite.recipe/rewrite-recipe-bom
 	rewrite("org.openrewrite.recipe:rewrite-testing-frameworks")
 	rewrite("org.openrewrite.recipe:rewrite-static-analysis")
 }
@@ -41,16 +47,16 @@ allprojects {
 		annotationProcessor 'io.soabase.record-builder:record-builder-processor:37'
 		compileOnly 'io.soabase.record-builder:record-builder-core:37'
 
-		implementation 'org.slf4j:slf4j-api:2.0.9'
-		implementation 'org.slf4j:slf4j-simple:2.0.9'
-		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-		testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
-		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
-		testImplementation 'org.assertj:assertj-core:3.24.2'
-		testImplementation "org.mockito:mockito-core:5.5.0"
-		testImplementation "org.mockito:mockito-junit-jupiter:5.5.0"
+		implementation "org.slf4j:slf4j-api:${DEP_VERSION_SLF4J}"
+		implementation "org.slf4j:slf4j-simple:${DEP_VERSION_SLF4J}"
+		testImplementation "org.junit.jupiter:junit-jupiter-api:${DEP_VERSION_JUNIT}"
+		testImplementation "org.junit.jupiter:junit-jupiter-params:${DEP_VERSION_JUNIT}"
+		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${DEP_VERSION_JUNIT}"
+		testImplementation "org.assertj:assertj-core:${DEP_VERSION_ASSERTJ}"
+		testImplementation "org.mockito:mockito-core:${DEP_VERSION_MOCKITO}"
+		testImplementation "org.mockito:mockito-junit-jupiter:${DEP_VERSION_MOCKITO}"
 
-        testImplementation 'com.google.jimfs:jimfs:1.3.0'
+        testImplementation "com.google.jimfs:jimfs:${DEP_VERSION_JIMFS}"
 
 	}
 
