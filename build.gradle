@@ -65,8 +65,9 @@ allprojects {
 			languageVersion = JavaLanguageVersion.of(21)
 		}
 	}
-	tasks.withType(JavaCompile) {
-		options.deprecation = true
+	tasks.withType(JavaCompile).each {
+		it.options.deprecation = true
+		it.options.compilerArgs.add('--enable-preview')
 	}
 
 	task ('copyToLib', type: Copy) {
@@ -83,6 +84,7 @@ allprojects {
 	}
 
 	test {
+		jvmArgs(['--enable-preview'])
 		useJUnitPlatform {
 //        	includeEngines 'junit-jupiter' // enabling this line causes spock tests not to be executed
 		}
