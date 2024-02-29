@@ -1,13 +1,13 @@
 plugins {
 	id("java-library")
 	id "com.github.ben-manes.versions" version "0.47.0"
-	id 'org.openrewrite.rewrite' version '6.4.2'
+	id 'org.openrewrite.rewrite' version '6.8.4'
 }
 project.ext {
-	VERSION_JAVACC = '7.0.12'
+	VERSION_JAVACC = '7.0.13'
 	DEP_SERVLET_API = 'jakarta.servlet:jakarta.servlet-api:6.0.0'
-	DEP_JANINO = 'org.codehaus.janino:janino:3.1.10'
-	DEP_JAVASSIST = 'org.javassist:javassist:3.29.2-GA'
+	DEP_JANINO = 'org.codehaus.janino:janino:3.1.12'
+	DEP_JAVASSIST = 'org.javassist:javassist:3.30.2-GA'
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
 
 	DEP_GROOVY = 'org.apache.groovy:groovy:4.0.13'
@@ -16,16 +16,16 @@ project.ext {
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 	DEP_JOOL = 'org.jooq:jool:0.9.15'
 	DEP_VAVR = 'io.vavr:vavr:0.10.4'
-	DEP_VERSION_SPRING_FW = '6.0.13'
-	DEP_VERSION_MOCKITO = '5.6.0'
+	DEP_VERSION_SPRING_FW = '6.1.4'
+	DEP_VERSION_MOCKITO = '5.10.0'
 	DEP_VERSION_SLF4J = '2.0.9'
-	DEP_VERSION_JUNIT = '5.10.0'
-	DEP_VERSION_ASSERTJ = '3.24.2'
+	DEP_VERSION_JUNIT = '5.10.2'
+	DEP_VERSION_ASSERTJ = '3.25.3'
 	DEP_VERSION_JIMFS = '1.3.0'
 }
 
 dependencies {
-	rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.4.0")) // https://mvnrepository.com/artifact/org.openrewrite.recipe/rewrite-recipe-bom
+	rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.7.1")) // https://mvnrepository.com/artifact/org.openrewrite.recipe/rewrite-recipe-bom
 	rewrite("org.openrewrite.recipe:rewrite-testing-frameworks")
 	rewrite("org.openrewrite.recipe:rewrite-static-analysis")
 }
@@ -44,7 +44,7 @@ allprojects {
 	}
 
 	dependencies {
-		annotationProcessor 'io.soabase.record-builder:record-builder-processor:37'
+		annotationProcessor 'io.soabase.record-builder:record-builder-processor:41'
 		compileOnly 'io.soabase.record-builder:record-builder-core:37'
 
 		implementation "org.slf4j:slf4j-api:${DEP_VERSION_SLF4J}"
