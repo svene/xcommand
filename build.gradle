@@ -1,29 +1,29 @@
 plugins {
 	id("java-library")
-	id "com.github.ben-manes.versions" version "0.47.0"
-	id 'org.openrewrite.rewrite' version '6.13.0'
+	id "com.github.ben-manes.versions" version "0.51.0"
+	id 'org.openrewrite.rewrite' version '6.16.3'
 }
 project.ext {
 	VERSION_JAVACC = '7.0.13'
-	DEP_SERVLET_API = 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+	DEP_SERVLET_API = 'jakarta.servlet:jakarta.servlet-api:6.1.0'
 	DEP_JANINO = 'org.codehaus.janino:janino:3.1.12'
 	DEP_JAVASSIST = 'org.javassist:javassist:3.30.2-GA'
 	DEP_JAVACC = "net.java.dev.javacc:javacc:${VERSION_JAVACC}"
 
 	DEP_GROOVY = 'org.apache.groovy:groovy:4.0.13'
-	DEP_LOMBOK_VERSION = '1.18.32'
+	DEP_LOMBOK_VERSION = '1.18.34'
 	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.3-groovy-4.0'
 	DEP_SPOCK_CORE = 'org.spockframework:spock-core'
 	DEP_JOOL = 'org.jooq:jool:0.9.15'
 	DEP_VAVR = 'io.vavr:vavr:0.10.4'
-	DEP_VERSION_SPRING_FW = '6.1.7'
+	DEP_VERSION_SPRING_FW = '6.1.11'
 	DEP_VERSION_MOCKITO = '5.12.0'
 	DEP_VERSION_SLF4J = '2.0.9'
 	DEP_VERSION_JUNIT = '5.10.2'
-	DEP_VERSION_ASSERTJ = '3.25.3'
+	DEP_VERSION_ASSERTJ = '3.26.3'
 	DEP_VERSION_JIMFS = '1.3.0'
-	DEP_RECORD_BUILDER = '41'
-	DEP_OPEN_REWRITE_BOM = '2.11.0'
+	DEP_RECORD_BUILDER = '42'
+	DEP_OPEN_REWRITE_BOM = '2.14.0'
 }
 
 dependencies {
