@@ -23,7 +23,7 @@ project.ext {
 	DEP_VERSION_ASSERTJ = '3.26.3'
 	DEP_VERSION_JIMFS = '1.3.0'
 	DEP_RECORD_BUILDER = '42'
-	DEP_OPEN_REWRITE_BOM = '2.14.0'
+	DEP_OPEN_REWRITE_BOM = '2.16.0'
 }
 
 dependencies {
