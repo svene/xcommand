@@ -76,12 +76,12 @@ allprojects {
 
 	java {
 		toolchain {
-			languageVersion = JavaLanguageVersion.of(21)
+			languageVersion = JavaLanguageVersion.of(23)
 		}
 	}
 	tasks.withType(JavaCompile).each {
 		it.options.deprecation = true
-		it.options.compilerArgs.add('--enable-preview')
+		//it.options.compilerArgs.add('--enable-preview')
 	}
 
 	task ('copyToLib', type: Copy) {
