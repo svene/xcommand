@@ -17,8 +17,8 @@ task renameJCC(type: Copy, dependsOn: 'copyToLib') {
 }
 
 task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
-	inputFile file('src/main/javacc/templateparser.jj')
-	genDir file('build/src/java/org/collage/jcc')
+	inputFile = file('src/main/javacc/templateparser.jj')
+	genDir = file('build/src/java/org/collage/jcc')
 }
 
 compileJava.dependsOn(jcc)
