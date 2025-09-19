@@ -58,3 +58,15 @@ test {
 	systemProperty 'eu.javaspecialists.books.dynamicproxies.util.MethodTurboBooster.disabled', 'true'
 }
 
+// ben-manes version-plugin:
+def isNonStable = { String version ->
+	def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+	def regex = /^[0-9,.v-]+(-r)?$/
+	return !stableKeyword && !(version ==~ regex)
+}
+// https://github.com/ben-manes/gradle-versions-plugin
+tasks.named("dependencyUpdates").configure {
+	rejectVersionIf {
+		isNonStable(it.candidate.version)
+	}
+}
