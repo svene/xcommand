@@ -16,6 +16,17 @@ spring-web = { group = "org.springframework", name = "spring-web" }
 spring-test = { group = "org.springframework", name = "spring-test" }
 assertj-core = { group = "org.assertj", name = "assertj-core", version = "3.27.4" }
 
+javacc = { group = "net.java.dev.javacc", name = "javacc", version = "7.0.13" }
+javassist = { group = "org.javassist", name = "javassist", version = "3.30.2-GA" }
+
+lombok = { group = "org.projectlombok", name = "lombok", version = "1.18.40" }
+slf4j-api = { group = "org.slf4j", name = "slf4j-api", version = "2.0.17" }
+slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version = "2.0.17" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version = "5.18.0" }
+mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version = "5.18.0" }
+
+spock-core = { group = "org.spockframework", name = "spock-core" }
+
 [bundles]
 recordbuilder = ["recordbuilder-core", "recordbuilder-processor"]
 

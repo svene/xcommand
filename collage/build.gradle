@@ -1,3 +1,59 @@
+plugins {
+	id 'buildlogic.groovy-library-conventions'
+}
+
+task ('copyToLib', type: Copy) {
+	into('build/_artifacts')
+	from configurations.compileClasspath
+	from configurations.default.allArtifacts*.file
+	from configurations.compileClasspath.allArtifacts*.file
+}
+
+task renameJCC(type: Copy, dependsOn: 'copyToLib') {
+	from("build/_artifacts/javacc-${VERSION_JAVACC}.jar")
+	into('build/_artifacts')
+	rename("javacc-${VERSION_JAVACC}.jar", 'javacc.jar')
+}
+
+task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
+	inputFile file('src/main/javacc/templateparser.jj')
+	genDir file('build/src/java/org/collage/jcc')
+}
+
+compileJava.dependsOn(jcc)
+
+dependencies {
+	implementation project(':xc-core')
+	implementation libs.javacc
+	implementation libs.javassist
+
+	implementation libs.slf4j.api
+	implementation libs.slf4j.simple
+
+	annotationProcessor libs.lombok
+	compileOnly libs.lombok
+	testAnnotationProcessor libs.lombok
+	testCompileOnly libs.lombok
+
+	testImplementation libs.mockito.core
+	testImplementation libs.mockito.junit.jupiter
+
+	implementation libs.jool
+	testImplementation libs.assertj.core
+	testImplementation platform(DEP_SPOCK_BOM)
+	testImplementation libs.spock.core
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'build/src/java'
+		}
+	}
+}
+
+
+/*
 dependencies {
 	implementation project(':xc-core')
 	implementation DEP_JAVASSIST
@@ -35,3 +91,4 @@ task listJars {
 		}
 	}
 }
+*/
