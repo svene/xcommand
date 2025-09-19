@@ -3,6 +3,8 @@
 
 [versions]
 recordbuilder = "48"
+javacc = "7.0.13"
+#spock-bom = 'org.spockframework:spock-bom:2.3-groovy-4.0'
 
 [libraries]
 jool = { group = "org.jooq", name = "jool", version = "0.9.15" }

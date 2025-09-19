@@ -11,36 +11,10 @@ dependencies {
 	implementation libs.janino.janino
 	implementation libs.servlet.api
 
-	implementation(platform("org.springframework:spring-framework-bom:6.2.11"))
+	implementation(platform(DEP_SPRING_FW_BOM))
 	implementation libs.spring.core
 	implementation libs.spring.web
 
 	testImplementation libs.spring.test
 	testImplementation libs.assertj.core
-
 }
-/*
-dependencies {
-	implementation DEP_SERVLET_API
-	implementation(platform("org.springframework:spring-framework-bom:${DEP_VERSION_SPRING_FW}"))
-	implementation 'org.springframework:spring-core'
-	implementation 'org.springframework:spring-websocket'
-	implementation DEP_JANINO
-	implementation 'eu.javaspecialists.books.dynamicproxies:core:2.0.0'
-	implementation DEP_VAVR
-	implementation DEP_JOOL
-
-	testImplementation 'org.springframework:spring-test'
-	testImplementation DEP_GROOVY
-	testImplementation platform(DEP_SPOCK_BOM)
-	testImplementation DEP_SPOCK_CORE
-	testImplementation 'cglib:cglib:3.3.0'
-
-	compileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	annotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	testCompileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	testAnnotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-}
-*/
-
-

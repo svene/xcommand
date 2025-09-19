@@ -54,46 +54,7 @@ dependencies {
 	testImplementation libs.assertj.core
 }
 
-/*
-dependencies {
-	implementation project(':xc-core')
-
-	implementation DEP_SERVLET_API
-	implementation DEP_JAVACC
-	implementation DEP_JANINO
-
-	annotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	compileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	testAnnotationProcessor "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	testCompileOnly "org.projectlombok:lombok:${DEP_LOMBOK_VERSION}"
-	implementation DEP_JOOL
-	implementation DEP_VAVR
-}
-
-sourceSets {
-	main {
-		java {
-			srcDir 'build/src/java'
-		}
-	}
-}
-
-task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
-	inputFile 'src/main/javacc/jst.jj'
-	genDir 'build/src/java/org/xcommand/template/jst/parser'
-}
-
-compileJava.dependsOn(jcc)
-
 test {
 	systemProperty 'eu.javaspecialists.books.dynamicproxies.util.MethodTurboBooster.disabled', 'true'
 }
 
-task listJars {
-	doLast {
-		configurations.compile.each { File file ->
-			println file.name
-		}
-	}
-}
-*/
