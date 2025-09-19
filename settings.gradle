@@ -5,5 +5,5 @@ plugins {
 
 rootProject.name = 'xcommand'
 
-include('xc-core', 'collage'/*, 'jst'*/)
+include('xc-core', 'collage', 'jst')
 
