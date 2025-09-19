@@ -1,7 +1,8 @@
-plugins {
-	id("java-library")
-	id "com.github.ben-manes.versions" version "0.52.0"
+project.ext {
+	VERSION_JAVACC = '7.0.13'
+	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.3-groovy-4.0'
 }
+/*
 project.ext {
 	VERSION_JAVACC = '7.0.13'
 	DEP_SERVLET_API = 'jakarta.servlet:jakarta.servlet-api:6.1.0'
@@ -24,78 +25,12 @@ project.ext {
 	DEP_RECORD_BUILDER = '48'
 	DEP_OPEN_REWRITE_BOM = '3.9.0'
 }
-
-
-// ben-manes version-plugin:
-def isNonStable = { String version ->
-	def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
-	def regex = /^[0-9,.v-]+(-r)?$/
-	return !stableKeyword && !(version ==~ regex)
-}
-// https://github.com/ben-manes/gradle-versions-plugin
-tasks.named("dependencyUpdates").configure {
-	rejectVersionIf {
-		isNonStable(it.candidate.version)
-	}
-}
-
-allprojects {
-//	apply plugin: 'java'
-	apply plugin: 'groovy'
-
-	repositories {
-		mavenCentral()
-	}
-
-	dependencies {
-		annotationProcessor "io.soabase.record-builder:record-builder-processor:${DEP_RECORD_BUILDER}"
-		compileOnly "io.soabase.record-builder:record-builder-core:${DEP_RECORD_BUILDER}"
-
-		implementation "org.slf4j:slf4j-api:${DEP_VERSION_SLF4J}"
-		implementation "org.slf4j:slf4j-simple:${DEP_VERSION_SLF4J}"
-		testImplementation "org.junit.jupiter:junit-jupiter-api:${DEP_VERSION_JUNIT}"
-		testImplementation "org.junit.jupiter:junit-jupiter-params:${DEP_VERSION_JUNIT}"
-		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${DEP_VERSION_JUNIT}"
-		testImplementation "org.assertj:assertj-core:${DEP_VERSION_ASSERTJ}"
-		testImplementation "org.mockito:mockito-core:${DEP_VERSION_MOCKITO}"
-		testImplementation "org.mockito:mockito-junit-jupiter:${DEP_VERSION_MOCKITO}"
-
-        testImplementation "com.google.jimfs:jimfs:${DEP_VERSION_JIMFS}"
-
-	}
-
-	java {
-		toolchain {
-			languageVersion = JavaLanguageVersion.of(23)
-		}
-	}
-	tasks.withType(JavaCompile).each {
-		it.options.deprecation = true
-		//it.options.compilerArgs.add('--enable-preview')
-	}
-
-	task ('copyToLib', type: Copy) {
-		into('build/_artifacts')
-		from configurations.compileClasspath
-		from configurations.default.allArtifacts*.file
-		from configurations.compileClasspath.allArtifacts*.file
-	}
-
-	task renameJCC(type: Copy, dependsOn: 'copyToLib') {
-		from("build/_artifacts/javacc-${VERSION_JAVACC}.jar")
-		into('build/_artifacts')
-		rename("javacc-${VERSION_JAVACC}.jar", 'javacc.jar')
-	}
-
-	test {
-		jvmArgs(['--enable-preview'])
-		useJUnitPlatform {
-//        	includeEngines 'junit-jupiter' // enabling this line causes spock tests not to be executed
-		}
+*/
+subprojects {
+	tasks.withType(Test) {
 		testLogging {
-			events /*'passed',*/ 'skipped', 'failed'
+			events "passed", "skipped", "failed"
+			exceptionFormat "short"
 		}
 	}
 }
-version = '1.0'
-

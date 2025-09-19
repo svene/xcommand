@@ -1,6 +1,6 @@
 package org.xcommand.technology.janino;
 
-import org.codehaus.commons.compiler.util.resource.Resource;
+import org.codehaus.commons.compiler.util.resource.Resource; // dependency to 'janino:commons-compiler'
 import org.codehaus.commons.compiler.util.resource.ResourceFinder;
 
 import java.util.Map;

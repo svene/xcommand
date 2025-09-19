@@ -1,3 +1,60 @@
+plugins {
+	id 'buildlogic.java-library-conventions'
+	alias(libs.plugins.versions)
+}
+
+task ('copyToLib', type: Copy) {
+	into('build/_artifacts')
+	from configurations.compileClasspath
+	from configurations.default.allArtifacts*.file
+	from configurations.compileClasspath.allArtifacts*.file
+}
+task renameJCC(type: Copy, dependsOn: 'copyToLib') {
+	from("build/_artifacts/javacc-${VERSION_JAVACC}.jar")
+	into('build/_artifacts')
+	rename("javacc-${VERSION_JAVACC}.jar", 'javacc.jar')
+}
+task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
+	inputFile 'src/main/javacc/jst.jj'
+	genDir 'build/src/java/org/xcommand/template/jst/parser'
+}
+
+compileJava.dependsOn(jcc)
+
+sourceSets {
+	main {
+		java {
+			srcDir 'build/src/java'
+		}
+	}
+}
+dependencies {
+	implementation project(':xc-core')
+	implementation libs.javacc
+	annotationProcessor libs.recordbuilder.processor
+	compileOnly libs.recordbuilder.core
+
+	implementation libs.slf4j.api
+	implementation libs.slf4j.simple
+
+	annotationProcessor libs.lombok
+	compileOnly libs.lombok
+	testAnnotationProcessor libs.lombok
+	testCompileOnly libs.lombok
+
+	implementation libs.jool
+	implementation libs.janino.janino
+	implementation libs.servlet.api
+
+	testImplementation libs.jimfs
+
+	testImplementation libs.mockito.core
+	testImplementation libs.mockito.junit.jupiter
+
+	testImplementation libs.assertj.core
+}
+
+/*
 dependencies {
 	implementation project(':xc-core')
 
@@ -39,3 +96,4 @@ task listJars {
 		}
 	}
 }
+*/
