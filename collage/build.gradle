@@ -1,26 +1,13 @@
 plugins {
 	id 'buildlogic.groovy-library-conventions'
 	alias(libs.plugins.versions)
+	id "org.xcommand.javacc"
 }
 
-task ('copyToLib', type: Copy) {
-	into('build/_artifacts')
-	from configurations.compileClasspath
-	from configurations.default.allArtifacts*.file
-	from configurations.compileClasspath.allArtifacts*.file
+javacc {
+	inputFile = file("src/main/javacc/templateparser.jj")
+	genDir    = file("build/src/java/org/collage/jcc")
 }
-
-task renameJCC(type: Copy, dependsOn: 'copyToLib') {
-	from("build/_artifacts/javacc-${VERSION_JAVACC}.jar")
-	into('build/_artifacts')
-	rename("javacc-${VERSION_JAVACC}.jar", 'javacc.jar')
-}
-
-task jcc (dependsOn: 'renameJCC', type: JavaCCTask) {
-	inputFile = file('src/main/javacc/templateparser.jj')
-	genDir = file('build/src/java/org/collage/jcc')
-}
-
 compileJava.dependsOn(jcc)
 
 dependencies {
