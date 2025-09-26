@@ -1,9 +1,31 @@
 plugins {
 	id 'buildlogic.java-library-conventions'
 	alias(libs.plugins.versions)
+	alias(libs.plugins.errorprone)
+}
+import net.ltgt.gradle.errorprone.CheckSeverity
+
+tasks.withType(JavaCompile) {
+	options.errorprone {
+		//disableAllChecks
+		check("NullAway", CheckSeverity.ERROR)
+		option("NullAway:AnnotatedPackages", "org.xcommand")
+		option("NullAway:ExcludedClassAnnotations", "javax.annotation.processing.Generated")
+		option("NullAway:KnownInitializers", "org.xcommand.web.WebCVInitializationFilter.init")
+	}
+	// Include to disable NullAway on test code
+	if (name.toLowerCase().contains("test")) {
+		options.errorprone {
+			disable("NullAway")
+		}
+	}
 }
 
 dependencies {
+	annotationProcessor libs.errorprone.core
+	errorprone libs.nullaway
+	api libs.jspecify
+	errorprone libs.errorprone.core
 	implementation libs.jool
 	annotationProcessor libs.recordbuilder.processor
 	compileOnly libs.recordbuilder.core
