@@ -2,6 +2,7 @@ package org.xcommand.technology.janino;
 
 import org.codehaus.commons.compiler.util.resource.Resource; // dependency to 'janino:commons-compiler'
 import org.codehaus.commons.compiler.util.resource.ResourceFinder;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
 import java.io.InputStream;
@@ -24,6 +25,7 @@ public class XCMapResourceFinder extends ResourceFinder {
 	}
 
 	@Override
+	@Nullable
 	public final Resource findResource(String resourceName) {
 		int p = resourceName.indexOf(".java");
 		String s = resourceName.substring(0, p);

@@ -1,5 +1,6 @@
 package org.xcommand.core.multi;
 
+import org.jspecify.annotations.Nullable;
 import org.xcommand.core.TCP;
 
 /**
@@ -9,10 +10,12 @@ public final class ModeContextView {
 	private ModeContextView() {
 	}
 
+	@Nullable
 	public static String getMode() {
 		return (String) TCP.getContext().get(ModeContextView.KEY_MODE);
 	}
 
+	@Nullable
 	public static String getNewMode() {
 		return (String) TCP.getContext().get(ModeContextView.KEY_NEW_MODE);
 	}

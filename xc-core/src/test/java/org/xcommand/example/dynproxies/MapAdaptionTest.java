@@ -14,14 +14,17 @@ public class MapAdaptionTest {
 		private final Map<K, V> adaptee;
 		private final Map<K, V> ownMap = new HashMap<>();
 
+		@SuppressWarnings("EffectivelyPrivate")
 		public InheritableMapAdapter(Map<K, V> adaptee) {
 			this.adaptee = adaptee;
 		}
 
+		@SuppressWarnings({"unused", "EffectivelyPrivate"})
 		public V put(K key, V value) {
 			return ownMap.put(key, value);
 		}
 
+		@SuppressWarnings({"unused", "EffectivelyPrivate"})
 		public V get(Object key) {
 			return ownMap.containsKey(key) ? ownMap.get(key) : adaptee.get(key);
 		}

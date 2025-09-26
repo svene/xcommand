@@ -1,5 +1,7 @@
 package org.xcommand.core;
 
+import org.jspecify.annotations.Nullable;
+
 public abstract class ContextView
 {
 
@@ -13,6 +15,7 @@ public abstract class ContextView
 		TCP.getContext().put(className, this);
 	}
 
+	@Nullable
 	public static ContextView getContextView(Class<?> aClass) {
 		return (ContextView) TCP.getContext().get(aClass.getName());
 	}

@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider {
 	public ClassBasedMultiCommandProvider(Class<?> aClazz) {
-		setTargetClass(aClazz);
+		this.targetClass = aClazz;
 	}
 
-	public ClassBasedMultiCommandProvider() {
-	}
+//	public ClassBasedMultiCommandProvider() {
+//	}
 
 	public void init() {
 		Method[] methods = targetClass.getDeclaredMethods();
@@ -21,8 +21,7 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider {
 			if (!classes[0].isAssignableFrom(Map.class)) {
 				continue;
 			}
-			MethodCmd mc = new MethodCmd(targetClass);
-			mc.setMethod(m);
+			MethodCmd mc = MethodCmd.fromClass(targetClass, m);
 			commandMap.put(m.getName(), mc);
 		}
 	}

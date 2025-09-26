@@ -4,6 +4,7 @@ import org.codehaus.commons.compiler.util.resource.MapResourceCreator;
 import org.codehaus.commons.compiler.util.resource.MapResourceFinder;
 import org.codehaus.commons.compiler.util.resource.ResourceCreator;
 import org.codehaus.janino.CachingJavaSourceClassLoader;
+import org.jspecify.annotations.Nullable;
 
 
 import java.nio.charset.StandardCharsets;
@@ -51,7 +52,7 @@ public class JaninoObjectCreator {
 		@Override
 		public byte[] get(Object key) {
 			System.out.println("JaninoObjectCreator.get()");
-			return super.get(key);
+			return super.getOrDefault(key, new byte[0]);
 		}
 
 		@Override

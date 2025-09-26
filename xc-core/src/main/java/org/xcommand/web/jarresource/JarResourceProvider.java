@@ -40,9 +40,12 @@ public class JarResourceProvider implements ICommand {
 		} catch (IOException | RuntimeException e) {
 			//e.printStackTrace();
 			String msg = e.getMessage();
-			if (!msg.contains(WSJAR_FILE)) {
-				throw new RuntimeException("unsupported resource: " + resource.getDescription(), e);
+			if (msg == null) {
+				throw new RuntimeException(e);
 			}
+//			if (!msg.contains(WSJAR_FILE)) {
+//				throw new RuntimeException("unsupported resource: " + resource.getDescription(), e);
+//			}
 			int i1 = msg.indexOf(WEBINF_LIB);
 			if (i1 == -1) {
 				// jar file is outside of 'WEB-INF-LIB'

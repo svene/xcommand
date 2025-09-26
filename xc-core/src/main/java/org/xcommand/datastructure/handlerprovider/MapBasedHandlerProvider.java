@@ -1,5 +1,6 @@
 package org.xcommand.datastructure.handlerprovider;
 
+import org.jspecify.annotations.Nullable;
 import org.xcommand.core.ICommand;
 
 import java.util.Map;
@@ -16,6 +17,7 @@ public class MapBasedHandlerProvider implements IHandlerProvider {
 	}
 
 	@Override
+	@Nullable
 	public ICommand getHandler(Object aObj) {
 		return handlerMap.get(aObj);
 	}

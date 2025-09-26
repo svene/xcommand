@@ -1,5 +1,7 @@
 package org.xcommand.core;
 
+import org.jspecify.annotations.Nullable;
+
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -16,6 +18,7 @@ public record ContextProviderBasedBeanAccessor(
 	}
 
 	@Override
+	@Nullable
 	public Object get(InvocationContext ihc) {
 		String key = dynaBeanKeyProvider.getKey(ihc);
 		return contextSupplier.get().get(key);

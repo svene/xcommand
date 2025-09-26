@@ -10,8 +10,7 @@ import java.util.Arrays;
 public class CollageStateConnector {
 	public void connect(IState aFromState, IState aToState, String aParserMode,
 						ICommand[] aExecuteCommands) {
-		var t = new Transition();
-		t.setName(aFromState.getName() + "->" + aToState.getName());
+		var t = new Transition(aFromState.getName() + "->" + aToState.getName());
 		ContextViews.get().defaultStateTransitionBinder.bind(aFromState, t, aToState);
 		// Setup entry condition for transition:
 		var pmct = new ParserModeConditionTester(aParserMode);

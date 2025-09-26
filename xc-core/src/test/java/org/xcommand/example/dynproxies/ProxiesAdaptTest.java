@@ -20,6 +20,7 @@ public class ProxiesAdaptTest {
 						return patchString;
 					}
 
+					@SuppressWarnings({"unused", "EffectivelyPrivate"})
 					public int length() {
 						return 42;
 					}

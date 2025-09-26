@@ -8,7 +8,7 @@ public class NestableObjectAdapter implements IObjectAdapter {
 
 	@Override
 	public Object adaptedObject(Object aSourceObject) {
-		return nestedAdapter == null ? aSourceObject : nestedAdapter.adaptedObject(aSourceObject);
+		return nestedAdapter.adaptedObject(aSourceObject);
 	}
 
 	private final IObjectAdapter nestedAdapter;

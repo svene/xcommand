@@ -36,7 +36,9 @@ public class ModeBasedCommandDispatcher implements ICommand
 //			String mode = ModeContextView.getMode(aCtx);
 			String mode = (String) TCP.getContext().get(modeKey);
 			ICommand command = getModeCommandMap().get(mode);
-			command.execute();
+			if (command != null) {
+				command.execute();
+			}
 		}
 		catch (RuntimeException e)
 		{

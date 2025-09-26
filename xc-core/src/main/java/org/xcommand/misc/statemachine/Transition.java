@@ -6,6 +6,10 @@ import org.xcommand.pattern.observer.INotifier;
 
 public class Transition implements ICommand {
 
+	public Transition(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -22,9 +26,6 @@ public class Transition implements ICommand {
 		return postExecuteNotifier;
 	}
 
-	public void setName(String aName) {
-		name = aName;
-	}
 
 	@Override
 	public void execute() {
@@ -33,7 +34,7 @@ public class Transition implements ICommand {
 		postExecuteNotifier.execute();
 	}
 
-	private String name;
+	private final String name;
 	private final INotifier preExecuteNotifier = new BasicNotifier();
 	private final INotifier executeNotifier = new BasicNotifier();
 	private final INotifier postExecuteNotifier = new BasicNotifier();

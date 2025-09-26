@@ -1,5 +1,6 @@
 package org.xcommand.core.multi;
 
+import org.jspecify.annotations.Nullable;
 import org.xcommand.core.ICommand;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class BaseMultiCommandProvider implements IMultiCommandProvider
 	}
 
 	@Override
+	@Nullable
 	public ICommand getCommand(String aName)
 	{
 		return commandMap.get(aName);

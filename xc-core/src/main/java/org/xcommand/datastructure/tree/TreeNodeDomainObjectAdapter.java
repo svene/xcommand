@@ -11,7 +11,7 @@ class TreeNodeDomainObjectAdapter extends NestableObjectAdapter {
 
 	@Override
 	public Object adaptedObject(Object aSourceObject) {
-		ITreeNode tn = (ITreeNode) (super.adaptedObject(aSourceObject));
+		ITreeNode tn = (ITreeNode) super.adaptedObject(aSourceObject);
 		return tn.getDomainObject();
 	}
 }

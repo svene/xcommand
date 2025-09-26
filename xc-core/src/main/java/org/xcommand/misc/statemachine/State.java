@@ -5,10 +5,6 @@ import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.pattern.observer.StoppableNotifier;
 
 public class State implements IState {
-	public State() {
-		this(null);
-	}
-
 	public State(String aName) {
 		name = aName;
 	}

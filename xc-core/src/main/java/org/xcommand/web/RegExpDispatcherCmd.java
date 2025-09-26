@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegExpDispatcherCmd implements ICommand {
-	public void setCommands(Map<String, ICommand> aCommands) {
-		commands = aCommands;
+	public RegExpDispatcherCmd(Map<String, ICommand> commands) {
+		this.commands = commands;
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class RegExpDispatcherCmd implements ICommand {
 	}
 
 	// Commands identified by pattern (e.g. '^/bla.*') used as key for this map:
-	private Map<String, ICommand> commands;
+	private final Map<String, ICommand> commands;
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 }

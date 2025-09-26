@@ -8,7 +8,7 @@ import org.xcommand.core.IResultCV;
 public class FalseCondition implements ICommand {
 	@Override
 	public void execute() {
-		resultCV.setResult(Boolean.FALSE);
+		resultCV.setResult(false);
 	}
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

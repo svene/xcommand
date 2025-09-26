@@ -1,5 +1,6 @@
 package org.xcommand.datastructure.handlerprovider;
 
+import org.jspecify.annotations.Nullable;
 import org.xcommand.core.ICommand;
 
 /**
@@ -7,5 +8,6 @@ import org.xcommand.core.ICommand;
  */
 @FunctionalInterface
 public interface IHandlerProvider {
+	@Nullable
 	ICommand getHandler(Object aObj);
 }

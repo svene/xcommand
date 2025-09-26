@@ -7,20 +7,23 @@ import java.lang.reflect.Method;
 
 public class MethodCmd implements ICommand
 {
-
-	public MethodCmd(Class<?> aClass)
-	{
-		Sneaky.runnable(() -> multiCommandObject = aClass.getDeclaredConstructor().newInstance()).run();
+	public static MethodCmd fromClass(Class<?> aClass, Method aMethod) {
+		try {
+			var obj = aClass.getDeclaredConstructor().newInstance();
+			return fromObject(obj, aMethod);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	public MethodCmd(Object multiCommandObject)
+	public static MethodCmd fromObject(Object multiCommandObject, Method aMethod) {
+		return new MethodCmd(multiCommandObject, aMethod);
+	}
+
+	private MethodCmd(Object multiCommandObject, Method aMethod)
 	{
 		this.multiCommandObject = multiCommandObject;
-	}
-
-	public void setMethod(Method aMethod)
-	{
-		method = aMethod;
+		this.method = aMethod;
 	}
 
 	@Override

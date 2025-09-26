@@ -1,6 +1,7 @@
 package org.xcommand.core;
 
 import eu.javaspecialists.books.dynamicproxies.Proxies;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class Factory {
 			return childMap.put(key, value);
 		}
 
+		@Nullable
 		public V get(Object key) {
 			return childMap.containsKey(key) ? childMap.get(key) : parentMap.get(key);
 		}

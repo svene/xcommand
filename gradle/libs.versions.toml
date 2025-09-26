@@ -5,6 +5,9 @@
 recordbuilder = "48"
 
 [libraries]
+jspecify = { group = "org.jspecify", name = "jspecify", version = "1.0.0" }
+nullaway = { group = "com.uber.nullaway", name = "nullaway", version = "0.12.10" }
+errorprone-core = { group = "com.google.errorprone", name = "error_prone_core", version = "2.42.0" }
 jool = { group = "org.jooq", name = "jool", version = "0.9.15" }
 recordbuilder-processor = { group = "io.soabase.record-builder", name = "record-builder-processor", version.ref = "recordbuilder" }
 recordbuilder-core = { group = "io.soabase.record-builder", name = "record-builder-core", version.ref = "recordbuilder" }
@@ -33,3 +36,4 @@ recordbuilder = ["recordbuilder-core", "recordbuilder-processor"]
 
 [plugins]
 versions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
+errorprone = { id = "net.ltgt.errorprone", version = "4.3.0" }

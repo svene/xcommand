@@ -5,11 +5,9 @@ import java.util.Map;
 import java.lang.reflect.Method;
 
 public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider {
-	public ObjectBasedMultiCommandProvider() {
-	}
 
 	public ObjectBasedMultiCommandProvider(Object aTargetObject) {
-		setTargetObject(aTargetObject);
+		this.targetObject = aTargetObject;
 	}
 
 	public void init() {
@@ -24,8 +22,7 @@ public class ObjectBasedMultiCommandProvider extends BaseMultiCommandProvider {
 			if (!classes[0].isAssignableFrom(Map.class)) {
 				continue;
 			}
-			MethodCmd mc = new MethodCmd(targetObject);
-			mc.setMethod(m);
+			MethodCmd mc = MethodCmd.fromObject(targetObject, m);
 			commandMap.put(m.getName(), mc);
 		}
 	}

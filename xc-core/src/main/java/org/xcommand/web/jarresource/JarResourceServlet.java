@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -74,9 +76,8 @@ public class JarResourceServlet extends HttpServlet {
 
 	private void showLastModifiedDate() {
 		Resource resource = jarResourceProviderCV.getResource();
-		long l = jarResourceProviderCV.getLastModified();
-
-		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result as date=" + new Date(l));
+		Long l = jarResourceProviderCV.getLastModified();
+		System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result: " + Instant.ofEpochMilli(l));
 	}
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

@@ -25,8 +25,7 @@ class RegExpDispatcherCmdTest {
 		Map<String, ICommand> commands = new HashMap<>();
 		commands.put(".*p1$", cmd1);
 		commands.put(".*p2$", cmd2);
-		RegExpDispatcherCmd cmd = new RegExpDispatcherCmd();
-		cmd.setCommands(commands);
+		RegExpDispatcherCmd cmd = new RegExpDispatcherCmd(commands);
 
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		webCV.setRequest(request);
