@@ -30,7 +30,7 @@ public class JavassistTest {
 		TCP.popContext();
 	}
 
-	/* Create a template command from a string, execute it and write output to System.out.
+	/** Create a template command from a string, execute it and write output to System.out.
 	 * Note: by default the code in  {@link org.collage.dom.evaluator.java.javassist.ExitRootHandler.executeMethod} writes to System.out */
 	@Test
 	public void exerciseNewTemplateCommandFromStringUsingSystemOut() {

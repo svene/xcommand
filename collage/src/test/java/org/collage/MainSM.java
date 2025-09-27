@@ -17,6 +17,7 @@ import org.xcommand.template.parser.IParserCV;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -109,7 +110,7 @@ public class MainSM {
 		ITreeNode treeNode = TCP.get(() -> {
 			domNodeCreationHandlerCV.setProduceJavaSource(aProduceJavaCode);
 			new DefaultDomNodeCreationHandlerInitializer().execute();
-			parserCV.setInputStream(new ByteArrayInputStream(aTemplateString.getBytes()));
+			parserCV.setInputStream(new ByteArrayInputStream(aTemplateString.getBytes(StandardCharsets.UTF_8)));
 			new TemplateCompiler().execute();
 			return treeNodeCV.getTreeNode();
 		});

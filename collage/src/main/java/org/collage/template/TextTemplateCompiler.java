@@ -41,7 +41,7 @@ public class TextTemplateCompiler {
 		});
 	}
 
-	private final class TextTemplateEvaluationCommand extends TemplateCommand {
+	private static final class TextTemplateEvaluationCommand extends TemplateCommand {
 
 		private TextTemplateEvaluationCommand(ITreeNode aRootNode) {
 			super(aRootNode);

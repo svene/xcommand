@@ -18,7 +18,7 @@ public class CsmCommands {
 //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 
 		Boolean javaMode = CsmCommands.domNodeCreationHandlerCV.getProduceJavaSource();
-		if (javaMode == Boolean.TRUE) {
+		if (javaMode == true) {
 //			sb.append("*PJS*");
 			sb.append('\\');
 			sb.append('n');

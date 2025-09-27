@@ -37,3 +37,4 @@ recordbuilder = ["recordbuilder-core", "recordbuilder-processor"]
 [plugins]
 versions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
 errorprone = { id = "net.ltgt.errorprone", version = "4.3.0" }
+nullaway = { id = "net.ltgt.nullaway", version = "2.3.0" }

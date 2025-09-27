@@ -4,6 +4,7 @@ import org.xcommand.core.TCP;
 
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class TemplateSource {
@@ -17,7 +18,7 @@ public class TemplateSource {
 	}
 
 	public TemplateSource(String aTemplateText) {
-		this(new ByteArrayInputStream(aTemplateText.getBytes()));
+		this(new ByteArrayInputStream(aTemplateText.getBytes(StandardCharsets.UTF_8)));
 	}
 
 	public InputStream getInputStream() {

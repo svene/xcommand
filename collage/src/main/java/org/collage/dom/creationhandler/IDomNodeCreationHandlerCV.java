@@ -24,9 +24,6 @@ public interface IDomNodeCreationHandlerCV {
 
 	public void setCreateTextNodeRequestNotifier(INotifier aNotifier);
 
-	/**
-	 * @deprecated
-	 */
 	@Deprecated
 	public void setDomNodeCreationHandler(ICommand aDomNodeCreationHandler);
 
