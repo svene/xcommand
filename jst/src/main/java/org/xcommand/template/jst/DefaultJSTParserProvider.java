@@ -76,6 +76,7 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
 			code.append(v);
 		}
 	};
+	@SuppressWarnings("unused")
 	private final ICommand eolObserver = new ICommand() {
 		@Override
 		public void execute() {

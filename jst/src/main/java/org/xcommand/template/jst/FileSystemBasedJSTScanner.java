@@ -1,5 +1,6 @@
 package org.xcommand.template.jst;
 
+import org.jspecify.annotations.Nullable;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
@@ -94,7 +95,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
 		}
 	}
 
-	private String genSourceDir;
+	private @Nullable String genSourceDir;
 	private final INotifier changeNotifier = new BasicNotifier();
 
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

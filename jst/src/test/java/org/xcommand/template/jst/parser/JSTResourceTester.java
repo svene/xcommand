@@ -30,9 +30,11 @@ public class JSTResourceTester {
 			TCP.getContext().put("writer", sw);
 			cmd.execute();
 			assertEquals(
-				"\n" +
-				"\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>\n" +
-				"\t<p>hallihallo</p>\n", sw.toString());
+				"""
+					
+					\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>
+					\t<p>hallihallo</p>
+					""", sw.toString());
 		});
 	}
 
@@ -50,9 +52,11 @@ public class JSTResourceTester {
 			var sw = new StringWriter();
 			TCP.getContext().put("writer", sw);
 			cmd.execute();
-			String bart = "\n" +
-			  "\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>\n" +
-			  "\t<p>hallihallo</p>\n";
+			String bart = """
+				
+				\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>
+				\t<p>hallihallo</p>
+				""";
 			assertEquals(bart, sw.toString());
 		});
 	}
@@ -72,9 +76,11 @@ public class JSTResourceTester {
 			TCP.getContext().put("writer", sw);
 			TCP.getContext().put("firstname", "Lisa");
 			cmd.execute();
-			assertEquals("\n" +
-				"\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>\n" +
-				"\t<p>hallihallo</p>\n",
+			assertEquals("""
+					
+					\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>
+					\t<p>hallihallo</p>
+					""",
 				sw.toString()
 			);
 		});

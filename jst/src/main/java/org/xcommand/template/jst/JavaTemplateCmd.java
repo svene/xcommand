@@ -44,8 +44,8 @@ public class JavaTemplateCmd implements ICommand {
 		uriToClassnameMapper = aUriToClassnameMapper;
 	}
 
-	private IUriToClassnameMapper uriToClassnameMapper;
-	private JSTJaninoObjectCreator jstJaninoObjectCreator;
+	private IUriToClassnameMapper uriToClassnameMapper = in -> in;
+	private JSTJaninoObjectCreator jstJaninoObjectCreator = new JSTJaninoObjectCreator();
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IWebCV webCV = dbp.newBeanForInterface(IWebCV.class);
 }

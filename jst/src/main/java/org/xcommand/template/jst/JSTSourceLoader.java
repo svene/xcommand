@@ -4,10 +4,15 @@ import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public class JSTSourceLoader {
+
+	public JSTSourceLoader(String srcDir) {
+		this.srcDir = srcDir;
+	}
 
 	public String getSrcDir() {
 		return srcDir;
@@ -15,10 +20,6 @@ public class JSTSourceLoader {
 
 	public Map<String, byte[]> getClassMap() {
 		return classMap;
-	}
-
-	public void setSrcDir(String aSrcDir) {
-		srcDir = aSrcDir;
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class JSTSourceLoader {
 
 			classMap = new HashMap<>();
 			System.out.println("aClassname = " + aClassname);
-			classMap.put(aClassname, s.getBytes());
+			classMap.put(aClassname, s.getBytes(StandardCharsets.UTF_8));
 			System.out.println();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -51,9 +52,10 @@ public class JSTSourceLoader {
 	}
 
 
-	private String srcDir;
+	private final String srcDir;
 	private Map<String, byte[]> classMap = new HashMap<>();
 
+	@SuppressWarnings("unused")
 	private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath) {
 		var idx = aAbsolutePath.indexOf(aSrcDir);
 		if (idx == -1) {

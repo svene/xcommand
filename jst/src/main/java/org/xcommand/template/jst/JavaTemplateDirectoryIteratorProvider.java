@@ -5,9 +5,6 @@ import org.codehaus.commons.compiler.util.iterator.DirectoryIterator;
 import java.io.File;
 import java.util.Iterator;
 
-/**
- * @deprecated
- */
 @Deprecated
 public class JavaTemplateDirectoryIteratorProvider {
 	public Iterator<File> newIterator(String aSrcDir) {

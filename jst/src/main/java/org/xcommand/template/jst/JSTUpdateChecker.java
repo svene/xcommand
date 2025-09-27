@@ -14,9 +14,14 @@ public class JSTUpdateChecker extends TimerTask {
 		System.out.println("JSTUpdateChecker.instance initializer()");
 	}
 
+	public JSTUpdateChecker(List<Path> srcPaths, JSTJaninoObjectCreator janinoObjectCreator) {
+		this.srcPaths = srcPaths;
+		this.janinoObjectCreator = janinoObjectCreator;
+	}
+
 	@Override
 	public void run() {
-		System.out.println("JSTUpdateChecker.run(): " + new Date());
+		System.out.println("JSTUpdateChecker.run(): " + System.currentTimeMillis());
 		var classMap = jstScannerCV.getClassMap();
 		if (classMap == null) {
 			throw new IllegalStateException("classMap == null");
@@ -28,14 +33,6 @@ public class JSTUpdateChecker extends TimerTask {
 		jstScanner.execute();
 	}
 
-	public void setSrcPaths(List<Path> aSrcPaths) {
-		srcPaths = aSrcPaths;
-	}
-
-	public void setJaninoObjectCreator(JSTJaninoObjectCreator aJaninoObjectCreator) {
-		janinoObjectCreator = aJaninoObjectCreator;
-	}
-
 	private class ChangedHandler implements ICommand {
 		@Override
 		public void execute() {
@@ -43,8 +40,8 @@ public class JSTUpdateChecker extends TimerTask {
 		}
 	}
 
-	private List<Path> srcPaths;
-	private JSTJaninoObjectCreator janinoObjectCreator;
+	private final List<Path> srcPaths;
+	private final JSTJaninoObjectCreator janinoObjectCreator;
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
 	private final IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);

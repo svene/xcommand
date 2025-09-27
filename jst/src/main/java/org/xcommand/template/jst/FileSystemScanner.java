@@ -16,8 +16,13 @@ import java.util.List;
 
 public final class FileSystemScanner implements ICommand, FileSystemScannerExt {
 
-	private FileSystemScanner(FileSystemScannerExt ext) {
-		this.ext = ext == null ? this : ext;
+	private FileSystemScanner(List<Path> rootPaths, FileSystemScannerExt ext) {
+		this.rootPaths = rootPaths;
+		this.ext = ext;
+	}
+	private FileSystemScanner(List<Path> rootPaths) {
+		this.rootPaths = rootPaths;
+		this.ext = this;
 	}
 
 	private final FileSystemScannerExt ext;
@@ -27,18 +32,17 @@ public final class FileSystemScanner implements ICommand, FileSystemScannerExt {
 	private final IFileSystemScannerCV fileSystemScannerCV = dbp.newBeanForInterface(IFileSystemScannerCV.class);
 
 
-	public static FileSystemScanner newInstance() {
-		return new FileSystemScanner(null);
+	public static FileSystemScanner newInstance(List<Path> rootPaths) {
+		return new FileSystemScanner(rootPaths);
 	}
-	public static FileSystemScanner newInstance(FileSystemScannerExt relations) {
-		return new FileSystemScanner(relations);
+	public static FileSystemScanner newInstance(List<Path> rootPaths, FileSystemScannerExt relations) {
+		return new FileSystemScanner(rootPaths, relations);
 	}
 
 	@Override
 	public void execute() {
 		rootPaths.forEach(rootPath -> {
 			fileSystemScannerCV.setRootPath(rootPath);
-			boolean ex = Files.exists(rootPath);
 			FilesUnchecked.walkFileTree(rootPath, new SimpleFileVisitor<>() {
 				@Override
 				public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
@@ -57,10 +61,6 @@ public final class FileSystemScanner implements ICommand, FileSystemScannerExt {
 
 	public INotifier getFileFoundNotifier() {
 		return fileFoundNotifier;
-	}
-
-	public void setRootPaths(Path... aRootPaths) {
-		setRootPaths(List.of(aRootPaths));
 	}
 
 	public void setRootPaths(List<Path> aRootDirs) {

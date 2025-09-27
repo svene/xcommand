@@ -6,8 +6,6 @@ import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.web.IWebCV;
 
-import jakarta.servlet.ServletContext;
-
 import java.util.*;
 
 public class ServletContextBasedJSTProvider implements IJSTProvider {
@@ -22,14 +20,10 @@ public class ServletContextBasedJSTProvider implements IJSTProvider {
 	}
 
 	@Override
-	public ClassMapEntry getClassMapEntry(Map<String, Object> aCtx, String aClassname) {
-		return null;
+	public Optional<ClassMapEntry> getClassMapEntry(Map<String, Object> aCtx, String aClassname) {
+		return Optional.empty();
 	}
 
-
-	public void setSrcDirs(List<String> aSrcDirs) {
-		srcDirs = aSrcDirs;
-	}
 
 	@Override
 	public Map<String, ClassMapEntry> getClassMap() {
@@ -41,7 +35,6 @@ public class ServletContextBasedJSTProvider implements IJSTProvider {
 		return changeNotifier;
 	}
 
-	private List<String> srcDirs;
 	private final Map<String, ClassMapEntry> classMap = new HashMap<>();
 	private final INotifier changeNotifier = new BasicNotifier();
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

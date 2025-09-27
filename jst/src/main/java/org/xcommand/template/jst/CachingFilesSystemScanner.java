@@ -8,14 +8,12 @@ import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.util.FilesUnchecked;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class CachingFilesSystemScanner implements ICommand {
 	@Override
 	public void execute() {
-		var rootPaths = fileSystemScannerCV.getRootPath();
-
-		var fssc = FileSystemScanner.newInstance();
-		fssc.setRootPaths(rootPaths);
+		var fssc = FileSystemScanner.newInstance(List.of(fileSystemScannerCV.getRootPath()));
 		fssc.getFileFoundNotifier().registerObserver(new FileFoundHandler());
 		var changedFiles = new HashMap<String, FileMapEntry>();
 		cachingFilesSystemScannerCV.setChangedFiles(changedFiles);

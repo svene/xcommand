@@ -5,6 +5,7 @@ import org.jooq.lambda.Sneaky;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class JSTJavaResourceLoader {
 		var s = jstParserCV.getGeneratedJavaCode().toString();
 
 		classMap = new HashMap<>();
-		classMap.put(resourceName.replace(".java", ""), s.getBytes());
+		classMap.put(resourceName.replace(".java", ""), s.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private Map<String, byte[]> classMap = new HashMap<>();

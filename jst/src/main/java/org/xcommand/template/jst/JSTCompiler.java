@@ -4,12 +4,12 @@ import org.xcommand.technology.janino.JaninoObjectCreator;
 
 public class JSTCompiler {
 
-	public JSTJavaResourceLoader getJstJavaResourceLoader() {
-		return jstJavaResourceLoader;
+	public JSTCompiler(JSTJavaResourceLoader jstJavaResourceLoader) {
+		this.jstJavaResourceLoader = jstJavaResourceLoader;
 	}
 
-	public void setJstJavaResourceLoader(JSTJavaResourceLoader jstJavaResourceLoader) {
-		this.jstJavaResourceLoader = jstJavaResourceLoader;
+	public JSTJavaResourceLoader getJstJavaResourceLoader() {
+		return jstJavaResourceLoader;
 	}
 
 	public Object getObject(String aClassname) {
@@ -19,5 +19,5 @@ public class JSTCompiler {
 		return janino.getObject(aClassname);
 	}
 
-	private JSTJavaResourceLoader jstJavaResourceLoader;
+	private final JSTJavaResourceLoader jstJavaResourceLoader;
 }

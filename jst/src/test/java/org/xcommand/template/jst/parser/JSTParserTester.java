@@ -32,6 +32,7 @@ public class JSTParserTester {
 		TCP.popContext();
 	}
 
+	@SuppressWarnings("unused")
 	private static Stream<Arguments> testCommentStartHandler() {
 		return Stream.of(
 			Arguments.of("hi there!", 0),
@@ -53,6 +54,7 @@ public class JSTParserTester {
 		verify(commentStartHandler, times(expected)).execute();
 	}
 
+	@SuppressWarnings("unused")
 	private static Stream<Arguments> testEolInCommentHandler() throws FileNotFoundException {
 		return Stream.of(
 			Arguments.of(new FileInputStream("../jst-testdata/src/main/java/T1.java"), 3),

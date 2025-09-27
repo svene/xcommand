@@ -76,8 +76,7 @@ public class FileSystemScannerTester {
 		@Test
 		public void customHandler() {
 			List<String> actual = new ArrayList<>();
-			var scanner = FileSystemScanner.newInstance(path -> actual.add(path.toString()));
-			scanner.setRootPaths(mainJavaPath , testJavaPath);
+			var scanner = FileSystemScanner.newInstance(List.of(mainJavaPath , testJavaPath), path -> actual.add(path.toString()));
 			// todo: should a filenamefilter e.g. "*.java" be supported ?
 			scanner.execute();
 			// Test for the following three files (although more will be found):
@@ -111,10 +110,9 @@ public class FileSystemScannerTester {
 		}
 
 		@Test
-		public void customHandler() {
+		void customHandler() {
 			List<String> actual = new ArrayList<>();
-			var scanner = FileSystemScanner.newInstance(path -> actual.add(path.toString()));
-			scanner.setRootPaths(mainJavaPath , testJavaPath);
+			var scanner = FileSystemScanner.newInstance(List.of(mainJavaPath , testJavaPath), path -> actual.add(path.toString()));
 			// todo: should a filenamefilter e.g. "*.java" be supported ?
 			scanner.execute();
 			assertThat(actual.size()).isGreaterThan(3);
@@ -126,9 +124,8 @@ public class FileSystemScannerTester {
 			));
 		}
 		@Test
-		public void defaultHandler() {
-			var scanner = FileSystemScanner.newInstance();
-			scanner.setRootPaths(mainJavaPath , testJavaPath);
+		void defaultHandler() {
+			var scanner = FileSystemScanner.newInstance(List.of(mainJavaPath , testJavaPath));
 
 			// todo: should a filenamefilter e.g. "*.java" be supported ?
 			TC.IStringMockHook smh = Mockito.mock(TC.IStringMockHook.class);

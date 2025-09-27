@@ -10,9 +10,6 @@ import org.xcommand.util.FilesUnchecked;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Date;
-import java.util.stream.Collectors;
 
 public class JSTJaninoObjectCreator {
 
@@ -22,7 +19,7 @@ public class JSTJaninoObjectCreator {
 		var classMap = jstScannerCV.getClassMap();
 		Map<String, ClassMapEntry> newClassMap = new HashMap<>();
 		classMap.forEach((key, cme) -> {
-			newJaninoClassMap.put(key, cme.fme().content().getBytes());
+			newJaninoClassMap.put(key, cme.fme().content().getBytes(StandardCharsets.UTF_8));
 			var newFme = cme.fme().with()
 				.lastmodified(FilesUnchecked.getLastModifiedTime(cme.fme().path()))
 				.build();
@@ -38,12 +35,13 @@ public class JSTJaninoObjectCreator {
 		// Make sure classes are loaded:
 		var classMap = jstScannerCV.getClassMap();
 		var cme = classMap.get(aClassname);
-		if (cme != null) {
-			System.out.println("cme for '" + aClassname + "' found");
-			if (cme.lastloaded() > cme.fme().lastmodified()) {
-				System.out.println("loaded class still valid.");
-				return cme.clazz();
-			}
+		if (cme == null) {
+			throw new RuntimeException("Class " + aClassname + " not found in classMap");
+		}
+		System.out.println("cme for '" + aClassname + "' found");
+		if (cme.lastloaded() > cme.fme().lastmodified()) {
+			System.out.println("loaded class still valid.");
+			return cme.clazz();
 		}
 		// Load class via Janino:
 		var parentClassLoader = getClass().getClassLoader();
@@ -52,7 +50,7 @@ public class JSTJaninoObjectCreator {
 		var dotClassName = aClassname.replace('/', '.');
 		try {
 			var clazz = cl.loadClass(dotClassName);
-			var newCme = cme.with().clazz(clazz).lastloaded(new Date().getTime()).build();
+			var newCme = cme.with().clazz(clazz).lastloaded(System.currentTimeMillis()).build();
 			classMap.put(aClassname, newCme);
 			return clazz;
 		} catch (ClassNotFoundException e) {
@@ -71,6 +69,7 @@ public class JSTJaninoObjectCreator {
 	}
 
 	private Map<String, byte[]> janinoClassMap = new HashMap<>();
+	@SuppressWarnings("NullAway.Init")
 	XCMapResourceFinder mrf;
 	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 	private final IJSTScannerCV jstScannerCV = dbp.newBeanForInterface(IJSTScannerCV.class);
