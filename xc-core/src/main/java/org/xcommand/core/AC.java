@@ -12,17 +12,15 @@ import java.util.HashMap;
  * It is possible to work around this by putting the jar containing this class inside WEB-INF/lib
  * which has the effect that it is not loaded by a shared classloader but by the classloader
  * of the webapp.
- * But clearly this is an open design issue of this class which needs to be resolved. 
+ * But clearly this is an open design issue of this class which needs to be resolved.
  */
-public final class AC extends HashMap<String, Object>
-{
+public final class AC extends HashMap<String, Object> {
 
-	private AC() {
-	}
+    private AC() {}
 
-	public static AC getInstance() {
-		return instance;
-	}
+    public static AC getInstance() {
+        return instance;
+    }
 
-	private static final AC instance = new AC();
+    private static final AC instance = new AC();
 }

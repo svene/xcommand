@@ -1,11 +1,11 @@
 package org.xcommand.datastructure.tree;
 
 public interface ITreeNodeCV {
-	ITreeNode getTreeNode();
+    ITreeNode getTreeNode();
 
-	Object getDomainObject();
+    Object getDomainObject();
 
-	void setTreeNode(ITreeNode aTreeNode);
+    void setTreeNode(ITreeNode aTreeNode);
 
-	void setDomainObject(Object aDomainObject);
+    void setDomainObject(Object aDomainObject);
 }

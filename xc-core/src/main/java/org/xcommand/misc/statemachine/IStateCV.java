@@ -4,13 +4,13 @@ package org.xcommand.misc.statemachine;
  * Merge with ITransitionCV to IStateMachineCV
  */
 public interface IStateCV {
-	@Deprecated
-	String getMode();
+    @Deprecated
+    String getMode();
 
-	IState getState();
+    IState getState();
 
-	@Deprecated
-	void setMode(String aMode);
+    @Deprecated
+    void setMode(String aMode);
 
-	void setState(IState aState);
+    void setState(IState aState);
 }

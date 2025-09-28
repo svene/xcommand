@@ -4,11 +4,11 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public interface IMessageCommandCV {
-	PrintWriter getPrintWriter();
+    PrintWriter getPrintWriter();
 
-	List<String> getList();
+    List<String> getList();
 
-	void setPrintWriter(PrintWriter aPrintWriter);
+    void setPrintWriter(PrintWriter aPrintWriter);
 
-	void setList(List<String> aList);
+    void setList(List<String> aList);
 }

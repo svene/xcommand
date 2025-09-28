@@ -1,25 +1,23 @@
 package org.xcommand.datastructure.handlerprovider;
 
+import java.util.Map;
 import org.jspecify.annotations.Nullable;
 import org.xcommand.core.ICommand;
-
-import java.util.Map;
 
 /**
  * `IHandlerProvider' using a 'java.util.Map' to lookup a handler
  */
 public class MapBasedHandlerProvider implements IHandlerProvider {
 
-	private final Map<Object, ? extends ICommand> handlerMap;
+    private final Map<Object, ? extends ICommand> handlerMap;
 
-	public MapBasedHandlerProvider(Map<Object, ? extends ICommand> handlerMap) {
-		this.handlerMap = handlerMap;
-	}
+    public MapBasedHandlerProvider(Map<Object, ? extends ICommand> handlerMap) {
+        this.handlerMap = handlerMap;
+    }
 
-	@Override
-	@Nullable
-	public ICommand getHandler(Object aObj) {
-		return handlerMap.get(aObj);
-	}
-
+    @Override
+    @Nullable
+    public ICommand getHandler(Object aObj) {
+        return handlerMap.get(aObj);
+    }
 }

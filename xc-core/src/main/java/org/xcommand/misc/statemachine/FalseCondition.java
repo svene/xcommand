@@ -6,11 +6,11 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.IResultCV;
 
 public class FalseCondition implements ICommand {
-	@Override
-	public void execute() {
-		resultCV.setResult(false);
-	}
+    @Override
+    public void execute() {
+        resultCV.setResult(false);
+    }
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
+    private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+    private final IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
 }

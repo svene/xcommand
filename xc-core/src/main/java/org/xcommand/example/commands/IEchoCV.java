@@ -1,7 +1,7 @@
 package org.xcommand.example.commands;
 
 public interface IEchoCV {
-	String getMessage();
+    String getMessage();
 
-	void setMessage(String aMessage);
+    void setMessage(String aMessage);
 }

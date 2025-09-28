@@ -8,16 +8,17 @@ import org.xcommand.misc.statemachine.IStateCV;
 import org.xcommand.misc.statemachine.IStateTransitionBinder;
 
 public final class ContextViews {
-	private static final ContextViews instance = new ContextViews();
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
-	public final IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
+    private static final ContextViews instance = new ContextViews();
+    private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+    private final IStateCV stateCV = dbp.newBeanForInterface(IStateCV.class);
+    public final IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 
-	public final IStateTransitionBinder defaultStateTransitionBinder = DefaultStateTransitionBinder.create(stateCV)::bind;
+    public final IStateTransitionBinder defaultStateTransitionBinder =
+            DefaultStateTransitionBinder.create(stateCV)::bind;
 
-	public static ContextViews get() {
-		return instance;
-	}
-	private ContextViews() {
-	}
+    public static ContextViews get() {
+        return instance;
+    }
+
+    private ContextViews() {}
 }

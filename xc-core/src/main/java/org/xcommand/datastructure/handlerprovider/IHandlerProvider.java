@@ -8,6 +8,6 @@ import org.xcommand.core.ICommand;
  */
 @FunctionalInterface
 public interface IHandlerProvider {
-	@Nullable
-	ICommand getHandler(Object aObj);
+    @Nullable
+    ICommand getHandler(Object aObj);
 }

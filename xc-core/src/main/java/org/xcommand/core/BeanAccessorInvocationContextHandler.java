@@ -7,14 +7,14 @@ import org.jspecify.annotations.Nullable;
  */
 public record BeanAccessorInvocationContextHandler(IBeanAccessor beanAccessor) implements InvocationContextHandler {
 
-	@Override
-	@Nullable
-	public Object invoke(InvocationContext ihc) {
-		if (ihc.methodInfo().isSetter()) {
-			beanAccessor.set(ihc);
-			return null;
-		} else {
-			return beanAccessor.get(ihc);
-		}
-	}
+    @Override
+    @Nullable
+    public Object invoke(InvocationContext ihc) {
+        if (ihc.methodInfo().isSetter()) {
+            beanAccessor.set(ihc);
+            return null;
+        } else {
+            return beanAccessor.get(ihc);
+        }
+    }
 }

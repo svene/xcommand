@@ -1,17 +1,14 @@
 package org.xcommand.core;
 
 public final class DynaBeanKeyProviders {
-	private DynaBeanKeyProviders() {
-	}
+    private DynaBeanKeyProviders() {}
 
-	public static final IDynaBeanKeyProvider ClassAndMethodKeyProvider =
-		(InvocationContext ihc) -> ihc.methodInfo().propertyPath();
+    public static final IDynaBeanKeyProvider ClassAndMethodKeyProvider =
+            (InvocationContext ihc) -> ihc.methodInfo().propertyPath();
 
-	public static final IDynaBeanKeyProvider MethodKeyProvider =
-		(InvocationContext ihc) -> ihc.methodInfo().property();
+    public static final IDynaBeanKeyProvider MethodKeyProvider =
+            (InvocationContext ihc) -> ihc.methodInfo().property();
 
-	public static final IDynaBeanKeyProvider ObjectIdentityKeyProvider =
-		(InvocationContext ihc) ->
-			System.identityHashCode(ihc.proxy()) + ihc.methodInfo().property();
-
+    public static final IDynaBeanKeyProvider ObjectIdentityKeyProvider = (InvocationContext ihc) ->
+            System.identityHashCode(ihc.proxy()) + ihc.methodInfo().property();
 }

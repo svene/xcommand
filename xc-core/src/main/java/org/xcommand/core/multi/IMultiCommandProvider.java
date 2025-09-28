@@ -1,13 +1,12 @@
 package org.xcommand.core.multi;
 
+import java.util.Map;
 import org.jspecify.annotations.Nullable;
 import org.xcommand.core.ICommand;
 
-import java.util.Map;
+public interface IMultiCommandProvider {
+    Map<String, ICommand> getCommandMap();
 
-public interface IMultiCommandProvider
-{
-	Map<String, ICommand> getCommandMap();
-	@Nullable
-	ICommand getCommand(String aName);
+    @Nullable
+    ICommand getCommand(String aName);
 }

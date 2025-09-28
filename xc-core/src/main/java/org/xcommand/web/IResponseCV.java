@@ -1,11 +1,11 @@
 package org.xcommand.web;
 
 public interface IResponseCV {
-	Integer getHttpErrorCode();
+    Integer getHttpErrorCode();
 
-	String getHttpErrorMessage();
+    String getHttpErrorMessage();
 
-	void setHttpErrorCode(Integer aHttpErrorCode);
+    void setHttpErrorCode(Integer aHttpErrorCode);
 
-	void setHttpErrorMessage(String aHttpErrorMessage);
+    void setHttpErrorMessage(String aHttpErrorMessage);
 }

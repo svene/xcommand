@@ -5,8 +5,8 @@ package org.xcommand.datastructure.handlerprovider;
  * based upon an object.
  */
 public interface IHandlerKeyProvider {
-	/**
-	 * get key to lookup handler via `aObj'
-	 */
-	Object getHandlerKey(Object aObj);
+    /**
+     * get key to lookup handler via `aObj'
+     */
+    Object getHandlerKey(Object aObj);
 }

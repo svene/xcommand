@@ -3,9 +3,9 @@ package org.xcommand.datastructure.tree;
 import java.util.List;
 
 public interface ITreeNode {
-	boolean hasChildren();
+    boolean hasChildren();
 
-	List<ITreeNode> getChildren();
+    List<ITreeNode> getChildren();
 
-	Object getDomainObject();
+    Object getDomainObject();
 }

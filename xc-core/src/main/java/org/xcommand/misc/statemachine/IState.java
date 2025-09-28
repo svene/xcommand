@@ -5,15 +5,15 @@ import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.pattern.observer.StoppableNotifier;
 
 public interface IState extends ICommand {
-	String getName();
+    String getName();
 
-	void setName(String aName);
+    void setName(String aName);
 
-	INotifier getExitStateNotifier();
+    INotifier getExitStateNotifier();
 
-	INotifier getExecuteStateNotifier();
+    INotifier getExecuteStateNotifier();
 
-	INotifier getEnterStateNotifier();
+    INotifier getEnterStateNotifier();
 
-	StoppableNotifier getExecuteNotifier();
+    StoppableNotifier getExecuteNotifier();
 }

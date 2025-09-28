@@ -5,12 +5,12 @@ import org.xcommand.util.NestableObjectAdapter;
 
 class TreeNodeAdapter extends NestableObjectAdapter {
 
-	TreeNodeAdapter(IObjectAdapter aNestedAdapter) {
-		super(aNestedAdapter);
-	}
+    TreeNodeAdapter(IObjectAdapter aNestedAdapter) {
+        super(aNestedAdapter);
+    }
 
-	@Override
-	public Object adaptedObject(Object aSourceObject) {
-		return super.adaptedObject(aSourceObject);
-	}
+    @Override
+    public Object adaptedObject(Object aSourceObject) {
+        return super.adaptedObject(aSourceObject);
+    }
 }

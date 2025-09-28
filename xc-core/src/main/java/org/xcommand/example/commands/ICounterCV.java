@@ -1,7 +1,7 @@
 package org.xcommand.example.commands;
 
 public interface ICounterCV {
-	Integer getCounter();
+    Integer getCounter();
 
-	void setCounter(Integer aCounter);
+    void setCounter(Integer aCounter);
 }

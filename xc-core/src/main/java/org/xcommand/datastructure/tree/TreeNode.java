@@ -1,7 +1,7 @@
 package org.xcommand.datastructure.tree;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Representation of a node in a tree structure. Besides the 'infrastructural'
@@ -9,25 +9,25 @@ import java.util.ArrayList;
  * to attach DomainObjects to the TreeNode.
  */
 public class TreeNode implements ITreeNode {
-	public TreeNode(Object domainObject) {
-		this.domainObject = domainObject;
-	}
+    public TreeNode(Object domainObject) {
+        this.domainObject = domainObject;
+    }
 
-	@Override
-	public boolean hasChildren() {
-		return !children.isEmpty();
-	}
+    @Override
+    public boolean hasChildren() {
+        return !children.isEmpty();
+    }
 
-	@Override
-	public List<ITreeNode> getChildren() {
-		return children;
-	}
+    @Override
+    public List<ITreeNode> getChildren() {
+        return children;
+    }
 
-	@Override
-	public Object getDomainObject() {
-		return domainObject == null ? this : domainObject;
-	}
+    @Override
+    public Object getDomainObject() {
+        return domainObject == null ? this : domainObject;
+    }
 
-	private final List<ITreeNode> children = new ArrayList<>();
-	private final Object domainObject;
+    private final List<ITreeNode> children = new ArrayList<>();
+    private final Object domainObject;
 }

@@ -6,19 +6,19 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public interface IWebCV {
 
-	HttpServletRequest getRequest();
+    HttpServletRequest getRequest();
 
-	HttpServletResponse getResponse();
+    HttpServletResponse getResponse();
 
-	String getHttpMethod();
+    String getHttpMethod();
 
-	ServletContext getServletContext();
+    ServletContext getServletContext();
 
-	void setRequest(HttpServletRequest aRequest);
+    void setRequest(HttpServletRequest aRequest);
 
-	void setResponse(HttpServletResponse aResponse);
+    void setResponse(HttpServletResponse aResponse);
 
-	void setHttpMethod(String aMethod);
+    void setHttpMethod(String aMethod);
 
-	void setServletContext(ServletContext aServletContext);
+    void setServletContext(ServletContext aServletContext);
 }

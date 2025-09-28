@@ -3,15 +3,15 @@ package org.xcommand.web.jarresource;
 import org.springframework.core.io.Resource;
 
 public interface IJarResourceProviderCV {
-	String getResourceName();
+    String getResourceName();
 
-	Resource getResource();
+    Resource getResource();
 
-	Long getLastModified();
+    Long getLastModified();
 
-	void setResourceName(String aResourceName);
+    void setResourceName(String aResourceName);
 
-	void setResource(Resource aResource);
+    void setResource(Resource aResource);
 
-	void setLastModified(Long aLastModified);
+    void setLastModified(Long aLastModified);
 }

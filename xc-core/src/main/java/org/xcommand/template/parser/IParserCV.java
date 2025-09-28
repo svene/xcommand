@@ -4,23 +4,23 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 public interface IParserCV {
-	InputStream getInputStream();
+    InputStream getInputStream();
 
-	PrintStream getTraceStream();
+    PrintStream getTraceStream();
 
-	StringBuffer getStringBuffer();
+    StringBuffer getStringBuffer();
 
-	String getValue();
+    String getValue();
 
-	Object getToken();
+    Object getToken();
 
-	void setInputStream(InputStream aInputStream);
+    void setInputStream(InputStream aInputStream);
 
-	void setTraceStream(PrintStream aPrintStream);
+    void setTraceStream(PrintStream aPrintStream);
 
-	void setStringBuffer(StringBuffer aStringBuffer);
+    void setStringBuffer(StringBuffer aStringBuffer);
 
-	void setValue(String aValue);
+    void setValue(String aValue);
 
-	void setToken(Object aToken);
+    void setToken(Object aToken);
 }

@@ -8,20 +8,20 @@ import org.xcommand.util.IdentityObjectAdapter;
 import org.xcommand.util.NestableObjectAdapter;
 
 public final class TreeNodeCommandFactory {
-	private TreeNodeCommandFactory() {
-	}
+    private TreeNodeCommandFactory() {}
 
-	public static ICommand newTreeNodeKeyedCommand(IHandlerProvider aHandlerProvider) {
-		return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeAdapter(new IdentityObjectAdapter()));
-	}
+    public static ICommand newTreeNodeKeyedCommand(IHandlerProvider aHandlerProvider) {
+        return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeAdapter(new IdentityObjectAdapter()));
+    }
 
-	public static ICommand newTreeNodeDomainObjectKeyedCommand(IHandlerProvider aHandlerProvider) {
-		return newHandlerProviderBasedCommand(aHandlerProvider, new TreeNodeDomainObjectAdapter(new IdentityObjectAdapter()));
-	}
+    public static ICommand newTreeNodeDomainObjectKeyedCommand(IHandlerProvider aHandlerProvider) {
+        return newHandlerProviderBasedCommand(
+                aHandlerProvider, new TreeNodeDomainObjectAdapter(new IdentityObjectAdapter()));
+    }
 
-	private static ICommand newHandlerProviderBasedCommand(IHandlerProvider aHandlerProvider, NestableObjectAdapter aObjectAdapter) {
-		IHandlerKeyProvider handlerKeyProvider = new ClassAdapter(aObjectAdapter)::adaptedObject;
-		return new HandlerProviderBasedCommand(handlerKeyProvider, aHandlerProvider);
-	}
-
+    private static ICommand newHandlerProviderBasedCommand(
+            IHandlerProvider aHandlerProvider, NestableObjectAdapter aObjectAdapter) {
+        IHandlerKeyProvider handlerKeyProvider = new ClassAdapter(aObjectAdapter)::adaptedObject;
+        return new HandlerProviderBasedCommand(handlerKeyProvider, aHandlerProvider);
+    }
 }

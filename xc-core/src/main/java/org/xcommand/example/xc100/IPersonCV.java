@@ -1,7 +1,7 @@
 package org.xcommand.example.xc100;
 
 public interface IPersonCV {
-	String getName();
+    String getName();
 
-	void setName(String aName);
+    void setName(String aName);
 }
