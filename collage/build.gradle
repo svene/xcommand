@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.versions)
 	id "org.xcommand.javacc"
 	alias(libs.plugins.errorprone)
+	alias(libs.plugins.spotless)
 }
 
 javacc {
@@ -26,6 +27,12 @@ tasks.withType(JavaCompile) {
 		options.errorprone {
 			disable("NullAway")
 		}
+	}
+}
+
+spotless {
+	java {
+		palantirJavaFormat()
 	}
 }
 

@@ -4,33 +4,32 @@ import org.xcommand.core.ICommand;
 import org.xcommand.pattern.observer.INotifier;
 
 public interface IDomNodeCreationHandlerCV {
-	public String getValue();
+    public String getValue();
 
-	public ICommand getDomNodeCreationHandler();
+    public ICommand getDomNodeCreationHandler();
 
-	public Boolean getProduceJavaSource();
+    public Boolean getProduceJavaSource();
 
-	public INotifier getCreateTextNodeRequestNotifier();
+    public INotifier getCreateTextNodeRequestNotifier();
 
-	public INotifier getCreateVariableNodeRequestNotifier();
+    public INotifier getCreateVariableNodeRequestNotifier();
 
-	public INotifier getCreateJavaNodeRequestNotifier();
+    public INotifier getCreateJavaNodeRequestNotifier();
 
-	public INotifier getCreateRootNodeRequestNotifier();
+    public INotifier getCreateRootNodeRequestNotifier();
 
-	public void setValue(String aValue);
+    public void setValue(String aValue);
 
-	public void setProduceJavaSource(Boolean aProduceJavaSource);
+    public void setProduceJavaSource(Boolean aProduceJavaSource);
 
-	public void setCreateTextNodeRequestNotifier(INotifier aNotifier);
+    public void setCreateTextNodeRequestNotifier(INotifier aNotifier);
 
-	@Deprecated
-	public void setDomNodeCreationHandler(ICommand aDomNodeCreationHandler);
+    @Deprecated
+    public void setDomNodeCreationHandler(ICommand aDomNodeCreationHandler);
 
-	public void setCreateVariableNodeRequestNotifier(INotifier aNotifier);
+    public void setCreateVariableNodeRequestNotifier(INotifier aNotifier);
 
-	public void setCreateJavaNodeRequestNotifier(INotifier aNotifier);
+    public void setCreateJavaNodeRequestNotifier(INotifier aNotifier);
 
-	public void setCreateRootNodeRequestNotifier(INotifier aNotifier);
-
+    public void setCreateRootNodeRequestNotifier(INotifier aNotifier);
 }

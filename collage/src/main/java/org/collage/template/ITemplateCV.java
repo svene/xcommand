@@ -8,7 +8,7 @@ import java.io.Writer;
  * TODO: think about a way to support userfriendly properties
  */
 public interface ITemplateCV {
-	public Writer getWriter();
+    public Writer getWriter();
 
-	public void setWriter(Writer aWriter);
+    public void setWriter(Writer aWriter);
 }

@@ -6,15 +6,15 @@ import org.xcommand.core.IDynaBeanProvider;
 
 public class StringHandlingJavaHandler extends StringHandlingHandler {
 
-	public StringHandlingJavaHandler(StringHandlerCommand aStringHandlerCommand) {
-		super(aStringHandlerCommand);
-	}
+    public StringHandlingJavaHandler(StringHandlerCommand aStringHandlerCommand) {
+        super(aStringHandlerCommand);
+    }
 
-	@Override
-	protected String getOriginalText() {
-		return javaCV.getJava().getValue();
-	}
+    @Override
+    protected String getOriginalText() {
+        return javaCV.getJava().getValue();
+    }
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
+    private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+    IJavaCV javaCV = dbp.newBeanForInterface(IJavaCV.class);
 }

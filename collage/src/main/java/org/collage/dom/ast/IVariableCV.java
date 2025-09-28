@@ -1,7 +1,7 @@
 package org.collage.dom.ast;
 
 public interface IVariableCV {
-	public Variable getVariable();
+    public Variable getVariable();
 
-	public void setVariable(Variable aVariable);
+    public void setVariable(Variable aVariable);
 }

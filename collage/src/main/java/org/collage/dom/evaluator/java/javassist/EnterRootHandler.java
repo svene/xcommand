@@ -4,9 +4,9 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 
 class EnterRootHandler implements ICommand {
-	@Override
-	public void execute() {
-		var methodBody = new StringBuffer(1024);
-		TCP.getContext().put("methodbody", methodBody);
-	}
+    @Override
+    public void execute() {
+        var methodBody = new StringBuffer(1024);
+        TCP.getContext().put("methodbody", methodBody);
+    }
 }

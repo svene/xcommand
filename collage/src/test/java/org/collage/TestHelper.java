@@ -13,24 +13,24 @@ import org.xcommand.util.ResourceUtil;
 
 public class TestHelper {
 
-	public TestHelper() {
-		Sneaky.runnable(() -> rootNode = compileTemplate()).run();
-	}
+    public TestHelper() {
+        Sneaky.runnable(() -> rootNode = compileTemplate()).run();
+    }
 
-	ITreeNode rootNode;
+    ITreeNode rootNode;
 
-	private ITreeNode compileTemplate() {
-		domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-		new DefaultDomNodeCreationHandlerInitializer().execute();
+    private ITreeNode compileTemplate() {
+        domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
+        new DefaultDomNodeCreationHandlerInitializer().execute();
 
-		parserCV.setInputStream(ResourceUtil.newInputStreamFromResourceLocation("in.txt"));
-		new TemplateCompiler().execute();
-		return treeNodeCV.getTreeNode();
-	}
+        parserCV.setInputStream(ResourceUtil.newInputStreamFromResourceLocation("in.txt"));
+        new TemplateCompiler().execute();
+        return treeNodeCV.getTreeNode();
+    }
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
-	private final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
-	private final IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(
-		IDomNodeCreationHandlerCV.class);
+    private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+    private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
+    private final ITreeNodeCV treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+    private final IDomNodeCreationHandlerCV domNodeCreationHandlerCV =
+            dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
 }
