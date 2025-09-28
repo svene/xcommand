@@ -3,15 +3,15 @@ package org.xcommand.core;
 import java.util.Date;
 
 public interface IPerson {
-	String getFirstName();
+    String getFirstName();
 
-	String getLastName();
+    String getLastName();
 
-	Date getBirthDate();
+    Date getBirthDate();
 
-	void setFirstName(String aFirstName);
+    void setFirstName(String aFirstName);
 
-	void setLastName(String aLastName);
+    void setLastName(String aLastName);
 
-	void setBirthDate(Date aBirthDate);
+    void setBirthDate(Date aBirthDate);
 }

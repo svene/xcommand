@@ -4,39 +4,39 @@ import java.util.Date;
 
 public class DelegatingPerson implements IPerson {
 
-	public DelegatingPerson(IPerson aDelegate) {
-		delegate = aDelegate;
-	}
+    public DelegatingPerson(IPerson aDelegate) {
+        delegate = aDelegate;
+    }
 
-	@Override
-	public String getFirstName() {
-		return delegate.getFirstName();
-	}
+    @Override
+    public String getFirstName() {
+        return delegate.getFirstName();
+    }
 
-	@Override
-	public String getLastName() {
-		return delegate.getLastName();
-	}
+    @Override
+    public String getLastName() {
+        return delegate.getLastName();
+    }
 
-	@Override
-	public Date getBirthDate() {
-		return delegate.getBirthDate();
-	}
+    @Override
+    public Date getBirthDate() {
+        return delegate.getBirthDate();
+    }
 
-	@Override
-	public void setFirstName(String aFirstName) {
-		delegate.setFirstName(aFirstName);
-	}
+    @Override
+    public void setFirstName(String aFirstName) {
+        delegate.setFirstName(aFirstName);
+    }
 
-	@Override
-	public void setLastName(String aLastName) {
-		delegate.setLastName(aLastName);
-	}
+    @Override
+    public void setLastName(String aLastName) {
+        delegate.setLastName(aLastName);
+    }
 
-	@Override
-	public void setBirthDate(Date aBirthDate) {
-		delegate.setBirthDate(aBirthDate);
-	}
+    @Override
+    public void setBirthDate(Date aBirthDate) {
+        delegate.setBirthDate(aBirthDate);
+    }
 
-	private final IPerson delegate;
+    private final IPerson delegate;
 }
