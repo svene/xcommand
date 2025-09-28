@@ -5,17 +5,19 @@ import java.nio.file.Path;
 import java.util.List;
 
 public interface IFileSystemScannerCV {
-	Path getPath();
-	void setPath(Path value);
+    Path getPath();
 
-	Path getRootPath();
-	void setRootPath(Path value);
+    void setPath(Path value);
 
-	List<Path> getRootPaths();
-	void setRootPaths(List<Path> value);
+    Path getRootPath();
 
-	FilenameFilter getFilenameFilter();
+    void setRootPath(Path value);
 
-	void setFilenameFilter(FilenameFilter aFilenameFilter);
+    List<Path> getRootPaths();
 
+    void setRootPaths(List<Path> value);
+
+    FilenameFilter getFilenameFilter();
+
+    void setFilenameFilter(FilenameFilter aFilenameFilter);
 }

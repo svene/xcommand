@@ -4,5 +4,5 @@ import java.nio.file.Path;
 
 @FunctionalInterface
 public interface FileSystemScannerExt {
-	void handlePath(Path path);
+    void handlePath(Path path);
 }

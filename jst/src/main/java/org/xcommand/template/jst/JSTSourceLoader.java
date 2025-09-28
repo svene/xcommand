@@ -1,72 +1,70 @@
 package org.xcommand.template.jst;
 
-import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IDynaBeanProvider;
-
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import org.xcommand.core.DynaBeanProvider;
+import org.xcommand.core.IDynaBeanProvider;
 
 public class JSTSourceLoader {
 
-	public JSTSourceLoader(String srcDir) {
-		this.srcDir = srcDir;
-	}
+    public JSTSourceLoader(String srcDir) {
+        this.srcDir = srcDir;
+    }
 
-	public String getSrcDir() {
-		return srcDir;
-	}
+    public String getSrcDir() {
+        return srcDir;
+    }
 
-	public Map<String, byte[]> getClassMap() {
-		return classMap;
-	}
+    public Map<String, byte[]> getClassMap() {
+        return classMap;
+    }
 
-	/**
-	 * Load source of template for `aClassname' specified in full qualified
-	 * java package notation (as 'java.lang.String')
-	 */
-	public void loadJavaFile(String aClassname) {
-		try {
-//			TCP.pushContext(new HashMap());
-			var filename = srcDir + "/" + aClassname.replaceAll("\\.", "/") + ".java";
-			System.out.println("filename = " + filename);
-			var is = new FileInputStream(filename);
-//			String ss = new String(is.readAllBytes());
-			jstParserCV.setInputStream(is);
-			var parser = new DefaultJSTParserProvider().newJSTParser();
-//		TCP.popContext();
-			jstParserCV.setGeneratedJavaCode(new StringBuffer());
-			parser.Start();
-			var s = jstParserCV.getGeneratedJavaCode().toString();
-//		System.out.println(s);
+    /**
+     * Load source of template for `aClassname' specified in full qualified
+     * java package notation (as 'java.lang.String')
+     */
+    public void loadJavaFile(String aClassname) {
+        try {
+            //			TCP.pushContext(new HashMap());
+            var filename = srcDir + "/" + aClassname.replaceAll("\\.", "/") + ".java";
+            System.out.println("filename = " + filename);
+            var is = new FileInputStream(filename);
+            //			String ss = new String(is.readAllBytes());
+            jstParserCV.setInputStream(is);
+            var parser = new DefaultJSTParserProvider().newJSTParser();
+            //		TCP.popContext();
+            jstParserCV.setGeneratedJavaCode(new StringBuffer());
+            parser.Start();
+            var s = jstParserCV.getGeneratedJavaCode().toString();
+            //		System.out.println(s);
 
-			classMap = new HashMap<>();
-			System.out.println("aClassname = " + aClassname);
-			classMap.put(aClassname, s.getBytes(StandardCharsets.UTF_8));
-			System.out.println();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+            classMap = new HashMap<>();
+            System.out.println("aClassname = " + aClassname);
+            classMap.put(aClassname, s.getBytes(StandardCharsets.UTF_8));
+            System.out.println();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	}
+    private final String srcDir;
+    private Map<String, byte[]> classMap = new HashMap<>();
 
+    @SuppressWarnings("unused")
+    private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath) {
+        var idx = aAbsolutePath.indexOf(aSrcDir);
+        if (idx == -1) {
+            throw new RuntimeException(
+                    "cannot find source path '" + aSrcDir + "' in path of file '" + aAbsolutePath + "'");
+        }
 
-	private final String srcDir;
-	private Map<String, byte[]> classMap = new HashMap<>();
+        var className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
+        System.out.println("className = " + className);
+        return className;
+    }
 
-	@SuppressWarnings("unused")
-	private String getClassnameFromFilename(String aSrcDir, String aAbsolutePath) {
-		var idx = aAbsolutePath.indexOf(aSrcDir);
-		if (idx == -1) {
-			throw new RuntimeException("cannot find source path '" + aSrcDir + "' in path of file '" + aAbsolutePath + "'");
-		}
-
-		var className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
-		System.out.println("className = " + className);
-		return className;
-	}
-
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
+    private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+    private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 }
