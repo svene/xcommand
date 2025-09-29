@@ -9,25 +9,25 @@ import org.xcommand.api.ContextViews;
 import org.xcommand.core.*;
 import org.xcommand.example.commands.IEchoCV;
 
-public class EchoCVTest {
+class EchoCVTest {
     @Test
     void contextInThread() {
         String message = "Hi! I am a xcommand example. And who are you?";
-        ContextViews.get().echoCV.setMessage(message);
-        assertThat(ContextViews.get().echoCV.getMessage()).isEqualTo(message);
+        TCP.start(() -> {
+            ContextViews.get().echoCV.setMessage(message);
+            assertThat(ContextViews.get().echoCV.getMessage()).isEqualTo(message);
+        });
     }
 
     @Test
     void explicitContext() {
         String message = "Hi! I am a xcommand example. And who are you?";
-        Map<String, Object> ctx = new HashMap<>();
+        var ctx = new HashMap<String, Object>();
 
-        DynaBeanOptions dynaBeanOptions = DynaBeanOptionsBuilder.builder()
+        IDynaBeanProvider dbp = DynaBeanProvider.fromOptions(DynaBeanOptionsBuilder.builder()
                 .contextProvider(() -> ctx)
                 .dynaBeanKeyProvider(DynaBeanKeyProviders.ClassAndMethodKeyProvider)
-                .build();
-
-        IDynaBeanProvider dbp = DynaBeanProvider.fromOptions(dynaBeanOptions);
+                .build());
 
         IEchoCV echoCV = dbp.newBeanForInterface(IEchoCV.class);
 
