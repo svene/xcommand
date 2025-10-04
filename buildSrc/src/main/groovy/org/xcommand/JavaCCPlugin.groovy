@@ -42,7 +42,7 @@ class JavaCCPlugin implements Plugin<Project>  {
 			t.genDir.set(ext.genDir)
 
 			// Add generated directory to main source set lazily
-			project.sourceSets.main.java.srcDirs += t.genDir
+			//project.sourceSets.main.java.srcDirs += t.genDir
 		}
 
 	}

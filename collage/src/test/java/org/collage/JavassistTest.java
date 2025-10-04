@@ -14,25 +14,25 @@ import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 import org.xcommand.util.ResourceUtil;
 
-public class JavassistTest {
+class JavassistTest {
     JavassistTemplateCompiler javassistTemplateCompiler;
 
     @BeforeEach
-    public void initializeContext() {
+    void initializeContext() {
         javassistTemplateCompiler = new JavassistTemplateCompiler(new JavassistTraverser());
         TCP.pushContext(new HashMap<>());
         TCP.getContext().put("firstname", "Uli");
     }
 
     @AfterEach
-    public void tearDownContext() {
+    void tearDownContext() {
         TCP.popContext();
     }
 
     /** Create a template command from a string, execute it and write output to System.out.
      * Note: by default the code in  {@link org.collage.dom.evaluator.java.javassist.ExitRootHandler.executeMethod} writes to System.out */
     @Test
-    public void exerciseNewTemplateCommandFromStringUsingSystemOut() {
+    void exerciseNewTemplateCommandFromStringUsingSystemOut() {
         ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
                 """
 				hallo ${firstname}.
@@ -45,7 +45,7 @@ public class JavassistTest {
 
     /* Create a template command via TemplateSouce, execute it and write output to StringWriter (to be able to unittest result) */
     @Test
-    public void testNewTemplateCommandFromString() {
+    void testNewTemplateCommandFromString() {
         ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
                 """
 				hallo ${firstname}.
@@ -63,7 +63,7 @@ public class JavassistTest {
     }
 
     @Test
-    public void testNewTemplateCommandFromStringWithNOPJava() {
+    void testNewTemplateCommandFromStringWithNOPJava() {
         final String s = """
 			hallo <?java int i = 1;?> ${firstname}.
 			Wie geht's?
@@ -81,7 +81,7 @@ public class JavassistTest {
     }
 
     @Test
-    public void testNewTemplateCommandFromStringWithEffectiveJava() {
+    void testNewTemplateCommandFromStringWithEffectiveJava() {
 
         ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
                 """
@@ -109,7 +109,7 @@ public class JavassistTest {
     }
 
     @Test
-    public void testNewTemplateCommandFromFileWithEffectiveJava() {
+    void testNewTemplateCommandFromFileWithEffectiveJava() {
         ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromStream(
                 ResourceUtil.newInputStreamFromResourceLocation("java03_in.txt"));
 

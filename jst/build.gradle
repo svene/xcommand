@@ -8,7 +8,7 @@ plugins {
 
 javacc {
 	inputFile = file("src/main/javacc/jst.jj")
-	genDir    = file("build/src/java/org/xcommand/template/jst/parser")
+	genDir    = file("build/src/main/java/org/xcommand/template/jst/parser")
 }
 compileJava.dependsOn(jcc)
 
@@ -40,7 +40,7 @@ spotless {
 sourceSets {
 	main {
 		java {
-			srcDir 'build/src/java'
+			srcDir 'build/src/main/java'
 		}
 	}
 }

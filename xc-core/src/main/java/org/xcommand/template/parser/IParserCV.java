@@ -8,7 +8,7 @@ public interface IParserCV {
 
     PrintStream getTraceStream();
 
-    StringBuffer getStringBuffer();
+    StringBuilder getStringBuilder();
 
     String getValue();
 
@@ -18,7 +18,7 @@ public interface IParserCV {
 
     void setTraceStream(PrintStream aPrintStream);
 
-    void setStringBuffer(StringBuffer aStringBuffer);
+    void setStringBuilder(StringBuilder aStringBuilder);
 
     void setValue(String aValue);
 

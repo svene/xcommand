@@ -14,10 +14,10 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 
-public class DomDumperLowLevelTest {
+class DomDumperLowLevelTest {
 
     @Test
-    public void testWithHandlersUsingLowlevelObserverRegistration() {
+    void testWithHandlersUsingLowlevelObserverRegistration() {
         // Setup:
         var dbp = DynaBeanProvider.newThreadClassMethodInstance();
         var treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
@@ -33,10 +33,12 @@ public class DomDumperLowLevelTest {
 
         var tt = new NotifyingTreeNodeTraverser();
         tt.getEnterNodeNotifier().registerObserver(TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp));
-        treeNodeCV.setTreeNode(new TestHelper().rootNode);
+        TCP.start(() -> {
+            treeNodeCV.setTreeNode(new TestHelper().rootNode);
 
-        // Execution:
-        tt.execute();
+            // Execution:
+            tt.execute();
+        });
 
         // Verification:
         Mockito.verify(textMockHook, Mockito.times(3)).hookRoutineForMockVerification(Mockito.anyString());
@@ -52,7 +54,7 @@ public class DomDumperLowLevelTest {
     }
 
     @Test
-    public void testWithHandlersAndSystemOut() {
+    void testWithHandlersAndSystemOut() {
         // TODO: think about what we really want to test here. The difference to previous test is that here
         // we use classes like 'DomObjToTextTransformer', 'TextToStringExtractor', etc.
         // but those could be tested standalone if necessary at all.
@@ -61,44 +63,48 @@ public class DomDumperLowLevelTest {
         var dbp = DynaBeanProvider.newThreadClassMethodInstance();
         var treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
         var stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
-        stringHandlerCV.setString("dummy");
+        TCP.start(() -> {
+            stringHandlerCV.setString("dummy");
 
-        var sh = Mockito.mock(IStringHandler.class);
-        var shCmd = new StringHandlerCommand(sh);
-        // Setup:
-        var hp = new DomEventHandlerProvider();
+            var sh = Mockito.mock(IStringHandler.class);
+            var shCmd = new StringHandlerCommand(sh);
+            // Setup:
+            var hp = new DomEventHandlerProvider();
 
-        hp.getTextNotifier()
-                .registerObserver(new ListCommand(new DomObjToTextTransformer(), new TextToStringExtractor(), shCmd));
+            hp.getTextNotifier()
+                    .registerObserver(
+                            new ListCommand(new DomObjToTextTransformer(), new TextToStringExtractor(), shCmd));
 
-        hp.getVariableNotifier()
-                .registerObserver(new ListCommand(
-                        new DomObjToVariableTransformer(),
-                        new VariableToVariableNameExtractor(),
-                        new VariableNameToValueTransformer(),
-                        shCmd));
+            hp.getVariableNotifier()
+                    .registerObserver(new ListCommand(
+                            new DomObjToVariableTransformer(),
+                            new VariableToVariableNameExtractor(),
+                            new VariableNameToValueTransformer(),
+                            shCmd));
 
-        hp.getJavaNotifier()
-                .registerObserver(new ListCommand(new DomObjToJavaTransformer(), new JavaToStringExtractor(), shCmd));
+            hp.getJavaNotifier()
+                    .registerObserver(
+                            new ListCommand(new DomObjToJavaTransformer(), new JavaToStringExtractor(), shCmd));
 
-        var cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-        NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
-        tt.getEnterNodeNotifier().registerObserver(cmd);
+            var cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+            NotifyingTreeNodeTraverser tt = new NotifyingTreeNodeTraverser();
+            tt.getEnterNodeNotifier().registerObserver(cmd);
 
-        // Setup dynamic data:
-        treeNodeCV.setTreeNode(new TestHelper().rootNode);
-        TCP.getContext().put("firstname", "Uli");
+            // Setup dynamic data:
+            treeNodeCV.setTreeNode(new TestHelper().rootNode);
+            TCP.getContext().put("firstname", "Uli");
 
-        // Execution:
-        tt.execute();
+            // Execution:
+            tt.execute();
 
-        // Verification:
-        Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.any(), Mockito.any());
-        var inOrder = Mockito.inOrder(sh);
-        inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Hallo "));
-        inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Uli"));
-        inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("! Willkommen bei uns.\n"));
-        inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("<?java int i = 1 ?>"));
-        inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("d\n"));
+            // Verification:
+            Mockito.verify(sh, Mockito.times(5)).handleString(Mockito.any(), Mockito.any());
+            var inOrder = Mockito.inOrder(sh);
+            inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Hallo "));
+            inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("Uli"));
+            inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("! Willkommen bei uns.\n"));
+            inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("<?java int i = 1 ?>"));
+            inOrder.verify(sh).handleString(Mockito.any(), Mockito.eq("d\n"));
+        });
     }
 }

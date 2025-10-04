@@ -1,5 +1,5 @@
 plugins {
-	id 'buildlogic.groovy-library-conventions'
+	id 'buildlogic.java-library-conventions'
 	alias(libs.plugins.versions)
 	id "org.xcommand.javacc"
 	alias(libs.plugins.errorprone)
@@ -8,7 +8,7 @@ plugins {
 
 javacc {
 	inputFile = file("src/main/javacc/templateparser.jj")
-	genDir    = file("build/src/java/org/collage/jcc")
+	genDir    = file("build/src/main/java/org/collage/jcc")
 }
 compileJava.dependsOn(jcc)
 
@@ -67,7 +67,7 @@ dependencies {
 sourceSets {
 	main {
 		java {
-			srcDir 'build/src/java'
+			srcDir 'build/src/main/java'
 		}
 	}
 }

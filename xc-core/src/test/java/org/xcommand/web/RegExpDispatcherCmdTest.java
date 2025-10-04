@@ -9,6 +9,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 import org.xcommand.threadcontext.ITIn2OutCV;
 
 class RegExpDispatcherCmdTest {
@@ -27,14 +28,16 @@ class RegExpDispatcherCmdTest {
         RegExpDispatcherCmd cmd = new RegExpDispatcherCmd(commands);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
-        webCV.setRequest(request);
+        TCP.start(() -> {
+            webCV.setRequest(request);
 
-        request.setRequestURI("/bla/p1");
-        cmd.execute();
-        assertThat(inoutCV.getOutput()).isEqualTo("cmd1");
+            request.setRequestURI("/bla/p1");
+            cmd.execute();
+            assertThat(inoutCV.getOutput()).isEqualTo("cmd1");
 
-        request.setRequestURI("/bla/p2");
-        cmd.execute();
-        assertThat(inoutCV.getOutput()).isEqualTo("cmd2");
+            request.setRequestURI("/bla/p2");
+            cmd.execute();
+            assertThat(inoutCV.getOutput()).isEqualTo("cmd2");
+        });
     }
 }

@@ -8,13 +8,13 @@ import org.xcommand.template.parser.IParserCV;
 
 public class CsmCommands {
     public static ICommand appendJavaCodeCommand = () -> {
-        var sb = CsmCommands.parserCV.getStringBuffer();
+        var sb = CsmCommands.parserCV.getStringBuilder();
         var value = CsmCommands.parserCV.getValue();
         sb.append(value);
     };
 
     public static ICommand appendEolCommand = () -> {
-        StringBuffer sb = CsmCommands.parserCV.getStringBuffer();
+        var sb = CsmCommands.parserCV.getStringBuilder();
         //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
 
         Boolean javaMode = CsmCommands.domNodeCreationHandlerCV.getProduceJavaSource();
@@ -29,7 +29,7 @@ public class CsmCommands {
     };
 
     public static ICommand appendTextCommand = () -> {
-        StringBuffer sb = CsmCommands.parserCV.getStringBuffer();
+        var sb = CsmCommands.parserCV.getStringBuilder();
         String value = CsmCommands.parserCV.getValue();
         //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
         sb.append(value);
@@ -47,9 +47,9 @@ public class CsmCommands {
      * Commands flushing buffered text and creating associated Text-DOM-Node
      */
     public static ICommand flushJavaCommand = () -> {
-        var sb = CsmCommands.parserCV.getStringBuffer();
+        var sb = CsmCommands.parserCV.getStringBuilder();
         var s = sb.toString();
-        if (s.length() > 0) {
+        if (!s.isEmpty()) {
             CsmCommands.domNodeCreationHandlerCV.setValue(s);
             CsmCommands.domNodeCreationHandlerCV
                     .getCreateJavaNodeRequestNotifier()
@@ -62,7 +62,7 @@ public class CsmCommands {
      */
     public static ICommand flushTextCommand = () -> {
         // Get String from Stringbuffer:
-        var sb = CsmCommands.parserCV.getStringBuffer();
+        var sb = CsmCommands.parserCV.getStringBuilder();
         var s = sb.toString();
 
         // Create a Text-DOM-Node:
@@ -71,11 +71,11 @@ public class CsmCommands {
     };
 
     public static ICommand startJavaCommand = () -> {
-        CsmCommands.parserCV.setStringBuffer(new StringBuffer());
+        CsmCommands.parserCV.setStringBuilder(new StringBuilder());
     };
 
     public static ICommand startTextCommand = () -> {
-        CsmCommands.parserCV.setStringBuffer(new StringBuffer());
+        CsmCommands.parserCV.setStringBuilder(new StringBuilder());
     };
 
     private static final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
