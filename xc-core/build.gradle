@@ -21,7 +21,9 @@ tasks.withType(JavaCompile) {
 		}
 	}
 }
-
+configurations {
+	mockitoAgent
+}
 spotless {
 	java {
 		palantirJavaFormat()
@@ -47,6 +49,11 @@ dependencies {
 
 	testImplementation libs.spring.test
 	testImplementation libs.assertj.core
+	testImplementation libs.mockito.core
+	testImplementation libs.mockito.junit.jupiter
+	mockitoAgent(libs.mockito.core) {
+		transitive = false
+	}
 }
 
 // ben-manes version-plugin:
@@ -61,4 +68,8 @@ tasks.named("dependencyUpdates").configure {
 		isNonStable(it.candidate.version)
 	}
 }
-
+tasks {
+	test {
+		jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+	}
+}
