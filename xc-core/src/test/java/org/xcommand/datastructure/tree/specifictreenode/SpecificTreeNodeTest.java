@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 import org.xcommand.datastructure.handlerprovider.MapBasedHandlerProvider;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
@@ -21,65 +22,71 @@ class SpecificTreeNodeTest {
 
     @Test
     void verify_that_that_Root1_traversal_notifies_Enter_Exit_NodeObservers_in_proper_order() {
-        ICommandHook enterHook = Mockito.mock(ICommandHook.class);
-        ICommandHook exitHook = Mockito.mock(ICommandHook.class);
-        MyCommand enterCmd = new MyCommand(enterHook);
-        MyCommand exitCmd = new MyCommand(exitHook);
-        tt.getEnterNodeNotifier().registerObserver(enterCmd);
-        tt.getExitNodeNotifier().registerObserver(exitCmd);
-        treeNodeCV.setTreeNode(tdp.getRoot1());
+        TCP.start(() -> {
+            ICommandHook enterHook = Mockito.mock(ICommandHook.class);
+            ICommandHook exitHook = Mockito.mock(ICommandHook.class);
+            MyCommand enterCmd = new MyCommand(enterHook);
+            MyCommand exitCmd = new MyCommand(exitHook);
+            tt.getEnterNodeNotifier().registerObserver(enterCmd);
+            tt.getExitNodeNotifier().registerObserver(exitCmd);
+            treeNodeCV.setTreeNode(tdp.getRoot1());
 
-        tt.execute();
+            tt.execute();
 
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(0, tdp.getRoot1());
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(1, tdp.getRoot1Child());
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(2, tdp.getRoot1ChildChild());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(3, tdp.getRoot1ChildChild());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(4, tdp.getRoot1Child());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(5, tdp.getRoot1());
+            Mockito.verify(enterHook, Mockito.times(1)).testHook(0, tdp.getRoot1());
+            Mockito.verify(enterHook, Mockito.times(1)).testHook(1, tdp.getRoot1Child());
+            Mockito.verify(enterHook, Mockito.times(1)).testHook(2, tdp.getRoot1ChildChild());
+            Mockito.verify(exitHook, Mockito.times(1)).testHook(3, tdp.getRoot1ChildChild());
+            Mockito.verify(exitHook, Mockito.times(1)).testHook(4, tdp.getRoot1Child());
+            Mockito.verify(exitHook, Mockito.times(1)).testHook(5, tdp.getRoot1());
+        });
     }
 
     @Test
     void verify_that_that_Root2_traversal_notifies_Enter_Exit_NodeObservers_in_proper_order() {
-        ICommandHook enterHook = Mockito.mock(ICommandHook.class);
-        ICommandHook exitHook = Mockito.mock(ICommandHook.class);
-        MyCommand enterCmd = new MyCommand(enterHook);
-        MyCommand exitCmd = new MyCommand(exitHook);
-        tt.getEnterNodeNotifier().registerObserver(enterCmd);
-        tt.getExitNodeNotifier().registerObserver(exitCmd);
-        treeNodeCV.setTreeNode(tdp.getRoot2());
+        TCP.start(() -> {
+            ICommandHook enterHook = Mockito.mock(ICommandHook.class);
+            ICommandHook exitHook = Mockito.mock(ICommandHook.class);
+            MyCommand enterCmd = new MyCommand(enterHook);
+            MyCommand exitCmd = new MyCommand(exitHook);
+            tt.getEnterNodeNotifier().registerObserver(enterCmd);
+            tt.getExitNodeNotifier().registerObserver(exitCmd);
+            treeNodeCV.setTreeNode(tdp.getRoot2());
 
-        tt.execute();
+            tt.execute();
 
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(0, tdp.getRoot2());
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(1, tdp.getRoot2Child1());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(2, tdp.getRoot2Child1());
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(3, tdp.getRoot2Child2());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(4, tdp.getRoot2Child2());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(5, tdp.getRoot2());
+            Mockito.verify(enterHook, Mockito.times(1)).testHook(0, tdp.getRoot2());
+            Mockito.verify(enterHook, Mockito.times(1)).testHook(1, tdp.getRoot2Child1());
+            Mockito.verify(exitHook, Mockito.times(1)).testHook(2, tdp.getRoot2Child1());
+            Mockito.verify(enterHook, Mockito.times(1)).testHook(3, tdp.getRoot2Child2());
+            Mockito.verify(exitHook, Mockito.times(1)).testHook(4, tdp.getRoot2Child2());
+            Mockito.verify(exitHook, Mockito.times(1)).testHook(5, tdp.getRoot2());
+        });
     }
 
     @Test
     void verify_that_handler_is_properly_notified_during_traversal() {
-        ICommand rootTreeNodeHandler = Mockito.mock(ICommand.class);
-        ICommand treeNode1Handler = Mockito.mock(ICommand.class);
-        ICommand treeNode2Handler = Mockito.mock(ICommand.class);
+        TCP.start(() -> {
+            ICommand rootTreeNodeHandler = Mockito.mock(ICommand.class);
+            ICommand treeNode1Handler = Mockito.mock(ICommand.class);
+            ICommand treeNode2Handler = Mockito.mock(ICommand.class);
 
-        var map = new HashMap<Object, ICommand>();
-        map.put(TestDataProvider.RootTreeNode.class, rootTreeNodeHandler);
-        map.put(TestDataProvider.TreeNode1.class, treeNode1Handler);
-        map.put(TestDataProvider.TreeNode2.class, treeNode2Handler);
+            var map = new HashMap<Object, ICommand>();
+            map.put(TestDataProvider.RootTreeNode.class, rootTreeNodeHandler);
+            map.put(TestDataProvider.TreeNode1.class, treeNode1Handler);
+            map.put(TestDataProvider.TreeNode2.class, treeNode2Handler);
 
-        MapBasedHandlerProvider hp = new MapBasedHandlerProvider(map);
-        ICommand cmd = TreeNodeCommandFactory.newTreeNodeKeyedCommand(hp);
-        tt.getEnterNodeNotifier().registerObserver(cmd);
-        treeNodeCV.setTreeNode(tdp.getRoot1());
+            MapBasedHandlerProvider hp = new MapBasedHandlerProvider(map);
+            ICommand cmd = TreeNodeCommandFactory.newTreeNodeKeyedCommand(hp);
+            tt.getEnterNodeNotifier().registerObserver(cmd);
+            treeNodeCV.setTreeNode(tdp.getRoot1());
 
-        tt.execute();
+            tt.execute();
 
-        Mockito.verify(rootTreeNodeHandler, Mockito.times(1)).execute();
-        Mockito.verify(treeNode1Handler, Mockito.times(1)).execute();
-        Mockito.verify(treeNode2Handler, Mockito.times(1)).execute();
+            Mockito.verify(rootTreeNodeHandler, Mockito.times(1)).execute();
+            Mockito.verify(treeNode1Handler, Mockito.times(1)).execute();
+            Mockito.verify(treeNode2Handler, Mockito.times(1)).execute();
+        });
     }
 
     // Helpers for this test:

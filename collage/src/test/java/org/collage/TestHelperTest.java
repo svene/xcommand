@@ -7,21 +7,24 @@ import org.collage.dom.ast.RootNode;
 import org.collage.dom.ast.Text;
 import org.collage.dom.ast.Variable;
 import org.junit.jupiter.api.Test;
+import org.xcommand.core.TCP;
 import org.xcommand.datastructure.tree.ITreeNode;
 
-public class TestHelperTest {
+class TestHelperTest {
 
     @Test
-    public void verifyThatParsedFileCreateProperTreeStructure() {
-        ITreeNode p = new TestHelper().rootNode;
-        assertThat(p instanceof RootNode).isTrue();
-        assertThat(p.getChildren()).hasSize(5);
+    void verifyThatParsedFileCreateProperTreeStructure() {
+        TCP.start(() -> {
+            ITreeNode p = new TestHelper().rootNode;
+            assertThat(p instanceof RootNode).isTrue();
+            assertThat(p.getChildren()).hasSize(5);
 
-        verifyChildNode(p, 0, Text.class);
-        verifyChildNode(p, 1, Variable.class);
-        verifyChildNode(p, 2, Text.class);
-        verifyChildNode(p, 3, Java.class);
-        verifyChildNode(p, 4, Text.class);
+            verifyChildNode(p, 0, Text.class);
+            verifyChildNode(p, 1, Variable.class);
+            verifyChildNode(p, 2, Text.class);
+            verifyChildNode(p, 3, Java.class);
+            verifyChildNode(p, 4, Text.class);
+        });
     }
 
     /**

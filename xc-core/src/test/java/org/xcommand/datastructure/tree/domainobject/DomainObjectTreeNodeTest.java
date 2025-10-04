@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 import org.xcommand.datastructure.handlerprovider.MapBasedHandlerProvider;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
@@ -21,75 +22,85 @@ class DomainObjectTreeNodeTest {
 
     @Test
     void verify_that_that_Root1_traversal_notifies_Enter_Exit_NodeObservers_in_proper_order() {
-        ICommandHook enterHook = Mockito.mock(ICommandHook.class);
-        ICommandHook exitHook = Mockito.mock(ICommandHook.class);
-        MyCommand enterCmd = new MyCommand(enterHook);
-        MyCommand exitCmd = new MyCommand(exitHook);
-        treeNodeCV.setTreeNode(tdp.getRoot1());
-        tt.getEnterNodeNotifier().registerObserver(enterCmd);
-        tt.getExitNodeNotifier().registerObserver(exitCmd);
+        TCP.start(() -> {
+            ICommandHook enterHook = Mockito.mock(ICommandHook.class);
+            ICommandHook exitHook = Mockito.mock(ICommandHook.class);
+            MyCommand enterCmd = new MyCommand(enterHook);
+            MyCommand exitCmd = new MyCommand(exitHook);
+            treeNodeCV.setTreeNode(tdp.getRoot1());
+            tt.getEnterNodeNotifier().registerObserver(enterCmd);
+            tt.getExitNodeNotifier().registerObserver(exitCmd);
 
-        tt.execute();
+            tt.execute();
 
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(0, tdp.getRoot1().getDomainObject());
-        Mockito.verify(enterHook, Mockito.times(1))
-                .testHook(1, tdp.getRoot1Child().getDomainObject());
-        Mockito.verify(enterHook, Mockito.times(1))
-                .testHook(2, tdp.getRoot1ChildChild().getDomainObject());
-        Mockito.verify(exitHook, Mockito.times(1))
-                .testHook(3, tdp.getRoot1ChildChild().getDomainObject());
-        Mockito.verify(exitHook, Mockito.times(1))
-                .testHook(4, tdp.getRoot1Child().getDomainObject());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(5, tdp.getRoot1().getDomainObject());
+            Mockito.verify(enterHook, Mockito.times(1))
+                    .testHook(0, tdp.getRoot1().getDomainObject());
+            Mockito.verify(enterHook, Mockito.times(1))
+                    .testHook(1, tdp.getRoot1Child().getDomainObject());
+            Mockito.verify(enterHook, Mockito.times(1))
+                    .testHook(2, tdp.getRoot1ChildChild().getDomainObject());
+            Mockito.verify(exitHook, Mockito.times(1))
+                    .testHook(3, tdp.getRoot1ChildChild().getDomainObject());
+            Mockito.verify(exitHook, Mockito.times(1))
+                    .testHook(4, tdp.getRoot1Child().getDomainObject());
+            Mockito.verify(exitHook, Mockito.times(1))
+                    .testHook(5, tdp.getRoot1().getDomainObject());
+        });
     }
 
     @Test
     void verify_that_that_Root2_traversal_notifies_Enter_Exit_NodeObservers_in_proper_order() {
-        ICommandHook enterHook = Mockito.mock(ICommandHook.class);
-        ICommandHook exitHook = Mockito.mock(ICommandHook.class);
-        MyCommand enterCmd = new MyCommand(enterHook);
-        MyCommand exitCmd = new MyCommand(exitHook);
-        treeNodeCV.setTreeNode(tdp.getRoot2());
-        ;
-        tt.getEnterNodeNotifier().registerObserver(enterCmd);
-        tt.getExitNodeNotifier().registerObserver(exitCmd);
+        TCP.start(() -> {
+            ICommandHook enterHook = Mockito.mock(ICommandHook.class);
+            ICommandHook exitHook = Mockito.mock(ICommandHook.class);
+            MyCommand enterCmd = new MyCommand(enterHook);
+            MyCommand exitCmd = new MyCommand(exitHook);
+            treeNodeCV.setTreeNode(tdp.getRoot2());
+            ;
+            tt.getEnterNodeNotifier().registerObserver(enterCmd);
+            tt.getExitNodeNotifier().registerObserver(exitCmd);
 
-        tt.execute();
+            tt.execute();
 
-        Mockito.verify(enterHook, Mockito.times(1)).testHook(0, tdp.getRoot2().getDomainObject());
-        Mockito.verify(enterHook, Mockito.times(1))
-                .testHook(1, tdp.getRoot2Child1().getDomainObject());
-        Mockito.verify(exitHook, Mockito.times(1))
-                .testHook(2, tdp.getRoot2Child1().getDomainObject());
-        Mockito.verify(enterHook, Mockito.times(1))
-                .testHook(3, tdp.getRoot2Child2().getDomainObject());
-        Mockito.verify(exitHook, Mockito.times(1))
-                .testHook(4, tdp.getRoot2Child2().getDomainObject());
-        Mockito.verify(exitHook, Mockito.times(1)).testHook(5, tdp.getRoot2().getDomainObject());
+            Mockito.verify(enterHook, Mockito.times(1))
+                    .testHook(0, tdp.getRoot2().getDomainObject());
+            Mockito.verify(enterHook, Mockito.times(1))
+                    .testHook(1, tdp.getRoot2Child1().getDomainObject());
+            Mockito.verify(exitHook, Mockito.times(1))
+                    .testHook(2, tdp.getRoot2Child1().getDomainObject());
+            Mockito.verify(enterHook, Mockito.times(1))
+                    .testHook(3, tdp.getRoot2Child2().getDomainObject());
+            Mockito.verify(exitHook, Mockito.times(1))
+                    .testHook(4, tdp.getRoot2Child2().getDomainObject());
+            Mockito.verify(exitHook, Mockito.times(1))
+                    .testHook(5, tdp.getRoot2().getDomainObject());
+        });
     }
 
     @Test
     void verify_that_handler_is_properly_notified_during_traversal() {
-        ICommand rootDomainObjectHandler = Mockito.mock(ICommand.class);
-        ICommand oneDomainObjectHandler = Mockito.mock(ICommand.class);
-        ICommand anotherDomainObjectHandler = Mockito.mock(ICommand.class);
+        TCP.start(() -> {
+            ICommand rootDomainObjectHandler = Mockito.mock(ICommand.class);
+            ICommand oneDomainObjectHandler = Mockito.mock(ICommand.class);
+            ICommand anotherDomainObjectHandler = Mockito.mock(ICommand.class);
 
-        var map = new HashMap<Object, ICommand>();
-        map.put(TestDataProvider.RootDomainObject.class, rootDomainObjectHandler);
-        map.put(TestDataProvider.OneDomainObject.class, oneDomainObjectHandler);
-        map.put(TestDataProvider.AnotherDomainObject.class, anotherDomainObjectHandler);
+            var map = new HashMap<Object, ICommand>();
+            map.put(TestDataProvider.RootDomainObject.class, rootDomainObjectHandler);
+            map.put(TestDataProvider.OneDomainObject.class, oneDomainObjectHandler);
+            map.put(TestDataProvider.AnotherDomainObject.class, anotherDomainObjectHandler);
 
-        MapBasedHandlerProvider hp = new MapBasedHandlerProvider(map);
-        ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
-        tt.getEnterNodeNotifier().registerObserver(cmd);
+            MapBasedHandlerProvider hp = new MapBasedHandlerProvider(map);
+            ICommand cmd = TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp);
+            tt.getEnterNodeNotifier().registerObserver(cmd);
 
-        treeNodeCV.setTreeNode(tdp.getRoot1());
+            treeNodeCV.setTreeNode(tdp.getRoot1());
 
-        tt.execute();
+            tt.execute();
 
-        Mockito.verify(rootDomainObjectHandler, Mockito.times(1)).execute();
-        Mockito.verify(oneDomainObjectHandler, Mockito.times(1)).execute();
-        Mockito.verify(anotherDomainObjectHandler, Mockito.times(1)).execute();
+            Mockito.verify(rootDomainObjectHandler, Mockito.times(1)).execute();
+            Mockito.verify(oneDomainObjectHandler, Mockito.times(1)).execute();
+            Mockito.verify(anotherDomainObjectHandler, Mockito.times(1)).execute();
+        });
     }
 
     private static class ICommandHook {

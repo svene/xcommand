@@ -18,11 +18,12 @@ import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.TCP;
 import org.xcommand.template.jst.FileSystemScanner;
 import org.xcommand.template.jst.IFileSystemScannerCV;
 import org.xcommand.util.FilesUnchecked;
 
-public class FileSystemScannerTester {
+class FileSystemScannerTest {
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -55,7 +56,7 @@ public class FileSystemScannerTester {
         }
 
         @Test
-        public void fileSystemSetup() {
+        void fileSystemSetup() {
             assertThat(Files.exists(mainJavaPath.resolve(fileName1))).isTrue();
             assertThat(Files.exists(mainJavaPath.resolve(fileName2))).isTrue();
             assertThat(Files.exists(mainJavaPath.resolve(fileName3))).isTrue();
@@ -64,7 +65,7 @@ public class FileSystemScannerTester {
         }
 
         @Test
-        public void jdkBehavior() {
+        void jdkBehavior() {
             assertThat(mainJavaPath.resolve(fileName1).toAbsolutePath().toString())
                     .isEqualTo("/project/src/main/java/org/xcommand2/template/jst/IJSTParserProvider.java");
             assertThat(mainJavaPath.resolve(fileName1).toString())
@@ -72,19 +73,21 @@ public class FileSystemScannerTester {
         }
 
         @Test
-        public void customHandler() {
-            List<String> actual = new ArrayList<>();
-            var scanner = FileSystemScanner.newInstance(
-                    List.of(mainJavaPath, testJavaPath), path -> actual.add(path.toString()));
-            // todo: should a filenamefilter e.g. "*.java" be supported ?
-            scanner.execute();
-            // Test for the following three files (although more will be found):
-            assertThat(actual)
-                    .containsAll(Arrays.asList(
-                            "src/main/java/org/xcommand2/template/jst/IJSTParserProvider.java",
-                            "src/main/java/org/xcommand2/template/jst/FileSystemBasedJSTProvider.java",
-                            "src/main/java/org/xcommand2/template/jst/JSTCompiler.java",
-                            "src/test/java/org/xcommand2/template/jst/JSTCompilerTest.java"));
+        void customHandler() {
+            TCP.start(() -> {
+                List<String> actual = new ArrayList<>();
+                var scanner = FileSystemScanner.newInstance(
+                        List.of(mainJavaPath, testJavaPath), path -> actual.add(path.toString()));
+                // todo: should a filenamefilter e.g. "*.java" be supported ?
+                scanner.execute();
+                // Test for the following three files (although more will be found):
+                assertThat(actual)
+                        .containsAll(Arrays.asList(
+                                "src/main/java/org/xcommand2/template/jst/IJSTParserProvider.java",
+                                "src/main/java/org/xcommand2/template/jst/FileSystemBasedJSTProvider.java",
+                                "src/main/java/org/xcommand2/template/jst/JSTCompiler.java",
+                                "src/test/java/org/xcommand2/template/jst/JSTCompilerTest.java"));
+            });
         }
     }
 
@@ -108,39 +111,44 @@ public class FileSystemScannerTester {
 
         @Test
         void customHandler() {
-            List<String> actual = new ArrayList<>();
-            var scanner = FileSystemScanner.newInstance(
-                    List.of(mainJavaPath, testJavaPath), path -> actual.add(path.toString()));
-            // todo: should a filenamefilter e.g. "*.java" be supported ?
-            scanner.execute();
-            assertThat(actual.size()).isGreaterThan(3);
-            // Test for the following three files (although more will be found):
-            assertThat(actual)
-                    .containsAll(Arrays.asList(
-                            "src/main/java/org/xcommand/template/jst/IJSTParserProvider.java",
-                            "src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java",
-                            "src/main/java/org/xcommand/template/jst/JSTCompiler.java"));
+            TCP.start(() -> {
+                List<String> actual = new ArrayList<>();
+                var scanner = FileSystemScanner.newInstance(
+                        List.of(mainJavaPath, testJavaPath), path -> actual.add(path.toString()));
+                // todo: should a filenamefilter e.g. "*.java" be supported ?
+                scanner.execute();
+                assertThat(actual.size()).isGreaterThan(3);
+                // Test for the following three files (although more will be found):
+                assertThat(actual)
+                        .containsAll(Arrays.asList(
+                                "src/main/java/org/xcommand/template/jst/IJSTParserProvider.java",
+                                "src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java",
+                                "src/main/java/org/xcommand/template/jst/JSTCompiler.java"));
+            });
         }
 
         @Test
         void defaultHandler() {
-            var scanner = FileSystemScanner.newInstance(List.of(mainJavaPath, testJavaPath));
+            TCP.start(() -> {
+                var scanner = FileSystemScanner.newInstance(List.of(mainJavaPath, testJavaPath));
 
-            // todo: should a filenamefilter e.g. "*.java" be supported ?
-            TC.IStringMockHook smh = Mockito.mock(TC.IStringMockHook.class);
-            scanner.getFileFoundNotifier()
-                    .registerObserver(() -> smh.hookRoutineForMockVerification(
-                            fileSystemScannerCV.getPath().toString()));
-            scanner.execute();
+                // todo: should a filenamefilter e.g. "*.java" be supported ?
+                TC.IStringMockHook smh = Mockito.mock(TC.IStringMockHook.class);
+                scanner.getFileFoundNotifier()
+                        .registerObserver(() -> smh.hookRoutineForMockVerification(
+                                fileSystemScannerCV.getPath().toString()));
+                scanner.execute();
 
-            // Test for the following three files (although more will be found):
-            Mockito.verify(smh)
-                    .hookRoutineForMockVerification("src/main/java/org/xcommand/template/jst/IJSTParserProvider.java");
-            Mockito.verify(smh)
-                    .hookRoutineForMockVerification(
-                            "src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java");
-            Mockito.verify(smh)
-                    .hookRoutineForMockVerification("src/main/java/org/xcommand/template/jst/JSTCompiler.java");
+                // Test for the following three files (although more will be found):
+                Mockito.verify(smh)
+                        .hookRoutineForMockVerification(
+                                "src/main/java/org/xcommand/template/jst/IJSTParserProvider.java");
+                Mockito.verify(smh)
+                        .hookRoutineForMockVerification(
+                                "src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java");
+                Mockito.verify(smh)
+                        .hookRoutineForMockVerification("src/main/java/org/xcommand/template/jst/JSTCompiler.java");
+            });
         }
     }
 

@@ -10,28 +10,24 @@ import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.template.JavassistTemplateCompiler;
 import org.collage.template.TemplateCV;
 import org.collage.template.TextTemplateCompiler;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.*;
 
-public class TextTemplateTest {
+class TextTemplateTest {
     static String FIRSTNAME = "Denis";
     static String LASTNAME = "Bogan";
 
     StringWriter stringWriter;
 
-    @BeforeEach
-    public void initializeContext() {
+    void initializeContext() {
         TCP.pushContext(new HashMap<>());
         TCP.getContext().put("firstname", FIRSTNAME);
 
         stringWriter = new StringWriter();
     }
 
-    @AfterEach
-    public void tearDownContext() {
+    void tearDownContext() {
         TCP.popContext();
     }
 
@@ -43,37 +39,53 @@ public class TextTemplateTest {
     @Nested
     class Basic {
         @Test
-        public void test1() {
-            String out = createTemplate("hallo ${firstname}.\nWie gehts?\n");
-            assertThat(out).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
+        void test1() {
+            TCP.start(() -> {
+                initializeContext();
+                String out = createTemplate("hallo ${firstname}.\nWie gehts?\n");
+                assertThat(out).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
+                tearDownContext();
+            });
         }
 
         @Test
-        public void test2() {
-            var tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
-            tc.setWriter(stringWriter);
-            tc.execute();
-            assertThat(stringWriter.toString()).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
+        void test2() {
+            TCP.start(() -> {
+                initializeContext();
+                var tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
+                tc.setWriter(stringWriter);
+                tc.execute();
+                assertThat(stringWriter.toString()).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
+                tearDownContext();
+            });
         }
 
         @Test
-        public void verfiyProperFunctionIfInputComesFromFile() {
-            var tc = new TextTemplateCompiler().newTemplateCommandFromResourceName("in.txt");
-            tc.setWriter(stringWriter);
-            tc.execute();
-            assertThat(stringWriter.toString())
-                    .isEqualTo("Hallo %s! Willkommen bei uns.%n<?java int i = 1 ?>d%n".formatted(FIRSTNAME));
+        void verfiyProperFunctionIfInputComesFromFile() {
+            TCP.start(() -> {
+                initializeContext();
+                var tc = new TextTemplateCompiler().newTemplateCommandFromResourceName("in.txt");
+                tc.setWriter(stringWriter);
+                tc.execute();
+                assertThat(stringWriter.toString())
+                        .isEqualTo("Hallo %s! Willkommen bei uns.%n<?java int i = 1 ?>d%n".formatted(FIRSTNAME));
+                tearDownContext();
+            });
         }
 
         @Test
-        public void test5() {
-            domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
-            var tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
+        void test5() {
+            TCP.start(() -> {
+                initializeContext();
+                domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
+                var tc = new TextTemplateCompiler().newTemplateCommandFromString("hallo ${firstname}.\nWie gehts?\n");
 
-            TCP.getContext().put("firstname", FIRSTNAME);
-            tc.setWriter(stringWriter);
-            tc.execute();
-            assertThat(stringWriter.toString()).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
+                TCP.getContext().put("firstname", FIRSTNAME);
+                tc.setWriter(stringWriter);
+                tc.execute();
+                assertThat(stringWriter.toString()).isEqualTo("hallo %s.%nWie gehts?%n".formatted(FIRSTNAME));
+                tearDownContext();
+            });
         }
     }
 
@@ -83,35 +95,51 @@ public class TextTemplateTest {
     @Nested
     class Recursive {
         @Test
-        public void recursive_placeholder_handling() {
-            TCP.getContext().put("name", "${firstname} ${lastname}");
-            assertThat(createTemplate("hallo ${name}. Wie gehts?"))
-                    .isEqualTo("hallo ${firstname} ${lastname}. Wie gehts?");
+        void recursive_placeholder_handling() {
+            TCP.start(() -> {
+                initializeContext();
+                TCP.getContext().put("name", "${firstname} ${lastname}");
+                assertThat(createTemplate("hallo ${name}. Wie gehts?"))
+                        .isEqualTo("hallo ${firstname} ${lastname}. Wie gehts?");
+                tearDownContext();
+            });
         }
     }
 
     @Nested
     class Misc {
         @Test
-        public void unknowns_are_not_replaced() {
-            assertThat(createTemplate("hallo ${lastname}. Wie gehts?")).isEqualTo("hallo ${lastname}. Wie gehts?");
+        void unknowns_are_not_replaced() {
+            TCP.start(() -> {
+                initializeContext();
+                assertThat(createTemplate("hallo ${lastname}. Wie gehts?")).isEqualTo("hallo ${lastname}. Wie gehts?");
+                tearDownContext();
+            });
         }
 
         @Test
-        public void only_knowns_are_replaced() {
-            assertThat(createTemplate("hallo ${firstname} ${lastname}. Wie gehts?"))
-                    .isEqualTo("hallo %s ${lastname}. Wie gehts?".formatted(FIRSTNAME));
+        void only_knowns_are_replaced() {
+            TCP.start(() -> {
+                initializeContext();
+                assertThat(createTemplate("hallo ${firstname} ${lastname}. Wie gehts?"))
+                        .isEqualTo("hallo %s ${lastname}. Wie gehts?".formatted(FIRSTNAME));
+                tearDownContext();
+            });
         }
 
         @Test
-        public void javassist_template() {
-            var cmd = new JavassistTemplateCompiler(new JavassistTraverser())
-                    .newTemplateCommandFromString("hallo ${lastname}. Wie gehts?");
-            TCP.getContext().put("firstname", FIRSTNAME);
-            TCP.getContext().put("lastname", LASTNAME);
-            TemplateCV.setWriter(stringWriter);
-            cmd.execute();
-            assertThat(stringWriter.toString()).isEqualTo("hallo %s. Wie gehts?".formatted(LASTNAME));
+        void javassist_template() {
+            TCP.start(() -> {
+                initializeContext();
+                var cmd = new JavassistTemplateCompiler(new JavassistTraverser())
+                        .newTemplateCommandFromString("hallo ${lastname}. Wie gehts?");
+                TCP.getContext().put("firstname", FIRSTNAME);
+                TCP.getContext().put("lastname", LASTNAME);
+                TemplateCV.setWriter(stringWriter);
+                cmd.execute();
+                assertThat(stringWriter.toString()).isEqualTo("hallo %s. Wie gehts?".formatted(LASTNAME));
+                tearDownContext();
+            });
         }
     }
 

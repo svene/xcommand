@@ -10,8 +10,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.jooq.lambda.Sneaky;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,15 +18,13 @@ import org.mockito.Mockito;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 
-public class JSTParserTester {
+class JSTParserTest {
 
-    @BeforeEach
-    public void initializeContext() {
+    void initializeContext() {
         TCP.pushContext(new HashMap<>());
     }
 
-    @AfterEach
-    public void tearDownContext() {
+    void tearDownContext() {
         TCP.popContext();
     }
 
@@ -44,12 +41,16 @@ public class JSTParserTester {
 
     @ParameterizedTest
     @MethodSource
-    public void testCommentStartHandler(String input, int expected) throws ParseException {
-        var parser = new JSTParser(inputStreamFromString(input));
-        var commentStartHandler = Mockito.mock(ICommand.class);
-        parser.getCommentStartNotifier().registerObserver(commentStartHandler);
-        parser.Start();
-        verify(commentStartHandler, times(expected)).execute();
+    void testCommentStartHandler(String input, int expected) throws ParseException {
+        TCP.start(Sneaky.runnable(() -> {
+            initializeContext();
+            var parser = new JSTParser(inputStreamFromString(input));
+            var commentStartHandler = Mockito.mock(ICommand.class);
+            parser.getCommentStartNotifier().registerObserver(commentStartHandler);
+            parser.Start();
+            verify(commentStartHandler, times(expected)).execute();
+            tearDownContext();
+        }));
     }
 
     @SuppressWarnings("unused")
@@ -65,12 +66,14 @@ public class JSTParserTester {
 
     @ParameterizedTest
     @MethodSource
-    public void testEolInCommentHandler(InputStream is, int expected) throws ParseException {
-        var parser = new JSTParser(is);
-        var handler = Mockito.mock(ICommand.class);
-        parser.getEolInCommentNotifier().registerObserver(handler);
-        parser.Start();
-        verify(handler, times(expected)).execute();
+    void testEolInCommentHandler(InputStream is, int expected) {
+        TCP.start(Sneaky.runnable(() -> {
+            var parser = new JSTParser(is);
+            var handler = Mockito.mock(ICommand.class);
+            parser.getEolInCommentNotifier().registerObserver(handler);
+            parser.Start();
+            verify(handler, times(expected)).execute();
+        }));
     }
 
     // TODO: add tests for other callbacks

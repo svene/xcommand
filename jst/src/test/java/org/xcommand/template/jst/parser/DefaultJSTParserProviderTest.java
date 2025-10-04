@@ -14,7 +14,7 @@ import org.xcommand.core.TCP;
 import org.xcommand.template.jst.DefaultJSTParserProvider;
 import org.xcommand.template.jst.IJSTParserCV;
 
-class DefaultJSTParserProviderTester {
+class DefaultJSTParserProviderTest {
 
     private void initializeContext() {
         TCP.pushContext(new HashMap<>());

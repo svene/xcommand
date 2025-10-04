@@ -7,8 +7,6 @@ import java.util.HashMap;
 import org.collage.dom.evaluator.java.javassist.JavassistTraverser;
 import org.collage.template.JavassistTemplateCompiler;
 import org.collage.template.TemplateCV;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
@@ -17,14 +15,12 @@ import org.xcommand.util.ResourceUtil;
 class JavassistTest {
     JavassistTemplateCompiler javassistTemplateCompiler;
 
-    @BeforeEach
     void initializeContext() {
         javassistTemplateCompiler = new JavassistTemplateCompiler(new JavassistTraverser());
         TCP.pushContext(new HashMap<>());
         TCP.getContext().put("firstname", "Uli");
     }
 
-    @AfterEach
     void tearDownContext() {
         TCP.popContext();
     }
@@ -33,71 +29,84 @@ class JavassistTest {
      * Note: by default the code in  {@link org.collage.dom.evaluator.java.javassist.ExitRootHandler.executeMethod} writes to System.out */
     @Test
     void exerciseNewTemplateCommandFromStringUsingSystemOut() {
-        ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
-                """
+        TCP.start(() -> {
+            initializeContext();
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
+                    """
 				hallo ${firstname}.
 				Wie geht's?
 				""");
 
-        TCP.getContext().put("firstname", "Sven");
-        cmd.execute();
+            TCP.getContext().put("firstname", "Sven");
+            cmd.execute();
+            tearDownContext();
+        });
     }
 
     /* Create a template command via TemplateSouce, execute it and write output to StringWriter (to be able to unittest result) */
     @Test
     void testNewTemplateCommandFromString() {
-        ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
-                """
+        TCP.start(() -> {
+            initializeContext();
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
+                    """
 				hallo ${firstname}.
 				Wie geht's?
 				""");
 
-        TCP.getContext().put("firstname", "Sven");
-        StringWriter sw = new StringWriter();
-        TemplateCV.setWriter(sw);
-        cmd.execute();
-        assertThat(sw.toString()).isEqualTo("""
+            TCP.getContext().put("firstname", "Sven");
+            StringWriter sw = new StringWriter();
+            TemplateCV.setWriter(sw);
+            cmd.execute();
+            assertThat(sw.toString()).isEqualTo("""
 			hallo Sven.
 			Wie geht's?
 			""");
+            tearDownContext();
+        });
     }
 
     @Test
     void testNewTemplateCommandFromStringWithNOPJava() {
-        final String s = """
+        TCP.start(() -> {
+            initializeContext();
+            final String s = """
 			hallo <?java int i = 1;?> ${firstname}.
 			Wie geht's?
 			""";
-        ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(s);
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(s);
 
-        TCP.getContext().put("firstname", "Sven");
-        StringWriter sw = new StringWriter();
-        TemplateCV.setWriter(sw);
-        cmd.execute();
-        assertThat(sw.toString()).isEqualTo("""
+            TCP.getContext().put("firstname", "Sven");
+            StringWriter sw = new StringWriter();
+            TemplateCV.setWriter(sw);
+            cmd.execute();
+            assertThat(sw.toString()).isEqualTo("""
 			hallo  Sven.
 			Wie geht's?
 			""");
+            tearDownContext();
+        });
     }
 
     @Test
     void testNewTemplateCommandFromStringWithEffectiveJava() {
-
-        ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
-                """
+        TCP.start(() -> {
+            initializeContext();
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
+                    """
 				hallo
 				<?java for (int i = 0; i< 3; i++){ _writer.write(String.valueOf(i));?> ${firstname}.
 				Wie geht's?
 				<?java }?>
 				""");
 
-        StringWriter sw = new StringWriter();
-        TemplateCV.setWriter(sw);
-        TCP.getContext().put("firstname", "Sven");
-        cmd.execute();
-        assertThat(sw.toString())
-                .isEqualTo(
-                        """
+            StringWriter sw = new StringWriter();
+            TemplateCV.setWriter(sw);
+            TCP.getContext().put("firstname", "Sven");
+            cmd.execute();
+            assertThat(sw.toString())
+                    .isEqualTo(
+                            """
 			hallo
 			0 Sven.
 			Wie geht's?
@@ -106,21 +115,25 @@ class JavassistTest {
 			2 Sven.
 			Wie geht's?
 			""");
+            tearDownContext();
+        });
     }
 
     @Test
     void testNewTemplateCommandFromFileWithEffectiveJava() {
-        ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromStream(
-                ResourceUtil.newInputStreamFromResourceLocation("java03_in.txt"));
+        TCP.start(() -> {
+            initializeContext();
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromStream(
+                    ResourceUtil.newInputStreamFromResourceLocation("java03_in.txt"));
 
-        StringWriter sw = new StringWriter();
-        TemplateCV.setWriter(sw);
+            StringWriter sw = new StringWriter();
+            TemplateCV.setWriter(sw);
 
-        TCP.getContext().put("firstname", "Sven");
-        cmd.execute();
-        assertThat(sw.toString())
-                .isEqualTo(
-                        """
+            TCP.getContext().put("firstname", "Sven");
+            cmd.execute();
+            assertThat(sw.toString())
+                    .isEqualTo(
+                            """
 					0: Hallo Sven. Wie gehts?
 					1: Hallo Sven. Wie gehts?
 					2: Hallo Sven. Wie gehts?
@@ -132,5 +145,7 @@ class JavassistTest {
 					8: Hallo Sven. Wie gehts?
 					9: Hallo Sven. Wie gehts?
 					""");
+            tearDownContext();
+        });
     }
 }

@@ -10,45 +10,48 @@ import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.datastructure.tree.NotifyingTreeNodeTraverser;
 import org.xcommand.datastructure.tree.TreeNodeCommandFactory;
 
-public class TextEvaluationLowLevelTest {
+class TextEvaluationLowLevelTest {
 
     @Test
-    public void test1() {
-        // Setup:
-        var dbp = DynaBeanProvider.newThreadClassMethodInstance();
-        var treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
+    void test1() {
+        TCP.start(() -> {
+            // Setup:
+            var dbp = DynaBeanProvider.newThreadClassMethodInstance();
+            var treeNodeCV = dbp.newBeanForInterface(ITreeNodeCV.class);
 
-        var hp = new DomEventHandlerProvider();
+            var hp = new DomEventHandlerProvider();
 
-        var textMockHook = Mockito.mock(TC.IStringMockHook.class);
-        var variableMockHook = Mockito.mock(TC.IStringMockHook.class);
-        var javaMockHook = Mockito.mock(TC.IStringMockHook.class);
+            var textMockHook = Mockito.mock(TC.IStringMockHook.class);
+            var variableMockHook = Mockito.mock(TC.IStringMockHook.class);
+            var javaMockHook = Mockito.mock(TC.IStringMockHook.class);
 
-        hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook, treeNodeCV));
-        hp.getVariableNotifier().registerObserver(new TC.VariableValueMockHookCommand(variableMockHook, treeNodeCV));
-        hp.getJavaNotifier().registerObserver(new TC.JavaMockHookCommand(javaMockHook, treeNodeCV));
+            hp.getTextNotifier().registerObserver(new TC.TextMockHookCommand(textMockHook, treeNodeCV));
+            hp.getVariableNotifier()
+                    .registerObserver(new TC.VariableValueMockHookCommand(variableMockHook, treeNodeCV));
+            hp.getJavaNotifier().registerObserver(new TC.JavaMockHookCommand(javaMockHook, treeNodeCV));
 
-        var tt = new NotifyingTreeNodeTraverser();
-        // TODO: think about this:
-        tt.getEnterNodeNotifier().registerObserver(TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp));
+            var tt = new NotifyingTreeNodeTraverser();
+            // TODO: think about this:
+            tt.getEnterNodeNotifier().registerObserver(TreeNodeCommandFactory.newTreeNodeDomainObjectKeyedCommand(hp));
 
-        // Setup dynamic data:
-        treeNodeCV.setTreeNode(new TestHelper().rootNode);
-        TCP.getContext().put("firstname", "Uli");
+            // Setup dynamic data:
+            treeNodeCV.setTreeNode(new TestHelper().rootNode);
+            TCP.getContext().put("firstname", "Uli");
 
-        // Execution:
-        tt.execute();
+            // Execution:
+            tt.execute();
 
-        // Verification:
-        Mockito.verify(textMockHook, Mockito.times(3)).hookRoutineForMockVerification(Mockito.anyString());
-        Mockito.verify(variableMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
-        Mockito.verify(javaMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
+            // Verification:
+            Mockito.verify(textMockHook, Mockito.times(3)).hookRoutineForMockVerification(Mockito.anyString());
+            Mockito.verify(variableMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
+            Mockito.verify(javaMockHook, Mockito.times(1)).hookRoutineForMockVerification(Mockito.anyString());
 
-        InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
-        inOrder.verify(textMockHook).hookRoutineForMockVerification("Hallo ");
-        inOrder.verify(variableMockHook).hookRoutineForMockVerification("Uli");
-        inOrder.verify(textMockHook).hookRoutineForMockVerification("! Willkommen bei uns.\n");
-        inOrder.verify(javaMockHook).hookRoutineForMockVerification(" int i = 1 ");
-        inOrder.verify(textMockHook).hookRoutineForMockVerification("d\n");
+            InOrder inOrder = Mockito.inOrder(textMockHook, variableMockHook, javaMockHook);
+            inOrder.verify(textMockHook).hookRoutineForMockVerification("Hallo ");
+            inOrder.verify(variableMockHook).hookRoutineForMockVerification("Uli");
+            inOrder.verify(textMockHook).hookRoutineForMockVerification("! Willkommen bei uns.\n");
+            inOrder.verify(javaMockHook).hookRoutineForMockVerification(" int i = 1 ");
+            inOrder.verify(textMockHook).hookRoutineForMockVerification("d\n");
+        });
     }
 }

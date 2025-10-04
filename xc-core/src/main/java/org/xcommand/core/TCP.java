@@ -44,18 +44,10 @@ public final class TCP {
         return threadMapHolder.get();
     }
 
-    private static final ThreadLocal<Deque<Map<String, Object>>> threadMapHolder = new ThreadLocal<>() {
-        @Override
-        protected synchronized Deque<Map<String, Object>> initialValue() {
-            Deque<Map<String, Object>> stack = new ArrayDeque<>();
-            stack.push(Factory.newInheritableMap(AC.getInstance()));
-            return stack;
-        }
-    };
-    private static final ScopedValue<Deque<Map<String, Object>>> threadMapHolder1 = ScopedValue.newInstance();
+    private static final ScopedValue<Deque<Map<String, Object>>> threadMapHolder = ScopedValue.newInstance();
 
     public static void start(Runnable runnable) {
-        ScopedValue.where(threadMapHolder1, newThreadMapStack()).run(runnable);
+        ScopedValue.where(threadMapHolder, newThreadMapStack()).run(runnable);
     }
 
     private static Deque<Map<String, Object>> newThreadMapStack() {

@@ -5,9 +5,9 @@ import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.ConditionObserver;
 
-public class ParserModeConditionTester extends ConditionObserver {
+public class ParserModeConditionTest extends ConditionObserver {
 
-    public ParserModeConditionTester(String aParserMode) {
+    public ParserModeConditionTest(String aParserMode) {
         parserMode = aParserMode;
     }
 
