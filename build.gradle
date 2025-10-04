@@ -1,6 +1,5 @@
 project.ext {
 	VERSION_JAVACC = '7.0.13'
-	DEP_SPOCK_BOM = 'org.spockframework:spock-bom:2.3-groovy-4.0'
 	DEP_SPRING_FW_BOM = 'org.springframework:spring-framework-bom:6.2.11'
 }
 subprojects {
