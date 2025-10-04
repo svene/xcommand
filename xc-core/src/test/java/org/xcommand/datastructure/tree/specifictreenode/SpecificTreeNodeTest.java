@@ -73,7 +73,7 @@ class SpecificTreeNodeTest {
         MapBasedHandlerProvider hp = new MapBasedHandlerProvider(map);
         ICommand cmd = TreeNodeCommandFactory.newTreeNodeKeyedCommand(hp);
         tt.getEnterNodeNotifier().registerObserver(cmd);
-		treeNodeCV.setTreeNode(tdp.getRoot1());
+        treeNodeCV.setTreeNode(tdp.getRoot1());
 
         tt.execute();
 
