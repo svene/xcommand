@@ -90,8 +90,8 @@ class SpecificTreeNodeTest {
     }
 
     // Helpers for this test:
-    private class ICommandHook {
-        public void testHook(int position, Object aDomainObject) {}
+    private interface ICommandHook {
+        void testHook(@SuppressWarnings("unused") int position, @SuppressWarnings("unused") Object aDomainObject);
     }
 
     private class MyCommand implements ICommand {

@@ -15,7 +15,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.mockito.Mockito;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.TCP;
@@ -131,23 +130,20 @@ class FileSystemScannerTest {
         void defaultHandler() {
             TCP.start(() -> {
                 var scanner = FileSystemScanner.newInstance(List.of(mainJavaPath, testJavaPath));
+                var files = new ArrayList<String>();
 
                 // todo: should a filenamefilter e.g. "*.java" be supported ?
-                TC.IStringMockHook smh = Mockito.mock(TC.IStringMockHook.class);
-                scanner.getFileFoundNotifier()
-                        .registerObserver(() -> smh.hookRoutineForMockVerification(
-                                fileSystemScannerCV.getPath().toString()));
+                scanner.getFileFoundNotifier().registerObserver(() -> {
+                    files.add(fileSystemScannerCV.getPath().toString());
+                });
                 scanner.execute();
 
                 // Test for the following three files (although more will be found):
-                Mockito.verify(smh)
-                        .hookRoutineForMockVerification(
-                                "src/main/java/org/xcommand/template/jst/IJSTParserProvider.java");
-                Mockito.verify(smh)
-                        .hookRoutineForMockVerification(
-                                "src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java");
-                Mockito.verify(smh)
-                        .hookRoutineForMockVerification("src/main/java/org/xcommand/template/jst/JSTCompiler.java");
+                assertThat(files)
+                        .contains(
+                                "src/main/java/org/xcommand/template/jst/IJSTParserProvider.java",
+                                "src/main/java/org/xcommand/template/jst/FileSystemBasedJSTProvider.java",
+                                "src/main/java/org/xcommand/template/jst/JSTCompiler.java");
             });
         }
     }

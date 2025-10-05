@@ -1,6 +1,6 @@
 package org.xcommand.core;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DelegatingPerson implements IPerson {
 
@@ -19,7 +19,7 @@ public class DelegatingPerson implements IPerson {
     }
 
     @Override
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return delegate.getBirthDate();
     }
 
@@ -34,7 +34,7 @@ public class DelegatingPerson implements IPerson {
     }
 
     @Override
-    public void setBirthDate(Date aBirthDate) {
+    public void setBirthDate(LocalDate aBirthDate) {
         delegate.setBirthDate(aBirthDate);
     }
 

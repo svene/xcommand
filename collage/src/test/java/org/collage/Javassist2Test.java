@@ -9,13 +9,10 @@ import org.collage.template.TemplateFactory;
 import org.collage.template.TemplateSource;
 import org.jooq.lambda.Sneaky;
 import org.junit.jupiter.api.Test;
-import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
-import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.TCP;
 
 class Javassist2Test {
-    IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
 
     void initializeContext() {
         TCP.pushContext(new HashMap<>());
@@ -27,23 +24,23 @@ class Javassist2Test {
     }
 
     @Test
-    void verify_that_recursive_template_resolving_works() throws Exception {
+    void verify_that_recursive_template_resolving_works() {
         TCP.start(Sneaky.runnable(() -> {
             initializeContext();
-            var s =
-                    """
-			Header
-			
-			<?java for (int i = 0; i< 3; i++) {?>
-			hallo ${name}.
-			  Wie gehts?
-			<?java }?>
-			Footer
-			""";
 
             // First replace '${name}' with '${firstname} ${lastname}':
             TCP.pushContext(new HashMap<>());
             TCP.getContext().put("name", "${firstname} ${lastname}");
+            var s =
+                    """
+				Header
+				
+				<?java for (int i = 0; i< 3; i++) {?>
+				hallo ${name}.
+				  Wie gehts?
+				<?java }?>
+				Footer
+				""";
             ICommand cmd = TemplateFactory.newRecursiveTemplateInstance(new TemplateSource(s));
             TCP.popContext();
 
@@ -74,22 +71,22 @@ class Javassist2Test {
     }
 
     @Test
-    void verify_that_recursive_template_resolving_works_with_3_levels_of_nesting() throws Exception {
+    void verify_that_recursive_template_resolving_works_with_3_levels_of_nesting() {
         TCP.start(Sneaky.runnable(() -> {
             initializeContext();
-            // person -> nameAndAddress -> address:
-            String person = "${person}";
-            String nameAndAddress = "${firstname} ${lastname} ${address}";
-            String address = """
-			
-			Sohlweg 13
-			D-79589 Binzen
-			""";
 
             // Use new context for template command creation:
-            TCP.pushContext(new HashMap());
+            TCP.pushContext(new HashMap<>());
+            // person -> nameAndAddress -> address:
+            String nameAndAddress = "${firstname} ${lastname} ${address}";
             TCP.getContext().put("person", nameAndAddress);
+            String address = """
+				
+				Sohlweg 13
+				D-79589 Binzen
+				""";
             TCP.getContext().put("address", address);
+            String person = "${person}";
             ICommand cmd = TemplateFactory.newRecursiveTemplateInstance(new TemplateSource(person));
             TCP.popContext();
 

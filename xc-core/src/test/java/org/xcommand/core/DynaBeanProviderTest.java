@@ -3,7 +3,8 @@ package org.xcommand.core;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.beans.PropertyDescriptor;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanWrapper;
@@ -26,7 +27,7 @@ class DynaBeanProviderTest {
 
             person.setFirstName("Sven");
             person.setLastName("Ehrke");
-            Date d = new Date();
+            var d = LocalDate.now(ZoneId.of("Europe/Berlin"));
             person.setBirthDate(d);
 
             assertThat(person.getFirstName()).isEqualTo("Sven");
@@ -49,7 +50,7 @@ class DynaBeanProviderTest {
 
             person.setFirstName("Sven");
             person.setLastName("Ehrke");
-            Date d = new Date();
+            var d = LocalDate.now(ZoneId.of("Europe/Berlin"));
             person.setBirthDate(d);
 
             assertThat(person.getFirstName()).isEqualTo("Sven");
@@ -72,7 +73,7 @@ class DynaBeanProviderTest {
 
             person.setFirstName("Sven");
             person.setLastName("Ehrke");
-            Date d = new Date();
+            var d = LocalDate.now(ZoneId.of("Europe/Berlin"));
             person.setBirthDate(d);
 
             assertThat(person.getFirstName()).isEqualTo("Sven");
