@@ -64,7 +64,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
                 });
 
                 jstParserCV.setGeneratedJavaCode(new StringBuffer());
-                Sneaky.runnable(() -> parser.Start()).run();
+                parser.parse();
                 var newFme = cme.fme()
                         .with()
                         .content(jstParserCV.getGeneratedJavaCode().toString())

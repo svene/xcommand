@@ -1,30 +1,24 @@
 package org.xcommand.template.jst;
 
-import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
-import org.xcommand.template.jst.parser.JSTParser;
 import org.xcommand.template.parser.IParserCV;
 
 @Slf4j
 public class DefaultJSTParserProvider implements IJSTParserProvider {
     @Override
-    public JSTParser newJSTParser() {
-        var encoding = jstParserCV.getEncoding();
-        if (encoding == null) {
-            encoding = StandardCharsets.UTF_8.name();
-        }
-        var parser = new JSTParser(jstParserCV.getInputStream(), encoding);
-        parser.getJavaVarNotifier().registerObserver(javaVariableObserver);
-        parser.getJavaTextNotifier().registerObserver(javaTextObserver);
-        parser.getCommentStartNotifier().registerObserver(commentStartObserver);
-        parser.getCommentTextNotifier().registerObserver(commentTextObserver);
-        parser.getCommentEndNotifier().registerObserver(commentEndObserver);
-        parser.getEolInCommentNotifier().registerObserver(eolInCommentObserver);
-        parser.getEolInJavaNotifier().registerObserver(eolInJavaObserver);
-        return parser;
+    public JSTParserWrapper newJSTParser() {
+        var pw = new JSTParserWrapper();
+        pw.getNotifiers().javaVarNotifier.registerObserver(javaVariableObserver);
+        pw.getNotifiers().javaTextNotifier.registerObserver(javaTextObserver);
+        pw.getNotifiers().commentStartNotifier.registerObserver(commentStartObserver);
+        pw.getNotifiers().commentTextNotifier.registerObserver(commentTextObserver);
+        pw.getNotifiers().commentEndNotifier.registerObserver(commentEndObserver);
+        pw.getNotifiers().eolInCommentNotifier.registerObserver(eolInCommentObserver);
+        pw.getNotifiers().eolInJavaNotifier.registerObserver(eolInJavaObserver);
+        return pw;
     }
 
     private final ICommand javaVariableObserver = new ICommand() {

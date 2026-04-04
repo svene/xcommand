@@ -36,7 +36,7 @@ public class JSTSourceLoader {
             var parser = new DefaultJSTParserProvider().newJSTParser();
             //		TCP.popContext();
             jstParserCV.setGeneratedJavaCode(new StringBuffer());
-            parser.Start();
+            parser.parse();
             var s = jstParserCV.getGeneratedJavaCode().toString();
             //		System.out.println(s);
 
