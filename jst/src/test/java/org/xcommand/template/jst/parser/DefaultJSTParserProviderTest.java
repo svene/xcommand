@@ -29,8 +29,9 @@ class DefaultJSTParserProviderTest {
     void test1() {
         TCP.start(Sneaky.runnable(() -> {
             initializeContext();
-            var parser = newJSTParser(inputStreamFromString("hi there!"));
-            parser.Start();
+            var parser = new DefaultJSTParserProvider().newJSTParser();
+            jstParserCV.setInputStream(inputStreamFromString("hi there!"));
+            parser.parse();
             assertEquals("hi there!", jstParserCV.getGeneratedJavaCode().toString());
             tearDownContext();
         }));
@@ -40,8 +41,9 @@ class DefaultJSTParserProviderTest {
     void test2() {
         TCP.start(Sneaky.runnable(() -> {
             initializeContext();
-            var parser = newJSTParser(inputStreamFromString("hi there! /*#some comment#*/"));
-            parser.Start();
+            var parser = new DefaultJSTParserProvider().newJSTParser();
+            jstParserCV.setInputStream(inputStreamFromString("hi there! /*#some comment#*/"));
+            parser.parse();
             assertEquals(
                     "hi there! $s(\"some comment\");",
                     jstParserCV.getGeneratedJavaCode().toString());
@@ -53,8 +55,9 @@ class DefaultJSTParserProviderTest {
     void test3() {
         TCP.start(Sneaky.runnable(() -> {
             initializeContext();
-            var parser = newJSTParser(inputStreamFromString("hi there! /*#af $jv{somename} jj#*/"));
-            parser.Start();
+            var parser = new DefaultJSTParserProvider().newJSTParser();
+            jstParserCV.setInputStream(inputStreamFromString("hi there! /*#af $jv{somename} jj#*/"));
+            parser.parse();
             assertEquals(
                     "hi there! $s(\"af \");$s(somename);$s(\" jj\");",
                     jstParserCV.getGeneratedJavaCode().toString());
@@ -70,8 +73,9 @@ class DefaultJSTParserProviderTest {
 			""";
         TCP.start(Sneaky.runnable(() -> {
             initializeContext();
-            var parser = newJSTParser(inputStreamFromString(input));
-            parser.Start();
+            var parser = new DefaultJSTParserProvider().newJSTParser();
+            jstParserCV.setInputStream(inputStreamFromString(input));
+            parser.parse();
 
             assertEquals(
                     "hi there! $s(\"af \");$s(somename);$s(\" jj\");\nhow are you?\n",
@@ -82,13 +86,6 @@ class DefaultJSTParserProviderTest {
 
     private InputStream inputStreamFromString(String input) {
         return new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
-    }
-
-    private JSTParser newJSTParser(InputStream aIs) {
-        return TCP.get(() -> {
-            jstParserCV.setInputStream(aIs);
-            return new DefaultJSTParserProvider().newJSTParser();
-        });
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

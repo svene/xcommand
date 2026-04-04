@@ -1,17 +1,31 @@
 plugins {
 	id 'buildlogic.java-library-conventions'
 	alias(libs.plugins.versions)
-	id "org.xcommand.javacc"
+	alias(libs.plugins.antlr)
 	alias(libs.plugins.errorprone)
 	alias(libs.plugins.spotless)
 }
 
-javacc {
-	inputFile = file("src/main/javacc/jst.jj")
-	genDir    = file("build/src/main/java/org/xcommand/template/jst/parser")
-}
-compileJava.dependsOn(jcc)
+// ===== ANTLR: =====
+sourceSets.main.java.srcDir("$buildDir/generated-src/antlr/main")
+tasks.named('generateGrammarSource') {
+	// Define package folder target
+	def pkgPath = 'org/xcommand/template/jst/parser'
+	def pkgDir = file("$buildDir/generated-src/antlr/main/$pkgPath")
+	pkgDir.mkdirs()
 
+	// ANTLR options
+	arguments += ['-listener', '-visitor']
+
+	// Make ANTLR write directly into the package folder
+	outputDirectory = pkgDir
+}
+// Make sure compileJava depends on generated sources
+tasks.named('compileJava') {
+	dependsOn(tasks.named('generateGrammarSource'))
+}
+
+// ===== errorprone: =====
 import net.ltgt.gradle.errorprone.CheckSeverity
 tasks.withType(JavaCompile) {
 	options.errorprone {
@@ -73,11 +87,15 @@ dependencies {
 	testImplementation libs.mockito.junit.jupiter
 
 	testImplementation libs.assertj.core
+
+	antlr libs.antlr.tool
+	implementation libs.antlr.runtime
 }
 
 test {
 	systemProperty 'eu.javaspecialists.books.dynamicproxies.util.MethodTurboBooster.disabled', 'true'
 }
+
 
 // ben-manes version-plugin:
 def isNonStable = { String version ->

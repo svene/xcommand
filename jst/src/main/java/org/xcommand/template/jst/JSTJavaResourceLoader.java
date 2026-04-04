@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.jooq.lambda.Sneaky;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
@@ -30,7 +29,7 @@ public class JSTJavaResourceLoader {
         jstParserCV.setInputStream(is);
         var parser = new DefaultJSTParserProvider().newJSTParser();
         jstParserCV.setGeneratedJavaCode(new StringBuffer());
-        Sneaky.runnable(parser::Start).run();
+        parser.parse();
         var s = jstParserCV.getGeneratedJavaCode().toString();
 
         classMap = new HashMap<>();
