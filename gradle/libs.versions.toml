@@ -6,8 +6,8 @@ recordbuilder = "52"
 
 [libraries]
 jspecify = { group = "org.jspecify", name = "jspecify", version = "1.0.0" }
-nullaway = { group = "com.uber.nullaway", name = "nullaway", version = "0.12.12" }
-errorprone-core = { group = "com.google.errorprone", name = "error_prone_core", version = "2.44.0" }
+nullaway = { group = "com.uber.nullaway", name = "nullaway", version = "0.13.1" }
+errorprone-core = { group = "com.google.errorprone", name = "error_prone_core", version = "2.48.0" }
 jool = { group = "org.jooq", name = "jool", version = "0.9.15" }
 recordbuilder-processor = { group = "io.soabase.record-builder", name = "record-builder-processor", version.ref = "recordbuilder" }
 recordbuilder-core = { group = "io.soabase.record-builder", name = "record-builder-core", version.ref = "recordbuilder" }
