@@ -23,8 +23,8 @@ import org.xcommand.template.jst.JSTParserWrapper;
 
 class JSTParserTest {
 
-	private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
+    private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+    private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
 
     void initializeContext() {
         TCP.pushContext(new HashMap<>());
@@ -46,15 +46,15 @@ class JSTParserTest {
     @MethodSource
     void testCommentStartHandler(String input, int expected) {
         TCP.start(() -> {
-			initializeContext();
-			var parser = new JSTParserWrapper();
-			var commentStartHandler = Mockito.mock(ICommand.class);
-			parser.getNotifiers().commentStartNotifier.registerObserver(commentStartHandler);
-			jstParserCV.setInputStream(inputStreamFromString(input));
-			parser.parse();
-			verify(commentStartHandler, times(expected)).execute();
-			tearDownContext();
-		});
+            initializeContext();
+            var parser = new JSTParserWrapper();
+            var commentStartHandler = Mockito.mock(ICommand.class);
+            parser.getNotifiers().commentStartNotifier.registerObserver(commentStartHandler);
+            jstParserCV.setInputStream(inputStreamFromString(input));
+            parser.parse();
+            verify(commentStartHandler, times(expected)).execute();
+            tearDownContext();
+        });
     }
 
     @SuppressWarnings("unused")
@@ -72,13 +72,13 @@ class JSTParserTest {
     @MethodSource
     void testEolInCommentHandler(InputStream is, int expected) {
         TCP.start(() -> {
-			var parser = new JSTParserWrapper();
-			var handler = Mockito.mock(ICommand.class);
-			parser.getNotifiers().eolInCommentNotifier.registerObserver(handler);
-			jstParserCV.setInputStream(is);
-			parser.parse();
-			verify(handler, times(expected)).execute();
-		});
+            var parser = new JSTParserWrapper();
+            var handler = Mockito.mock(ICommand.class);
+            parser.getNotifiers().eolInCommentNotifier.registerObserver(handler);
+            jstParserCV.setInputStream(is);
+            parser.parse();
+            verify(handler, times(expected)).execute();
+        });
     }
 
     // TODO: add tests for other callbacks
