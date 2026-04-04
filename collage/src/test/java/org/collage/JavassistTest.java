@@ -31,8 +31,7 @@ class JavassistTest {
     void exerciseNewTemplateCommandFromStringUsingSystemOut() {
         TCP.start(() -> {
             initializeContext();
-            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
-                    """
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString("""
 				hallo ${firstname}.
 				Wie geht's?
 				""");
@@ -48,8 +47,7 @@ class JavassistTest {
     void testNewTemplateCommandFromString() {
         TCP.start(() -> {
             initializeContext();
-            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
-                    """
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString("""
 				hallo ${firstname}.
 				Wie geht's?
 				""");
@@ -92,8 +90,7 @@ class JavassistTest {
     void testNewTemplateCommandFromStringWithEffectiveJava() {
         TCP.start(() -> {
             initializeContext();
-            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString(
-                    """
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString("""
 				hallo
 				<?java for (int i = 0; i< 3; i++){ _writer.write(String.valueOf(i));?> ${firstname}.
 				Wie geht's?
@@ -104,9 +101,7 @@ class JavassistTest {
             TemplateCV.setWriter(sw);
             TCP.getContext().put("firstname", "Sven");
             cmd.execute();
-            assertThat(sw.toString())
-                    .isEqualTo(
-                            """
+            assertThat(sw.toString()).isEqualTo("""
 			hallo
 			0 Sven.
 			Wie geht's?
@@ -131,9 +126,7 @@ class JavassistTest {
 
             TCP.getContext().put("firstname", "Sven");
             cmd.execute();
-            assertThat(sw.toString())
-                    .isEqualTo(
-                            """
+            assertThat(sw.toString()).isEqualTo("""
 					0: Hallo Sven. Wie gehts?
 					1: Hallo Sven. Wie gehts?
 					2: Hallo Sven. Wie gehts?

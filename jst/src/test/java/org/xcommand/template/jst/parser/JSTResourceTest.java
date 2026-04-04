@@ -28,13 +28,11 @@ class JSTResourceTest {
                 var sw = new StringWriter();
                 TCP.getContext().put("writer", sw);
                 cmd.execute();
-                assertEquals(
-                        """
+                assertEquals("""
 					
 					\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>
 					\t<p>hallihallo</p>
-					""",
-                        sw.toString());
+					""", sw.toString());
             });
         });
     }
@@ -54,8 +52,7 @@ class JSTResourceTest {
                 var sw = new StringWriter();
                 TCP.getContext().put("writer", sw);
                 cmd.execute();
-                String bart =
-                        """
+                String bart = """
 				
 				\t<h1>Hallo Du da! Ich bin Bart. Und Du?</h1>
 				\t<p>hallihallo</p>
@@ -81,13 +78,11 @@ class JSTResourceTest {
                 TCP.getContext().put("writer", sw);
                 TCP.getContext().put("firstname", "Lisa");
                 cmd.execute();
-                assertEquals(
-                        """
+                assertEquals("""
 					
 					\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>
 					\t<p>hallihallo</p>
-					""",
-                        sw.toString());
+					""", sw.toString());
             });
         });
     }

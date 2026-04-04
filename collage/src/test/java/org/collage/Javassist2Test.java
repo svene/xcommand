@@ -31,8 +31,7 @@ class Javassist2Test {
             // First replace '${name}' with '${firstname} ${lastname}':
             TCP.pushContext(new HashMap<>());
             TCP.getContext().put("name", "${firstname} ${lastname}");
-            var s =
-                    """
+            var s = """
 				Header
 				
 				<?java for (int i = 0; i< 3; i++) {?>
@@ -53,9 +52,7 @@ class Javassist2Test {
             // todo: why is newline at beginning lost?:
             assertThat(sw.toString().charAt(0)).isNotEqualTo('\n');
             assertThat(sw.toString().charAt(0)).isEqualTo('H');
-            assertThat(sw.toString())
-                    .isEqualTo(
-                            """
+            assertThat(sw.toString()).isEqualTo("""
 			Header
 			
 			hallo Uli Ehrke.

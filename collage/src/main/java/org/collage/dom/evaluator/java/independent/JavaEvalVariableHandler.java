@@ -32,8 +32,7 @@ public class JavaEvalVariableHandler implements ICommand {
     IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
     IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 
-    private final String javassistVar =
-            """
+    private final String javassistVar = """
 		appendVar(org.xcommand.core.TCP.getContext(), "${varName}",  _writer);
 		""";
 }

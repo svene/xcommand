@@ -31,13 +31,11 @@ class JSTTest {
                 var sw = new StringWriter();
                 TCP.getContext().put("writer", sw);
                 cmd.execute();
-                assertEquals(
-                        """
+                assertEquals("""
 				
 				\t<h1>Hallo Du da! Ich bin Sven. Und Du?</h1>
 				\t<p>hallihallo</p>
-				""",
-                        sw.toString());
+				""", sw.toString());
             });
         });
     }
@@ -83,13 +81,11 @@ class JSTTest {
                 TCP.getContext().put("writer", sw);
                 TCP.getContext().put("firstname", "Lisa");
                 cmd.execute();
-                assertEquals(
-                        """
+                assertEquals("""
 					
 					\t<h1>Hallo Du da! Ich bin Lisa. Und Du?</h1>
 					\t<p>hallihallo</p>
-					""",
-                        sw.toString());
+					""", sw.toString());
             });
         });
     }

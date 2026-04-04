@@ -86,8 +86,7 @@ class ExitRootHandler implements ICommand {
     IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
     IJavaTemplateCmdCV javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
 
-    private final String appendVar =
-            """
+    private final String appendVar = """
 		private static final void appendVar(java.util.Map aCtx, String aVarName, java.io.Writer aWriter) {
 			Object obj = org.xcommand.core.TCP.getContext().get(aVarName);
 			if (obj != null)
@@ -103,8 +102,7 @@ class ExitRootHandler implements ICommand {
 		}
 		""";
 
-    private final String executeMethod =
-            """
+    private final String executeMethod = """
 		public void execute()
 		{
 			java.io.Writer _writer = (java.io.Writer)org.xcommand.core.TCP.getContext().get("writer");

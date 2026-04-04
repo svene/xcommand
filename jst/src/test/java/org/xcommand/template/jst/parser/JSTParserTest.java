@@ -30,10 +30,7 @@ class JSTParserTest {
 
     @SuppressWarnings("unused")
     private static Stream<Arguments> testCommentStartHandler() {
-        return Stream.of(
-                Arguments.of("hi there!", 0),
-                Arguments.of("hi /*#there!", 1),
-                Arguments.of("""
+        return Stream.of(Arguments.of("hi there!", 0), Arguments.of("hi /*#there!", 1), Arguments.of("""
 				hi /*#there!
 				sdf#*/
 				""", 1));
