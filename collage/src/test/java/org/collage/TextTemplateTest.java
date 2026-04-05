@@ -49,6 +49,17 @@ class TextTemplateTest {
         }
 
         @Test
+        void undefined() {
+            TCP.start(() -> {
+                initializeContext();
+                TCP.getContext().remove("firstname");
+                String out = createTemplate("hallo ${firstname}.\nWie gehts?\n");
+                assertThat(out).isEqualTo("hallo ${firstname}.%nWie gehts?%n".formatted());
+                tearDownContext();
+            });
+        }
+
+        @Test
         void test2() {
             TCP.start(() -> {
                 initializeContext();
