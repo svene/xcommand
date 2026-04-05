@@ -24,7 +24,7 @@ public class JSTParserWrapper {
         return notifiers;
     }
 
-    public void parse(/*InputStream is*/ ) {
+    public void parse() {
         var encoding = jstParserCV.getEncoding();
         if (encoding == null) {
             encoding = StandardCharsets.UTF_8.name();

@@ -9,7 +9,7 @@ import org.xcommand.misc.statemachine.IState;
 import org.xcommand.misc.statemachine.State;
 
 /**
- * TODO: rename to CollaeStateNetBuilder
+ * TODO: rename to CollageStateNetBuilder
  */
 public class CollageStateMachineBuilder {
 
