@@ -18,7 +18,6 @@ class JavassistTest {
     void initializeContext() {
         javassistTemplateCompiler = new JavassistTemplateCompiler(new JavassistTraverser());
         TCP.pushContext(new HashMap<>());
-        TCP.getContext().put("firstname", "Uli");
     }
 
     void tearDownContext() {
@@ -58,6 +57,26 @@ class JavassistTest {
             cmd.execute();
             assertThat(sw.toString()).isEqualTo("""
 			hallo Sven.
+			Wie geht's?
+			""");
+            tearDownContext();
+        });
+    }
+
+    @Test
+    void undefined_variable() {
+        TCP.start(() -> {
+            initializeContext();
+            ICommand cmd = javassistTemplateCompiler.newTemplateCommandFromString("""
+				hallo ${firstname}.
+				Wie geht's?
+				""");
+
+            StringWriter sw = new StringWriter();
+            TemplateCV.setWriter(sw);
+            cmd.execute();
+            assertThat(sw.toString()).isEqualTo("""
+			hallo ${firstname}.
 			Wie geht's?
 			""");
             tearDownContext();
