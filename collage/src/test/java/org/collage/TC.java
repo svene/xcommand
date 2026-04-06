@@ -27,7 +27,8 @@ public class TC {
         public void execute() {
             Text text = (Text) treeNodeCV
                     .getTreeNode()
-                    .getDomainObject(); // in case of ClassCastException the test fails which is what we want. // TODO: why 'test' here ?
+                    .getDomainObject(); // in case of ClassCastException the test fails which is what we want. // TODO:
+            // why 'test' here ?
             stringMockHook.hookRoutineForMockVerification(text.value());
         }
     }
