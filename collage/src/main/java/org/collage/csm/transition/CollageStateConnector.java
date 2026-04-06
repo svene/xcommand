@@ -1,13 +1,13 @@
 package org.collage.csm.transition;
 
-import java.util.Arrays;
+import java.util.List;
 import org.xcommand.api.ContextViews;
 import org.xcommand.core.ICommand;
 import org.xcommand.misc.statemachine.IState;
 import org.xcommand.misc.statemachine.Transition;
 
 public class CollageStateConnector {
-    public void connect(IState aFromState, IState aToState, String aParserMode, ICommand[] aExecuteCommands) {
+    public void connect(IState aFromState, IState aToState, String aParserMode, List<ICommand> aExecuteCommands) {
         var t = new Transition(aFromState.getName() + "->" + aToState.getName());
         ContextViews.get().defaultStateTransitionBinder.bind(aFromState, t, aToState);
         // Setup entry condition for transition:
@@ -18,8 +18,6 @@ public class CollageStateConnector {
         aFromState.getExecuteNotifier().registerObserver(transitionPredicate);
 
         // Attach commands to `t' to be executed when `t' is executed:
-        if (aExecuteCommands != null) {
-            Arrays.stream(aExecuteCommands).forEach(it -> t.getExecuteNotifier().registerObserver(it));
-        }
+        aExecuteCommands.forEach(it -> t.getExecuteNotifier().registerObserver(it));
     }
 }
