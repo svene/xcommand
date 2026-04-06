@@ -12,7 +12,7 @@ public class VariableToVariableNameExtractor implements ICommand {
     @Override
     public void execute() {
         var v = variableCV.getVariable();
-        stringHandlerCV.setString(v.getVariableName());
+        stringHandlerCV.setString(v.name());
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

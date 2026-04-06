@@ -17,8 +17,7 @@ public class VariableNodeCreationHandler implements ICommand {
         var s = domNodeCreationHandlerCV.getValue();
         log.debug("got VARIABLE: '{}'", s);
         trace("got VARIABLE: '" + s + "'");
-        var v = new Variable();
-        v.setVariableName(s);
+        var v = new Variable(s);
         var node = new TreeNode(v);
         tb.addChild(treeNodeCV.getTreeNode(), node);
     }

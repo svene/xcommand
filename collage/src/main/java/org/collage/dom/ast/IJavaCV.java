@@ -1,7 +1,6 @@
 package org.collage.dom.ast;
 
 public interface IJavaCV {
-    public Java getJava();
-
-    public void setJava(Java aJava);
+    Java getJava();
+    void setJava(Java aJava);
 }

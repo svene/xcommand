@@ -15,8 +15,7 @@ public class TextNodeCreationHandler implements ICommand {
         var s = domNodeCreationHandlerCV.getValue();
         log.debug("got TEXT: '{}'", s);
         trace("got TEXT: '" + s + "'");
-        var text = new Text();
-        text.setValue(s);
+        var text = new Text(s);
         var node = new TreeNode(text);
         tb.addChild(treeNodeCV.getTreeNode(), node);
     }

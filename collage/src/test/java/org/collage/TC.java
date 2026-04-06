@@ -27,8 +27,8 @@ public class TC {
         public void execute() {
             Text text = (Text) treeNodeCV
                     .getTreeNode()
-                    .getDomainObject(); // in case of ClassCastException the test fails which is what we want.
-            stringMockHook.hookRoutineForMockVerification(text.getValue());
+                    .getDomainObject(); // in case of ClassCastException the test fails which is what we want. // TODO: why 'test' here ?
+            stringMockHook.hookRoutineForMockVerification(text.value());
         }
     }
 
@@ -42,7 +42,7 @@ public class TC {
             Variable v = (Variable) treeNodeCV
                     .getTreeNode()
                     .getDomainObject(); // in case of ClassCastException the test fails which is what we want.
-            stringMockHook.hookRoutineForMockVerification(v.getVariableName());
+            stringMockHook.hookRoutineForMockVerification(v.name());
         }
     }
 
@@ -57,7 +57,7 @@ public class TC {
                     .getTreeNode()
                     .getDomainObject(); // in case of ClassCastException the test fails which is what we want.
             stringMockHook.hookRoutineForMockVerification(
-                    (String) TCP.getContext().get(v.getVariableName()));
+                    (String) TCP.getContext().get(v.name()));
         }
     }
 
@@ -71,7 +71,7 @@ public class TC {
             Java java = (Java) treeNodeCV
                     .getTreeNode()
                     .getDomainObject(); // in case of ClassCastException the test fails which is what we want.
-            stringMockHook.hookRoutineForMockVerification(java.getValue());
+            stringMockHook.hookRoutineForMockVerification(java.value());
         }
     }
 

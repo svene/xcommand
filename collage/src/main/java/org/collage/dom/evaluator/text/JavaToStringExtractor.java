@@ -12,7 +12,7 @@ public class JavaToStringExtractor implements ICommand {
     @Override
     public void execute() {
         var java = javaCV.getJava();
-        var s = "<?java" + java.getValue() + "?>";
+        var s = "<?java" + java.value() + "?>";
         if (stringHandlerCV.getString() != null) {
             stringHandlerCV.setString(s);
         }
@@ -21,7 +21,7 @@ public class JavaToStringExtractor implements ICommand {
             try {
                 writer.write("<?java");
                 //			writer.write(java.getStream()); // not existing yet!
-                writer.write(java.getValue());
+                writer.write(java.value());
                 writer.write("?>");
 
             } catch (IOException e) {

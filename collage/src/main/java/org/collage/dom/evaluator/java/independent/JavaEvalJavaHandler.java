@@ -7,7 +7,7 @@ public class JavaEvalJavaHandler implements ICommand {
     @Override
     public void execute() {
         var java = javaCV.getJava();
-        var s = java.getValue();
+        var s = java.value();
 
         var methodBody = (StringBuffer) TCP.getContext().get("methodbody");
         //		System.out.println("*** javacode: '" + s + "'");

@@ -15,9 +15,7 @@ public class JavaNodeCreationHandler implements ICommand {
         var s = domNodeCreationHandlerCV.getValue();
         log.debug("got JAVA CODE: '{}'", s);
         trace("got JAVA CODE: '" + s + "'");
-        var java = new Java();
-        java.setValue(s);
-        var node = new TreeNode(java);
+		var node = new TreeNode(new Java(s));
         tb.addChild(treeNodeCV.getTreeNode(), node);
     }
 

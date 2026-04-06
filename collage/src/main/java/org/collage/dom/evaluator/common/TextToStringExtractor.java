@@ -19,14 +19,14 @@ public class TextToStringExtractor implements ICommand {
         }
         var text = textCV.getText();
         if (stringHandlerCV.getString() != null) {
-            var s = text.getValue();
+            var s = text.value();
             stringHandlerCV.setString(s);
         }
         var writer = evaluationCV.getWriter();
         if (writer != null) {
             try {
-                var s = text.getValue();
-                //				writer.write(text.getStream()); // not existing yet!
+                var s = text.value();
+                //				writer.write(text.getStream()); // not existing yet! // TODO
                 writer.write(s);
             } catch (IOException e) {
                 throw new RuntimeException(e);

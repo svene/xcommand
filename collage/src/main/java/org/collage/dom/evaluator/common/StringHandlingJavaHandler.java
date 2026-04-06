@@ -12,7 +12,7 @@ public class StringHandlingJavaHandler extends StringHandlingHandler {
 
     @Override
     protected String getOriginalText() {
-        return javaCV.getJava().getValue();
+        return javaCV.getJava().value();
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
