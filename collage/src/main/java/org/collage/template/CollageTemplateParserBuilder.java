@@ -1,34 +1,26 @@
 package org.collage.template;
 
-import java.io.InputStream;
-import org.collage.jcc.TemplateParser;
+import org.collage.parser.TemplateParserWrapper;
 import org.xcommand.core.ICommand;
 
 public class CollageTemplateParserBuilder {
-    public TemplateParser newTemplateParser(InputStream aInputStream, ICommand aCmd) {
-        if (aInputStream == null) {
-            throw new RuntimeException("aInputStream == null");
-        }
-        var parser = new TemplateParser(aInputStream, "UTF-8");
+    public TemplateParserWrapper newTemplateParser(ICommand command) {
+        var parser = new TemplateParserWrapper();
 
-        //		parser.getStartNotifier().registerObserver(new ICommand()
-        //		{
-        //			public void execute()
-        //			{
-        //				System.out.println("****************** STARTING PARSING *********************");
-        //			}
-        //		});
+//        parser.getNotifiers().startNotifier.registerObserver(
+//            () -> System.out.println("****************** STARTING PARSING *********************")
+//        );
 
         // connect statemachine to parser:
-        parser.getTextNotifier().registerObserver(aCmd);
-        parser.getJavaStartNotifier().registerObserver(aCmd);
-        parser.getJavaCodeNotifier().registerObserver(aCmd);
-        parser.getJavaEndNotifier().registerObserver(aCmd);
-        parser.getVarStartNotifier().registerObserver(aCmd);
-        parser.getVarNameNotifier().registerObserver(aCmd);
-        parser.getVarEndNotifier().registerObserver(aCmd);
-        parser.getEolNotifier().registerObserver(aCmd);
-        parser.getEofNotifier().registerObserver(aCmd);
+        parser.getNotifiers().textNotifier.registerObserver(command);
+        parser.getNotifiers().javaStartNotifier.registerObserver(command);
+        parser.getNotifiers().javaCodeNotifier.registerObserver(command);
+        parser.getNotifiers().javaEndNotifier.registerObserver(command);
+        parser.getNotifiers().varStartNotifier.registerObserver(command);
+        parser.getNotifiers().varNameNotifier.registerObserver(command);
+        parser.getNotifiers().varEndNotifier.registerObserver(command);
+        parser.getNotifiers().eolNotifier.registerObserver(command);
+        parser.getNotifiers().eofNotifier.registerObserver(command);
 
         return parser;
     }

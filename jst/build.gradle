@@ -7,7 +7,8 @@ plugins {
 }
 
 // ===== ANTLR: =====
-sourceSets.main.java.srcDir("$buildDir/generated-src/antlr/main")
+//sourceSets.main.java.srcDir("$buildDir/generated-src/antlr/main")
+sourceSets.main.java.srcDir(layout.buildDirectory.dir("generated-src/antlr/main"))
 tasks.named('generateGrammarSource') {
 	// Define package folder target
 	def pkgPath = 'org/xcommand/template/jst/parser'

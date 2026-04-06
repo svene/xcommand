@@ -1,5 +1,6 @@
 package org.collage.dom.creationhandler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.collage.dom.ast.Java;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
@@ -7,10 +8,12 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.*;
 import org.xcommand.template.parser.IParserCV;
 
+@Slf4j
 public class JavaNodeCreationHandler implements ICommand {
     @Override
     public void execute() {
         var s = domNodeCreationHandlerCV.getValue();
+        log.debug("got JAVA CODE: '{}'", s);
         trace("got JAVA CODE: '" + s + "'");
         var java = new Java();
         java.setValue(s);

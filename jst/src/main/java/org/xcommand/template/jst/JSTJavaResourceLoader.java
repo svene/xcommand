@@ -19,7 +19,7 @@ public class JSTJavaResourceLoader {
      * java package notation (as 'java.lang.String')
      */
     public void load(String resourceName) {
-        log.info("resourceName: " + resourceName);
+        log.debug("resourceName: " + resourceName);
 
         var is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
         if (is == null) {
