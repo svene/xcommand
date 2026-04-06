@@ -18,25 +18,21 @@ public class CsmCommands {
 
     public static ICommand appendEolCommand = () -> {
         var sb = CsmCommands.parserCV.getStringBuilder();
-        //		System.out.println("*** TextTokenHandler.execute: appending '" + value + "'");
-
         Boolean javaMode = CsmCommands.domNodeCreationHandlerCV.getProduceJavaSource();
-        if (javaMode == true) {
-            //			sb.append("*PJS*");
+        if (javaMode) {
             sb.append('\\');
             sb.append('n');
         } else {
-            //			sb.append("!PJS!");
             sb.append("\n");
         }
-        log.debug("appendEolCommand: value='{}'", sb.toString());
+        log.debug("appendEolCommand: value='{}'", sb);
     };
 
     public static ICommand appendTextCommand = () -> {
         var sb = CsmCommands.parserCV.getStringBuilder();
         String value = CsmCommands.parserCV.getValue();
         sb.append(value);
-        log.debug("appendTextCommand: value='{}' -> '{}'", value, sb.toString());
+        log.debug("appendTextCommand: value='{}' -> '{}'", value, sb);
     };
 
     public static ICommand createVariableDomNodeCommand = () -> {
@@ -55,21 +51,18 @@ public class CsmCommands {
         var sb = CsmCommands.parserCV.getStringBuilder();
         var s = sb.toString();
         log.debug("flushJavaCommand: value='{}'", s);
-        if (!s.isEmpty()) {
-            CsmCommands.domNodeCreationHandlerCV.setValue(s);
-            CsmCommands.domNodeCreationHandlerCV
-                    .getCreateJavaNodeRequestNotifier()
-                    .execute();
+        if (s.isEmpty()) {
+            return;
         }
+        CsmCommands.domNodeCreationHandlerCV.setValue(s);
+        CsmCommands.domNodeCreationHandlerCV.getCreateJavaNodeRequestNotifier().execute();
     };
 
     /**
      * Commands flushing buffered text and creating associated Text-DOM-Node
      */
     public static ICommand flushTextCommand = () -> {
-        // Get String from Stringbuffer:
-        var sb = CsmCommands.parserCV.getStringBuilder();
-        var s = sb.toString();
+        var s = CsmCommands.parserCV.getStringBuilder().toString();
         log.debug("flushTextCommand: value='{}'", s);
         // Create a Text-DOM-Node:
         CsmCommands.domNodeCreationHandlerCV.setValue(s);

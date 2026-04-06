@@ -11,11 +11,11 @@ public class CollageStateConnector {
         var t = new Transition(aFromState.getName() + "->" + aToState.getName());
         ContextViews.get().defaultStateTransitionBinder.bind(aFromState, t, aToState);
         // Setup entry condition for transition:
-        var pmct = new ParserModeConditionTest(aParserMode);
+        var transitionPredicate = new ParserModeConditionPredicate(aParserMode);
         // Attach transition to entry condition tester:
-        pmct.getTrueNotifier().registerObserver(t);
+        transitionPredicate.state.trueNotifier.registerObserver(t);
         // Attach entry condition tester to aFromState:
-        aFromState.getExecuteNotifier().registerObserver(pmct);
+        aFromState.getExecuteNotifier().registerObserver(transitionPredicate);
 
         // Attach commands to `t' to be executed when `t' is executed:
         if (aExecuteCommands != null) {
