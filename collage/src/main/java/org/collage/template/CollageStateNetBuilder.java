@@ -11,9 +11,9 @@ import org.xcommand.misc.statemachine.State;
 /**
  * TODO: rename to CollageStateNetBuilder
  */
-public class CollageStateMachineBuilder {
+public class CollageStateNetBuilder {
 
-    public IState newCollageStateNet() {
+    public IState build() {
         // Setup states:
         var startState = newStartState();
         var textState = new State("text");

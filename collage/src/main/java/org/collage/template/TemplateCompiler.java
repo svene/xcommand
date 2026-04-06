@@ -18,7 +18,7 @@ public class TemplateCompiler implements ICommand {
         var sm = new StateMachine();
         var parser = new CollageTemplateParserBuilder().newTemplateParser(sm);
 
-        stateCV.setState(new CollageStateMachineBuilder().newCollageStateNet());
+        stateCV.setState(new CollageStateNetBuilder().build());
         parser.parse(is);
     }
 
