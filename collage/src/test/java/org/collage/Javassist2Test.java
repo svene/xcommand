@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.StringWriter;
 import java.util.HashMap;
-
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.collage.template.TemplateCV;
 import org.collage.template.TemplateFactory;
@@ -18,8 +17,8 @@ import org.xcommand.core.TCP;
 
 class Javassist2Test {
 
-	private static final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
-	private static final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+    private static final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
+    private static final IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
 
     void initializeContext() {
         TCP.pushContext(new HashMap<>());
@@ -98,8 +97,8 @@ class Javassist2Test {
             TemplateCV.setWriter(sw);
 
             cmd.execute();
-			String s = sw.toString();
-	        assertThat(s).isEqualTo("""
+            String s = sw.toString();
+            assertThat(s).isEqualTo("""
 			Uli ${lastname}\s
 			Sohlweg 13
 			D-79589 Binzen

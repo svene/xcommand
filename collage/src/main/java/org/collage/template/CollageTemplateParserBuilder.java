@@ -7,9 +7,9 @@ public class CollageTemplateParserBuilder {
     public TemplateParserWrapper newTemplateParser(ICommand command) {
         var parser = new TemplateParserWrapper();
 
-//        parser.getNotifiers().startNotifier.registerObserver(
-//            () -> System.out.println("****************** STARTING PARSING *********************")
-//        );
+        //        parser.getNotifiers().startNotifier.registerObserver(
+        //            () -> System.out.println("****************** STARTING PARSING *********************")
+        //        );
 
         // connect statemachine to parser:
         parser.getNotifiers().textNotifier.registerObserver(command);
