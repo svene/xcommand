@@ -60,7 +60,6 @@ dependencies {
 	errorprone libs.errorprone.core
 
 	implementation project(':xc-core')
-	implementation libs.javacc
 	annotationProcessor libs.recordbuilder.processor
 	compileOnly libs.recordbuilder.core
 

@@ -52,7 +52,6 @@ dependencies {
 	errorprone libs.errorprone.core
 
 	implementation project(':xc-core')
-	implementation libs.javacc
 	implementation libs.javassist
 
 	implementation libs.slf4j.api
