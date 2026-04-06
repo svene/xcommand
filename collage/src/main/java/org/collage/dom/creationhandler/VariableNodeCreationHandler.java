@@ -1,5 +1,6 @@
 package org.collage.dom.creationhandler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.collage.dom.ast.Variable;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
@@ -9,10 +10,12 @@ import org.xcommand.datastructure.tree.TreeBuilder;
 import org.xcommand.datastructure.tree.TreeNode;
 import org.xcommand.template.parser.IParserCV;
 
+@Slf4j
 public class VariableNodeCreationHandler implements ICommand {
     @Override
     public void execute() {
         var s = domNodeCreationHandlerCV.getValue();
+        log.debug("got VARIABLE: '{}'", s);
         trace("got VARIABLE: '" + s + "'");
         var v = new Variable();
         v.setVariableName(s);

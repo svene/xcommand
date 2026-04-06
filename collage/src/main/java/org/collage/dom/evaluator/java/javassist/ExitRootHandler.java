@@ -95,7 +95,8 @@ class ExitRootHandler implements ICommand {
 			}
 			else
 			{
-				aWriter.write("$\\{");
+				aWriter.write(36); // dollar sign
+				aWriter.write("{");
 				aWriter.write(aVarName);
 				aWriter.write("}");
 			}

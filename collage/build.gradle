@@ -1,17 +1,25 @@
 plugins {
 	id 'buildlogic.java-library-conventions'
 	alias(libs.plugins.versions)
-	id "org.xcommand.javacc"
+	alias(libs.plugins.antlr)
 	alias(libs.plugins.errorprone)
 	alias(libs.plugins.spotless)
 }
 
-javacc {
-	inputFile = file("src/main/javacc/templateparser.jj")
-	genDir    = file("build/src/main/java/org/collage/jcc")
+// ===== ANTLR: =====
+sourceSets.main.java.srcDir(layout.buildDirectory.dir("generated-src/antlr/main"))
+tasks.named('generateGrammarSource') {
+	def pkgDir = file(layout.buildDirectory.dir('org/collage/parser/antlr'))
+	pkgDir.mkdirs()
+	arguments += ['-listener', '-visitor'] // ANTLR options
+	outputDirectory = pkgDir // Make ANTLR write directly into the package folder
 }
-compileJava.dependsOn(jcc)
+// Make sure compileJava depends on generated sources
+tasks.named('compileJava') {
+	dependsOn(tasks.named('generateGrammarSource'))
+}
 
+// ===== errorprone: =====
 import net.ltgt.gradle.errorprone.CheckSeverity
 tasks.withType(JavaCompile) {
 	options.errorprone {
@@ -44,7 +52,6 @@ dependencies {
 	errorprone libs.errorprone.core
 
 	implementation project(':xc-core')
-	implementation libs.javacc
 	implementation libs.javassist
 
 	implementation libs.slf4j.api
@@ -60,6 +67,9 @@ dependencies {
 
 	implementation libs.jool
 	testImplementation libs.assertj.core
+
+	antlr libs.antlr.tool
+	implementation libs.antlr.runtime
 }
 
 sourceSets {

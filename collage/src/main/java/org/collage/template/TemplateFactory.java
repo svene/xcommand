@@ -17,6 +17,8 @@ public final class TemplateFactory {
         cmd.execute();
         String s = stringHandlerCV.getString();
 
+        // resolve all variables (which might result in strings including further variables)
+        // until the result does not change anymore:
         while (!sOld.equals(s)) {
             sOld = s;
 

@@ -7,18 +7,13 @@ plugins {
 }
 
 // ===== ANTLR: =====
-sourceSets.main.java.srcDir("$buildDir/generated-src/antlr/main")
+sourceSets.main.java.srcDir(layout.buildDirectory.dir("generated-src/antlr/main"))
 tasks.named('generateGrammarSource') {
 	// Define package folder target
-	def pkgPath = 'org/xcommand/template/jst/parser'
-	def pkgDir = file("$buildDir/generated-src/antlr/main/$pkgPath")
+	def pkgDir = file(layout.buildDirectory.dir('org/xcommand/template/jst/parser'))
 	pkgDir.mkdirs()
-
-	// ANTLR options
-	arguments += ['-listener', '-visitor']
-
-	// Make ANTLR write directly into the package folder
-	outputDirectory = pkgDir
+	arguments += ['-listener', '-visitor'] // ANTLR options
+	outputDirectory = pkgDir // Make ANTLR write directly into the package folder
 }
 // Make sure compileJava depends on generated sources
 tasks.named('compileJava') {
@@ -65,7 +60,6 @@ dependencies {
 	errorprone libs.errorprone.core
 
 	implementation project(':xc-core')
-	implementation libs.javacc
 	annotationProcessor libs.recordbuilder.processor
 	compileOnly libs.recordbuilder.core
 

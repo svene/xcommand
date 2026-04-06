@@ -1,5 +1,6 @@
 package org.collage.dom.creationhandler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.collage.dom.ast.RootNode;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
@@ -7,9 +8,11 @@ import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.datastructure.tree.ITreeNodeCV;
 import org.xcommand.template.parser.IParserCV;
 
+@Slf4j
 public class RootNodeCreationHandler implements ICommand {
     @Override
     public void execute() {
+        log.debug("started");
         trace("started");
         treeNodeCV.setTreeNode(new RootNode());
     }
