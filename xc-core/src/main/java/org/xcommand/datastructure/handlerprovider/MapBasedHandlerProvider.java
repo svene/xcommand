@@ -7,17 +7,17 @@ import org.xcommand.core.ICommand;
 /**
  * `IHandlerProvider' using a 'java.util.Map' to lookup a handler
  */
-public class MapBasedHandlerProvider implements IHandlerProvider {
+public class MapBasedHandlerProvider<K, T extends ICommand> implements IHandlerProvider<K, T> {
 
-    private final Map<Object, ? extends ICommand> handlerMap;
+    private final Map<K, T> handlerMap;
 
-    public MapBasedHandlerProvider(Map<Object, ? extends ICommand> handlerMap) {
+    public MapBasedHandlerProvider(Map<K, T> handlerMap) {
         this.handlerMap = handlerMap;
     }
 
     @Override
     @Nullable
-    public ICommand getHandler(Object aObj) {
+    public T getHandler(K aObj) {
         return handlerMap.get(aObj);
     }
 }

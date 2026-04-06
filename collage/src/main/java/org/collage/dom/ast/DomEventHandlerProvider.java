@@ -5,7 +5,7 @@ import org.xcommand.datastructure.handlerprovider.MapBasedHandlerProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
 import org.xcommand.pattern.observer.INotifier;
 
-public class DomEventHandlerProvider extends MapBasedHandlerProvider {
+public class DomEventHandlerProvider extends MapBasedHandlerProvider<Object, INotifier> {
 
     private static Map<Object, INotifier> handlerMap() {
         return Map.of(
@@ -20,18 +20,18 @@ public class DomEventHandlerProvider extends MapBasedHandlerProvider {
     }
 
     public INotifier getRootNotifier() {
-        return (INotifier) getHandler(RootNode.class);
+        return getHandler(RootNode.class);
     }
 
     public INotifier getTextNotifier() {
-        return (INotifier) getHandler(Text.class);
+        return getHandler(Text.class);
     }
 
     public INotifier getVariableNotifier() {
-        return (INotifier) getHandler(Variable.class);
+        return getHandler(Variable.class);
     }
 
     public INotifier getJavaNotifier() {
-        return (INotifier) getHandler(Java.class);
+        return getHandler(Java.class);
     }
 }

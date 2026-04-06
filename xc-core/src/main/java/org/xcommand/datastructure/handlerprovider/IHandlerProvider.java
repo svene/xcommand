@@ -7,7 +7,7 @@ import org.xcommand.core.ICommand;
  * Provider for handlers based on an object
  */
 @FunctionalInterface
-public interface IHandlerProvider {
+public interface IHandlerProvider<K, T extends ICommand> {
     @Nullable
-    ICommand getHandler(Object aObj);
+    T getHandler(K aObj);
 }
