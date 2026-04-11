@@ -11,8 +11,8 @@ import org.xcommand.core.ICommand;
 public final class MultiCommandProvider implements IMultiCommandProvider {
 
     public static MultiCommandProvider fromClass(Class<?> aClazz) {
-        return new MultiCommandProvider(commandMethods(aClazz)
-                .collect(Collectors.toMap(Method::getName, m -> MethodCmd.fromClass(aClazz, m))));
+        return new MultiCommandProvider(
+                commandMethods(aClazz).collect(Collectors.toMap(Method::getName, m -> MethodCmd.fromClass(aClazz, m))));
     }
 
     public static MultiCommandProvider fromObject(Object aTargetObject) {

@@ -25,8 +25,7 @@ public class MethodCmd implements ICommand {
 
     @Override
     public void execute() {
-        Sneaky.runnable(() -> method.invoke(multiCommandObject, (Object) null))
-                .run();
+        Sneaky.runnable(() -> method.invoke(multiCommandObject, (Object) null)).run();
     }
 
     Method method;
