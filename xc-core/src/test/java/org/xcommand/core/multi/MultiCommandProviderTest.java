@@ -16,15 +16,14 @@ class MultiCommandProviderTest {
 
     /** Used by fromClass — must have a public no-arg constructor. */
     public static class SampleCommands {
-        boolean helloCalled;
-        boolean byeCalled;
+        String lastCalled;
 
         public void hello(Map<String, Object> ctx) {
-            helloCalled = true;
+            lastCalled = "hello";
         }
 
         public void bye(Map<String, Object> ctx) {
-            byeCalled = true;
+            lastCalled = "bye";
         }
 
         /** No parameter — must NOT appear in commandMap. */
@@ -83,8 +82,7 @@ class MultiCommandProviderTest {
 
         provider.getCommand("hello").execute();
 
-        assertThat(target.helloCalled).isTrue();
-        assertThat(target.byeCalled).isFalse();
+        assertThat(target.lastCalled).isEqualTo("hello");
     }
 
     @Test
@@ -94,7 +92,6 @@ class MultiCommandProviderTest {
 
         provider.getCommand("bye").execute();
 
-        assertThat(target.helloCalled).isFalse();
-        assertThat(target.byeCalled).isTrue();
+        assertThat(target.lastCalled).isEqualTo("bye");
     }
 }
