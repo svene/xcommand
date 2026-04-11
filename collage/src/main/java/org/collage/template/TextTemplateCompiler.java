@@ -27,11 +27,7 @@ public class TextTemplateCompiler {
             domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
             new DefaultDomNodeCreationHandlerInitializer().execute();
 
-            var is = aTemplateSource.getInputStream();
-            if (is == null) {
-                throw new RuntimeException("is == null");
-            }
-            parserCV.setInputStream(is);
+            parserCV.setInputStream(aTemplateSource.inputStream());
             new TemplateCompiler().execute();
             ITreeNode rootNode = treeNodeCV.getTreeNode();
             return new TextTemplateEvaluationCommand(rootNode);

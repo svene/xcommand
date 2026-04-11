@@ -1,9 +1,10 @@
 package org.xcommand.core.multi;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Map;
 
-public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider {
+public final class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider {
     public ClassBasedMultiCommandProvider(Class<?> aClazz) {
         this.targetClass = aClazz;
     }
@@ -12,18 +13,10 @@ public class ClassBasedMultiCommandProvider extends BaseMultiCommandProvider {
     //	}
 
     public void init() {
-        Method[] methods = targetClass.getDeclaredMethods();
-        for (Method m : methods) {
-            Class<?>[] classes = m.getParameterTypes();
-            if (classes.length != 1) {
-                continue;
-            }
-            if (!classes[0].isAssignableFrom(Map.class)) {
-                continue;
-            }
-            MethodCmd mc = MethodCmd.fromClass(targetClass, m);
-            commandMap.put(m.getName(), mc);
-        }
+        Arrays.stream(targetClass.getDeclaredMethods())
+                .filter(m -> m.getParameterTypes().length == 1)
+                .filter(m -> m.getParameterTypes()[0].isAssignableFrom(Map.class))
+                .forEach(m -> commandMap.put(m.getName(), MethodCmd.fromClass(targetClass, m)));
     }
 
     public Class<?> getTargetClass() {

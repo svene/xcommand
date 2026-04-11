@@ -30,7 +30,7 @@ public class JavassistTemplateCompiler {
             // !!		ctx.putAll(aTemplateSource.getContext());
             new DefaultDomNodeCreationHandlerInitializer().execute();
 
-            parserCV.setInputStream(aTemplateSource.getInputStream());
+            parserCV.setInputStream(aTemplateSource.inputStream());
             new TemplateCompiler().execute();
             // Now we have the root node: `TreeNodeCV.getTreeNode(ctx)'
             // Use String based text evaluation. Since this is only for template compilation and not template usage

@@ -21,7 +21,7 @@ public final class MainRoutines {
             }
             String k = s.substring(0, p);
             String v = s.substring(p + 1);
-            System.out.println("argument: " + k + "=" + v);
+            System.out.println("argument: %s=%s".formatted(k, v));
             System.out.flush();
             result.put(k, v);
         }
@@ -33,7 +33,9 @@ public final class MainRoutines {
      * Note: `aCtx' is supposed to be the `Map' form of a `String[] aArgs' of a main routine
      */
     public static String getConfigString(Map<String, String> aCtx, String aName, String aDefault) {
-        String s = aCtx.get(aName);
-        return (s != null) ? s : aDefault;
+        return switch (aCtx.get(aName)) {
+            case String s -> s;
+            case null -> aDefault;
+        };
     }
 }

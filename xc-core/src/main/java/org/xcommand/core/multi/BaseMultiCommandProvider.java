@@ -5,7 +5,8 @@ import java.util.Map;
 import org.jspecify.annotations.Nullable;
 import org.xcommand.core.ICommand;
 
-public class BaseMultiCommandProvider implements IMultiCommandProvider {
+public sealed class BaseMultiCommandProvider implements IMultiCommandProvider
+        permits ClassBasedMultiCommandProvider, ObjectBasedMultiCommandProvider {
 
     @Override
     public Map<String, ICommand> getCommandMap() {
