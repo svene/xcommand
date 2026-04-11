@@ -1,25 +1,29 @@
 package org.xcommand.core.multi;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.jspecify.annotations.Nullable;
 import org.xcommand.core.ICommand;
 
 public final class MultiCommandProvider implements IMultiCommandProvider {
 
     public static MultiCommandProvider fromClass(Class<?> aClazz) {
-        return new MultiCommandProvider(Arrays.stream(aClazz.getDeclaredMethods())
-                .filter(m -> m.getParameterTypes().length == 1)
-                .filter(m -> m.getParameterTypes()[0].isAssignableFrom(Map.class))
-                .collect(Collectors.toMap(m -> m.getName(), m -> MethodCmd.fromClass(aClazz, m))));
+        return new MultiCommandProvider(commandMethods(aClazz)
+                .collect(Collectors.toMap(Method::getName, m -> MethodCmd.fromClass(aClazz, m))));
     }
 
     public static MultiCommandProvider fromObject(Object aTargetObject) {
-        return new MultiCommandProvider(Arrays.stream(aTargetObject.getClass().getDeclaredMethods())
+        return new MultiCommandProvider(commandMethods(aTargetObject.getClass())
+                .collect(Collectors.toMap(Method::getName, m -> MethodCmd.fromObject(aTargetObject, m))));
+    }
+
+    private static Stream<Method> commandMethods(Class<?> aClazz) {
+        return Arrays.stream(aClazz.getDeclaredMethods())
                 .filter(m -> m.getParameterTypes().length == 1)
-                .filter(m -> m.getParameterTypes()[0].isAssignableFrom(Map.class))
-                .collect(Collectors.toMap(m -> m.getName(), m -> MethodCmd.fromObject(aTargetObject, m))));
+                .filter(m -> m.getParameterTypes()[0].isAssignableFrom(Map.class));
     }
 
     private MultiCommandProvider(Map<String, ICommand> commandMap) {
