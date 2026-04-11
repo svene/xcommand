@@ -3,8 +3,10 @@ package org.xcommand.core.multi;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
-import org.junit.jupiter.api.Nested;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class MultiCommandProviderTest {
 
@@ -32,98 +34,67 @@ class MultiCommandProviderTest {
         public void wrongParam(String s) {}
     }
 
-    // ---------------------------------------------------------------------------
-    // fromClass
-    // ---------------------------------------------------------------------------
-
-    @Nested
-    class FromClass {
-
-        @Test
-        void commandMap_contains_exactly_the_map_accepting_methods() {
-            var provider = MultiCommandProvider.fromClass(SampleCommands.class);
-
-            assertThat(provider.getCommandMap()).containsOnlyKeys("hello", "bye");
-        }
-
-        @Test
-        void getCommand_returns_non_null_for_known_names() {
-            var provider = MultiCommandProvider.fromClass(SampleCommands.class);
-
-            assertThat(provider.getCommand("hello")).isNotNull();
-            assertThat(provider.getCommand("bye")).isNotNull();
-        }
-
-        @Test
-        void getCommand_returns_null_for_unknown_name() {
-            var provider = MultiCommandProvider.fromClass(SampleCommands.class);
-
-            assertThat(provider.getCommand("noParam")).isNull();
-            assertThat(provider.getCommand("wrongParam")).isNull();
-            assertThat(provider.getCommand("nonExistent")).isNull();
-        }
-
-        @Test
-        void executing_a_command_does_not_throw() {
-            var provider = MultiCommandProvider.fromClass(SampleCommands.class);
-
-            // fromClass creates its own instance per method — just verify no exception
-            provider.getCommand("hello").execute();
-            provider.getCommand("bye").execute();
-        }
+    static Stream<MultiCommandProvider> providers() {
+        return Stream.of(
+                MultiCommandProvider.fromClass(SampleCommands.class),
+                MultiCommandProvider.fromObject(new SampleCommands()));
     }
 
     // ---------------------------------------------------------------------------
-    // fromObject
+    // Parameterized tests — identical behaviour for both factories
     // ---------------------------------------------------------------------------
 
-    @Nested
-    class FromObject {
+    @ParameterizedTest
+    @MethodSource("providers")
+    void commandMap_contains_exactly_the_map_accepting_methods(MultiCommandProvider provider) {
+        assertThat(provider.getCommandMap()).containsOnlyKeys("hello", "bye");
+    }
 
-        @Test
-        void commandMap_contains_exactly_the_map_accepting_methods() {
-            var provider = MultiCommandProvider.fromObject(new SampleCommands());
+    @ParameterizedTest
+    @MethodSource("providers")
+    void getCommand_returns_non_null_for_known_names(MultiCommandProvider provider) {
+        assertThat(provider.getCommand("hello")).isNotNull();
+        assertThat(provider.getCommand("bye")).isNotNull();
+    }
 
-            assertThat(provider.getCommandMap()).containsOnlyKeys("hello", "bye");
-        }
+    @ParameterizedTest
+    @MethodSource("providers")
+    void getCommand_returns_null_for_unknown_name(MultiCommandProvider provider) {
+        assertThat(provider.getCommand("noParam")).isNull();
+        assertThat(provider.getCommand("wrongParam")).isNull();
+        assertThat(provider.getCommand("nonExistent")).isNull();
+    }
 
-        @Test
-        void getCommand_returns_non_null_for_known_names() {
-            var provider = MultiCommandProvider.fromObject(new SampleCommands());
+    @ParameterizedTest
+    @MethodSource("providers")
+    void executing_a_command_does_not_throw(MultiCommandProvider provider) {
+        provider.getCommand("hello").execute();
+        provider.getCommand("bye").execute();
+    }
 
-            assertThat(provider.getCommand("hello")).isNotNull();
-            assertThat(provider.getCommand("bye")).isNotNull();
-        }
+    // ---------------------------------------------------------------------------
+    // fromObject-specific: verify commands are bound to the original instance
+    // ---------------------------------------------------------------------------
 
-        @Test
-        void getCommand_returns_null_for_unknown_name() {
-            var provider = MultiCommandProvider.fromObject(new SampleCommands());
+    @Test
+    void executing_hello_command_invokes_hello_on_the_original_object() {
+        var target = new SampleCommands();
+        var provider = MultiCommandProvider.fromObject(target);
 
-            assertThat(provider.getCommand("noParam")).isNull();
-            assertThat(provider.getCommand("wrongParam")).isNull();
-            assertThat(provider.getCommand("nonExistent")).isNull();
-        }
+        provider.getCommand("hello").execute();
 
-        @Test
-        void executing_hello_command_invokes_hello_on_the_original_object() {
-            var target = new SampleCommands();
-            var provider = MultiCommandProvider.fromObject(target);
+        assertThat(target.helloCalled).isTrue();
+        assertThat(target.byeCalled).isFalse();
+    }
 
-            provider.getCommand("hello").execute();
+    @Test
+    void executing_bye_command_invokes_bye_on_the_original_object() {
+        var target = new SampleCommands();
+        var provider = MultiCommandProvider.fromObject(target);
 
-            assertThat(target.helloCalled).isTrue();
-            assertThat(target.byeCalled).isFalse();
-        }
+        provider.getCommand("bye").execute();
 
-        @Test
-        void executing_bye_command_invokes_bye_on_the_original_object() {
-            var target = new SampleCommands();
-            var provider = MultiCommandProvider.fromObject(target);
-
-            provider.getCommand("bye").execute();
-
-            assertThat(target.helloCalled).isFalse();
-            assertThat(target.byeCalled).isTrue();
-        }
+        assertThat(target.helloCalled).isFalse();
+        assertThat(target.byeCalled).isTrue();
     }
 }
