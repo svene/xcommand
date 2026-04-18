@@ -21,8 +21,10 @@ public final class ModeContextView {
 
     @Nullable
     public static String getMode(String key) {
-        var val = TCP.getContext().get(key);
-        return val instanceof String s ? s : null;
+        return switch (TCP.getContext().get(key)) {
+            case String s -> s;
+            case null, default -> null;
+        };
     }
 
     public static void setMode(String aMode) {

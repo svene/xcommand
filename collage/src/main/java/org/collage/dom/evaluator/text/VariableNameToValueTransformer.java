@@ -11,13 +11,11 @@ public class VariableNameToValueTransformer implements ICommand {
     public void execute() {
 
         var variableName = stringHandlerCV.getString();
-        String result;
-        var obj = TCP.getContext().get(variableName);
-        if (obj != null) {
-            result = obj.toString();
-        } else {
-            result = "${" + variableName + '}';
-        }
+        var result =
+                switch (TCP.getContext().get(variableName)) {
+                    case Object obj -> obj.toString();
+                    case null -> "${" + variableName + '}';
+                };
         if (stringHandlerCV.getString() != null) {
             stringHandlerCV.setString(result);
         }

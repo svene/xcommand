@@ -12,8 +12,10 @@ public final class TemplateCV {
 
     @Nullable
     public static Writer getWriter() {
-        var obj = TCP.getContext().get(KEY_UF_WRITER);
-        return obj instanceof Writer w ? w : null;
+        return switch (TCP.getContext().get(KEY_UF_WRITER)) {
+            case Writer w -> w;
+            case null, default -> null;
+        };
     }
 
     public static void setWriter(Writer aWriter) {
