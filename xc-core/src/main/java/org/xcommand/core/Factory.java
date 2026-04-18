@@ -23,7 +23,6 @@ public class Factory {
         public V get(Object key) {
             return childMap.containsKey(key) ? childMap.get(key) : parentMap.get(key);
         }
-
     }
 
     public static <K, V> Map<K, V> newInheritableMap(Map<K, V> parentMap) {
