@@ -21,8 +21,11 @@ public class DefaultJSTRoutines implements IJSTRoutines {
     @Override
     public void $v(String aName) {
         Objects.requireNonNull(aName, "aName");
-        var value = (String) TCP.getContext().get(aName);
-        Objects.requireNonNull(value, "unknown property '" + aName + "'");
+        var obj = TCP.getContext().get(aName);
+        Objects.requireNonNull(obj, "unknown property '" + aName + "'");
+        if (!(obj instanceof String value)) {
+            throw new IllegalArgumentException("property '" + aName + "' is not a String");
+        }
         writeToWriter(value);
     }
 

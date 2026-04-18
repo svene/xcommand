@@ -1,6 +1,7 @@
 package org.collage.template;
 
 import java.io.Writer;
+import org.jspecify.annotations.Nullable;
 import org.xcommand.core.TCP;
 
 /**
@@ -9,8 +10,10 @@ import org.xcommand.core.TCP;
 public final class TemplateCV {
     private TemplateCV() {}
 
+    @Nullable
     public static Writer getWriter() {
-        return (Writer) TCP.getContext().get(KEY_UF_WRITER);
+        var obj = TCP.getContext().get(KEY_UF_WRITER);
+        return obj instanceof Writer w ? w : null;
     }
 
     public static void setWriter(Writer aWriter) {

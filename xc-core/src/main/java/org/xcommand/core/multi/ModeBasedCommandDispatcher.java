@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xcommand.core.ICommand;
-import org.xcommand.core.TCP;
 
 public class ModeBasedCommandDispatcher implements ICommand {
 
@@ -29,7 +28,7 @@ public class ModeBasedCommandDispatcher implements ICommand {
     @Override
     public void execute() {
         try {
-            Optional.ofNullable((String) TCP.getContext().get(modeKey))
+            Optional.ofNullable(ModeContextView.getMode(modeKey))
                     .map(getModeCommandMap()::get)
                     .ifPresent(ICommand::execute);
         } catch (RuntimeException e) {

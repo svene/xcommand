@@ -11,12 +11,18 @@ public final class ModeContextView {
 
     @Nullable
     public static String getMode() {
-        return (String) TCP.getContext().get(ModeContextView.KEY_MODE);
+        return getMode(KEY_MODE);
     }
 
     @Nullable
     public static String getNewMode() {
-        return (String) TCP.getContext().get(ModeContextView.KEY_NEW_MODE);
+        return getMode(KEY_NEW_MODE);
+    }
+
+    @Nullable
+    public static String getMode(String key) {
+        var val = TCP.getContext().get(key);
+        return val instanceof String s ? s : null;
     }
 
     public static void setMode(String aMode) {
