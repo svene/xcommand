@@ -28,15 +28,15 @@ public class ModeBasedCommandDispatcher implements ICommand {
     @Override
     public void execute() {
         try {
-            Optional.ofNullable(ModeContextView.getMode(modeKey))
+            Optional.ofNullable(ModeCV.getMode(modeKey))
                     .map(getModeCommandMap()::get)
                     .ifPresent(ICommand::execute);
         } catch (RuntimeException e) {
-            log.error("mode: {}", ModeContextView.getMode(), e);
+            log.error("mode: {}", ModeCV.getMode(), e);
             throw new RuntimeException(e);
         }
     }
 
     private Map<String, ICommand> modeCommandMap = new HashMap<>();
-    private String modeKey = ModeContextView.KEY_MODE;
+    private String modeKey = ModeCV.KEY_MODE;
 }

@@ -1,12 +1,12 @@
 package org.xcommand.misc.statemachine;
 
 import org.xcommand.core.*;
-import org.xcommand.core.multi.ModeContextView;
+import org.xcommand.core.multi.ModeCV;
 
 public class CompareModeCommand implements ICommand {
 
     public CompareModeCommand(String aMode) {
-        this(ModeContextView.KEY_MODE, aMode);
+        this(ModeCV.KEY_MODE, aMode);
     }
 
     public CompareModeCommand(String aModeKey, String aMode) {
@@ -16,7 +16,7 @@ public class CompareModeCommand implements ICommand {
 
     @Override
     public void execute() {
-        String ctxMode = ModeContextView.getMode(modeKey);
+        String ctxMode = ModeCV.getMode(modeKey);
         resultCV.setResult(mode.equals(ctxMode));
     }
 

@@ -3,11 +3,8 @@ package org.xcommand.core.multi;
 import org.jspecify.annotations.Nullable;
 import org.xcommand.core.TCP;
 
-/**
- * TODO: think about how to replace this with IModeCV (since 'KEY_MODE' is used directly outside for example
- */
-public final class ModeContextView {
-    private ModeContextView() {}
+public final class ModeCV {
+    private ModeCV() {}
 
     @Nullable
     public static String getMode() {
@@ -35,7 +32,7 @@ public final class ModeContextView {
         TCP.getContext().put(KEY_NEW_MODE, aMode);
     }
 
-    public static final String NS = "org.xcommand.core.multi.ModeContextView.";
+    public static final String NS = ModeCV.class.getName() + ".";
     public static final String KEY_MODE = NS + "mode";
     public static final String KEY_NEW_MODE = NS + "new_mode";
 }

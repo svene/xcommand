@@ -25,11 +25,11 @@ class ModeBasedCommandDispatcherTest {
         dispatcher.setModeCommandMap(Map.of("mode1", cmd1, "mode2", cmd2));
 
         TCP.start(() -> {
-            ModeContextView.setMode("mode1");
+            ModeCV.setMode("mode1");
             dispatcher.execute();
             assertThat(inoutCV.getOutput()).isEqualTo("cmd1");
 
-            ModeContextView.setMode("mode2");
+            ModeCV.setMode("mode2");
             dispatcher.execute();
             assertThat(inoutCV.getOutput()).isEqualTo("cmd2");
         });
@@ -41,7 +41,7 @@ class ModeBasedCommandDispatcherTest {
         dispatcher.setModeCommandMap(Map.of("mode1", () -> inoutCV.setOutput("cmd1")));
 
         TCP.start(() -> {
-            ModeContextView.setMode("unknown");
+            ModeCV.setMode("unknown");
             dispatcher.execute();
             assertThat(inoutCV.getOutput()).isNull();
         });

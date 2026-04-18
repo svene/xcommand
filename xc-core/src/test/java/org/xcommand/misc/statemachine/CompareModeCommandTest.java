@@ -7,7 +7,7 @@ import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.core.IResultCV;
 import org.xcommand.core.TCP;
-import org.xcommand.core.multi.ModeContextView;
+import org.xcommand.core.multi.ModeCV;
 
 class CompareModeCommandTest {
 
@@ -18,7 +18,7 @@ class CompareModeCommandTest {
     void returnsTrueWhenModeMatchesDefaultKey() {
         var cmd = new CompareModeCommand("active");
         TCP.start(() -> {
-            ModeContextView.setMode("active");
+            ModeCV.setMode("active");
             cmd.execute();
             assertThat(resultCV.getResult()).isEqualTo(true);
         });
@@ -28,7 +28,7 @@ class CompareModeCommandTest {
     void returnsFalseWhenModeDoesNotMatch() {
         var cmd = new CompareModeCommand("active");
         TCP.start(() -> {
-            ModeContextView.setMode("inactive");
+            ModeCV.setMode("inactive");
             cmd.execute();
             assertThat(resultCV.getResult()).isEqualTo(false);
         });
