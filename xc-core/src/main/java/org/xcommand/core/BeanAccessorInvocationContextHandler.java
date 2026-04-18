@@ -10,13 +10,13 @@ public record BeanAccessorInvocationContextHandler(IBeanAccessor beanAccessor) i
     @Override
     @Nullable
     public Object invoke(InvocationContext ihc) {
-        if (ihc.methodInfo().isSetter()) {
-            beanAccessor.set(ihc);
-            return null;
-        } else if (ihc.methodInfo().isHas()) {
-            return beanAccessor.has(ihc);
-        } else {
-            return beanAccessor.get(ihc);
-        }
+        return switch (ihc.methodInfo()) {
+            case MethodInfo.Setter s -> {
+                beanAccessor.set(ihc);
+                yield null;
+            }
+            case MethodInfo.Has h -> beanAccessor.has(ihc);
+            case MethodInfo.Getter g -> beanAccessor.get(ihc);
+        };
     }
 }

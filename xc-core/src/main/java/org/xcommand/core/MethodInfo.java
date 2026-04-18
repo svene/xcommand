@@ -2,19 +2,31 @@ package org.xcommand.core;
 
 import java.lang.reflect.Method;
 
-record MethodInfo(Method method, boolean isSetter, boolean isHas, String methodClassName, String property) {
-    public String propertyPath() {
-        return methodClassName + "." + property;
+sealed interface MethodInfo permits MethodInfo.Getter, MethodInfo.Setter, MethodInfo.Has {
+
+    Method method();
+
+    String methodClassName();
+
+    String property();
+
+    default String propertyPath() {
+        return methodClassName() + "." + property();
     }
 
-    public static MethodInfo from(Method method) {
-        boolean isSetter = method.getName().startsWith("set");
-        boolean isHas = method.getName().startsWith("has");
-        return new MethodInfo(
-                method,
-                isSetter,
-                isHas,
-                method.getDeclaringClass().getName(),
-                method.getName().substring(3));
+    record Getter(Method method, String methodClassName, String property) implements MethodInfo {}
+
+    record Setter(Method method, String methodClassName, String property) implements MethodInfo {}
+
+    record Has(Method method, String methodClassName, String property) implements MethodInfo {}
+
+    static MethodInfo from(Method method) {
+        String className = method.getDeclaringClass().getName();
+        String property = method.getName().substring(3);
+        return switch (method.getName().substring(0, 3)) {
+            case "set" -> new Setter(method, className, property);
+            case "has" -> new Has(method, className, property);
+            default -> new Getter(method, className, property);
+        };
     }
 }
