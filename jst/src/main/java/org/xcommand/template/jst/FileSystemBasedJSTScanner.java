@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.jooq.lambda.Sneaky;
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
@@ -15,6 +17,8 @@ import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.util.FilesUnchecked;
 
 public class FileSystemBasedJSTScanner implements ICommand {
+
+    private static final Logger log = LoggerFactory.getLogger(FileSystemBasedJSTScanner.class);
 
     /**
      * require:
@@ -47,7 +51,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
                 var absolutePath = me.getKey();
                 var fme = me.getValue();
 
-                System.out.println("recompiling file: " + absolutePath);
+                log.debug("recompiling file: {}", absolutePath);
                 var className = getClassnameFromFilename(fme.rootPath(), absolutePath);
                 var cme = ClassMapEntryBuilder.builder()
                         .fme(fme)
@@ -75,7 +79,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
                 // Write source code as file to disk:
                 if (genSourceDir != null) {
                     var dir = new File(genSourceDir);
-                    System.out.println("gensrcdir.path=" + dir.getAbsolutePath());
+                    log.debug("gensrcdir.path={}", dir.getAbsolutePath());
                     Sneaky.runnable(() -> Files.writeString(
                                     Paths.get("%s/%s.java".formatted(genSourceDir, className)),
                                     cme.fme().content()))
@@ -97,7 +101,7 @@ public class FileSystemBasedJSTScanner implements ICommand {
                     .substring(
                             idx + aSrcDir.toString().length() + 1,
                             aAbsolutePath.toString().lastIndexOf("."));
-            System.out.println("className = " + className);
+            log.debug("className = {}", className);
             return className;
         }
     }

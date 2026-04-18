@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
@@ -24,6 +26,8 @@ import org.xcommand.web.IWebCV;
  */
 public class JarResourceServlet extends HttpServlet {
 
+    private static final Logger log = LoggerFactory.getLogger(JarResourceServlet.class);
+
     @Override
     protected long getLastModified(HttpServletRequest request) {
         webCV.setServletContext(getServletContext());
@@ -37,19 +41,19 @@ public class JarResourceServlet extends HttpServlet {
     private String getResourceNameFromRequest(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         String contextPath = request.getContextPath();
-        System.out.println("request.getRequestURI(): " + requestURI);
-        System.out.println("request.getServletPath(): " + request.getServletPath());
-        System.out.println("request.getContextPath(): " + contextPath);
+        log.debug("request.getRequestURI(): {}", requestURI);
+        log.debug("request.getServletPath(): {}", request.getServletPath());
+        log.debug("request.getContextPath(): {}", contextPath);
 
         String prefix = contextPath + request.getServletPath() + "/";
-        System.out.println("prefix: " + prefix);
+        log.debug("prefix: {}", prefix);
         int i1 = requestURI.indexOf(prefix);
         return i1 == -1 ? request.getParameter("resource") : requestURI.substring(i1 + prefix.length());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("JarResourceServlet.doGet(): serving content");
+        log.debug("JarResourceServlet.doGet(): serving content");
         String resName = jarResourceProviderCV.getResourceName();
         if (resName != null) {
             Resource resource = jarResourceProviderCV.getResource();
@@ -58,23 +62,25 @@ public class JarResourceServlet extends HttpServlet {
             String mimeType = getServletContext().getMimeType(request.getRequestURI());
             if (mimeType == null || mimeType.length() == 0) {
                 if (resName.endsWith(".swf")) {
-                    System.out.println("Setting mimetype to: 'application/x-shockwave-flash'");
+                    log.debug("Setting mimetype to: 'application/x-shockwave-flash'");
                     mimeType = "application/x-shockwave-flash";
                 }
             }
-            System.out.println("mimeType: " + mimeType);
+            log.debug("mimeType: {}", mimeType);
             response.setContentType(mimeType);
             is.transferTo(os);
         } else {
-            System.out.println("JarResourceServlet.doGet(): no resource found");
+            log.debug("JarResourceServlet.doGet(): no resource found");
         }
     }
 
     private void showLastModifiedDate() {
         Resource resource = jarResourceProviderCV.getResource();
         Long l = jarResourceProviderCV.getLastModified();
-        System.out.println("JarResourceServlet.getLastModified(" + resource.getDescription() + "): result: "
-                + Instant.ofEpochMilli(l));
+        log.debug(
+                "JarResourceServlet.getLastModified({}): result: {}",
+                resource.getDescription(),
+                Instant.ofEpochMilli(l));
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

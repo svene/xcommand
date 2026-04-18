@@ -3,6 +3,8 @@ package org.xcommand.web.jarresource;
 import jakarta.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -16,6 +18,9 @@ import org.xcommand.web.IWebCV;
  * Objects providing access to resources in jar files.
  */
 public class JarResourceProvider implements ICommand {
+
+    private static final Logger log = LoggerFactory.getLogger(JarResourceProvider.class);
+
     /**
      * Input:
      * JarResourceProviderContextView.setResourceName(<name>)
@@ -26,7 +31,7 @@ public class JarResourceProvider implements ICommand {
      */
     @Override
     public void execute() {
-        System.out.println("JarResourceProvider.execute");
+        log.debug("JarResourceProvider.execute");
         String resourceName = jarResourceProviderCV.getResourceName();
         Resource resource = new ClassPathResource(resourceName);
         try {
@@ -57,7 +62,7 @@ public class JarResourceProvider implements ICommand {
             }
 
             String filename = msg.substring(i1, i2);
-            System.out.println("servletcontext-filename='" + filename + "'");
+            log.debug("servletcontext-filename='{}'", filename);
             ServletContext sc = webCV.getServletContext();
             resource = new ServletContextResource(sc, filename);
             try {
@@ -69,7 +74,7 @@ public class JarResourceProvider implements ICommand {
                 resource = new UrlResource(s);
                 jarResourceProviderCV.setResource(resource);
             } catch (Exception e1) {
-                e1.printStackTrace();
+                log.error("Failed to load resource", e1);
                 throw new RuntimeException(e1);
             }
         }

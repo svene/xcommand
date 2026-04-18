@@ -4,10 +4,14 @@ import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 
 public class JSTSourceLoader {
+
+    private static final Logger log = LoggerFactory.getLogger(JSTSourceLoader.class);
 
     public JSTSourceLoader(String srcDir) {
         this.srcDir = srcDir;
@@ -29,21 +33,20 @@ public class JSTSourceLoader {
         try {
             //			TCP.pushContext(new HashMap());
             var filename = srcDir + "/" + aClassname.replaceAll("\\.", "/") + ".java";
-            System.out.println("filename = " + filename);
+            log.debug("filename = {}", filename);
             var is = new FileInputStream(filename);
-            //			String ss = new String(is.readAllBytes());
             jstParserCV.setInputStream(is);
             var parser = new DefaultJSTParserProvider().newJSTParser();
             //		TCP.popContext();
             jstParserCV.setGeneratedJavaCode(new StringBuffer());
             parser.parse();
             var s = jstParserCV.getGeneratedJavaCode().toString();
-            //		System.out.println(s);
+            log.debug("{}", s);
 
             classMap = new HashMap<>();
-            System.out.println("aClassname = " + aClassname);
+            log.debug("aClassname = {}", aClassname);
             classMap.put(aClassname, s.getBytes(StandardCharsets.UTF_8));
-            System.out.println();
+            log.debug("");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +64,7 @@ public class JSTSourceLoader {
         }
 
         var className = aAbsolutePath.substring(idx + aSrcDir.length() + 1, aAbsolutePath.lastIndexOf("."));
-        System.out.println("className = " + className);
+        log.debug("className = {}", className);
         return className;
     }
 

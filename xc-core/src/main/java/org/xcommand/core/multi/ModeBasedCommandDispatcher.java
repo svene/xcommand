@@ -2,10 +2,14 @@ package org.xcommand.core.multi;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.TCP;
 
 public class ModeBasedCommandDispatcher implements ICommand {
+
+    private static final Logger log = LoggerFactory.getLogger(ModeBasedCommandDispatcher.class);
 
     public ModeBasedCommandDispatcher() {}
 
@@ -31,8 +35,7 @@ public class ModeBasedCommandDispatcher implements ICommand {
                 command.execute();
             }
         } catch (RuntimeException e) {
-            System.out.println("mode: " + ModeContextView.getMode());
-            e.printStackTrace();
+            log.error("mode: {}", ModeContextView.getMode(), e);
             throw new RuntimeException(e);
         }
     }

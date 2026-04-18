@@ -36,6 +36,7 @@ dependencies {
 	errorprone libs.nullaway
 	api libs.jspecify
 	errorprone libs.errorprone.core
+	implementation libs.slf4j.api
 	implementation libs.jool
 	annotationProcessor libs.recordbuilder.processor
 	compileOnly libs.recordbuilder.core

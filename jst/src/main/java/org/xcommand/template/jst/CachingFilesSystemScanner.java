@@ -2,6 +2,8 @@ package org.xcommand.template.jst;
 
 import java.util.HashMap;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
@@ -10,6 +12,9 @@ import org.xcommand.pattern.observer.INotifier;
 import org.xcommand.util.FilesUnchecked;
 
 public class CachingFilesSystemScanner implements ICommand {
+
+    private static final Logger log = LoggerFactory.getLogger(CachingFilesSystemScanner.class);
+
     @Override
     public void execute() {
         var fssc = FileSystemScanner.newInstance(List.of(fileSystemScannerCV.getRootPath()));
@@ -43,7 +48,7 @@ public class CachingFilesSystemScanner implements ICommand {
                     changedFiles.put(key, fme);
                 }
             } else {
-                System.out.println("new file found: " + key);
+                log.debug("new file found: {}", key);
                 var fme = FileMapEntryBuilder.builder()
                         .path(path)
                         .key(key.toString())

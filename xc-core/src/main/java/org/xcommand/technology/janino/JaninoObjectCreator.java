@@ -7,8 +7,12 @@ import org.codehaus.commons.compiler.util.resource.MapResourceCreator;
 import org.codehaus.commons.compiler.util.resource.MapResourceFinder;
 import org.codehaus.commons.compiler.util.resource.ResourceCreator;
 import org.codehaus.janino.CachingJavaSourceClassLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JaninoObjectCreator {
+
+    private static final Logger log = LoggerFactory.getLogger(JaninoObjectCreator.class);
 
     public JaninoObjectCreator(Map<String, byte[]> aJavaSourceMap) {
         javaSourceResourceFinder = new XCMapResourceFinder(aJavaSourceMap);
@@ -47,13 +51,13 @@ public class JaninoObjectCreator {
     private final Map<String, byte[]> javaClassMap = new HashMap<>() {
         @Override
         public byte[] get(Object key) {
-            System.out.println("JaninoObjectCreator.get()");
+            log.debug("JaninoObjectCreator.get()");
             return super.getOrDefault(key, new byte[0]);
         }
 
         @Override
         public byte[] put(String key, byte[] value) {
-            System.out.println("JaninoObjectCreator.put()");
+            log.debug("JaninoObjectCreator.put()");
             return super.put(key, value);
         }
     };

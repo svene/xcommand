@@ -1,15 +1,20 @@
 package org.collage.template;
 
 import org.collage.parser.TemplateParserWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.ICommand;
 
 public class CollageTemplateParserBuilder {
+
+    private static final Logger log = LoggerFactory.getLogger(CollageTemplateParserBuilder.class);
+
     public TemplateParserWrapper newTemplateParser(ICommand command) {
         var parser = new TemplateParserWrapper();
 
-        //        parser.getNotifiers().startNotifier.registerObserver(
-        //            () -> System.out.println("****************** STARTING PARSING *********************")
-        //        );
+        parser.getNotifiers()
+                .startNotifier
+                .registerObserver(() -> log.debug("****************** STARTING PARSING *********************"));
 
         // connect statemachine to parser:
         parser.getNotifiers().textNotifier.registerObserver(command);

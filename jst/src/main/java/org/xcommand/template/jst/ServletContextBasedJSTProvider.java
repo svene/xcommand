@@ -1,6 +1,8 @@
 package org.xcommand.template.jst;
 
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.pattern.observer.BasicNotifier;
@@ -9,12 +11,14 @@ import org.xcommand.web.IWebCV;
 
 public class ServletContextBasedJSTProvider implements IJSTProvider {
 
+    private static final Logger log = LoggerFactory.getLogger(ServletContextBasedJSTProvider.class);
+
     public void initialize() {
         var sc = webCV.getServletContext();
 
         var set = sc.getResourcePaths("/");
         for (Object o : set) {
-            System.out.println("o.class=" + o.getClass().getName() + ", value=" + o);
+            log.debug("o.class={}, value={}", o.getClass().getName(), o);
         }
     }
 

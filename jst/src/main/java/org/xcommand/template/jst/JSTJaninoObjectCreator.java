@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 import org.codehaus.janino.JavaSourceClassLoader;
 import org.jooq.lambda.Sneaky;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.IDynaBeanProvider;
 import org.xcommand.technology.janino.XCMapResourceFinder;
 import org.xcommand.util.FilesUnchecked;
 
 public class JSTJaninoObjectCreator {
+
+    private static final Logger log = LoggerFactory.getLogger(JSTJaninoObjectCreator.class);
 
     public void initialize() {
         // Put source of template into `janinoClassMap' so that Janino can work with it:
@@ -38,14 +42,14 @@ public class JSTJaninoObjectCreator {
         if (cme == null) {
             throw new RuntimeException("Class " + aClassname + " not found in classMap");
         }
-        System.out.println("cme for '" + aClassname + "' found");
+        log.debug("cme for '{}' found", aClassname);
         if (cme.lastloaded() > cme.fme().lastmodified()) {
-            System.out.println("loaded class still valid.");
+            log.debug("loaded class still valid.");
             return cme.clazz();
         }
         // Load class via Janino:
         var parentClassLoader = getClass().getClassLoader();
-        System.out.println("loading class '" + aClassname + "'");
+        log.debug("loading class '{}'", aClassname);
         ClassLoader cl = new JavaSourceClassLoader(parentClassLoader, mrf, StandardCharsets.UTF_8.name());
         var dotClassName = aClassname.replace('/', '.');
         try {

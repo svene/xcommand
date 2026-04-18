@@ -1,8 +1,12 @@
 package org.xcommand.core;
 
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class ContextView {
+
+    private static final Logger log = LoggerFactory.getLogger(ContextView.class);
 
     public ContextView() {
         register();
@@ -10,7 +14,7 @@ public abstract class ContextView {
 
     protected void register() {
         String className = getClass().getName();
-        System.out.println("className = " + className);
+        log.debug("className = {}", className);
         TCP.getContext().put(className, this);
     }
 
