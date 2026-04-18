@@ -18,8 +18,7 @@ public class CompareModeCommand implements ICommand {
     @Override
     public void execute() {
         String ctxMode = (String) TCP.getContext().get(modeKey);
-        Boolean result = mode.equals(ctxMode) ? Boolean.TRUE : Boolean.FALSE;
-        resultCV.setResult(result);
+        resultCV.setResult(mode.equals(ctxMode));
     }
 
     private final String modeKey;
