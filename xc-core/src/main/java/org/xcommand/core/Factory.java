@@ -24,9 +24,6 @@ public class Factory {
             return childMap.containsKey(key) ? childMap.get(key) : parentMap.get(key);
         }
 
-        public boolean containsKey(Object key) {
-            return childMap.containsKey(key) || parentMap.containsKey(key);
-        }
     }
 
     public static <K, V> Map<K, V> newInheritableMap(Map<K, V> parentMap) {
