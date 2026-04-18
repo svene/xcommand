@@ -1,7 +1,6 @@
 package org.collage.dom.evaluator.text;
 
 import java.io.IOException;
-import java.io.Writer;
 import org.collage.dom.evaluator.IEvaluationCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
 import org.xcommand.core.*;
@@ -9,22 +8,16 @@ import org.xcommand.core.*;
 public class VariableNameToValueTransformer implements ICommand {
     @Override
     public void execute() {
-
         var variableName = stringHandlerCV.getString();
         var result =
                 switch (TCP.getContext().get(variableName)) {
                     case Object obj -> obj.toString();
                     case null -> "${" + variableName + '}';
                 };
-        if (stringHandlerCV.getString() != null) {
-            stringHandlerCV.setString(result);
-        }
-
-        Writer writer = evaluationCV.getWriter();
-        if (writer != null) {
+        stringHandlerCV.setString(result);
+        if (IEvaluationCV.hasWriter()) {
             try {
-                //				writer.write(variable.getStream()); // not existing yet!
-                writer.write(result);
+                evaluationCV.getWriter().write(result);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

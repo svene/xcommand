@@ -1,26 +1,23 @@
 package org.xcommand.core.multi;
 
-import org.jspecify.annotations.Nullable;
 import org.xcommand.core.TCP;
 
 public final class ModeCV {
     private ModeCV() {}
 
-    @Nullable
     public static String getMode() {
         return getMode(KEY_MODE);
     }
 
-    @Nullable
     public static String getNewMode() {
         return getMode(KEY_NEW_MODE);
     }
 
-    @Nullable
     public static String getMode(String key) {
         return switch (TCP.getContext().get(key)) {
             case String s -> s;
-            case null, default -> null;
+            case null -> throw new IllegalStateException("CV value not set in context: " + key);
+            default -> throw new IllegalStateException("Unexpected type in context for key: " + key);
         };
     }
 

@@ -1,17 +1,25 @@
 package org.xcommand.template.jst;
 
 import java.io.InputStream;
+import org.xcommand.core.TCP;
 
 public interface IJSTParserCV {
-    public StringBuffer getGeneratedJavaCode();
+    StringBuffer getGeneratedJavaCode();
 
-    public InputStream getInputStream();
+    InputStream getInputStream();
 
-    public String getEncoding();
+    String getEncoding();
 
-    public void setGeneratedJavaCode(StringBuffer aGeneratedJavaCode);
+    void setGeneratedJavaCode(StringBuffer aGeneratedJavaCode);
 
-    public void setInputStream(InputStream aInputStream);
+    void setInputStream(InputStream aInputStream);
 
-    public void setEncoding(String aEncoding);
+    void setEncoding(String aEncoding);
+
+    String NS = IJSTParserCV.class.getName() + ".";
+    String KEY_ENCODING = NS + "Encoding";
+
+    static boolean hasEncoding() {
+        return TCP.getContext().containsKey(KEY_ENCODING);
+    }
 }

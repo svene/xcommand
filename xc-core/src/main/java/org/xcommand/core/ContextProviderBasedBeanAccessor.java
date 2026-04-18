@@ -2,7 +2,6 @@ package org.xcommand.core;
 
 import java.util.Map;
 import java.util.function.Supplier;
-import org.jspecify.annotations.Nullable;
 
 public record ContextProviderBasedBeanAccessor(
         Supplier<Map<String, Object>> contextSupplier, IDynaBeanKeyProvider dynaBeanKeyProvider)
@@ -16,9 +15,12 @@ public record ContextProviderBasedBeanAccessor(
     }
 
     @Override
-    @Nullable
     public Object get(InvocationContext ihc) {
         String key = dynaBeanKeyProvider.getKey(ihc);
-        return contextSupplier.get().get(key);
+        Object value = contextSupplier.get().get(key);
+        if (value == null) {
+            throw new IllegalStateException("CV value not set in context: " + key);
+        }
+        return value;
     }
 }

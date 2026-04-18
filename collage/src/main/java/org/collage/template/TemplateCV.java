@@ -1,7 +1,6 @@
 package org.collage.template;
 
 import java.io.Writer;
-import org.jspecify.annotations.Nullable;
 import org.xcommand.core.TCP;
 
 /**
@@ -10,11 +9,11 @@ import org.xcommand.core.TCP;
 public final class TemplateCV {
     private TemplateCV() {}
 
-    @Nullable
     public static Writer getWriter() {
         return switch (TCP.getContext().get(KEY_UF_WRITER)) {
             case Writer w -> w;
-            case null, default -> null;
+            case null -> throw new IllegalStateException("CV value not set in context: " + KEY_UF_WRITER);
+            default -> throw new IllegalStateException("Unexpected type in context for key: " + KEY_UF_WRITER);
         };
     }
 

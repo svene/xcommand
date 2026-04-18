@@ -12,18 +12,14 @@ public class JavaToStringExtractor implements ICommand {
     @Override
     public void execute() {
         var java = javaCV.getJava();
-        var s = "<?java" + java.value() + "?>";
-        if (stringHandlerCV.getString() != null) {
-            stringHandlerCV.setString(s);
+        if (IStringHandlerCV.hasString()) {
+            stringHandlerCV.setString("<?java" + java.value() + "?>");
         }
-        var writer = evaluationCV.getWriter();
-        if (writer != null) {
+        if (IEvaluationCV.hasWriter()) {
             try {
-                writer.write("<?java");
-                //			writer.write(java.getStream()); // not existing yet!
-                writer.write(java.value());
-                writer.write("?>");
-
+                evaluationCV.getWriter().write("<?java");
+                evaluationCV.getWriter().write(java.value());
+                evaluationCV.getWriter().write("?>");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

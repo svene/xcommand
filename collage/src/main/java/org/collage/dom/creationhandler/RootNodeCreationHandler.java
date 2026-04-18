@@ -18,11 +18,10 @@ public class RootNodeCreationHandler implements ICommand {
     }
 
     private void trace(String aString) {
-        var ps = parserCV.getTraceStream();
-        if (ps == null) {
+        if (!IParserCV.hasTraceStream()) {
             return;
         }
-        ps.println("### " + aString);
+        parserCV.getTraceStream().println("### " + aString);
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

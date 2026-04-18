@@ -1,6 +1,7 @@
 package org.xcommand.threadcontext;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.HashMap;
 import java.util.concurrent.*;
@@ -39,8 +40,8 @@ class ContextStackTest {
             // Set a value on the current context:
             String v2 = "v2";
             tIn2OutCV.setInput(v2);
-            // Verify that there is not output yet in the new context:
-            assertThat(tIn2OutCV.getOutput()).isNull();
+            // Verify that the new (empty) context has no output yet — accessing it throws:
+            assertThatThrownBy(tIn2OutCV::getOutput).isInstanceOf(IllegalStateException.class);
             new TIn2OutCommand().execute();
             // Verify that the value got set:
             assertThat(tIn2OutCV.getOutput()).isEqualTo(v2);

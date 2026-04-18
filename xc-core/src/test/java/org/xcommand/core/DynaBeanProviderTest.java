@@ -1,6 +1,7 @@
 package org.xcommand.core;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import java.beans.PropertyDescriptor;
 import java.time.LocalDate;
@@ -22,9 +23,8 @@ class DynaBeanProviderTest {
             assertThat(dbp.newBeanForInterface(IPerson.class)).isNotSameAs(dbp.newBeanForInterface(IPerson.class));
 
             IPerson person = dbp.newBeanForInterface(IPerson.class);
-            assertThat(person.getFirstName()).isNull();
-            assertThat(person.getLastName()).isNull();
-
+            assertThatThrownBy(person::getFirstName).isInstanceOf(IllegalStateException.class);
+            assertThatThrownBy(person::getLastName).isInstanceOf(IllegalStateException.class);
             person.setFirstName("Sven");
             person.setLastName("Ehrke");
             var d = LocalDate.now(ZoneId.of("Europe/Berlin"));
@@ -43,9 +43,8 @@ class DynaBeanProviderTest {
         TCP.start(() -> {
             IDynaBeanProvider dbp = DynaBeanProvider.newThreadObjectIdentityInstance();
             IPerson person = dbp.newBeanForInterface(IPerson.class);
-            assertThat(person.getFirstName()).isNull();
-            assertThat(person.getLastName()).isNull();
-            assertThat(person.getLastName()).isNull();
+            assertThatThrownBy(person::getFirstName).isInstanceOf(IllegalStateException.class);
+            assertThatThrownBy(person::getLastName).isInstanceOf(IllegalStateException.class);
             assertThat(dbp.newBeanForInterface(IPerson.class)).isNotSameAs(dbp.newBeanForInterface(IPerson.class));
 
             person.setFirstName("Sven");
@@ -65,8 +64,8 @@ class DynaBeanProviderTest {
         TCP.start(() -> {
             IDynaBeanProvider dbp = DynaBeanProvider.newThreadMethodInstance();
             IPerson person = dbp.newBeanForInterface(IPerson.class);
-            assertThat(person.getFirstName()).isNull();
-            assertThat(person.getLastName()).isNull();
+            assertThatThrownBy(person::getFirstName).isInstanceOf(IllegalStateException.class);
+            assertThatThrownBy(person::getLastName).isInstanceOf(IllegalStateException.class);
             assertThat(dbp.newBeanForInterface(IPerson.class)).isNotSameAs(dbp.newBeanForInterface(IPerson.class));
             assertThat(dbp.newBeanForInterface(IPerson.class))
                     .isNotSameAs(dbp.newBeanForInterface(IPersonNamesView.class));
@@ -123,11 +122,9 @@ class DynaBeanProviderTest {
             person1.setFirstName("Sven");
             person1.setLastName("Ehrke");
 
-            // Check that properties of second view instance are still null (which proves that 'person2' does not refer
-            // to
-            // 'person1''s virtual object:
-            assertThat(person2.getFirstName()).isNull();
-            assertThat(person2.getLastName()).isNull();
+            // Check that person2 has its own independent context (accessing unset values throws):
+            assertThatThrownBy(person2::getFirstName).isInstanceOf(IllegalStateException.class);
+            assertThatThrownBy(person2::getLastName).isInstanceOf(IllegalStateException.class);
 
             person2.setFirstName("Uli");
 

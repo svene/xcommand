@@ -55,23 +55,19 @@ public class JarResourceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.debug("JarResourceServlet.doGet(): serving content");
         String resName = jarResourceProviderCV.getResourceName();
-        if (resName != null) {
-            Resource resource = jarResourceProviderCV.getResource();
-            InputStream is = resource.getInputStream();
-            ServletOutputStream os = response.getOutputStream();
-            String mimeType = getServletContext().getMimeType(request.getRequestURI());
-            if (mimeType == null || mimeType.length() == 0) {
-                if (resName.endsWith(".swf")) {
-                    log.debug("Setting mimetype to: 'application/x-shockwave-flash'");
-                    mimeType = "application/x-shockwave-flash";
-                }
+        Resource resource = jarResourceProviderCV.getResource();
+        InputStream is = resource.getInputStream();
+        ServletOutputStream os = response.getOutputStream();
+        String mimeType = getServletContext().getMimeType(request.getRequestURI());
+        if (mimeType == null || mimeType.length() == 0) {
+            if (resName.endsWith(".swf")) {
+                log.debug("Setting mimetype to: 'application/x-shockwave-flash'");
+                mimeType = "application/x-shockwave-flash";
             }
-            log.debug("mimeType: {}", mimeType);
-            response.setContentType(mimeType);
-            is.transferTo(os);
-        } else {
-            log.debug("JarResourceServlet.doGet(): no resource found");
         }
+        log.debug("mimeType: {}", mimeType);
+        response.setContentType(mimeType);
+        is.transferTo(os);
     }
 
     private void showLastModifiedDate() {

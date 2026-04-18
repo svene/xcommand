@@ -8,4 +8,17 @@ out/
 # Ignore Kotlin plugin data
 .kotlin
 
+# IDE
+.idea/
+
+# Heap dumps
+*.hprof
+
+# Dependency reports
+deps.txt
+
+# Generated ANTLR/lexer sources
+collage/src/main/antlr/gen/
+jst/src/main/gen/
+
 

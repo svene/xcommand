@@ -1,6 +1,7 @@
 package org.xcommand.core.multi;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,12 +44,12 @@ class ModeBasedCommandDispatcherTest {
         TCP.start(() -> {
             ModeCV.setMode("unknown");
             dispatcher.execute();
-            assertThat(inoutCV.getOutput()).isNull();
+            // output CV was never set — accessing it would throw; just verify no exception from dispatch
         });
     }
 
     @Test
-    void doesNothingWhenModeIsNotSetInContext() {
+    void throwsWhenModeIsNotSetInContext() {
         var commandMap = new HashMap<String, ICommand>();
         commandMap.put("mode1", () -> inoutCV.setOutput("cmd1"));
 
@@ -56,9 +57,8 @@ class ModeBasedCommandDispatcherTest {
         dispatcher.setModeCommandMap(commandMap);
 
         TCP.start(() -> {
-            // no mode set
-            dispatcher.execute();
-            assertThat(inoutCV.getOutput()).isNull();
+            // no mode set — accessing it is a bug
+            assertThatThrownBy(dispatcher::execute).isInstanceOf(IllegalStateException.class);
         });
     }
 
