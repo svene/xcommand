@@ -8,6 +8,4 @@ public interface ITreeNodeCV {
     void setTreeNode(ITreeNode aTreeNode);
 
     void setDomainObject(Object aDomainObject);
-
-    boolean hasTreeNode();
 }

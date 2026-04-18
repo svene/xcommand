@@ -62,7 +62,7 @@ class ExitRootHandler implements ICommand {
         domNodeCreationHandlerCV.setProduceJavaSource(Boolean.FALSE);
         var cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(content));
         cmd.execute();
-        var s = stringHandlerCV.getString();
+        var s = stringHandlerCV.getString().orElseThrow();
         log.debug("methodstring: {}", s);
         var ctm = CtNewMethod.make(s, aCtClass);
         aCtClass.addMethod(ctm);

@@ -10,9 +10,8 @@ public class WritingStringHandler implements IStringHandler {
 
     @Override
     public void handleString(Map<String, Object> aCtx, String aString) {
-        var writer = evaluationCV.getWriter();
         try {
-            writer.write(aString);
+            evaluationCV.getWriter().orElseThrow().write(aString);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -21,7 +21,8 @@ class CachingTextTemplateCompilerTest {
                 new TextTemplateCompiler()
                         .newTemplateCommandFromString("hallo ${firstname}. Wie gehts?")
                         .execute();
-                assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
+                assertEquals(
+                        "hallo Uli. Wie gehts?", stringHandlerCV.getString().orElseThrow());
             });
         });
     }
@@ -37,14 +38,15 @@ class CachingTextTemplateCompilerTest {
             new CachingTextTemplateCompiler()
                     .getTemplateCommand("hallo ${firstname}. Wie gehts?")
                     .execute();
-            assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
+            assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString().orElseThrow());
 
             // For further template request `CachingTextTemplateCompiler' should find template in cache:
             IntStream.range(0, RUNS).forEach(it -> {
                 new CachingTextTemplateCompiler()
                         .getTemplateCommand("hallo ${firstname}. Wie gehts?")
                         .execute();
-                assertEquals("hallo Uli. Wie gehts?", stringHandlerCV.getString());
+                assertEquals(
+                        "hallo Uli. Wie gehts?", stringHandlerCV.getString().orElseThrow());
             });
         });
     }

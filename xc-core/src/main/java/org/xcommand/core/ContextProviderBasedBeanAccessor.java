@@ -1,6 +1,7 @@
 package org.xcommand.core;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public record ContextProviderBasedBeanAccessor(
@@ -18,15 +19,12 @@ public record ContextProviderBasedBeanAccessor(
     public Object get(InvocationContext ihc) {
         String key = dynaBeanKeyProvider.getKey(ihc);
         Object value = contextSupplier.get().get(key);
+        if (ihc.methodInfo().method().getReturnType() == Optional.class) {
+            return Optional.ofNullable(value);
+        }
         if (value == null) {
             throw new IllegalStateException("CV value not set in context: " + key);
         }
         return value;
-    }
-
-    @Override
-    public boolean has(InvocationContext ihc) {
-        String key = dynaBeanKeyProvider.getKey(ihc);
-        return contextSupplier.get().containsKey(key);
     }
 }

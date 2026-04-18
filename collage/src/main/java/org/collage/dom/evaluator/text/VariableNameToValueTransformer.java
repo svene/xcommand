@@ -8,20 +8,20 @@ import org.xcommand.core.*;
 public class VariableNameToValueTransformer implements ICommand {
     @Override
     public void execute() {
-        var variableName = stringHandlerCV.getString();
+        var variableName = stringHandlerCV.getString().orElseThrow();
         var result =
                 switch (TCP.getContext().get(variableName)) {
                     case Object obj -> obj.toString();
                     case null -> "${" + variableName + '}';
                 };
         stringHandlerCV.setString(result);
-        if (evaluationCV.hasWriter()) {
+        evaluationCV.getWriter().ifPresent(w -> {
             try {
-                evaluationCV.getWriter().write(result);
+                w.write(result);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

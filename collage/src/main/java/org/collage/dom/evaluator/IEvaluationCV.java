@@ -1,11 +1,10 @@
 package org.collage.dom.evaluator;
 
 import java.io.Writer;
+import java.util.Optional;
 
 public interface IEvaluationCV {
-    Writer getWriter();
+    Optional<Writer> getWriter();
 
     void setWriter(Writer aWriter);
-
-    boolean hasWriter();
 }

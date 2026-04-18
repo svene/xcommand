@@ -8,9 +8,8 @@ import org.xcommand.core.IDynaBeanProvider;
 public class WriterFlusher implements ICommand {
     @Override
     public void execute() {
-        var w = evaluationCV.getWriter();
         try {
-            w.flush();
+            evaluationCV.getWriter().orElseThrow().flush();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

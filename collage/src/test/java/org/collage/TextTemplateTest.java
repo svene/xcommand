@@ -33,7 +33,7 @@ class TextTemplateTest {
 
     private String createTemplate(String in) {
         new TextTemplateCompiler().newTemplateCommandFromString(in).execute();
-        return stringHandlerCV.getString();
+        return stringHandlerCV.getString().orElseThrow();
     }
 
     @Nested

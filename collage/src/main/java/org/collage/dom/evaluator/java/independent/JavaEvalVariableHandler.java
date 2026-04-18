@@ -17,11 +17,11 @@ public class JavaEvalVariableHandler implements ICommand {
 
     @Override
     public void execute() {
-        var vn = stringHandlerCV.getString();
+        var vn = stringHandlerCV.getString().orElseThrow();
         var ss = TCP.get(() -> {
             TCP.getContext().put("varName", vn);
             templateCommand.execute();
-            return stringHandlerCV.getString();
+            return stringHandlerCV.getString().orElseThrow();
         });
         methodBodyCV.getMethodBody().append(ss);
     }

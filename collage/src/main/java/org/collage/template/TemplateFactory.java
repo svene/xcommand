@@ -15,7 +15,7 @@ public final class TemplateFactory {
         ICommand cmd = new TextTemplateCompiler().newTemplateCommand(aTemplateSource);
         // !!		Map cctx = aTemplateSource.getContext();
         cmd.execute();
-        String s = stringHandlerCV.getString();
+        String s = stringHandlerCV.getString().orElseThrow();
 
         // resolve all variables (which might result in strings including further variables)
         // until the result does not change anymore:
@@ -24,7 +24,7 @@ public final class TemplateFactory {
 
             cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(s));
             cmd.execute();
-            s = stringHandlerCV.getString();
+            s = stringHandlerCV.getString().orElseThrow();
         }
         cmd = new JavassistTemplateCompiler(new JavassistTraverser()).newTemplateCommand(new TemplateSource(s));
 

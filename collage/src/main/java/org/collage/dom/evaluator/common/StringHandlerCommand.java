@@ -13,7 +13,7 @@ public class StringHandlerCommand implements ICommand {
 
     @Override
     public void execute() {
-        var s = stringHandlerCV.getString();
+        var s = stringHandlerCV.getString().orElseThrow();
         stringHandler.handleString(TCP.getContext(), s);
     }
 

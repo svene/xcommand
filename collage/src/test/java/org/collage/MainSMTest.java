@@ -1,6 +1,7 @@
 package org.collage;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
@@ -49,7 +50,7 @@ class MainSMTest {
     void testTemplateCompiler() {
         TCP.start(() -> {
             setUp();
-            assertThat(treeNodeCV.hasTreeNode()).isFalse();
+            assertThatThrownBy(() -> treeNodeCV.getTreeNode()).isInstanceOf(IllegalStateException.class);
 
             // Compile template:
             createASTforTemplateString("""

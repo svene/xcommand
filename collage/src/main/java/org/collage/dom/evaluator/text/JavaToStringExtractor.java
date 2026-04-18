@@ -12,18 +12,16 @@ public class JavaToStringExtractor implements ICommand {
     @Override
     public void execute() {
         var java = javaCV.getJava();
-        if (stringHandlerCV.hasString()) {
-            stringHandlerCV.setString("<?java" + java.value() + "?>");
-        }
-        if (evaluationCV.hasWriter()) {
+        stringHandlerCV.getString().ifPresent(s -> stringHandlerCV.setString("<?java" + java.value() + "?>"));
+        evaluationCV.getWriter().ifPresent(w -> {
             try {
-                evaluationCV.getWriter().write("<?java");
-                evaluationCV.getWriter().write(java.value());
-                evaluationCV.getWriter().write("?>");
+                w.write("<?java");
+                w.write(java.value());
+                w.write("?>");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

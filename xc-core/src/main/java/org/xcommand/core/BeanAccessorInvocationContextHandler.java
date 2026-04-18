@@ -15,7 +15,6 @@ public record BeanAccessorInvocationContextHandler(IBeanAccessor beanAccessor) i
                 beanAccessor.set(ihc);
                 yield null;
             }
-            case MethodInfo.Has h -> beanAccessor.has(ihc);
             case MethodInfo.Getter g -> beanAccessor.get(ihc);
         };
     }
