@@ -21,83 +21,51 @@ public class DefaultJSTParserProvider implements IJSTParserProvider {
         return pw;
     }
 
-    private final ICommand javaVariableObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("javavariable found: " + parserCV.getValue());
-            var code = jstParserCV.getGeneratedJavaCode();
-            code.append("\");");
-            code.append("$s(");
-            code.append(parserCV.getValue());
-            code.append(");");
-            code.append("$s(\"");
-        }
-    };
-    private final ICommand javaTextObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("javaText found: " + parserCV.getValue());
-            var code = jstParserCV.getGeneratedJavaCode();
-            code.append(parserCV.getValue());
-        }
-    };
-    private final ICommand commentStartObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("commentStart found");
-            var code = jstParserCV.getGeneratedJavaCode();
-            code.append("$s(\"");
-        }
-    };
-    private final ICommand commentEndObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("commentEnd found");
-            var code = jstParserCV.getGeneratedJavaCode();
-            code.append("\");");
-        }
-    };
-    private final ICommand commentTextObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("commentText found: " + parserCV.getValue());
-            var code = jstParserCV.getGeneratedJavaCode();
-            var v = parserCV.getValue();
-            if ("\"".equals(v)) {
-                v = "\\\"";
-            }
-            code.append(v);
-        }
-    };
-
-    @SuppressWarnings("unused")
-    private final ICommand eolObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("eol found");
-            var code = jstParserCV.getGeneratedJavaCode();
-            code.append('\n');
-        }
-    };
-
-    private final ICommand eolInCommentObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("comment eol found");
-            var code = jstParserCV.getGeneratedJavaCode();
-            code.append("\\n");
-        }
-    };
-    private final ICommand eolInJavaObserver = new ICommand() {
-        @Override
-        public void execute() {
-            log.debug("java eol found");
-            var code = jstParserCV.getGeneratedJavaCode();
-            code.append('\n');
-        }
-    };
-
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
     private final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);
     private final IJSTParserCV jstParserCV = dbp.newBeanForInterface(IJSTParserCV.class);
+
+    private void appendCode(String... parts) {
+        var code = jstParserCV.getGeneratedJavaCode();
+        for (String part : parts) {
+            code.append(part);
+        }
+    }
+
+    private final ICommand javaVariableObserver = () -> {
+        log.debug("javavariable found: " + parserCV.getValue());
+        appendCode("\");", "$s(", parserCV.getValue(), ");", "$s(\"");
+    };
+    private final ICommand javaTextObserver = () -> {
+        log.debug("javaText found: " + parserCV.getValue());
+        appendCode(parserCV.getValue());
+    };
+    private final ICommand commentStartObserver = () -> {
+        log.debug("commentStart found");
+        appendCode("$s(\"");
+    };
+    private final ICommand commentEndObserver = () -> {
+        log.debug("commentEnd found");
+        appendCode("\");");
+    };
+    private final ICommand commentTextObserver = () -> {
+        var v = parserCV.getValue();
+        log.debug("commentText found: " + v);
+        appendCode("\"".equals(v) ? "\\\"" : v);
+    };
+
+    @SuppressWarnings("unused")
+    private final ICommand eolObserver = () -> {
+        log.debug("eol found");
+        appendCode("\n");
+    };
+
+    private final ICommand eolInCommentObserver = () -> {
+        log.debug("comment eol found");
+        appendCode("\\n");
+    };
+    private final ICommand eolInJavaObserver = () -> {
+        log.debug("java eol found");
+        appendCode("\n");
+    };
 }

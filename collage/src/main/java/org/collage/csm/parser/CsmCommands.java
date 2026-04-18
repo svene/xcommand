@@ -9,12 +9,8 @@ import org.xcommand.template.parser.IParserCV;
 
 @Slf4j
 public class CsmCommands {
-    public static ICommand appendJavaCodeCommand = () -> {
-        var sb = CsmCommands.parserCV.getStringBuilder();
-        var value = CsmCommands.parserCV.getValue();
-        log.debug("appendJavaCodeCommand: value='{}'", value);
-        sb.append(value);
-    };
+    public static ICommand appendJavaCodeCommand = appendValueCommand("appendJavaCodeCommand");
+    public static ICommand appendTextCommand = appendValueCommand("appendTextCommand");
 
     public static ICommand appendEolCommand = () -> {
         var sb = CsmCommands.parserCV.getStringBuilder();
@@ -26,13 +22,6 @@ public class CsmCommands {
             sb.append("\n");
         }
         log.debug("appendEolCommand: value='{}'", sb);
-    };
-
-    public static ICommand appendTextCommand = () -> {
-        var sb = CsmCommands.parserCV.getStringBuilder();
-        String value = CsmCommands.parserCV.getValue();
-        sb.append(value);
-        log.debug("appendTextCommand: value='{}' -> '{}'", value, sb);
     };
 
     public static ICommand createVariableDomNodeCommand = () -> {
@@ -69,15 +58,24 @@ public class CsmCommands {
         CsmCommands.domNodeCreationHandlerCV.getCreateTextNodeRequestNotifier().execute();
     };
 
-    public static ICommand startJavaCommand = () -> {
-        log.debug("startJavaCommand");
-        CsmCommands.parserCV.setStringBuilder(new StringBuilder());
-    };
+    public static ICommand startJavaCommand = startBufferCommand("startJavaCommand");
+    public static ICommand startTextCommand = startBufferCommand("startTextCommand");
 
-    public static ICommand startTextCommand = () -> {
-        log.debug("startTextCommand");
-        CsmCommands.parserCV.setStringBuilder(new StringBuilder());
-    };
+    private static ICommand startBufferCommand(String name) {
+        return () -> {
+            log.debug(name);
+            CsmCommands.parserCV.setStringBuilder(new StringBuilder());
+        };
+    }
+
+    private static ICommand appendValueCommand(String name) {
+        return () -> {
+            var sb = CsmCommands.parserCV.getStringBuilder();
+            String value = CsmCommands.parserCV.getValue();
+            sb.append(value);
+            log.debug("{}: value='{}' -> '{}'", name, value, sb);
+        };
+    }
 
     private static final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
     private static final IParserCV parserCV = dbp.newBeanForInterface(IParserCV.class);

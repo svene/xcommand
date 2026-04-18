@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.xcommand.core.DynaBeanProvider;
-import org.xcommand.core.IResultCV;
 import org.xcommand.core.IDynaBeanProvider;
+import org.xcommand.core.IResultCV;
 import org.xcommand.core.TCP;
 import org.xcommand.core.multi.ModeContextView;
 
