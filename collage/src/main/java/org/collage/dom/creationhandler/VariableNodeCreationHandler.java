@@ -23,7 +23,7 @@ public class VariableNodeCreationHandler implements ICommand {
     }
 
     private void trace(String aString) {
-        if (!IParserCV.hasTraceStream()) {
+        if (!parserCV.hasTraceStream()) {
             return;
         }
         parserCV.getTraceStream().println("### " + aString);

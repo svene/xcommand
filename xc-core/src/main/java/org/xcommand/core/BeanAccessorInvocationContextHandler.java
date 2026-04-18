@@ -13,6 +13,8 @@ public record BeanAccessorInvocationContextHandler(IBeanAccessor beanAccessor) i
         if (ihc.methodInfo().isSetter()) {
             beanAccessor.set(ihc);
             return null;
+        } else if (ihc.methodInfo().isHas()) {
+            return beanAccessor.has(ihc);
         } else {
             return beanAccessor.get(ihc);
         }

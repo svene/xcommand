@@ -13,15 +13,15 @@ import org.xcommand.core.IDynaBeanProvider;
 public class TextToStringExtractor implements ICommand {
     @Override
     public void execute() {
-        if (!IStringHandlerCV.hasString() && !IEvaluationCV.hasWriter()) {
+        if (!stringHandlerCV.hasString() && !evaluationCV.hasWriter()) {
             throw new IllegalStateException(
                     "StringHandlerCV.getString(aCtx) == null && EvaluationCV.getWriter(aCtx) == null");
         }
         var text = textCV.getText();
-        if (IStringHandlerCV.hasString()) {
+        if (stringHandlerCV.hasString()) {
             stringHandlerCV.setString(text.value());
         }
-        if (IEvaluationCV.hasWriter()) {
+        if (evaluationCV.hasWriter()) {
             try {
                 evaluationCV.getWriter().write(text.value());
             } catch (IOException e) {

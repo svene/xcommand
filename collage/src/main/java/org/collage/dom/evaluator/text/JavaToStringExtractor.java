@@ -12,10 +12,10 @@ public class JavaToStringExtractor implements ICommand {
     @Override
     public void execute() {
         var java = javaCV.getJava();
-        if (IStringHandlerCV.hasString()) {
+        if (stringHandlerCV.hasString()) {
             stringHandlerCV.setString("<?java" + java.value() + "?>");
         }
-        if (IEvaluationCV.hasWriter()) {
+        if (evaluationCV.hasWriter()) {
             try {
                 evaluationCV.getWriter().write("<?java");
                 evaluationCV.getWriter().write(java.value());

@@ -1,7 +1,5 @@
 package org.xcommand.datastructure.tree;
 
-import org.xcommand.core.TCP;
-
 public interface ITreeNodeCV {
     ITreeNode getTreeNode();
 
@@ -11,10 +9,5 @@ public interface ITreeNodeCV {
 
     void setDomainObject(Object aDomainObject);
 
-    String NS = ITreeNodeCV.class.getName() + ".";
-    String KEY_TREE_NODE = NS + "TreeNode";
-
-    static boolean hasTreeNode() {
-        return TCP.getContext().containsKey(KEY_TREE_NODE);
-    }
+    boolean hasTreeNode();
 }

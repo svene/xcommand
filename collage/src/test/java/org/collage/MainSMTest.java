@@ -49,7 +49,7 @@ class MainSMTest {
     void testTemplateCompiler() {
         TCP.start(() -> {
             setUp();
-            assertThat(ITreeNodeCV.hasTreeNode()).isFalse();
+            assertThat(treeNodeCV.hasTreeNode()).isFalse();
 
             // Compile template:
             createASTforTemplateString("""

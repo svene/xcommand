@@ -15,7 +15,7 @@ public class VariableNameToValueTransformer implements ICommand {
                     case null -> "${" + variableName + '}';
                 };
         stringHandlerCV.setString(result);
-        if (IEvaluationCV.hasWriter()) {
+        if (evaluationCV.hasWriter()) {
             try {
                 evaluationCV.getWriter().write(result);
             } catch (IOException e) {

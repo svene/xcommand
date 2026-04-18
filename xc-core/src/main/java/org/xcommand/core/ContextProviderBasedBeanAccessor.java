@@ -23,4 +23,10 @@ public record ContextProviderBasedBeanAccessor(
         }
         return value;
     }
+
+    @Override
+    public boolean has(InvocationContext ihc) {
+        String key = dynaBeanKeyProvider.getKey(ihc);
+        return contextSupplier.get().containsKey(key);
+    }
 }

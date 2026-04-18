@@ -4,4 +4,6 @@ public interface IBeanAccessor {
     void set(InvocationContext ihc);
 
     Object get(InvocationContext ihc);
+
+    boolean has(InvocationContext ihc);
 }

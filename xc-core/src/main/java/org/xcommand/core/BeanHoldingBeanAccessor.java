@@ -13,4 +13,10 @@ public record BeanHoldingBeanAccessor(Object obj) implements IBeanAccessor {
         return Sneaky.supplier(() -> ihc.methodInfo().method().invoke(obj, ihc.args()))
                 .get();
     }
+
+    @Override
+    public boolean has(InvocationContext ihc) {
+        return (boolean) Sneaky.supplier(() -> ihc.methodInfo().method().invoke(obj, ihc.args()))
+                .get();
+    }
 }
