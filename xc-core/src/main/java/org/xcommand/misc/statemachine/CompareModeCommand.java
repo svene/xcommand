@@ -7,7 +7,6 @@ public class CompareModeCommand implements ICommand {
 
     public CompareModeCommand(String aMode) {
         this(ModeContextView.KEY_MODE, aMode);
-        mode = aMode;
     }
 
     public CompareModeCommand(String aModeKey, String aMode) {
@@ -22,7 +21,7 @@ public class CompareModeCommand implements ICommand {
     }
 
     private final String modeKey;
-    private String mode;
+    private final String mode;
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
     private final IResultCV resultCV = dbp.newBeanForInterface(IResultCV.class);
 }
