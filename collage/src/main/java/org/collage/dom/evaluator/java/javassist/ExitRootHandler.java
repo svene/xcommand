@@ -37,7 +37,7 @@ class ExitRootHandler implements ICommand {
             TCP.popContext();
 
             // Add method 'execute()':
-            var sb = (StringBuffer) TCP.getContext().get("methodbody");
+            var sb = methodBodyCV.getMethodBody();
             log.debug("**methodbody\n" + sb.toString());
             TCP.pushContext(new HashMap<>());
             TCP.getContext().put("execute_method_body", sb.toString());
@@ -85,6 +85,7 @@ class ExitRootHandler implements ICommand {
     IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
     IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
     IJavaTemplateCmdCV javaTemplateCmdCV = dbp.newBeanForInterface(IJavaTemplateCmdCV.class);
+    IMethodBodyCV methodBodyCV = dbp.newBeanForInterface(IMethodBodyCV.class);
 
     private final String appendVar = """
 		private static final void appendVar(java.util.Map aCtx, String aVarName, java.io.Writer aWriter) {

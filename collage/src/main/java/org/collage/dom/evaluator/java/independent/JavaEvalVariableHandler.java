@@ -2,6 +2,7 @@ package org.collage.dom.evaluator.java.independent;
 
 import org.collage.dom.creationhandler.IDomNodeCreationHandlerCV;
 import org.collage.dom.evaluator.common.IStringHandlerCV;
+import org.collage.dom.evaluator.java.javassist.IMethodBodyCV;
 import org.collage.template.TemplateSource;
 import org.collage.template.TextTemplateCompiler;
 import org.xcommand.core.*;
@@ -22,15 +23,14 @@ public class JavaEvalVariableHandler implements ICommand {
             templateCommand.execute();
             return stringHandlerCV.getString();
         });
-
-        var methodBody = (StringBuffer) TCP.getContext().get("methodbody");
-        methodBody.append(ss);
+        methodBodyCV.getMethodBody().append(ss);
     }
 
     private final ICommand templateCommand;
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
     IDomNodeCreationHandlerCV domNodeCreationHandlerCV = dbp.newBeanForInterface(IDomNodeCreationHandlerCV.class);
     IStringHandlerCV stringHandlerCV = dbp.newBeanForInterface(IStringHandlerCV.class);
+    IMethodBodyCV methodBodyCV = dbp.newBeanForInterface(IMethodBodyCV.class);
 
     private final String javassistVar = """
 		appendVar(org.xcommand.core.TCP.getContext(), "${varName}",  _writer);

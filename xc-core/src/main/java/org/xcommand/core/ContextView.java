@@ -19,8 +19,8 @@ public abstract class ContextView {
     }
 
     @Nullable
-    public static ContextView getContextView(Class<?> aClass) {
-        return (ContextView) TCP.getContext().get(aClass.getName());
+    public static <T extends ContextView> T getContextView(Class<T> aClass) {
+        return aClass.cast(TCP.getContext().get(aClass.getName()));
     }
 
     public static void removeContextView(Class<?> aClass) {
