@@ -25,7 +25,7 @@ public class JSTParserWrapper {
     }
 
     public void parse() {
-        var encoding = jstParserCV.getEncoding().orElse(StandardCharsets.UTF_8.name());
+        String encoding = jstParserCV.getEncoding().orElse(StandardCharsets.UTF_8.name());
         // Step 1: create lexer
         JSTLexer lexer;
         try {

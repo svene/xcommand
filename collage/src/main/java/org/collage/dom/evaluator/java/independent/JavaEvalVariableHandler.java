@@ -17,8 +17,8 @@ public class JavaEvalVariableHandler implements ICommand {
 
     @Override
     public void execute() {
-        var vn = stringHandlerCV.getString().orElseThrow();
-        var ss = TCP.get(() -> {
+        String vn = stringHandlerCV.getString().orElseThrow();
+        String ss = TCP.get(() -> {
             TCP.getContext().put("varName", vn);
             templateCommand.execute();
             return stringHandlerCV.getString().orElseThrow();

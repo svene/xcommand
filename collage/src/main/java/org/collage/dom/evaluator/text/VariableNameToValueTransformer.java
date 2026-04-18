@@ -8,7 +8,7 @@ import org.xcommand.core.*;
 public class VariableNameToValueTransformer implements ICommand {
     @Override
     public void execute() {
-        var variableName = stringHandlerCV.getString().orElseThrow();
+        String variableName = stringHandlerCV.getString().orElseThrow();
         var result =
                 switch (TCP.getContext().get(variableName)) {
                     case Object obj -> obj.toString();

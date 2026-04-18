@@ -7,7 +7,7 @@ import org.xcommand.core.*;
 public class JavaEvalTextHandler implements ICommand {
     @Override
     public void execute() {
-        var s = stringHandlerCV.getString().orElseThrow();
+        String s = stringHandlerCV.getString().orElseThrow();
         var ss = "\t_writer.write(\"%s\");\n".formatted(s);
         methodBodyCV.getMethodBody().append(ss);
     }
