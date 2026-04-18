@@ -1,9 +1,7 @@
 package org.xcommand.web;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
@@ -18,22 +16,11 @@ public class RegExpDispatcherCmd implements ICommand {
     public void execute() {
         HttpServletRequest request = webCV.getRequest();
         String path = request.getRequestURI();
-        Iterator<String> it = commands.keySet().iterator();
-        boolean found = false;
-        ICommand cmd = null;
-        while (!found && it.hasNext()) {
-            String regex = it.next();
-            Pattern pattern = Pattern.compile(regex);
-            Matcher m = pattern.matcher(path);
-            if (m.matches()) {
-                cmd = commands.get(regex);
-                found = true;
-            }
-        }
-
-        if (cmd != null) {
-            cmd.execute();
-        }
+        commands.entrySet().stream()
+                .filter(e -> Pattern.compile(e.getKey()).matcher(path).matches())
+                .findFirst()
+                .map(Map.Entry::getValue)
+                .ifPresent(ICommand::execute);
     }
 
     // Commands identified by pattern (e.g. '^/bla.*') used as key for this map:

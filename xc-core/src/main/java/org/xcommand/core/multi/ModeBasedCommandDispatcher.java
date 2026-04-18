@@ -2,6 +2,7 @@ package org.xcommand.core.multi;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xcommand.core.ICommand;
@@ -28,12 +29,9 @@ public class ModeBasedCommandDispatcher implements ICommand {
     @Override
     public void execute() {
         try {
-            //			String mode = ModeContextView.getMode(aCtx);
-            String mode = (String) TCP.getContext().get(modeKey);
-            ICommand command = getModeCommandMap().get(mode);
-            if (command != null) {
-                command.execute();
-            }
+            Optional.ofNullable((String) TCP.getContext().get(modeKey))
+                    .map(getModeCommandMap()::get)
+                    .ifPresent(ICommand::execute);
         } catch (RuntimeException e) {
             log.error("mode: {}", ModeContextView.getMode(), e);
             throw new RuntimeException(e);

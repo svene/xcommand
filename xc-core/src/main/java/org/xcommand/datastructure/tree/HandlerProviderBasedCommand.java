@@ -1,5 +1,6 @@
 package org.xcommand.datastructure.tree;
 
+import java.util.Optional;
 import org.xcommand.core.DynaBeanProvider;
 import org.xcommand.core.ICommand;
 import org.xcommand.core.IDynaBeanProvider;
@@ -22,10 +23,7 @@ class HandlerProviderBasedCommand implements ICommand {
     public void execute() {
         ITreeNode tn = treeNodeCV.getTreeNode();
         Object key = handlerKeyProvider == null ? tn : handlerKeyProvider.getHandlerKey(tn);
-        ICommand cmd = handlerProvider.getHandler(key);
-        if (cmd != null) {
-            cmd.execute();
-        }
+        Optional.ofNullable(handlerProvider.getHandler(key)).ifPresent(ICommand::execute);
     }
 
     private final IHandlerKeyProvider handlerKeyProvider;
