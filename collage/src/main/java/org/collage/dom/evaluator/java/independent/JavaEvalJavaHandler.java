@@ -15,7 +15,7 @@ public class JavaEvalJavaHandler implements ICommand {
         var java = javaCV.getJava();
         var s = java.value();
         log.debug("*** javacode: '{}'", s);
-        var ss = "\t" + s + "\n";
+        var ss = "\t%s\n".formatted(s);
         methodBodyCV.getMethodBody().append(ss);
     }
 

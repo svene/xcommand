@@ -8,12 +8,8 @@ public class JavaEvalTextHandler implements ICommand {
     @Override
     public void execute() {
         var s = stringHandlerCV.getString();
-        var ss = decodedString("\t_writer.write(#") + s + decodedString("#);\n");
+        var ss = "\t_writer.write(\"%s\");\n".formatted(s);
         methodBodyCV.getMethodBody().append(ss);
-    }
-
-    private String decodedString(String aString) {
-        return aString.replace("#", "\"");
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();

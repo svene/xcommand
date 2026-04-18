@@ -38,7 +38,7 @@ class ExitRootHandler implements ICommand {
 
             // Add method 'execute()':
             var sb = methodBodyCV.getMethodBody();
-            log.debug("**methodbody\n" + sb.toString());
+            log.debug("**methodbody\n{}", sb);
             TCP.pushContext(new HashMap<>());
             TCP.getContext().put("execute_method_body", sb.toString());
             addMethod(cc, executeMethod);
@@ -63,22 +63,22 @@ class ExitRootHandler implements ICommand {
         var cmd = new TextTemplateCompiler().newTemplateCommand(new TemplateSource(content));
         cmd.execute();
         var s = stringHandlerCV.getString();
-        log.debug("methodstring: " + s);
+        log.debug("methodstring: {}", s);
         var ctm = CtNewMethod.make(s, aCtClass);
         aCtClass.addMethod(ctm);
     }
 
     private String getClassName() {
         var cal = new GregorianCalendar();
-        var s = "";
-        s += "_" + cal.get(Calendar.YEAR);
-        s += "-" + cal.get(Calendar.MONTH);
-        s += "-" + cal.get(Calendar.DAY_OF_MONTH);
-        s += "_" + cal.get(Calendar.HOUR_OF_DAY);
-        s += "-" + cal.get(Calendar.MINUTE);
-        s += "-" + cal.get(Calendar.SECOND);
-        s += "-" + cal.get(Calendar.MILLISECOND);
-        return "JavassistTemplate" + s;
+        return "JavassistTemplate_%d-%d-%d_%d-%d-%d-%d"
+                .formatted(
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH),
+                        cal.get(Calendar.HOUR_OF_DAY),
+                        cal.get(Calendar.MINUTE),
+                        cal.get(Calendar.SECOND),
+                        cal.get(Calendar.MILLISECOND));
     }
 
     private final IDynaBeanProvider dbp = DynaBeanProvider.newThreadClassMethodInstance();
